@@ -1,11 +1,11 @@
 {
-  "name": "@jsenv/template-node-package",
+  "name": "@jsenv/template-pwa",
   "version": "1.0.0",
   "description": "Package description",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jsenv/jsenv-template-node-package"
+    "url": "https://github.com/jsenv/jsenv-template-pwa"
   },
   "engines": {
     "node": ">=13.0.0"
