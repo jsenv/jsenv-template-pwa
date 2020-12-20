@@ -1,6 +1,7 @@
 {
   "name": "@jsenv/template-pwa",
   "version": "1.0.0",
+  "private": true,
   "description": "Package description",
   "license": "MIT",
   "repository": {
