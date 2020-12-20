@@ -1,6 +1,7 @@
 import { registerServiceWorker } from "@jsenv/pwa"
 
 // wait a bit that browser is less busy to register the service worker
-requestIdleCallback(() => {
+const callLater = requestIdleCallback ? requestIdleCallback : requestAnimationFrame
+callLater(() => {
   registerServiceWorker("/service-worker.js")
 })
