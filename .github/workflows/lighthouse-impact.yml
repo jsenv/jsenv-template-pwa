@@ -1,0 +1,27 @@
+name: lighthouse-impact
+
+on: pull_request
+
+jobs:
+  lighthouse-impact:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14.5.0]
+    runs-on: ${{ matrix.os }}
+    name: lighthouse impact
+    env:
+      CI: true
+    steps:
+      - name: Setup git
+        uses: actions/checkout@v2
+      - name: Setup node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: npm install
+        run: npm install
+      - name: Report lighthouse impact
+        run: node ./.github/workflows/lighthouse-impact/report-lighthouse-impact.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.LIGHTHOUSE_GITHUB_TOKEN }}

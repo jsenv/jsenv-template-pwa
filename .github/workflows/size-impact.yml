@@ -1,0 +1,34 @@
+name: size-impact
+
+on:
+  pull_request:
+    # In theory it would be more efficient to enable this workflow only
+    # if certain file changes (the one that could impact dist/ files)
+    # In practice humans will wonder why the workflow did not run.
+    # paths:
+    #   - "index.js"
+    #   - "src/**"
+
+jobs:
+  size-impact:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14.5.0]
+    runs-on: ${{ matrix.os }}
+    name: size impact
+    env:
+      CI: true
+    steps:
+      - name: Setup git
+        uses: actions/checkout@v2
+      - name: Setup node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Setup npm
+        run: npm install
+      - name: Report file size impact
+        run: node ./.github/workflows/size-impact/report-size-impact.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

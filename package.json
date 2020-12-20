@@ -1,0 +1,66 @@
+{
+  "name": "@jsenv/template-node-package",
+  "version": "1.0.0",
+  "description": "Package description",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsenv/jsenv-template-node-package"
+  },
+  "engines": {
+    "node": ">=13.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./main.js",
+      "require": "./dist/commonjs/main.cjs"
+    }
+  },
+  "module": "main.js",
+  "main": "dist/commonjs/main.cjs",
+  "files": [
+    "/dist/",
+    "/src/",
+    "/main.js"
+  ],
+  "scripts": {
+    "eslint-check": "node ./node_modules/eslint/bin/eslint.js .",
+    "dist": "npm run generate-commonjs-build",
+    "test": "node ./script/test/test.js",
+    "generate-import-map": "node ./script/generate-import-map/generate-import-map.js",
+    "generate-commonjs-build": "node ./script/generate-commonjs-build/generate-commonjs-build.js",
+    "test-with-coverage": "npm run test -- --coverage",
+    "prettier-format": "node ./script/prettier-format/prettier-format.js",
+    "prettier-format-stage": "npm run prettier-format -- --staged",
+    "prettier-check": "npm run prettier-format -- --dry-run",
+    "upload-coverage": "node ./script/upload-coverage/upload-coverage.js",
+    "postinstall": "npm run generate-import-map",
+    "prepublishOnly": "node ./script/transform-package/remove-postinstall.js && npm run dist",
+    "postpublish": "node ./script/transform-package/restore-postinstall.js"
+  },
+  "dependencies": {
+    "@jsenv/server": "5.4.1",
+    "@jsenv/pwa": "3.0.6",
+    "systemjs": "6.8.2"
+  },
+  "devDependencies": {
+    "@jsenv/assert": "2.2.1",
+    "@jsenv/codecov-upload": "3.4.3",
+    "@jsenv/core": "17.4.0",
+    "@jsenv/eslint-config": "12.8.0",
+    "@jsenv/file-size-impact": "6.0.5",
+    "@jsenv/lighthouse-score-impact": "2.4.8",
+    "@jsenv/github-release-package": "1.2.2",
+    "@jsenv/node-module-import-map": "12.2.2",
+    "@jsenv/package-publish": "1.5.1",
+    "@jsenv/prettier-check-project": "5.6.1",
+    "@jsenv/util": "4.0.4",
+    "eslint": "7.15.0",
+    "playwright-chromium": "1.6.2",
+    "prettier": "2.2.1"
+  }
+}
