@@ -31,10 +31,11 @@
   "scripts": {
     "start-exploring": "node ./script/start-exploring/start-exploring.js",
     "eslint-check": "node ./node_modules/eslint/bin/eslint.js .",
-    "dist": "npm run generate-commonjs-build",
+    "dist": "npm run generate-systemjs-build",
     "test": "node ./script/test/test.js",
     "generate-import-map": "node ./script/generate-import-map/generate-import-map.js",
-    "generate-commonjs-build": "node ./script/generate-commonjs-build/generate-commonjs-build.js",
+    "generate-systemjs-build": "node --experimental-top-level-await ./script/generate-systemjs-build/generate-systemjs-build.js",
+    "start": "node --experimental-top-level-await ./script/start/start.js",
     "test-with-coverage": "npm run test -- --coverage",
     "prettier-format": "node ./script/prettier-format/prettier-format.js",
     "prettier-format-stage": "npm run prettier-format -- --staged",
