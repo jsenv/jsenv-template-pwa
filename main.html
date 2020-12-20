@@ -113,13 +113,13 @@
       <div id="splashscreen-text">
         <noscript>
           <h1>JavaScript est requis</h1>
-          <p>Cette page a besoin de Javascript pour fonctionner et JavaScript n'est pas disponible.</p>
+          <p>
+            Cette page a besoin de Javascript pour fonctionner et JavaScript n'est pas disponible.
+          </p>
         </noscript>
       </div>
       <div id="splashscreen-text-variants" style="display: none">
-        <div id="loader">
-          Loading...
-        </div>
+        <div id="loader">Loading...</div>
         <div id="network-error-screen">
           Une erreur est survenue pendant le chargement du fichier principal.
         </div>
@@ -218,6 +218,7 @@
       // other scripts will have to check window.beforeinstallpromptEvent
       // presence, otherwise listen the before install prompt event
       window.addEventListener("beforeinstallprompt", (beforeinstallpromptEvent) => {
+        console.info(`Store beforeinstallpromptEvent on window to be used later`)
         beforeinstallpromptEvent.preventDefault()
         window.beforeinstallpromptEvent = beforeinstallpromptEvent
       })
