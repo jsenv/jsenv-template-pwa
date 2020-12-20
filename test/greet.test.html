@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Greet test</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <script type="importmap" src="../importmap.dev.importmap"></script>
+  </head>
+
+  <body>
+    <script type="module">
+      import { assert } from "@jsenv/assert"
+      import { greet } from "src/greet.js"
+
+      const actual = greet()
+      const expected = "Hello world"
+      assert({ actual, expected })
+    </script>
+  </body>
+</html>

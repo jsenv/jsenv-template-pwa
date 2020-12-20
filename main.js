@@ -1,3 +1,1 @@
-import "@jsenv/template-pwa/src/whatever.js"
-
-// TODO
+import "src/pwa.js"

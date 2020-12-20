@@ -29,6 +29,7 @@
     "/main.js"
   ],
   "scripts": {
+    "start-exploring": "node ./script/start-exploring/start-exploring.js",
     "eslint-check": "node ./node_modules/eslint/bin/eslint.js .",
     "dist": "npm run generate-commonjs-build",
     "test": "node ./script/test/test.js",
