@@ -14,8 +14,8 @@ Template to create a GitHub repository for a progressive web application.
 
 # Presentation
 
-Presentation of the package.
+The progressive web application is deployed at https://jsenv-pwa-template.herokuapp.com.
 
 # Usage
 
-How to install, configure and use this package.
+TODO
