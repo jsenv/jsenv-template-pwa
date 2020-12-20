@@ -16,7 +16,7 @@ const generateFile = async (
         packageIncludedPredicate,
         projectPackageDevDependenciesIncluded: includeDevDependencies,
       }),
-      getImportMapFromFile(new URL("./importmap.project.importmap", projectDirectoryUrl)),
+      getImportMapFromFile(new URL("./project.importmap", projectDirectoryUrl)),
     ],
     {
       projectDirectoryUrl,
