@@ -13,7 +13,7 @@ const config = createEslintConfig({
   projectDirectoryUrl: __dirname,
 
   importResolutionMethod: "import-map",
-  importMapFileRelativeUrl: "./import-map.importmap",
+  importMapFileRelativeUrl: "./importmap.dev.importmap",
 
   // "node" and "browser" params tells ESLint where our files will be executed.
   // ESLint will configure the available global variables according to this param.
@@ -26,5 +26,16 @@ const config = createEslintConfig({
   // already handled by prettier.
   prettier: true,
 })
+
+config.overrides = [
+  {
+    files: ["script/**/*.js", ".github/**/*.js"],
+    env: {
+      browser: false,
+      es6: true,
+      node: true,
+    },
+  },
+]
 
 module.exports = config
