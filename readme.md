@@ -18,4 +18,8 @@ The progressive web application is deployed at https://jsenv-pwa-template.heroku
 
 # Usage
 
-TODO
+TODO:
+
+- [ ] More comments in all the files to introduce them
+- [ ] Some files cannot be commented (json), find a solution to comment
+      why json are how they are
