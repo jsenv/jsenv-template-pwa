@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "sources": [
+    "../../../src/pwa.css"
+  ],
+  "names": [],
+  "mappings": "AAAA,KACE,kBACF,CAEA,KACE,iBACF",
+  "file": "pwa-16325cd4.css",
+  "sourcesContent": [
+    "body {\n  background: lightgrey;\n}\n\n#app {\n  text-align: center;\n}\n"
+  ]
+}
