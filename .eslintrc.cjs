@@ -27,6 +27,9 @@ const config = createEslintConfig({
   prettier: true,
 })
 
+// tell to ESLint which files are for Node.js
+const importResolverSettings = config.settings["import/resolver"]
+const importResolverPath = Object.keys(importResolverSettings)[0]
 config.overrides = [
   {
     files: ["script/**/*.js", ".github/**/*.js"],
@@ -34,6 +37,14 @@ config.overrides = [
       browser: false,
       es6: true,
       node: true,
+    },
+    settings: {
+      "import/resolver": {
+        [importResolverPath]: {
+          node: true,
+          browser: false,
+        },
+      },
     },
   },
 ]
