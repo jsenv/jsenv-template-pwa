@@ -46,24 +46,24 @@
     "postpublish": "node ./script/transform-package/restore-postinstall.js"
   },
   "dependencies": {
-    "@jsenv/server": "5.4.1",
+    "@jsenv/server": "5.4.2",
     "@jsenv/pwa": "3.0.6",
-    "systemjs": "6.8.2"
+    "systemjs": "6.8.3"
   },
   "devDependencies": {
-    "@jsenv/assert": "2.2.1",
+    "@jsenv/assert": "2.2.3",
     "@jsenv/codecov-upload": "3.4.3",
-    "@jsenv/core": "17.4.0",
+    "@jsenv/core": "17.8.2",
     "@jsenv/eslint-config": "12.8.0",
     "@jsenv/file-size-impact": "6.0.5",
     "@jsenv/lighthouse-score-impact": "2.4.8",
     "@jsenv/github-release-package": "1.2.2",
-    "@jsenv/node-module-import-map": "12.2.2",
-    "@jsenv/package-publish": "1.5.1",
+    "@jsenv/node-module-import-map": "12.3.0",
+    "@jsenv/package-publish": "1.5.2",
     "@jsenv/prettier-check-project": "5.6.1",
-    "@jsenv/util": "4.0.4",
-    "eslint": "7.15.0",
-    "playwright-chromium": "1.6.2",
+    "@jsenv/util": "4.0.6",
+    "eslint": "7.18.0",
+    "playwright-chromium": "1.7.1",
     "prettier": "2.2.1"
   }
 }
