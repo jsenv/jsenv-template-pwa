@@ -26,8 +26,10 @@
   "files": [
     "/dist/",
     "/src/",
-    "/main.js"
+    "/main.js",
+    "/project.importmap"
   ],
+  "importmap": "./project.importmap",
   "scripts": {
     "start-exploring": "node ./script/start-exploring/start-exploring.js",
     "eslint-check": "node ./node_modules/eslint/bin/eslint.js .",
@@ -46,23 +48,23 @@
     "postpublish": "node ./script/transform-package/restore-postinstall.js"
   },
   "dependencies": {
-    "@jsenv/server": "5.4.2",
+    "@jsenv/server": "6.0.1",
     "@jsenv/pwa": "3.0.6",
     "systemjs": "6.8.3"
   },
   "devDependencies": {
-    "@jsenv/assert": "2.2.3",
+    "@jsenv/assert": "2.2.5",
     "@jsenv/codecov-upload": "3.4.3",
-    "@jsenv/core": "17.8.2",
-    "@jsenv/eslint-config": "12.8.0",
-    "@jsenv/file-size-impact": "6.0.5",
+    "@jsenv/core": "17.9.5",
+    "@jsenv/eslint-config": "12.9.1",
+    "@jsenv/file-size-impact": "6.0.6",
     "@jsenv/lighthouse-score-impact": "2.4.8",
     "@jsenv/github-release-package": "1.2.2",
-    "@jsenv/node-module-import-map": "12.3.0",
+    "@jsenv/node-module-import-map": "13.1.0",
     "@jsenv/package-publish": "1.5.2",
     "@jsenv/prettier-check-project": "5.6.1",
     "@jsenv/util": "4.0.6",
-    "eslint": "7.18.0",
+    "eslint": "7.23.0",
     "playwright-chromium": "1.7.1",
     "prettier": "2.2.1"
   }
