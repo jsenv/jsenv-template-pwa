@@ -1,4 +1,4 @@
-# Jsenv template progressive web application
+# Jsenv template for PWA (Progressive Web Application)
 
 Template to create a GitHub repository for a progressive web application.
 
@@ -18,8 +18,4 @@ The progressive web application is deployed at https://jsenv-pwa-template.heroku
 
 # Usage
 
-TODO:
-
-- [ ] More comments in all the files to introduce them
-- [ ] Some files cannot be commented (json), find a solution to comment
-      why json are how they are
+Proper documentation needs to be done. Until then, source files gives hints about how to use.
