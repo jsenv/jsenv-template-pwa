@@ -1,1 +1,1 @@
-import "src/pwa.js"
+import "src/app.js"

@@ -5,15 +5,11 @@ import {
   checkServiceWorkerUpdate,
   activateServiceWorkerUpdate,
 } from "@jsenv/pwa"
-import { createDOM } from "src/dom.js"
 
-if (canUseServiceWorker) {
-  const serviceWorkerUpdateDocument = createDOM(`
-<button>Check update</button>
-<p></p>
-`)
-  const buttonCheckUpdate = serviceWorkerUpdateDocument.querySelector("button")
-  const paragraph = serviceWorkerUpdateDocument.querySelector("p")
+const installServiceWorkerUpdateUI = () => {
+  const buttonCheckUpdate = document.createElement("button")
+  buttonCheckUpdate.innerHTML = "Check update"
+  const paragraph = document.createElement("p")
   document.body.appendChild(buttonCheckUpdate)
   document.body.appendChild(paragraph)
 
@@ -42,4 +38,8 @@ if (canUseServiceWorker) {
       paragraph.innerHTML = ""
     }
   })
+}
+
+if (canUseServiceWorker) {
+  installServiceWorkerUpdateUI()
 }
