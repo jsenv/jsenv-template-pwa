@@ -1,17 +1,17 @@
 {
+  "assets/app.css": "assets/app-00d2bd90.css",
+  "assets/app.css.map": "assets/app-00d2bd90.css.map",
   "assets/favicon.png": "assets/favicon-25e95a00.png",
-  "assets/main.css": "assets/main-19e322aa.css",
-  "assets/main.css.map": "assets/main-19e322aa.css.map",
+  "assets/main.css": "assets/main-cce50a8c.css",
+  "assets/main.css.map": "assets/main-cce50a8c.css.map",
   "assets/pwa-icon.png": "assets/pwa-icon-574c1c76.png",
-  "assets/pwa.css": "assets/pwa-16325cd4.css",
-  "assets/pwa.css.map": "assets/pwa-16325cd4.css.map",
   "assets/pwa.webmanifest": "assets/pwa.webmanifest",
   "assets/s.js": "assets/s-42cee136.js",
   "assets/s.js.map": "assets/s-42cee136.js.map",
-  "importmap.prod.importmap": "importmap.prod-56b75b5a.importmap",
+  "importmap.prod.importmap": "importmap.prod-7b60ecb7.importmap",
   "main.139.js.map": "main.139-d20a0d02.js.map",
   "main.15.css.map": "main.15-d9e5ec9d.css.map",
   "main.216.js.map": "main.216-d4c7d48e.js.map",
-  "main.js": "main-907ac516.js",
+  "main.js": "main-4d81b92f.js",
   "main.prod.html": "main.prod.html"
 }

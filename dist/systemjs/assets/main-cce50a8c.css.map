@@ -5,8 +5,8 @@
   ],
   "names": [],
   "mappings": "AAAA,0BAAuB",
-  "file": "main-19e322aa.css",
+  "file": "main-cce50a8c.css",
   "sourcesContent": [
-    "@import \"./src/pwa.css\";\n"
+    "@import \"./src/app.css\";\n"
   ]
 }
