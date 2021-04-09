@@ -11,6 +11,15 @@
   </head>
 
   <body>
+    <!--
+    While your app is loading it's great to already have something to show to the user.
+    The splascreen holds this responsability.
+    Splashscreen html, css and js are inline in this html file.
+    It will be displayed right away to the user and covers the following scenarios:
+    - main script fails to load -> display a message to the user
+    - main script fails to execute -> display a message to the user
+    - main script takes more than 2,5s to "load" -> display a message to the user
+    -->
     <div id="splashscreen" data-step="loading">
       <style>
         #splashscreen {
@@ -25,30 +34,24 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-
           opacity: 0;
-          /* transform: scale(0); */
-
           animation-name: splashin;
           animation-duration: 0.4s;
-          animation-delay: 0.1s;
-          /* in case browser is very fast, don't display at all */
           animation-fill-mode: forwards;
         }
 
         #splashscreen[data-step="loading"] + #app {
           visibility: hidden;
-          /*
-          avoid big image to create a scroll
-          or if the game is too big it will
-          increase splashscreen size
-          */
           width: 100%;
           height: 100%;
+          /* While css is loading, layout can be broken and create scrollbars.
+          Prevent this using overflow: hidden; */
           overflow: hidden;
         }
 
         #splashscreen[data-step="loaded"] {
+          animation-delay: 0;
+          animation-duration: 0.3s;
           animation-name: splashout;
           animation-fill-mode: forwards;
         }
@@ -119,15 +122,13 @@
         </noscript>
       </div>
       <div id="splashscreen-text-variants" style="display: none">
-        <div id="loader">Loading...</div>
-        <div id="network-error-screen">
-          Une erreur est survenue pendant le chargement du fichier principal.
-        </div>
+        <div id="waiting-screen">Loading...</div>
+        <div id="network-error-screen">An error occured while loading the main file.</div>
         <div id="runtime-error-screen">
-          <p>Une erreur est survenu pendant l'exécution du fichier principal.</p>
+          <p>An error occured while executing the main file.</p>
           <br />
           <details>
-            <summary>Voir le détail</summary>
+            <summary>See error details</summary>
             <h6 id="runtime-error-title">${runtimeErrorTitle}</h6>
             <pre id="runtime-error-message">${runtimeErrorMessage}</pre>
           </details>
@@ -162,51 +163,64 @@
         return variantInstance
       }
 
-      // montre un loader ou quelque chose parce que le site met un peu de temps a se load
-      const showLoaderTimeout = setTimeout(() => {
-        activateSplashscreenVariant("loader")
+      // In case page takes more than 2,5s to call window.splashscreen.remove()
+      // -> activate the "waiting-screen"
+      const activateWaitingTimeout = setTimeout(() => {
+        activateSplashscreenVariant("waiting")
       }, 2500)
 
-      // detect main script load error
+      // In case browser fails to load main script
+      // -> activate the "network-error-screen"
       const mainScript = document.querySelector("script#main-script")
       mainScript.onerror = () => {
-        clearTimeout(showLoaderTimeout)
+        clearTimeout(activateWaitingTimeout)
         activateSplashscreenVariant("network-error-screen")
       }
       // uncomment the line below to test the case of a network error
       // mainScript.onerror();
 
-      // detect main script parse or execute error
+      // In case browser fails to parse or execute main script
+      // -> activate the "runtime-error-screen"
       const errorEventCallback = (errorEvent) => {
         window.removeEventListener("error", errorEventCallback)
         const { message, filename, lineno: lineNumber, colno: columnNumber } = errorEvent
 
-        clearTimeout(showLoaderTimeout)
+        clearTimeout(activateWaitingTimeout)
         activateSplashscreenVariant("runtime-error-screen", {
           runtimeErrorTitle: filename
             ? `${filename}:${lineNumber}:${columnNumber}`
-            : "<Aucun fichier associé a cette erreur>",
+            : "<No file associated with this error>",
           runtimeErrorMessage:
-            message ||
-            `<Aucun message associé a cette erreur>
-(Ouvrir les devtools pour en savoir plus)`,
+            message || `<No message associated with this error> (Check devtools to get more info)`,
         })
       }
       window.addEventListener("error", errorEventCallback)
+      // if you want to test the runtime-error scenario,
+      // you can write thow new Error('test'); in ./main.js or ./src/app.js
+
+      // In case browser loads and execute very quickly main.js (which call splashscreen.remove())
+      // the splashscreen would quickly fadein + fadeout creating an ugly blink.
+      // To ensure it does not blink we wait at leat 700ms before actually removing the splashscreen
+      // Many other strategies are valid and could be preferred instead of this one.
+      const minTimeEllapsed = new Promise((resolve) => {
+        setTimeout(resolve, 700)
+      })
 
       window.splashscreen = {
-        remove: () => {
+        // window.splashscreen.remove is meant to be called by the main script
+        // once it's ready to display the user interface
+        remove: async () => {
           // uncomment the line below to test the case of an infite loading
           // return
 
-          // here the main script should call this when it's ready to display something
-          // because the main script might be loading some images and stuff
-          // we should first display an other screen showing what the main script is doing
-          // (likely loading assets)
-          // we must create this component which does not exists yet
-          clearTimeout(showLoaderTimeout)
+          clearTimeout(activateWaitingTimeout)
           window.removeEventListener("error", errorEventCallback)
+
+          await minTimeEllapsed
           splashscreenElement.setAttribute("data-step", "loaded")
+          // Wait the end of the "splashout" animation before killing splascreen entirely.
+          // Here splaschreen is "killed" with display: 'none' but it could also
+          // be removed from the DOM
           setTimeout(() => {
             splashscreenElement.style.display = "none"
           }, 300)
@@ -218,7 +232,6 @@
       // other scripts will have to check window.beforeinstallpromptEvent
       // presence, otherwise listen the before install prompt event
       window.addEventListener("beforeinstallprompt", (beforeinstallpromptEvent) => {
-        console.info(`Store beforeinstallpromptEvent on window to be used later`)
         beforeinstallpromptEvent.preventDefault()
         window.beforeinstallpromptEvent = beforeinstallpromptEvent
       })
