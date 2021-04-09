@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@jsenv/server": "6.0.1",
-    "@jsenv/pwa": "3.0.6",
+    "@jsenv/pwa": "3.0.7",
     "systemjs": "6.8.3"
   },
   "devDependencies": {
