@@ -10,7 +10,13 @@ Template to create a GitHub repository for a progressive web application.
 # Table of contents
 
 - [Presentation](#Presentation)
-- [Usage](#Usage)
+- [Installation](#Installation)
+- [Coding](#Coding)
+- [Formatting](#Formatting)
+- [Linting](#Linting)
+- [Testing](#Testing)
+- [Building](#Building)
+- [Common errors](#Common-errors)
 - [Steps to remove pwa](#steps-to-remove-pwa)
 
 # Presentation
@@ -19,9 +25,85 @@ This is a [GitHub repository template](https://docs.github.com/en/github-ae@late
 
 The progressive web application is deployed at https://jsenv-pwa-template.herokuapp.com.
 
-# Usage
+# Installation
 
-Proper documentation needs to be done. Until then, source files gives hints about how to use.
+The following setup is recommended to install this repository:
+
+**Operating System**: Mac, Linux or Windows.
+
+**Code editor**: [Visual Studio Code](https://code.visualstudio.com/) with the following extensions:
+
+- [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+**Command line tools**:
+
+- [git](https://git-scm.com/) version 2.26.0 or above
+- [node](https://nodejs.org/en/) version 14.5.0 or above
+
+**Web browser**: Google chrome, Firefox, or Safari recent versions are supported.
+
+If your setup is done, you can run the following commands to install the repository on your machine.
+
+```console
+git clone git@github.com:jsenv/jsenv-template-pwa.git
+```
+
+```console
+npm install
+```
+
+# Coding
+
+To start the project, run the following command
+
+```console
+npm run start-exploring.js
+```
+
+This will start a dev server with live reloading. Read more about this server in [jsenv exploring documentation](https://github.com/jsenv/jsenv-core#exploring)
+
+# Formatting
+
+The codebase uses prettier to ensure a coherent and pretty code formatting. The prettier configuration can be found in [.prettierrc.yml](./.prettierrc.yml).
+
+If prettier configuration is not respected, the main **GitHub workflow will log** which files are incorrect during [code format step](./.github/workflows/ci.yml#L33). I repeat, the workflow will not fail, just log.
+
+You are supposed to perform the code formatting, in other words install [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and let the extension do it when you save a file.
+
+# Linting
+
+The codebase uses ESLint to lint files. The ESLint configuration can be found in [.eslintrc.cjs](./.eslintrc.cjs). The ESLint configuration consider all files as written for a browser except thoose inside `script/` and `github/` directories. The rest of the configuration comes from [@jsenv/eslint-config](https://github.com/jsenv/jsenv-eslint-config#eslint-config).
+
+If ESLint rules are not respected, the main **GitHub workflow will fail** during [code quality step](./.github/workflows/ci.yml#L31).
+
+You can run `npm run eslint-check` to ensure your file respects ESLint rules. It is recommended to install and use [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) to have ESLint integrated in VSCode.
+
+# Testing
+
+Test are inside [test/](./test/) directory.
+
+They can be runned all at once using `npm test`.
+
+They can be runned selectively in a browser by doing `npm run start-exploring` and opening the test file in the browser.
+
+Read more in [jsenv testing documentation](https://github.com/jsenv/jsenv-core#testing)
+
+# Building
+
+In order to generate files that will be optimized for production (minification and so on) use `npm run dist`. This will generate files into [dist/](./dist/) directory.
+
+The files will be generated using [systemjs format](https://github.com/systemjs/systemjs).
+
+Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#building).
+
+# Common errors
+
+This section will grow with time, for now one important thing to remember:
+
+Every time you add a new package in `package.json` be sure to execute `npm run generate-import-map` to update import map accordingly. Without this the importmap will not have the remapping needed to find the new package files.
+
+Read more in [@jsenv/node-module-import-map documentation](https://github.com/jsenv/jsenv-node-module-import-map#presentation)
 
 # Steps to remove pwa
 
