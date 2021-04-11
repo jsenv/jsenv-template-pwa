@@ -2,7 +2,7 @@
 
 Template to create a GitHub repository for a progressive web application.
 
-**Warning**: It's an alpha version.
+**Warning**: It's a beta version.
 
 [![github ci](https://github.com/jsenv/jsenv-template-pwa/workflows/ci/badge.svg)](https://github.com/jsenv/jsenv-template-pwa/actions?workflow=ci)
 [![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-pwa/branch/master/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-pwa)
@@ -31,10 +31,7 @@ The following setup is recommended to install this repository:
 
 **Operating System**: Mac, Linux or Windows.
 
-**Code editor**: [Visual Studio Code](https://code.visualstudio.com/) with the following extensions:
-
-- [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+**Code editor**: [Visual Studio Code](https://code.visualstudio.com/).
 
 **Command line tools**:
 
@@ -43,7 +40,7 @@ The following setup is recommended to install this repository:
 
 **Web browser**: Google chrome, Firefox, or Safari recent versions are supported.
 
-If your setup is done, you can run the following commands to install the repository on your machine.
+If setup is done, run the following commands to install the repository on your machine.
 
 ```console
 git clone git@github.com:jsenv/jsenv-template-pwa.git
