@@ -1,3 +1,5 @@
+import { dev } from "#env"
+
 export const greet = () => {
-  return "Welcome"
+  return dev ? "Welcome dev" : "Welcome"
 }
