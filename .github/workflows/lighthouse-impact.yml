@@ -24,4 +24,4 @@ jobs:
       - name: Report lighthouse impact
         run: node ./.github/workflows/lighthouse-impact/report-lighthouse-impact.js
         env:
-          GITHUB_TOKEN: ${{ secrets.LIGHTHOUSE_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
