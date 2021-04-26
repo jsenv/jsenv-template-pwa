@@ -30,6 +30,7 @@
     "test": "node ./script/test/test.js",
     "generate-import-map": "node ./script/generate-import-map/generate-import-map.js",
     "generate-systemjs-build": "node --experimental-top-level-await ./script/generate-systemjs-build/generate-systemjs-build.js",
+    "generate-lighthouse-report": "node --experimental-top-level-await ./script/generate-lighthouse-report/generate-lighthouse-report.js",
     "start": "node --experimental-top-level-await ./script/start/start.js",
     "test-with-coverage": "npm run test -- --coverage",
     "prettier-format": "node ./script/prettier-format/prettier-format.js",
