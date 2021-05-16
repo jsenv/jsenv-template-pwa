@@ -1,8 +1,8 @@
-# Jsenv template for PWA (Progressive Web Application)
+# Progressive Web Application template
 
-Template to create a GitHub repository for a progressive web application.
+This repository is meant to serve as a general template for how to set up repositories to create a website compatible with PWA. Use this repository as a way of finding example files.
 
-**Warning**: It's a beta version.
+**Warning**: It's a beta version and documentation will be update shortly to explain everything in details.
 
 [![github workflow](https://github.com/jsenv/jsenv-template-pwa/workflows/ci/badge.svg)](https://github.com/jsenv/jsenv-template-pwa/actions?workflow=main)
 [![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-pwa/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-pwa)
