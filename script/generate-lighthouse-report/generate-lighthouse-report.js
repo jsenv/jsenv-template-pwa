@@ -1,7 +1,7 @@
 import { generateLighthouseReport } from "@jsenv/lighthouse-score-impact"
 
 const run = async () => {
-  await import("../generate-systemjs-build/generate-systemjs-build.js")
+  await import("../build/build.js")
 
   process.env.LOG_LEVEL = "warn"
   process.env.HTTPS = true

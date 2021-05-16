@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14.5.0]
+        node: [14.17.0]
     runs-on: ${{ matrix.os }}
     name: lighthouse impact
     env:
@@ -24,4 +24,4 @@ jobs:
       - name: Report lighthouse impact
         run: node ./.github/workflows/lighthouse-impact/report-lighthouse-impact.js
         env:
-          GITHUB_TOKEN: ${{ secrets.LIGHTHOUSE_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
