@@ -1,5 +1,5 @@
-import { dev } from "#env"
+import { DEV } from "#env"
 
 export const greet = () => {
-  return dev ? "Welcome dev" : "Welcome"
+  return DEV ? "Welcome dev" : "Welcome"
 }

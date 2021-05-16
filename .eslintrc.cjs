@@ -1,52 +1,113 @@
-/* globals __dirname, require, module */
 /**
- * Eslint does not support esmodule in the config file. For that reason
- * this file ends with the .cjs extension.
  *
- * This file uses eslint config from "@jsenv/eslint-config"
- * And configure some params.
+ * This file uses "@jsenv/eslint-config" to configure ESLint
+ * https://github.com/jsenv/jsenv-eslint-config#eslint-config
+ *
  */
 
-const { createEslintConfig } = require("@jsenv/eslint-config")
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  eslintConfigForPrettier,
+  eslintConfigToPreferExplicitGlobals,
+  jsenvEslintRules,
+  jsenvEslintRulesForImport,
+} = require("@jsenv/eslint-config")
 
-const config = createEslintConfig({
-  projectDirectoryUrl: __dirname,
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
 
-  importResolutionMethod: "import-map",
-  importMapFileRelativeUrl: "./importmap.dev.importmap",
-
-  // "node" and "browser" params tells ESLint where our files will be executed.
-  // ESLint will configure the available global variables according to this param.
-  // Here it means ESLint could report an error like "global" is not defined
-  // but not "window" is not defined.
-  browser: true,
-  node: false,
-
-  // prettier param tells we are using prettier. It will disable all eslint rules
-  // already handled by prettier.
-  prettier: true,
-})
-
-// tell to ESLint which files are for Node.js
-const importResolverSettings = config.settings["import/resolver"]
-const importResolverPath = Object.keys(importResolverSettings)[0]
-config.overrides = [
+  // Reuse jsenv eslint rules
   {
-    files: ["script/**/*.js", ".github/**/*.js"],
-    env: {
-      browser: false,
-      es6: true,
-      node: true,
+    rules: {
+      ...jsenvEslintRules,
+      // Example of code changing the ESLint configuration to enable a rule:
+      // 'prefer-const':  ['error']
     },
+  },
+
+  // Enable import plugin
+  {
+    plugins: ["import"],
     settings: {
       "import/resolver": {
-        [importResolverPath]: {
-          node: true,
-          browser: false,
+        // Tell ESLint to use the importmap to resolve imports.
+        // Read more in https://github.com/jsenv/jsenv-node-module-import-map#Configure-vscode-and-eslint-for-importmap
+        "@jsenv/importmap-eslint-resolver": {
+          projectDirectoryUrl: __dirname,
+          importMapFileRelativeUrl: "./importmap.dev.importmap",
         },
       },
     },
+    rules: jsenvEslintRulesForImport,
   },
-]
 
-module.exports = config
+  // Files in this repository are meant to be executed in browser
+  // and we want to tell this to ESLint.
+  // As a result ESLint can consider `global` as undefined
+  // and `window` as an existing global variable.
+  {
+    env: {
+      browser: true,
+    },
+  },
+
+  // tell to ESLint which files are for Node.js
+  {
+    overrides: [
+      {
+        files: ["script/**/*.js", ".github/**/*.js", "jsenv.config.js"],
+        env: {
+          browser: false,
+          node: true,
+        },
+        settings: {
+          "@jsenv/importmap-eslint-resolver": {
+            "@jsenv/importmap-eslint-resolver": {
+              node: true,
+            },
+          },
+        },
+      },
+    ],
+  },
+
+  // package is "type": "module" so:
+  // 1. disable commonjs globals by default
+  // 2. Re-enable commonjs into *.cjs files
+  {
+    globals: {
+      __filename: "off",
+      __dirname: "off",
+      require: "off",
+    },
+    overrides: [
+      {
+        files: ["**/*.cjs"],
+        env: {
+          commonjs: true,
+        },
+        // inside *.cjs files. restore commonJS "globals"
+        globals: {
+          __filename: true,
+          __dirname: true,
+          require: true,
+        },
+        // inside *.cjs files, use commonjs module resolution
+        settings: {
+          "import/resolver": {
+            node: {},
+          },
+        },
+      },
+    ],
+  },
+
+  eslintConfigToPreferExplicitGlobals,
+
+  // We are using prettier, disable all eslint rules
+  // already handled by prettier.
+  eslintConfigForPrettier,
+)
+
+module.exports = eslintConfig

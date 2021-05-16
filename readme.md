@@ -16,7 +16,6 @@ Template to create a GitHub repository for a progressive web application.
 - [Linting](#Linting)
 - [Testing](#Testing)
 - [Building](#Building)
-- [Common errors](#Common-errors)
 - [Steps to remove pwa](#steps-to-remove-pwa)
 
 # Presentation
@@ -93,14 +92,6 @@ In order to generate files that will be optimized for production (minification a
 The files will be generated using [systemjs format](https://github.com/systemjs/systemjs).
 
 Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#building).
-
-# Common errors
-
-This section will grow with time, for now one important thing to remember:
-
-Every time you add a new package in `package.json` be sure to execute `npm run generate-import-map` to update import map accordingly. Without this the importmap will not have the remapping needed to find the new package files.
-
-Read more in [@jsenv/node-module-import-map documentation](https://github.com/jsenv/jsenv-node-module-import-map#presentation)
 
 # Steps to remove pwa
 
