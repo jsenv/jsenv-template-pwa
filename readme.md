@@ -5,7 +5,7 @@ Template to create a GitHub repository for a progressive web application.
 **Warning**: It's a beta version.
 
 [![github workflow](https://github.com/jsenv/jsenv-template-pwa/workflows/ci/badge.svg)](https://github.com/jsenv/jsenv-template-pwa/actions?workflow=main)
-[![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-pwa/branch/master/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-pwa)
+[![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-pwa/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-pwa)
 
 # Table of contents
 
