@@ -1,13 +1,20 @@
+# This file configure a GitHub workflow responsible to analyse
+# a pull request impact and post comment with the result of this analysis
+# into the pull request.
+#
+# For this reason it's runned on every pull request.
+#
+# It does the following:
+#  - Report a potential pr impact on several files size
+#  - Report a potential pr impact on lighthouse score
+#
+# If you want to update this file it's recommended to use
+# a YAML validator such as https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+# configured to validate this file with https://json.schemastore.org/github-workflow.json
+
 name: pr-impact
 
-on:
-  pull_request:
-    # In theory it would be more efficient to enable this workflow only
-    # if certain file changes (the one that could impact dist/ files)
-    # In practice humans will wonder why the workflow did not run.
-    # paths:
-    #   - "index.js"
-    #   - "src/**"
+on: pull_request_target
 
 jobs:
   pr-impact:
