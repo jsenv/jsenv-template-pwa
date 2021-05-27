@@ -26,11 +26,11 @@ jobs:
       - uses: microsoft/playwright-github-action@v1
       - name: npm install
         run: npm install
-      - name: code quality
+      - name: linting
         run: npm run eslint-check
       - name: testing
         run: npm run test-with-coverage
-      - name: upload coverage
+      - name: coverage upload
         run: npm run upload-coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
