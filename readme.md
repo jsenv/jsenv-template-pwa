@@ -4,7 +4,7 @@ This repository is meant to serve as a general template for how to set up reposi
 
 **Warning**: It's a beta version and documentation will be update shortly to explain everything in details.
 
-[![github workflow](https://github.com/jsenv/jsenv-template-pwa/workflows/ci/badge.svg)](https://github.com/jsenv/jsenv-template-pwa/actions?workflow=main)
+[![github workflow](https://github.com/jsenv/jsenv-template-pwa/workflows/main/badge.svg)](https://github.com/jsenv/jsenv-template-pwa/actions?workflow=main)
 [![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-pwa/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-pwa)
 
 # Table of contents

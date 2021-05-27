@@ -17,6 +17,16 @@ const {
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
 
+  // Files in this repository are meant to be executed in browser
+  // and we want to tell this to ESLint.
+  // As a result ESLint can consider `global` as undefined
+  // and `window` as an existing global variable.
+  {
+    env: {
+      browser: true,
+    },
+  },
+
   // Reuse jsenv eslint rules
   {
     rules: {
@@ -40,16 +50,6 @@ const eslintConfig = composeEslintConfig(
       },
     },
     rules: jsenvEslintRulesForImport,
-  },
-
-  // Files in this repository are meant to be executed in browser
-  // and we want to tell this to ESLint.
-  // As a result ESLint can consider `global` as undefined
-  // and `window` as an existing global variable.
-  {
-    env: {
-      browser: true,
-    },
   },
 
   // tell to ESLint which files are for Node.js
