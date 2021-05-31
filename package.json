@@ -47,7 +47,7 @@
     "postinstall": "npm run generate-import-map"
   },
   "dependencies": {
-    "@jsenv/pwa": "3.0.7",
+    "@jsenv/pwa": "4.0.0",
     "@jsenv/server": "6.0.3",
     "systemjs": "6.9.0"
   },
@@ -63,7 +63,7 @@
     "@jsenv/prettier-check-project": "5.6.1",
     "@jsenv/util": "4.1.1",
     "eslint": "7.27.0",
-    "eslint-plugin-import": "2.23.3",
+    "eslint-plugin-import": "2.23.4",
     "playwright-chromium": "1.11.1",
     "prettier": "2.3.0"
   }
