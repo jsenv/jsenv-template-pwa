@@ -22,8 +22,9 @@ Go through this checklist after creating a repository with this template.
 
 - [Linting](../docs/linting/linting.md#linting)
 - [Formatting](../docs/formatting/formatting.md#formatting)
-<!--
+<!-- TODO: import resolution must come before production mode I guess -->
 - [Production mode](./docs/production_mode/production_mode.md#production-mode)
+<!--
 - [Testing](./docs/testing/testing.md#testing)
 - [Code coverage](./docs/coverage/coverage.md#coverage)
 - [CommonJS compatibility](./docs/commonjs_compat/commonjs_compat.md#commonjs-compatibility)

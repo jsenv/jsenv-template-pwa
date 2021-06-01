@@ -36,6 +36,14 @@ const eslintConfig = composeEslintConfig(
     },
   },
 
+  // Enable HTML plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
+
   // Enable import plugin
   {
     plugins: ["import"],
