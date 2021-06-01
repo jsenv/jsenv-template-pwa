@@ -62,7 +62,7 @@ const eslintConfig = composeEslintConfig(
           node: true,
         },
         settings: {
-          "@jsenv/importmap-eslint-resolver": {
+          "import/resolver": {
             "@jsenv/importmap-eslint-resolver": {
               node: true,
             },
