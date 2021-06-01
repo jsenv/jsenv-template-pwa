@@ -26,10 +26,11 @@ Go through this checklist after creating a repository with this template.
   - [Production mode](../docs/production_mode/production_mode.md#production-mode)
 
 <!--
-- [Testing](./docs/testing/testing.md#testing)
-- [Code coverage](./docs/coverage/coverage.md#coverage)
-- [CommonJS compatibility](./docs/commonjs_compat/commonjs_compat.md#commonjs-compatibility)
-- [npm auto publish](./docs/auto_publish/auto_publish.md#auto-publish-on-npm)
+- [Exploring server]
+- [Build]
+- [Testing](../docs/testing/testing.md#testing)
+- [Code coverage](../docs/coverage/coverage.md#coverage)
+- [Pull request impacts]()
 -->
 
 - [ ] Update [README.md](../README.md)
