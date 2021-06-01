@@ -63,6 +63,7 @@
     "@jsenv/prettier-check-project": "5.6.1",
     "@jsenv/util": "4.1.1",
     "eslint": "7.27.0",
+    "eslint-plugin-html": "6.1.2",
     "eslint-plugin-import": "2.23.4",
     "playwright-chromium": "1.11.1",
     "prettier": "2.3.0"
