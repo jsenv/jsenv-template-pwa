@@ -21,8 +21,8 @@ Go through this checklist after creating a repository with this template.
 - [ ] Check the available features and see how use or remove them.
 
 - [Linting](../docs/linting/linting.md#linting)
+- [Formatting](../docs/formatting/formatting.md#formatting)
 <!--
-- [Formatting](./docs/formatting/formatting.md#formatting)
 - [Production mode](./docs/production_mode/production_mode.md#production-mode)
 - [Testing](./docs/testing/testing.md#testing)
 - [Code coverage](./docs/coverage/coverage.md#coverage)
