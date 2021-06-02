@@ -21,14 +21,6 @@
   },
   "type": "module",
   "module": "main.js",
-  "files": [
-    "/dist/",
-    "/src/",
-    "/main.js",
-    "/project.importmap",
-    "/env.dev.js",
-    "/env.prod.js"
-  ],
   "importmap": "./project.importmap",
   "scripts": {
     "start-exploring": "node ./script/start-exploring/start-exploring.js",

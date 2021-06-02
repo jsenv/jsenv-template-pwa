@@ -20,8 +20,8 @@ Go through this checklist after creating a repository with this template.
 
 - [ ] Check the available features and see how use or remove them.
 
-  - [Linting](../docs/linting/linting.md#linting)
   - [Formatting](../docs/formatting/formatting.md#formatting)
+  - [Linting](../docs/linting/linting.md#linting)
   - [import resolution](.,/docs/import_resolution/import_resolution.md#import-resolution)
   - [Production mode](../docs/production_mode/production_mode.md#production-mode)
 
