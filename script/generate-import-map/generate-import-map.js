@@ -19,9 +19,6 @@ const generateFile = async (importMapFileRelativeUrl, { dev, ...rest } = {}) => 
       projectDirectoryUrl,
       importMapFileRelativeUrl,
       jsConfigFile: dev,
-      jsConfigBase: {
-        jsx: "react",
-      },
     },
   )
 }
