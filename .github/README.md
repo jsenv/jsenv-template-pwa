@@ -24,13 +24,14 @@ Go through this checklist after creating a repository with this template.
   - [Linting](../docs/linting/linting.md#linting)
   - [import resolution](.,/docs/import_resolution/import_resolution.md#import-resolution)
   - [Production mode](../docs/production_mode/production_mode.md#production-mode)
+  - [Development server](../docs/dev_server/dev_server.md#Development-server)
 
 <!--
-- [Exploring server]
-- [Build]
+- [Service worker](../docs/service_worker/service_worker.md#Service-worker)
 - [Testing](../docs/testing/testing.md#testing)
 - [Code coverage](../docs/coverage/coverage.md#coverage)
-- [Pull request impacts]()
+- [Building](../docs/building/building.md#Building)
+- [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts)
 -->
 
 - [ ] Update [README.md](../README.md)
