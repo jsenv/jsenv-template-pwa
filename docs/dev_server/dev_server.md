@@ -1,4 +1,4 @@
 # Development server
 
 livereloading
-css, js, image ?
+specificity: multiple html pages
