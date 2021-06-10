@@ -7,7 +7,7 @@ const generateFile = async (importMapFileRelativeUrl, { dev, ...rest } = {}) => 
       getImportMapFromProjectFiles({
         projectDirectoryUrl,
         dev,
-        importMapInput: {
+        initialImportMap: {
           imports: {
             "#env": dev ? "./env.dev.js" : "./env.prod.js",
           },

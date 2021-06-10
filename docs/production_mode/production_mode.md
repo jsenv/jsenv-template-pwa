@@ -56,6 +56,6 @@ This repository generates 3 importmaps depending how you want to execute your co
 If you don't need the production mode you can remove it following the steps below.
 
 1. Remove all `#env` imports in files
-2. Remove `"importMapInput"` in [script/generate-import-map/generate-import-map.js](../../script/generate-import-map/generate-import-map.js#L10)
+2. Remove `"initialImportMap"` in [script/generate-import-map/generate-import-map.js](../../script/generate-import-map/generate-import-map.js#L10)
 3. Delete [env.prod.js](../../env.prod.js)
 4. Delete [env.dev.js](../../env.dev.js)
