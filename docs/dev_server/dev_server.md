@@ -6,10 +6,10 @@ You can start a local server to run the website on your machine.
 
 The image above is a screenshot of the website runned using the development server in Chrome. The development server can be used to execute and debug the website. Browser will livereload when you change a file.
 
-One last thing: This development it can be used to debug and execute **any html file in your project**. For example, it can execute an HTML file written to test something.
+One last thing: it can be used to debug and execute **any html file in your project**. For example to execute an HTML file written to test something, display a component in isolation and more.
 
 <details>
-  <summary>Example of an HTML file written for test</summary>
+  <summary>Example of an HTML file written to test something</summary>
 
 [test/greet.dev.test.html](../../test/greet.dev.test.html)
 
