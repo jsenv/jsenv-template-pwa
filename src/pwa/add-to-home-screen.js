@@ -1,13 +1,13 @@
-import { listenAddToHomescreenAvailable, promptAddToHomescreen } from "@jsenv/pwa"
+import { addToHomescreen } from "@jsenv/pwa"
 
 const buttonAddToHomescreen = document.createElement("button")
-buttonAddToHomescreen.disabled = true
+buttonAddToHomescreen.disabled = !addToHomescreen.isAvailable()
 buttonAddToHomescreen.innerHTML = "Add to home screen"
 document.body.appendChild(buttonAddToHomescreen)
 
 buttonAddToHomescreen.onclick = () => {
-  promptAddToHomescreen()
+  addToHomescreen.prompt()
 }
-listenAddToHomescreenAvailable((available) => {
-  buttonAddToHomescreen.disabled = !available
+addToHomescreen.listenAvailabilityChange(() => {
+  buttonAddToHomescreen.disabled = !addToHomescreen.isAvailable()
 })

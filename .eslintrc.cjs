@@ -36,6 +36,14 @@ const eslintConfig = composeEslintConfig(
     },
   },
 
+  // Enable HTML plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
+
   // Enable import plugin
   {
     plugins: ["import"],
@@ -62,7 +70,7 @@ const eslintConfig = composeEslintConfig(
           node: true,
         },
         settings: {
-          "@jsenv/importmap-eslint-resolver": {
+          "import/resolver": {
             "@jsenv/importmap-eslint-resolver": {
               node: true,
             },
