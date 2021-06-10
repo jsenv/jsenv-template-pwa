@@ -40,13 +40,13 @@
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
-    "@jsenv/server": "6.0.3",
+    "@jsenv/server": "6.1.0",
     "systemjs": "6.10.0"
   },
   "devDependencies": {
     "@jsenv/assert": "2.2.5",
     "@jsenv/codecov-upload": "3.4.3",
-    "@jsenv/core": "18.1.6",
+    "@jsenv/core": "18.1.7",
     "@jsenv/eslint-config": "15.0.1",
     "@jsenv/file-size-impact": "7.0.0",
     "@jsenv/importmap-eslint-resolver": "5.0.0",
