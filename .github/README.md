@@ -25,14 +25,12 @@ Go through this checklist after creating a repository with this template.
   - [import resolution](.,/docs/import_resolution/import_resolution.md#import-resolution)
   - [Production mode](../docs/production_mode/production_mode.md#production-mode)
   - [Development server](../docs/dev_server/dev_server.md#Development-server)
-
-<!--
-- [Service worker](../docs/service_worker/service_worker.md#Service-worker)
-- [Testing](../docs/testing/testing.md#testing)
-- [Code coverage](../docs/coverage/coverage.md#coverage)
-- [Building](../docs/building/building.md#Building)
-- [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts)
--->
+  - [Service worker](../docs/service_worker/service_worker.md#Service-worker)
+  - [Testing](../docs/testing/testing.md#testing)
+  - [Code coverage](../docs/code_coverage/code_coverage.md#Code-coverage)
+  - [Building](../docs/building/building.md#Building)
+  - [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts)
+  - [Deploying](../docs/deploying/deploying.md#deploying)
 
 - [ ] Update [README.md](../README.md)
 - [ ] Delete `.github/README.md`
