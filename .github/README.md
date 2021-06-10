@@ -16,7 +16,7 @@ Use this repository as a way of finding example files. and use the following che
 
 Go through this checklist after creating a repository with this template.
 
-- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, `"version"` and `"author".`
+- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author".`
 
 - [ ] Check the available features and see how use or remove them.
 
