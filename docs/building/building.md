@@ -4,4 +4,4 @@ In order to generate files that will be optimized for production (minification a
 
 The files will be generated using [systemjs format](https://github.com/systemjs/systemjs).
 
-Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#building).
+Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#build-overview).
