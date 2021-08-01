@@ -37,7 +37,7 @@ All the features are pre-enabled in the template. Steps to use or remove each fe
 
 # Things to know
 
-- Node.js Long Term Support version should be used while coding and to use the package published on npm. At the time of writing this documentation it means version 14.17.0.
+- Node.js Long Term Support version should be used while coding. At the time of writing this documentation it means version 14.17.0.
 
 - Default branch of the repository is named _main_. It can be renamed in repository settings on GitHub.
 
