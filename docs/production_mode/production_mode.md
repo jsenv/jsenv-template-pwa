@@ -7,7 +7,7 @@ The goal of the production mode is to have a second way to execute your code. Wi
 
 In _development mode_ you can do things specific to development and in _production mode_ do things specific to production.
 
-Example of code specific to development:
+_Example of code specific to development:_
 
 ```js
 import { DEV } from "#env"
@@ -17,7 +17,7 @@ if (DEV) {
 }
 ```
 
-Example of code acting differently depending on the mode:
+_Example of code acting differently depending on the mode:_
 
 ```js
 import { DATABASE_URL } from "#env"
@@ -38,10 +38,9 @@ const message = DEV ? "development" : "production"
 document.querySelector("#message").innerHTML = message
 ```
 
-![stuff](./mode_dev_chrome.png)
-![stuff](./mode_prod_chrome.png)
-
-If you want to see the files and the code used to generate the screenshots above, they are in [./mode](./mode) directory.
+| [dev.html](./mode/dev.html)     | [prod.html](./mode/prod.html)    |
+| ------------------------------- | -------------------------------- |
+| ![stuff](./mode_dev_chrome.png) | ![stuff](./mode_prod_chrome.png) |
 
 This repository generates 3 importmaps depending how you want to execute your code.
 
