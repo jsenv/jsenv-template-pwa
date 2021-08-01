@@ -28,11 +28,11 @@ This repository has preconfigured a _production mode_, if you want to keep this 
 
 _npm run generate-importmap_ generates multiple import map files. The one to use depend in which context you want to execute your code.
 
-| importmap file           | importmap file content                             | HTML file using it                                               |
-| ------------------------ | -------------------------------------------------- | ---------------------------------------------------------------- |
-| importmap.prod.importmap | "dependencies" + "env.prod.js"                     | [main.html](../../main.html#L20)                                 |
-| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.dev.js"  | [test/greet.dev.test.html](../../test/greet.dev.test.html#L19)   |
-| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.prod.js" | [test/greet.prod.test.html](../../test/greet.prod.test.html#L19) |
+| importmap file           | importmap file content                             | HTML file using it                                              |
+| ------------------------ | -------------------------------------------------- | --------------------------------------------------------------- |
+| importmap.prod.importmap | "dependencies" + "env.prod.js"                     | [main.html](../../main.html#L10)                                |
+| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.dev.js"  | [test/greet.dev.test.html](../../test/greet.dev.test.html#L8)   |
+| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.prod.js" | [test/greet.prod.test.html](../../test/greet.prod.test.html#L8) |
 
 # How to remove production mode
 
