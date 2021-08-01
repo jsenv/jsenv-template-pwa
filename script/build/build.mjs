@@ -1,7 +1,7 @@
 import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
 import { copyFileSystemNode, resolveUrl } from "@jsenv/util"
 
-import * as jsenvConfig from "../../jsenv.config.js"
+import * as jsenvConfig from "../../jsenv.config.mjs"
 
 await buildProject({
   ...jsenvConfig,

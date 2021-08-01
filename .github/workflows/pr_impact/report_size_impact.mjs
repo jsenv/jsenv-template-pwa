@@ -1,7 +1,7 @@
-import { reportFileSizeImpact, readGithubWorkflowEnv, raw, gzip } from "@jsenv/file-size-impact"
+import { reportFileSizeImpact, readGitHubWorkflowEnv, raw, gzip } from "@jsenv/file-size-impact"
 
 reportFileSizeImpact({
-  ...readGithubWorkflowEnv(),
+  ...readGitHubWorkflowEnv(),
   buildCommand: "npm run dist",
   transformations: { raw, gzip },
   trackingConfig: {

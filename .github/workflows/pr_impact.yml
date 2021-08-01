@@ -12,9 +12,9 @@
 # a YAML validator such as https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 # configured to validate this file with https://json.schemastore.org/github-workflow.json
 
-name: pr-impact
+name: pr impact
 
-on: pull_request_target
+on: pull_request
 
 jobs:
   pr-impact:
@@ -36,10 +36,10 @@ jobs:
       - name: Setup npm
         run: npm install
       - name: Report file size impact
-        run: node ./.github/workflows/pr-impact/report-size-impact.js
+        run: node ./.github/workflows/pr_impact/report_size_impact.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Report lighthouse impact
-        run: node ./.github/workflows/pr-impact/report-lighthouse-impact.js
+        run: node ./.github/workflows/pr_impact/report_lighthouse_impact.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

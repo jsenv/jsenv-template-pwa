@@ -1,5 +1,6 @@
 import { executeTestPlan, launchChromiumTab } from "@jsenv/core"
-import * as jsenvConfig from "../../jsenv.config.js"
+
+import * as jsenvConfig from "../../jsenv.config.mjs"
 
 executeTestPlan({
   ...jsenvConfig,

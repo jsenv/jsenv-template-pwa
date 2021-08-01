@@ -5,9 +5,10 @@
  */
 
 import { startExploring } from "@jsenv/core"
-import * as jsenvConfig from "../../jsenv.config.js"
 
-startExploring({
+import * as jsenvConfig from "../../jsenv.config.mjs"
+
+export const server = await startExploring({
   ...jsenvConfig,
   compileServerPort: 3472,
   explorableConfig: {

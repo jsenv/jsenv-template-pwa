@@ -1,7 +1,7 @@
 /**
  *
  * This file uses "@jsenv/eslint-config" to configure ESLint
- * https://github.com/jsenv/jsenv-eslint-config#eslint-config
+ * https://github.com/jsenv/eslint-config#eslint-config
  *
  */
 
@@ -60,14 +60,19 @@ const eslintConfig = composeEslintConfig(
     rules: jsenvEslintRulesForImport,
   },
 
-  // tell to ESLint which files are for Node.js
+  // tell to ESLint which files are for Node.js in ESM
   {
     overrides: [
       {
-        files: ["script/**/*.js", ".github/**/*.js", "jsenv.config.js"],
+        files: ["**/*.mjs"],
         env: {
           browser: false,
           node: true,
+        },
+        globals: {
+          __filename: "off",
+          __dirname: "off",
+          require: "off",
         },
         settings: {
           "import/resolver": {
@@ -80,20 +85,14 @@ const eslintConfig = composeEslintConfig(
     ],
   },
 
-  // package is "type": "module" so:
-  // 1. disable commonjs globals by default
-  // 2. Re-enable commonjs into *.cjs files
+  // tell to ESLint which files are for Node.js in CommonJS
   {
-    globals: {
-      __filename: "off",
-      __dirname: "off",
-      require: "off",
-    },
     overrides: [
       {
         files: ["**/*.cjs"],
         env: {
-          commonjs: true,
+          browser: false,
+          node: true,
         },
         // inside *.cjs files. restore commonJS "globals"
         globals: {

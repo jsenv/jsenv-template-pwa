@@ -12,7 +12,7 @@ const buildDirectoryUrl = resolveUrl("./dist/systemjs/", projectDirectoryUrl)
 const SECONDS_IN_30_DAYS = 60 * 60 * 24 * 30
 const BUILD_FILE_CACHE_VALIDITY_IN_SECONDS = SECONDS_IN_30_DAYS
 
-export const serverPromise = startServer({
+export const server = await startServer({
   logLevel: process.env.LOG_LEVEL || "info",
   protocol: process.env.HTTPS ? "https" : "http",
   http2: Boolean(process.env.HTTPS),
