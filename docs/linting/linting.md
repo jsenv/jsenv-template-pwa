@@ -2,7 +2,7 @@
 
 The codebase uses [ESLint](https://eslint.org) to lint files.
 
-If ESLint rules are not respected, the main GitHub **workflow will fail** during [check lint step](../../.github/workflows/main.yml#L43).
+If ESLint rules are not respected, the main GitHub **workflow will fail** during [check lint step](../../.github/workflows/main.yml#L42).
 
 If you want to keep ESLint, check [How to use ESLint](#How-to-use-eslint). Otherwise see [How to remove ESLint](#How-to-remove-eslint).
 
@@ -18,9 +18,7 @@ To execute ESLint on all files use the following command: `npm run eslint-check`
 
 # How to remove ESLint
 
-If you want to remove ESLint from this repository, follow the steps below.
-
-1. Remove `check lint` step in [.github/workflows/main.yml](../../.github/workflows/main.yml#L43)
+1. Remove `check lint` step in [.github/workflows/main.yml](../../.github/workflows/main.yml#L42)
 2. Remove `"eslint-check"` from `"scripts"` in [package.json](../../package.json#L47)
 3. Delete [.eslintrc.cjs](../../.eslintrc.cjs)
 4. Delete [.eslintignore](../../.eslintignore)
