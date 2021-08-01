@@ -53,7 +53,7 @@ Go through this checklist after creating a repository with this template.
 
   - [Formatting](../docs/formatting/formatting.md#formatting)
   - [Linting](../docs/linting/linting.md#linting)
-  - [import resolution](.,/docs/import_resolution/import_resolution.md#import-resolution)
+  - [import resolution](../docs/import_resolution/import_resolution.md#import-resolution)
   - [Production mode](../docs/production_mode/production_mode.md#production-mode)
   - [Development server](../docs/dev_server/dev_server.md#Development-server)
   - [Service worker](../docs/service_worker/service_worker.md#Service-worker)
