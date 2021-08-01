@@ -42,3 +42,4 @@ _npm run generate-importmap_ generates multiple import map files. The one to use
 4. Remove `"initialImportMap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L11)
 5. Delete [env.prod.js](../../env.prod.js)
 6. Delete [env.dev.js](../../env.dev.js)
+7. Remove `"/importmap.prod.test.importmap"` from [.gitignore](../../.gitignore#L22)
