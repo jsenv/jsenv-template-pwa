@@ -1,12 +1,33 @@
-<!DOCTYPE html><html><head><title>PWA Example</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="assets/favicon-25e95a00.png"><link rel="manifest" href="assets/pwa.webmanifest"><link rel="stylesheet" href="assets/main-cce50a8c.css"><script src="assets/s-11fb1c1b.js"></script><script type="systemjs-importmap" src="importmap.prod-80d11578.importmap"></script></head><body><!--
-    While your app is loading it's great to already have something to show to the user.
-    The splascreen holds this responsability.
-    Splashscreen html, css and js are inline in this html file.
-    It will be displayed right away to the user and covers the following scenarios:
-    - main script fails to load -> display a message to the user
-    - main script fails to execute -> display a message to the user
-    - main script takes more than 2,5s to "load" -> display a message to the user
-    --><div id="splashscreen" data-step="loading"><style>#splashscreen{align-items:center;animation-duration:.4s;animation-fill-mode:forwards;animation-name:splashin;background:#000;bottom:0;color:#fff;display:flex;flex-direction:column;left:0;opacity:0;position:fixed;right:0;top:0;z-index:1000}#splashscreen[data-step=loading]+#app{height:100%;overflow:hidden;visibility:hidden;width:100%}#splashscreen[data-step=loaded]{animation-delay:0;animation-duration:.3s;animation-fill-mode:forwards;animation-name:splashout}@keyframes splashin{0%{opacity:0}to{opacity:1}}@keyframes splashout{0%{opacity:1}to{display:none;opacity:0}}#splashscreen #splashscreen-text{display:flex;flex:1;justify-content:center;width:80%}#splashscreen #errorscreen{display:block}#splashscreen #errorscreen details{max-width:500px}#splashscreen details pre{overflow:auto}#splashscreen img{animation:loading 1.3s ease-in-out infinite alternate}@keyframes loading{0%{transform:rotate(-90deg) scale(1)}to{transform:rotate(90deg) scale(1.3)}}
-/*# sourceMappingURL=main.24-d158181a.css.map */</style><h1>PWA template</h1><div id="splashscreen-text"><noscript><h1>JavaScript est requis</h1><p>Cette page a besoin de Javascript pour fonctionner et JavaScript n'est pas disponible.</p></noscript></div><div id="splashscreen-text-variants" style="display: none"><div id="waiting-screen">Loading...</div><div id="network-error-screen">An error occured while loading the main file.</div><div id="runtime-error-screen"><p>An error occured while executing the main file.</p><br><details><summary>See error details</summary><h6 id="runtime-error-title">${runtimeErrorTitle}</h6><pre id="runtime-error-message">${runtimeErrorMessage}</pre></details></div></div></div><div id="app"></div><script id="main-script" type="systemjs-module" src="./main-638dd60c.js"></script><script async="">const splashscreenElement=document.querySelector("#splashscreen"),activateSplashscreenVariant=(e,t={})=>{const r=document.querySelector("#splashscreen-text");r.innerHTML="";const n=document.querySelector(`#${e}`).cloneNode(!0),a=e=>{"#text"===e.nodeName?e.textContent=e.textContent.replace(/\${(\w*)}/g,((e,r)=>t.hasOwnProperty(r)?t[r]:"")):Array.from(e.childNodes).forEach((e=>{a(e)}))};return a(n),r.appendChild(n),n},activateWaitingTimeout=setTimeout((()=>{activateSplashscreenVariant("waiting")}),2500),mainScript=document.querySelector("script#main-script");mainScript.onerror=()=>{clearTimeout(activateWaitingTimeout),activateSplashscreenVariant("network-error-screen")};const errorEventCallback=e=>{window.removeEventListener("error",errorEventCallback);const{message:t,filename:r,lineno:n,colno:a}=e;clearTimeout(activateWaitingTimeout),activateSplashscreenVariant("runtime-error-screen",{runtimeErrorTitle:r?`${r}:${n}:${a}`:"<No file associated with this error>",runtimeErrorMessage:t||"<No message associated with this error> (Check devtools to get more info)"})};window.addEventListener("error",errorEventCallback);const minTimeEllapsed=new Promise((e=>{setTimeout(e,700)}));window.splashscreen={remove:async()=>{clearTimeout(activateWaitingTimeout),window.removeEventListener("error",errorEventCallback),await minTimeEllapsed,splashscreenElement.setAttribute("data-step","loaded"),setTimeout((()=>{splashscreenElement.style.display="none"}),300)}};
-//# sourceMappingURL=main.140-b864ca07.js.map</script><script>window.addEventListener("beforeinstallprompt",(e=>{e.preventDefault(),window.beforeinstallpromptEvent=e}));
-//# sourceMappingURL=main.230-7e037a0d.js.map</script></body></html>
+<!DOCTYPE html><html><head><title>PWA Example</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="assets/favicon-25e95a00.png"><link rel="manifest" href="assets/pwa.webmanifest"><link rel="stylesheet" href="assets/app-0a9e1738.css"><script src="assets/s-11fb1c1b.js"></script><script type="systemjs-importmap" src="importmap.prod-a75280e0.importmap"></script><!--
+    Why importmap.prod.importmap?
+
+    - JS in this HTML page is the web application runned in "production mode"
+      -> importmap must contain a mapping for "#env": "./env.prod.js"
+    - JS can import code from files files located in node_modules/
+      -> importmap must contain mappings for every "dependencies" in package.json
+    --></head><body><noscript><h1>JavaScript est requis</h1><p>Cette page a besoin de Javascript pour fonctionner et JavaScript n'est pas disponible.</p></noscript><!--
+    Explanation of this HTMl file and why it's the way it is
+
+    First thing user sees is the HTML in this file. If HTML was empty,
+    user would see a blank page. To have something better to show, there is
+    inline HTML, CSS and JS to immediatly display something called "splashscreen".
+
+    splashscreen has several reponsabilities:
+    1. Be the first thing a user see
+    2. Load the main js file from network (boot/boot.js)
+    3. When loading main js takes times, invite user to wait
+    4. When loading fails (due to a network error), display an error message
+    5. When main js file throws, display an error message
+
+    As splashscreen is inline it loads instantly but it also means it cannot go too far
+    in terms of user experience and features: it should stay small and simple.
+    A good compromise is to enrich the splashscreen into boot/boot.js to provide a better loading experience
+    while the whole app is still loading
+
+    From user point of view it goes like this:
+    1. splashscreen is immediatly displayed
+    2. Very shortly after JS and CSS comes to improve the loading experience.
+    3. splashscreen fades away and website is displayed
+    --><div id="app" data-booting=""></div><style>#app[data-booting]{height:100%;overflow:hidden;visibility:hidden;width:100%}#splashscreen{align-items:center;animation-duration:.4s;animation-fill-mode:forwards;animation-name:splashin;background:#000;bottom:0;color:#fff;display:flex;flex-direction:column;left:0;opacity:0;position:fixed;right:0;top:0;z-index:1000}@keyframes splashin{0%{opacity:0}to{opacity:1}}#splashscreen[data-booting-done]{animation-delay:0;animation-duration:.3s;animation-fill-mode:forwards;animation-name:splashout}@keyframes splashout{0%{opacity:1}to{display:none;opacity:0}}#splashscreen_content{display:flex;flex:1;justify-content:center;width:80%}#boot_runtime_error{display:block}#boot_runtime_error details{max-width:500px}#boot_runtime_error details pre{overflow:auto}
+/*# sourceMappingURL=main.51-b8884e17.css.map */</style><div id="splashscreen"><h1>PWA template</h1><div id="splashscreen_content"></div><div style="display: none"><div id="booting_start"></div><div id="booting_is_slow">Booting...</div><div id="booting_error"><p>An error occured while booting</p><details><summary>See error stack</summary><pre id="boot_runtime_error_stack">${errorStack}</pre></details></div></div></div><script type="systemjs-module" src="./main.140.js"></script><script>window.addEventListener("beforeinstallprompt",(e=>{e.preventDefault(),window.beforeinstallpromptEvent=e}));
+//# sourceMappingURL=main.244-7e037a0d.js.map</script></body></html>

@@ -1,0 +1,3 @@
+System.register([],(function(e,t){"use strict";return{execute:async function(){var e=document.createElement("link");e.rel="stylesheet",e.href=new URL(System.resolve("./assets/boot-f0136001.css",t.meta.url),t.meta.url),document.head.appendChild(e);var s=document.createElement("img");s.src=new URL(System.resolve("./assets/logo-25e95a00.png",t.meta.url),t.meta.url),s.style.maxHeight="100px",document.querySelector("#splashscreen_content").appendChild(s),setTimeout((function(){window.splashscreen.takeOver()}),400),await t.import("./app.js")}}}));
+
+//# sourceMappingURL=boot-7a191b4f.js.map

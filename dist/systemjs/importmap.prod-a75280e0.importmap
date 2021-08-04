@@ -1,0 +1,1 @@
+{"imports":{"@jsenv/template-pwa":"./src/boot/boot.js","@jsenv/pwa":"./node_modules/@jsenv/pwa/main.js","#env":"./env.prod.js","src/":"./src/","./assets/boot.css":"./assets/boot-f0136001.css","./assets/logo.png":"./assets/logo-25e95a00.png","./app.js":"./app-ac5ccf89.js","./boot.js":"./boot-7a191b4f.js"},"scopes":{}}

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../main.230.js"
+    "../../main.244.js"
   ],
   "names": [
     "window",
@@ -13,5 +13,5 @@
   "sourcesContent": [
     "\n      // we have to register early to this event in case browser dispatch it quickly\n      // other scripts will have to check window.beforeinstallpromptEvent\n      // presence, otherwise listen the before install prompt event\n      window.addEventListener(\"beforeinstallprompt\", (beforeinstallpromptEvent) => {\n        beforeinstallpromptEvent.preventDefault()\n        window.beforeinstallpromptEvent = beforeinstallpromptEvent\n      })\n    "
   ],
-  "file": "main.230-7e037a0d.js"
+  "file": "main.244-7e037a0d.js"
 }

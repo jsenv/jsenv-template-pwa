@@ -1,0 +1,13 @@
+#splashscreen img {
+  animation: loading 1.3s ease-in-out infinite alternate;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.3);
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "file": "boot.js",
+  "sources": [
+    "../../src/boot/boot.js"
+  ],
+  "sourcesContent": [
+    "/**\n * This is where you can provide a great loading experience in case app.js\n * takes time to load. You could display a nice loading screen\n * with information regarding the app loading progress\n */\n\nconst link = document.createElement(\"link\")\nlink.rel = \"stylesheet\"\nlink.href = new URL(\"./boot.css\", import.meta.url)\ndocument.head.appendChild(link)\n\nconst logoImg = document.createElement(\"img\")\nlogoImg.src = new URL(\"../logo.png\", import.meta.url)\nlogoImg.style.maxHeight = \"100px\"\ndocument.querySelector(\"#splashscreen_content\").appendChild(logoImg)\n\n// artifically wait a bit before calling takeOver(), this is to show that\n// this file is allowed to take some time to actually render a loading screen\nsetTimeout(() => {\n  window.splashscreen.takeOver()\n}, 400)\n\nawait import(\"../app/app.js\")\n"
+  ],
+  "names": [
+    "link",
+    "document",
+    "createElement",
+    "rel",
+    "href",
+    "URL",
+    "System",
+    "import",
+    "head",
+    "appendChild",
+    "logoImg",
+    "src",
+    "style",
+    "maxHeight",
+    "querySelector",
+    "setTimeout",
+    "window",
+    "splashscreen",
+    "takeOver",
+    "module"
+  ],
+  "mappings": "+EAMA,IAAMA,EAAOC,SAASC,cAAc,QACpCF,EAAKG,IAAM,aACXH,EAAKI,KAAO,IAAIC,IAAIC,wDAAcC,YAClCN,SAASO,KAAKC,YAAYT,GAE1B,IAAMU,EAAUT,SAASC,cAAc,OACvCQ,EAAQC,IAAM,IAAIN,IAAIC,wDAAeC,YACrCG,EAAQE,MAAMC,UAAY,QAC1BZ,SAASa,cAAc,yBAAyBL,YAAYC,GAI5DK,YAAW,WACTC,OAAOC,aAAaC,aACnB,WAEGC,SAAO"
+}
