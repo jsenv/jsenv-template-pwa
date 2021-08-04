@@ -24,7 +24,7 @@
   "importmap": "./project.importmap",
   "scripts": {
     "start": "node ./script/start/start.mjs",
-    "eslint-check": "node ./node_modules/eslint/bin/eslint.js .",
+    "eslint-check": "node ./node_modules/eslint/bin/eslint.js . --ext=.html,.js",
     "dist": "npm run build",
     "test": "node ./script/test/test.mjs",
     "generate-importmap": "node ./script/importmap/generate_importmap.mjs",
