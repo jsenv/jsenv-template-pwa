@@ -9,11 +9,10 @@
  * self.config is an object that can be used to configure
  * the service worker behaviour implemented in "service-worker.main.js".
  *
- * Read more in https://github.com/jsenv/jsenv-pwa/blob/master/docs/jsenv-service-worker.md#configuration
+ * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration
  *
  */
 
-/* eslint-env worker */
 /* globals self */
 
 self.importScripts("./node_modules/@jsenv/pwa/src/service-worker.setup.js")

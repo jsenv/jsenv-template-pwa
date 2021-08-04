@@ -13,7 +13,7 @@ await buildProject({
     "./main.html": "./main.prod.html",
   },
   serviceWorkers: {
-    "./service-worker.js": "./service-worker.js",
+    "./service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   // disable preserveEntrySignatures otherwise an empty (and useless) file is generated
