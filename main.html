@@ -7,6 +7,17 @@
     <link rel="icon" href="./icons/favicon.png" />
     <link rel="manifest" href="./pwa.webmanifest" />
     <link rel="stylesheet" href="./src/app/app.css" />
+
+    <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      as="font"
+      crossorigin
+    />
+    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
+    <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
+
     <script type="importmap" src="./importmap.prod.importmap"></script>
     <!--
     Why importmap.prod.importmap?
@@ -64,8 +75,8 @@
         top: 0;
         right: 0;
         bottom: 0;
-        background: black;
-        color: white;
+        background-color: #030713;
+        color: #a9a8a8;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -85,6 +96,44 @@
           /* transform: scale(1); */
         }
       }
+      #splashscreen_logo {
+        margin: 2em;
+      }
+      #splashscreen_brand {
+        font-size: 2em;
+        color: orange;
+      }
+      #splashscreen_message {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        width: 80%;
+        max-width: 40em;
+        margin: 2em;
+      }
+      #booting_error {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+      #booting_error p {
+        display: inline-block;
+        color: #ba3939;
+        background: #ffe0e0;
+        border: 1px solid #a33a3a;
+        padding: 1em 3em;
+      }
+      #booting_error details {
+        display: inline-block;
+        max-width: 100%;
+      }
+      #booting_error details summary {
+        text-align: center;
+      }
+      #booting_error details pre {
+        text-align: left;
+        overflow: auto;
+      }
 
       #splashscreen[data-booting-done] {
         animation-delay: 0;
@@ -102,34 +151,19 @@
           display: none;
         }
       }
-
-      #splashscreen_content {
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        width: 80%;
-      }
-
-      #boot_runtime_error {
-        display: block;
-      }
-
-      #boot_runtime_error details {
-        max-width: 500px;
-      }
-
-      #boot_runtime_error details pre {
-        overflow: auto;
-      }
     </style>
     <div id="splashscreen">
-      <h1>PWA template</h1>
-      <div id="splashscreen_content"></div>
+      <div id="splashscreen_logo">
+        <img src="./src/logo.png" data-jsenv-build-force-inline />
+      </div>
+      <div id="splashscreen_brand">PWA template</div>
+      <div id="splashscreen_message"></div>
       <div style="display: none">
         <div id="booting_start"></div>
         <div id="booting_is_slow">Booting...</div>
         <div id="booting_error">
           <p>An error occured while booting</p>
+          <br />
           <details>
             <summary>See error stack</summary>
             <pre id="boot_runtime_error_stack">${errorStack}</pre>
@@ -217,13 +251,13 @@
       const setBootingState = (nextBootingState, data = {}) => {
         //  bootingState = nextBootingState
 
-        const splashscreenContent = document.querySelector("#splashscreen_content")
-        splashscreenContent.innerHTML = ""
+        const splashscreenMessageNode = document.querySelector("#splashscreen_message")
+        splashscreenMessageNode.innerHTML = ""
         const variantModel = document.querySelector(`#${nextBootingState}`)
         const variantInstance = variantModel.cloneNode(true)
 
         replaceNodeVariables(variantInstance, data)
-        splashscreenContent.appendChild(variantInstance)
+        splashscreenMessageNode.appendChild(variantInstance)
       }
 
       const replaceNodeVariables = (node, data) => {

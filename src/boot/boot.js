@@ -1,23 +1,45 @@
 /**
- * This is where you can provide a great loading experience in case app.js
- * takes time to load. You could display a nice loading screen
- * with information regarding the app loading progress
+ * This is where you can orchestrate the loading of your application
  */
 
-const link = document.createElement("link")
-link.rel = "stylesheet"
-link.href = new URL("./boot.css", import.meta.url)
-document.head.appendChild(link)
+import { injectCSS, nextIDLEPromise } from "./boot.utils.js"
 
-const logoImg = document.createElement("img")
-logoImg.src = new URL("../logo.png", import.meta.url)
-logoImg.style.maxHeight = "100px"
-document.querySelector("#splashscreen_content").appendChild(logoImg)
-
-// artifically wait a bit before calling takeOver(), this is to show that
-// this file is allowed to take some time to actually render a loading screen
-setTimeout(() => {
+const prepareApp = async () => {
+  await injectCSS(new URL("./boot.css", import.meta.url), { crossOrigin: true }).catch(() => {})
+  await document.fonts.ready
+  // window.splashscreen.takeOver() means this code is taking responsability of the splashscreen.
+  // It prevents main.html to display <div id="booting_is_slow"></div> to the user
   window.splashscreen.takeOver()
-}, 400)
 
-await import("../app/app.js")
+  const updateSplascreenText = (message) => {
+    const splashscreenMessageNode = document.querySelector("#splashscreen_message")
+    splashscreenMessageNode.innerHTML = message
+  }
+
+  updateSplascreenText(`Loading banana...`)
+  await new Promise((resolve) => {
+    setTimeout(resolve, 300)
+  })
+
+  updateSplascreenText(`Loading gorilla...`)
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000)
+  })
+
+  updateSplascreenText(`Loading the entire jungle...`)
+  await new Promise((resolve) => {
+    setTimeout(resolve, 2500)
+  })
+}
+
+const loadApp = () => {
+  return import("../app/app.js")
+}
+
+const [, app] = await Promise.all([prepareApp(), loadApp()])
+// app.render() can be very expensive so we wait a bit
+// to let navigator an opportunity to cooldown.
+// This should help to save battery power and RAM
+await nextIDLEPromise()
+app.render()
+window.splashscreen.appIsReady()

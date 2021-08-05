@@ -7,12 +7,10 @@
 import "src/app/pwa/pwa.js"
 import { greet } from "src/app/greet.js"
 
-document.querySelector("#app").innerHTML = `
+export const render = () => {
+  document.querySelector("#app").innerHTML = `
 
 <img src=${new URL("../logo.png", import.meta.url)} width="64" />
 
 <p>${greet()}</p>`
-
-document.fonts.ready.then(() => {
-  window.splashscreen.appIsReady()
-})
+}
