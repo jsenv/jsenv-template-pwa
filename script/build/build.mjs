@@ -20,6 +20,7 @@ await buildProject({
   // as main js entry point
   preserveEntrySignatures: false,
   minify: true,
+  // logLevel: "debug",
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
