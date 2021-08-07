@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@jsenv/template-pwa": "./src/boot/boot.js",
+    "@jsenv/pwa": "./node_modules/@jsenv/pwa/main.js",
+    "#env": "./env.prod.js",
+    "src/": "./src/",
+    "./assets/boot.css": "./assets/boot-a54dc422.css",
+    "./assets/logo.png": "./assets/logo-25e95a00.png",
+    "./aapp.js": "./aapp-16dff977.js",
+    "./main.174.js": "./main.174-6011e565.js",
+    "./sboboot.js": "./sboboot-d4c59215.js",
+    "./unsupportedIterableToArray.js": "./unsupportedIterableToArray-8cbfb09a.js"
+  },
+  "scopes": {}
+}

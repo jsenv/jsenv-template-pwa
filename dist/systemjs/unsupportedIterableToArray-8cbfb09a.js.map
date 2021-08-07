@@ -1,0 +1,23 @@
+{
+  "version": 3,
+  "sources": [
+    "../../node_modules/@jsenv/core/helpers/babel/arrayLikeToArray/arrayLikeToArray.js",
+    "../../node_modules/@jsenv/core/helpers/babel/unsupportedIterableToArray/unsupportedIterableToArray.js"
+  ],
+  "names": [
+    "len",
+    "arr",
+    "arr2",
+    "i",
+    "arrayLikeToArray",
+    "n",
+    "Object",
+    "o",
+    "Array"
+  ],
+  "mappings": ";;;;;;;;;AAAA;;AACe,eAAA,gBAAA,CAAA,GAAA,EAAA,GAAA,EAAoC;AACjD,YAAIA,GAAG,IAAHA,IAAAA,IAAeA,GAAG,GAAGC,GAAG,CAA5B,MAAA,EAAqCD,GAAG,GAAGC,GAAG,CAATD,MAAAA;AACrC,YAAIE,IAAI,GAAG,IAAA,KAAA,CAAX,GAAW,CAAX;;AACA,aAAK,IAAIC,CAAC,GAAV,CAAA,EAAgBA,CAAC,GAAjB,GAAA,EAAyBA,CAAzB,EAAA,EAAA;AAA8BD,UAAAA,IAAI,CAAJA,CAAI,CAAJA,GAAUD,GAAG,CAAbC,CAAa,CAAbA;AAA9B;;AACA,eAAA,IAAA;AACD;ACND;;;AAGe,eAAA,0BAAA,CAAA,CAAA,EAAA,MAAA,EAA+C;AAC5D,YAAI,CAAJ,CAAA,EAAQ;AACR,YAAI,OAAA,CAAA,KAAJ,QAAA,EAA2B,OAAOE,gBAAgB,CAAA,CAAA,EAAvB,MAAuB,CAAvB;AAC3B,YAAIC,CAAC,GAAGC,MAAM,CAANA,SAAAA,CAAAA,QAAAA,CAAAA,IAAAA,CAAAA,CAAAA,EAAAA,KAAAA,CAAAA,CAAAA,EAA2C,CAAnD,CAAQA,CAAR;AACA,YAAID,CAAC,KAADA,QAAAA,IAAkBE,CAAC,CAAvB,WAAA,EAAqCF,CAAC,GAAGE,CAAC,CAADA,WAAAA,CAAJF,IAAAA;AACrC,YAAIA,CAAC,KAADA,KAAAA,IAAeA,CAAC,KAApB,KAAA,EAAgC,OAAOG,KAAK,CAALA,IAAAA,CAAP,CAAOA,CAAP;AAChC,YAAIH,CAAC,KAADA,WAAAA,IAAqB,2CAAA,IAAA,CAAzB,CAAyB,CAAzB,EACE,OAAOD,gBAAgB,CAAA,CAAA,EAAvB,MAAuB,CAAvB;AACH",
+  "sourcesContent": [
+    "/* eslint-disable no-eq-null, eqeqeq */\nexport default function arrayLikeToArray(arr, len) {\n  if (len == null || len > arr.length) len = arr.length\n  var arr2 = new Array(len)\n  for (var i = 0; i < len; i++) arr2[i] = arr[i]\n  return arr2\n}\n",
+    "/* eslint-disable consistent-return */\nimport arrayLikeToArray from \"../arrayLikeToArray/arrayLikeToArray.js\"\n\nexport default function unsupportedIterableToArray(o, minLen) {\n  if (!o) return\n  if (typeof o === \"string\") return arrayLikeToArray(o, minLen)\n  var n = Object.prototype.toString.call(o).slice(8, -1)\n  if (n === \"Object\" && o.constructor) n = o.constructor.name\n  if (n === \"Map\" || n === \"Set\") return Array.from(o)\n  if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))\n    return arrayLikeToArray(o, minLen)\n}\n"
+  ]
+}

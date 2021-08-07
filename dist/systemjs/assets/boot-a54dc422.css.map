@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "sources": [
+    "../../../src/boot/boot.css"
+  ],
+  "names": [],
+  "mappings": "AAAA,8DAA8D;;AAE9D;EACE,mBAAmB;AACrB",
+  "file": "boot-a54dc422.css",
+  "sourcesContent": [
+    "@import url(\"https://fonts.googleapis.com/css2?family=Roboto\");\n\n#splashscreen {\n  font-family: Roboto;\n}\n"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "sources": [
+    "../../.jsenv/out-build/otherwise/main.174.js"
+  ],
+  "names": [
+    "window",
+    "takeOver",
+    "appIsReady",
+    "appNode",
+    "document",
+    "splashscreenNode",
+    "BOOTING_START",
+    "BOOTING_IS_SLOW",
+    "BOOTING_ERROR",
+    "boot",
+    "bootingIsSlowTimeout",
+    "setTimeout",
+    "setBootingState",
+    "clearTimeout",
+    "minMsEllapsed",
+    "errorStack",
+    "error",
+    "args",
+    "i",
+    "arguments",
+    "Promise",
+    "f",
+    "data",
+    "splashscreenMessageNode",
+    "variantModel",
+    "variantInstance",
+    "replaceNodeVariables",
+    "then",
+    "value",
+    "node",
+    "textContent",
+    "Array",
+    "from",
+    "forEach",
+    "result",
+    "body",
+    "recover"
+  ],
+  "mappings": "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",
+  "sourcesContent": [
+    "\n      window.splashscreen = {\n        /*\n         * takeOver is implemented later in this script.\n         * takeOver is meant to be called by code that want to take responsability\n         * of what is displayed in the splashscreen\n         *\n         * It is used by boot/boot.js once it starts to render a different UI in the splashscreen\n         */\n        takeOver: () => {},\n        /*\n         * appIsReady is implemented later in this script.\n         * appIsReady is meant to be called once the app inside <div id=\"app\"></div>\n         * is ready to be displayed to the user (HTML rendered and CSS, images, fonts, ... are loaded).\n         *\n         * It is used by app/app.js once it has rendered the HTML and font is loaded\n         */\n        appIsReady: () => {},\n      }\n\n      const appNode = document.querySelector(\"#app\")\n      const splashscreenNode = document.querySelector(\"#splashscreen\")\n\n      const BOOTING_START = \"booting_start\"\n      const BOOTING_IS_SLOW = \"booting_is_slow\"\n      const BOOTING_ERROR = \"booting_error\"\n\n      const boot = async () => {\n        // In case page takes more than 2,5s to boot\n        const bootingIsSlowTimeout = setTimeout(() => {\n          setBootingState(BOOTING_IS_SLOW)\n        }, 2500)\n        // De-comment the await below to test the case where boot is slow\n        // await new Promise((resolve) => {\n        //   setTimeout(resolve, 3500)\n        // })\n\n        window.splashscreen.takeOver = () => {\n          clearTimeout(bootingIsSlowTimeout)\n        }\n\n        // In case boot main file loads and execute fast, splashscreen would\n        // fadein + fadeout too soon creating a blink.\n        // -> To prevent the blink we wait at leat 700ms before actually removing the splashscreen\n        // Other strategies are valid and could be preferred instead of this one.\n        const minMsEllapsed = new Promise((resolve) => {\n          setTimeout(resolve, 700)\n        })\n        window.splashscreen.appIsReady = async () => {\n          clearTimeout(bootingIsSlowTimeout)\n          appNode.removeAttribute(\"data-booting\")\n\n          await minMsEllapsed\n          splashscreenNode.setAttribute(\"data-booting-done\", \"\")\n          // Wait the end of the \"splashout\" animation before killing splashscreen entirely\n          setTimeout(() => {\n            // Here splashscreen is \"killed\" with display: 'none' but it could also\n            // be removed from the DOM\n            splashscreenNode.style.display = \"none\"\n          }, 300)\n        }\n\n        try {\n          setBootingState(BOOTING_START)\n          await import(\"./src/boot/boot.js\")\n        } catch (error) {\n          clearTimeout(bootingIsSlowTimeout)\n\n          setBootingState(BOOTING_ERROR, {\n            errorStack:\n              error.stack ||\n              `<No stack associated with this error> (Check devtools to get more info)`,\n          })\n          throw error\n        }\n      }\n\n      const setBootingState = (nextBootingState, data = {}) => {\n        //  bootingState = nextBootingState\n\n        const splashscreenMessageNode = document.querySelector(\"#splashscreen_message\")\n        splashscreenMessageNode.innerHTML = \"\"\n        const variantModel = document.querySelector(`#${nextBootingState}`)\n        const variantInstance = variantModel.cloneNode(true)\n\n        replaceNodeVariables(variantInstance, data)\n        splashscreenMessageNode.appendChild(variantInstance)\n      }\n\n      const replaceNodeVariables = (node, data) => {\n        if (node.nodeName === \"#text\") {\n          node.textContent = node.textContent.replace(/\\${(\\w*)}/g, (_, key) => {\n            return data.hasOwnProperty(key) ? data[key] : \"\"\n          })\n          return\n        }\n\n        Array.from(node.childNodes).forEach((node) => {\n          replaceNodeVariables(node, data)\n        })\n      }\n\n      boot()\n    "
+  ]
+}

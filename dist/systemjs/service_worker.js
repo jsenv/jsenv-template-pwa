@@ -1,2 +1,750 @@
-self.generatedUrlsConfig={"assets/app-0a9e1738.css":{versioned:!0},"assets/boot-f0136001.css":{versioned:!0},"assets/favicon-25e95a00.png":{versioned:!0},"assets/logo-25e95a00.png":{versioned:!0},"assets/pwa-icon-574c1c76.png":{versioned:!0},"assets/pwa.webmanifest":{versioned:!1,version:"0f3bbf19"},"assets/s-11fb1c1b.js":{versioned:!0},"app-ac5ccf89.js":{versioned:!0},"boot-7a191b4f.js":{versioned:!0},"importmap.prod-a75280e0.importmap":{versioned:!0},"main.140.js":{versioned:!1,version:"cd188bad"},"main.prod.html":{versioned:!1,version:"ea559676"}},self.config={},self.config.cachePrefix="jsenv",self.generatedUrlsConfig=self.generatedUrlsConfig||{},self.config.manualUrlsConfig={"/":{}},self.config.shouldHandleRequest=(e,{requestWasCachedOnInstall:n})=>("GET"===e.method||"HEAD"===e.method)&&n,self.config.shouldCleanOnActivate=(e,n,{requestWasCachedOnInstall:t})=>!t,self.config.logLevel="warn",self.config.logsBackgroundColor="#ffdc00",self.config.navigationPreloadEnabled=!1,self.config.actions={ping:()=>"pong"},self.config.cachePrefix="pwa-template";const assertContextLooksGood=()=>{const{generatedUrlsConfig:e}=self;if(void 0===e)self.generatedUrlsConfig={};else if("object"!=typeof e)throw new TypeError(`self.generatedUrlsConfig should be an object, got ${e}`);if(void 0===typeof config)throw new Error("config is not in scope, be sure to import sw.preconfig.js before sw.jsenv.js");const{manualUrlsConfig:n}=config;if("object"!=typeof n)throw new TypeError(`config.manualUrlsConfig should be an array, got ${n}`);const{cachePrefix:t}=config;if("string"!=typeof t)throw new TypeError(`config.cachePrefix should be a string, got ${t}`);if(0===t.length)throw new TypeError("config.cachePrefix must not be empty");const{shouldCleanOnActivate:o}=config;if("function"!=typeof o)throw new TypeError(`config.shouldCleanOnActivate should be a function, got ${o}`);const{shouldHandleRequest:r}=config;if("function"!=typeof r)throw new TypeError(`config.shouldHandleRequest should be a function, got ${r}`);const{logLevel:a}=config;if("string"!=typeof a)throw new TypeError(`config.logLevel should be a boolean, got ${a}`);const{logsBackgroundColor:s}=config;if("string"!=typeof s)throw new TypeError(`config.logsBackgroundColor should be a string, got ${s}`);const{navigationPreloadEnabled:c}=config;if("boolean"!=typeof c)throw new TypeError(`config.navigationPreloadEnabled should be a boolean, got ${c}`)},getUtil=()=>{const e={};e.createLogger=({logLevel:e,logsBackgroundColor:n})=>{const t=e=>(...t)=>console[e](...((...e)=>["%csw",`background: ${n}; color: black; padding: 1px 3px; margin: 0 1px`,...e])(...t)),o=t("debug"),r=t("info"),a=t("warn"),s=t("error"),c=()=>{};if("debug"===e)return{debug:o,info:r,warn:a,error:s};if("info"===e)return{debug:c,info:r,warn:a,error:s};if("warn"===e)return{debug:c,info:c,warn:a,error:s};if("error"===e)return{debug:c,info:c,warn:c,error:s};if("off"===e)return{debug:c,info:c,warn:c,error:c};throw new Error(`unknown logLevel, got ${e}`)},e.resolveUrl=e=>String(new URL(e,self.location));{e.responseUsesLongTermCaching=e=>{const t=e.headers.get("cache-control"),o=n(t);return o&&o>0};const n=e=>{if(!e||0===e.length)return null;const n=e.match(/([a-zA-Z][a-zA-Z_-]*)\s*(?:=(?:"([^"]*)"|([^ \t",;]*)))?/g)||[],o={};return Array.from(n).forEach((e=>{const n=e.split("=",2),[t]=n;let r=null;n.length>1&&(r=n[1].trim()),o[t.toLowerCase()]=r})),t(o["max-age"])},t=e=>{if(!e)return null;const n=Number.parseInt(e,10);return!Number.isFinite(n)||n<0?null:n}}{e.getCacheName=({cachePrefix:e})=>`${e}${c()}`;const n=36,t=4,o=Math.pow(n,t),r=(e,n)=>{var t=`000000000${e}`;return t.substr(t.length-n)},a=(()=>{const{crypto:e}=self;if(e){const n=Math.pow(2,32)-1;return()=>Math.abs(e.getRandomValues(new Uint32Array(1))[0]/n)}return Math.random})(),s=()=>r((a()*o<<0).toString(n),t),c=()=>`${(new Date).getTime().toString(n)}${`${s()}${s()}`}`}{e.readUrlConfig=()=>{const t={...self.generatedUrlsConfig,...config.manualUrlsConfig},o=[],r=[],a={};return n(t,((n,t)=>{t||(t={cache:!1}),!0===t&&(t={cache:!0});const{cache:s=!0,versioned:c=!1,alias:l}=t;s&&(o.push(n),c||r.push(n)),l&&(a[n]=e.resolveUrl(l))})),{urlsToCacheOnInstall:o,urlsToReloadOnInstall:r,urlMapping:a}};const n=(n,t)=>{const o=[];Object.keys(n).forEach((r=>{const a=e.resolveUrl(r);o.includes(a)||(o.push(a),t(a,n[r]))}))}}return e.redirectRequest=async(e,n)=>{const{mode:t}=e;if("navigate"!==t)return new Request(n,e);const o=e.clone(),{body:r,credentials:a,headers:s,integrity:c,referrer:l,referrerPolicy:i}=o,g=r?Promise.resolve(r):o.blob(),f=await g;return new Request(n,{body:f,credentials:a,headers:s,integrity:c,referrer:l,referrerPolicy:i,mode:"same-origin",redirect:"manual"})},e};assertContextLooksGood();const util=getUtil(),cacheName=util.getCacheName(config),logger=util.createLogger(config),{urlsToCacheOnInstall:urlsToCacheOnInstall,urlsToReloadOnInstall:urlsToReloadOnInstall,urlMapping:urlMapping}=util.readUrlConfig(config);logger.info(`cache key: ${cacheName}`);const install=async()=>{logger.info("install start");try{const e=urlsToCacheOnInstall.length;let n=0;await Promise.all(urlsToCacheOnInstall.map((async e=>{try{const t=urlsToReloadOnInstall.includes(e),o=new Request(e,{...t?{cache:"reload"}:{}});await fetchAndCache(o,{oncache:()=>{n+=1}})}catch(n){logger.warn(`cannot put ${e} in cache due to error while fetching: ${n.stack}`)}}))),n===e?logger.info(`install done (${e} urls added in cache)`):logger.info(`install done (${n}/${e} urls added in cache)`)}catch(e){logger.error(`install error: ${e.stack}`)}};self.addEventListener("install",(e=>{e.waitUntil(install())}));const handleRequest=async(e,n)=>{logger.debug(`received fetch event for ${e.url}`);try{const t=await self.caches.match(e);if(t)return logger.debug(`respond with response from cache for ${e.url}`),t;const o=await n.preloadResponse;if(o)return logger.debug(`respond with preloaded response for ${e.url}`),o}catch(n){return logger.warn(`error while trying to use cache for ${e.url}`,n.stack),fetch(e)}return logger.debug(`no cache for ${e.url}, fetching it`),fetchAndCache(e)},remapRequest=e=>{if(Object.prototype.hasOwnProperty.call(urlMapping,e.url)){const n=urlMapping[e.url];return logger.debug(`redirect request from ${e.url} to ${n}`),util.redirectRequest(e,n)}return e};self.addEventListener("fetch",(e=>{const n=remapRequest(e.request);if(config.shouldHandleRequest(n,{requestWasCachedOnInstall:urlsToCacheOnInstall.includes(n.url)})){const t=handleRequest(n,e);t&&e.respondWith(t)}}));const activate=async()=>{logger.info("activate start"),await Promise.all([enableNavigationPreloadIfPossible(),deleteOtherUrls(),deleteOtherCaches()]),logger.info("activate done")},enableNavigationPreloadIfPossible=async()=>{config.navigationPreloadEnabled&&self.registration.navigationPreload&&await self.registration.navigationPreload.enable()},deleteOtherUrls=async()=>{const e=await self.caches.open(cacheName),n=await e.keys();await Promise.all(n.map((async n=>{const t=await e.match(n);config.shouldCleanOnActivate(t,n,{requestWasCachedOnInstall:urlsToCacheOnInstall.includes(n.url)})&&(logger.info(`delete ${n.url}`),await e.delete(n))})))},deleteOtherCaches=async()=>{const e=await self.caches.keys();await Promise.all(e.map((async e=>{e!==cacheName&&e.startsWith(config.cachePrefix)&&(logger.info(`delete cache ${e}`),await self.caches.delete(e))})))};self.addEventListener("activate",(e=>{const n=activate();n&&e.waitUntil(n)}));const actions={skipWaiting:()=>{self.skipWaiting()},refreshCacheKey:async e=>{e=util.resolveUrl(e);return(await fetchAndCache(new Request(e,{cache:"reload"}))).status},addCacheKey:async e=>{e=util.resolveUrl(e);return(await fetchAndCache(e)).status},removeCacheKey:async e=>{e=util.resolveUrl(e);const n=await self.caches.open(cacheName);return await n.delete(e)},...config.actions};self.addEventListener("message",(async e=>{const{data:n}=e;if("object"!=typeof n)return;const{action:t}=n,o=actions[t];if(!o)return;const{payload:r}=n;let a,s;try{const e=await o(r,{cacheName:cacheName});a="resolved",s=e}catch(e){a="rejected",s=e}e.ports[0].postMessage({status:a,value:s})}));const fetchAndCache=async(e,{oncache:n}={})=>{const[t,o]=await Promise.all([fetchUsingNetwork(e),getCache()]);if(200===t.status){logger.debug(`fresh response found for ${e.url}, put it in cache and respond with it`);const r=await responseToResponseForCache(t),a=o.put(e,r);return n&&(await a,n()),t}return logger.warn(`cannot put ${e.url} in cache due to response status (${t.status})`),t},responseToResponseForCache=async e=>{const n=e.clone();if(!e.redirected)return n;const t="body"in n?Promise.resolve(n.body):n.blob(),o=await t;return new Response(o,{headers:n.headers,status:n.status,statusText:n.statusText})},fetchUsingNetwork=async e=>{const n=new AbortController,{signal:t}=n;try{return await fetch(e,{signal:t})}catch(e){throw n.abort(),e}},getCache=async()=>await self.caches.open(cacheName);
+
+self.generatedUrlsConfig = {
+  "assets/app-03338442.css": {
+    "versioned": true
+  },
+  "assets/boot-a54dc422.css": {
+    "versioned": true
+  },
+  "assets/favicon-25e95a00.png": {
+    "versioned": true
+  },
+  "assets/logo-25e95a00.png": {
+    "versioned": true
+  },
+  "assets/pwa-icon-574c1c76.png": {
+    "versioned": true
+  },
+  "assets/pwa.webmanifest": {
+    "versioned": false,
+    "version": "e69304a1"
+  },
+  "assets/s-11fb1c1b.js": {
+    "versioned": true
+  },
+  "aapp-16dff977.js": {
+    "versioned": true
+  },
+  "importmap.prod-3c9451ca.importmap": {
+    "versioned": true
+  },
+  "main.174-6011e565.js": {
+    "versioned": true
+  },
+  "main.prod.html": {
+    "versioned": false,
+    "version": "a8cbc7f7"
+  },
+  "sboboot-d4c59215.js": {
+    "versioned": true
+  },
+  "unsupportedIterableToArray-8cbfb09a.js": {
+    "versioned": true
+  }
+}
+/*
+ * This file is the service worker file of this pwa.
+ *
+ * It is importing two files:
+ * ./node_modules/@jsenv/pwa/src/service-worker.setup.js
+ * ./node_modules/@jsenv/pwa/src/service-worker.main.js
+ *
+ * "service-worker.setup.js" creates self.config variable.
+ * self.config is an object that can be used to configure
+ * the service worker behaviour implemented in "service-worker.main.js".
+ *
+ * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration
+ *
+ */
+
+/* globals self */
+
+/* globals self */
+self.config = {};
+self.config.cachePrefix = `jsenv`;
+/*
+ * When installed, service worker will try to put a list of urls into browser cache.
+ * This is done by "install" function in service-worker.main.js.
+ * Urls will be cached as long as service worker is alive.
+ *
+ * The list of urls to cache on install is the composition of:
+ * - self.generatedUrlsConfig
+ * - self.config.manualUrlsConfig
+ *
+ * self.generatedUrlsConfig is meant to be generated by an automated process.
+ * During the build "@jsenv/core" injects self.generatedUrlsConfig into the service
+ * worker file.
+ *
+ * self.config.manualUrlsConfig is where you can add url not handled by jsenv during build.
+ */
+
+self.generatedUrlsConfig = self.generatedUrlsConfig || {};
+self.config.manualUrlsConfig = {
+  "/": {}
+};
+/*
+ * Decides if the request will be handled by the service worker or not.
+ * When returning true, the response for that request will come from cache. If not cached
+ * response is fetched from network and put into cache.
+ * When returning false, the default navigator behaviour applies, as if there was no service worker.
+ *
+ * The implementation below means only GET or HEAD requests cached during install
+ * are handled by the service worker.
+ */
+
+self.config.shouldHandleRequest = (request, {
+  requestWasCachedOnInstall
+}) => {
+  if (request.method !== "GET" && request.method !== "HEAD") return false;
+  return requestWasCachedOnInstall;
+};
+/*
+ * Whenever you change something in this file, such as config.cachePrefix
+ * or config.manualUrlsConfig, browser reinstalls the service worker.
+ * When service worker activates, it is responsible to clean the cache
+ * used by the previous service worker version.
+ *
+ * This logic must be implemented using config.shouldCleanOnActivate
+ * function below.
+ *
+ * shouldCleanOnActivate(response, request)
+ *
+ * It is a function that will be used to decide if a cached response must be deleted
+ * when service worker activates.
+ *
+ * The implementation below tells to delete cache for any request not cached during install.
+ * It means that every request where "shouldHandleRequest" returned true
+ * in the previous worker but false in the new worker, that request cached is deleted.
+ */
+
+
+self.config.shouldCleanOnActivate = (response, request, {
+  requestWasCachedOnInstall
+}) => !requestWasCachedOnInstall;
+
+self.config.logLevel = "warn";
+self.config.logsBackgroundColor = "#ffdc00"; // nice yellow
+
+self.config.navigationPreloadEnabled = false;
+self.config.actions = {
+  ping: () => "pong"
+};
+self.config.cachePrefix = "pwa-template"; // self.config.logLevel = "debug"
+
+/**
+ * https://web.dev/service-worker-caching-and-http-caching/
+ * https://stackoverflow.com/questions/33262385/service-worker-force-update-of-new-assets/64880568#64880568
+ * https://gomakethings.com/how-to-set-an-expiration-date-for-items-in-a-service-worker-cache/
+ * https://phyks.me/2019/01/manage-expiration-of-cached-assets-with-service-worker-caching.html
+
+ * https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+ * https://github.com/deanhume/pwa-update-available
+ * https://deanhume.com/displaying-a-new-version-available-progressive-web-app/
+ * https://raw.githubusercontent.com/GoogleChromeLabs/sw-precache/master/service-worker.tmpl
+ *
+ * Do not use relative self.importScripts in there because
+ * They are resolved against self.location. It means
+ * ./file.js would be resoled against the project root
+*/
+
+/* globals self, config */
+const assertContextLooksGood = () => {
+  const {
+    generatedUrlsConfig
+  } = self;
+
+  if (generatedUrlsConfig === undefined) {
+    self.generatedUrlsConfig = {};
+  } else if (typeof generatedUrlsConfig !== "object") {
+    throw new TypeError(`self.generatedUrlsConfig should be an object, got ${generatedUrlsConfig}`);
+  }
+
+  if (typeof config === undefined) {
+    throw new Error(`config is not in scope, be sure to import sw.preconfig.js before sw.jsenv.js`);
+  }
+
+  const {
+    manualUrlsConfig
+  } = config;
+
+  if (typeof manualUrlsConfig !== "object") {
+    throw new TypeError(`config.manualUrlsConfig should be an array, got ${manualUrlsConfig}`);
+  }
+
+  const {
+    cachePrefix
+  } = config;
+
+  if (typeof cachePrefix !== "string") {
+    throw new TypeError(`config.cachePrefix should be a string, got ${cachePrefix}`);
+  }
+
+  if (cachePrefix.length === 0) {
+    throw new TypeError(`config.cachePrefix must not be empty`);
+  }
+
+  const {
+    shouldCleanOnActivate
+  } = config;
+
+  if (typeof shouldCleanOnActivate !== "function") {
+    throw new TypeError(`config.shouldCleanOnActivate should be a function, got ${shouldCleanOnActivate}`);
+  }
+
+  const {
+    shouldHandleRequest
+  } = config;
+
+  if (typeof shouldHandleRequest !== "function") {
+    throw new TypeError(`config.shouldHandleRequest should be a function, got ${shouldHandleRequest}`);
+  }
+
+  const {
+    logLevel
+  } = config;
+
+  if (typeof logLevel !== "string") {
+    throw new TypeError(`config.logLevel should be a boolean, got ${logLevel}`);
+  }
+
+  const {
+    logsBackgroundColor
+  } = config;
+
+  if (typeof logsBackgroundColor !== "string") {
+    throw new TypeError(`config.logsBackgroundColor should be a string, got ${logsBackgroundColor}`);
+  }
+
+  const {
+    navigationPreloadEnabled
+  } = config;
+
+  if (typeof navigationPreloadEnabled !== "boolean") {
+    throw new TypeError(`config.navigationPreloadEnabled should be a boolean, got ${navigationPreloadEnabled}`);
+  }
+};
+/*
+ * util is an object holding utility functions.
+ * The utility concept was added just to structure a bit this file.
+ * When a utility need private helpers function, it's wrapped in {}
+ * to highlight that thoose are private functions
+ * The {} pattern was choosed because it allows to have private helpers
+ * such as parseMaxAge. Not possible to do that with a plain object.
+ */
+
+
+const getUtil = () => {
+  const util = {};
+
+  util.createLogger = ({
+    logLevel,
+    logsBackgroundColor
+  }) => {
+    const prefixArgs = (...args) => {
+      return [`%csw`, `background: ${logsBackgroundColor}; color: black; padding: 1px 3px; margin: 0 1px`, ...args];
+    };
+
+    const createLogMethod = method => (...args) => console[method](...prefixArgs(...args));
+
+    const debug = createLogMethod("debug");
+    const info = createLogMethod("info");
+    const warn = createLogMethod("warn");
+    const error = createLogMethod("error");
+
+    const noop = () => {};
+
+    if (logLevel === "debug") {
+      return {
+        debug,
+        info,
+        warn,
+        error
+      };
+    }
+
+    if (logLevel === "info") {
+      return {
+        debug: noop,
+        info,
+        warn,
+        error
+      };
+    }
+
+    if (logLevel === "warn") {
+      return {
+        debug: noop,
+        info: noop,
+        warn,
+        error
+      };
+    }
+
+    if (logLevel === "error") {
+      return {
+        debug: noop,
+        info: noop,
+        warn: noop,
+        error
+      };
+    }
+
+    if (logLevel === "off") {
+      return {
+        debug: noop,
+        info: noop,
+        warn: noop,
+        error: noop
+      };
+    }
+
+    throw new Error(`unknown logLevel, got ${logLevel}`);
+  };
+
+  util.resolveUrl = string => String(new URL(string, self.location));
+
+  {
+    util.responseUsesLongTermCaching = responseInCache => {
+      const cacheControlResponseHeader = responseInCache.headers.get("cache-control");
+      const maxAge = parseMaxAge(cacheControlResponseHeader);
+      return maxAge && maxAge > 0;
+    }; // https://github.com/tusbar/cache-control
+
+
+    const parseMaxAge = cacheControlHeader => {
+      if (!cacheControlHeader || cacheControlHeader.length === 0) return null;
+      const HEADER_REGEXP = /([a-zA-Z][a-zA-Z_-]*)\s*(?:=(?:"([^"]*)"|([^ \t",;]*)))?/g;
+      const matches = cacheControlHeader.match(HEADER_REGEXP) || [];
+      const values = {};
+      Array.from(matches).forEach(match => {
+        const tokens = match.split("=", 2);
+        const [key] = tokens;
+        let value = null;
+
+        if (tokens.length > 1) {
+          value = tokens[1].trim();
+        }
+
+        values[key.toLowerCase()] = value;
+      });
+      return parseDuration(values["max-age"]);
+    };
+
+    const parseDuration = value => {
+      if (!value) {
+        return null;
+      }
+
+      const duration = Number.parseInt(value, 10);
+
+      if (!Number.isFinite(duration) || duration < 0) {
+        return null;
+      }
+
+      return duration;
+    };
+  }
+  {
+    util.getCacheName = ({
+      cachePrefix
+    }) => {
+      return `${cachePrefix}${generateCacheId()}`;
+    };
+
+    const base = 36;
+    const blockSize = 4;
+    const discreteValues = Math.pow(base, blockSize);
+
+    const pad = (number, size) => {
+      var s = `000000000${number}`;
+      return s.substr(s.length - size);
+    };
+
+    const getRandomValue = (() => {
+      const {
+        crypto
+      } = self;
+
+      if (crypto) {
+        const lim = Math.pow(2, 32) - 1;
+        return () => {
+          return Math.abs(crypto.getRandomValues(new Uint32Array(1))[0] / lim);
+        };
+      }
+
+      return Math.random;
+    })();
+
+    const randomBlock = () => {
+      return pad((getRandomValue() * discreteValues << 0).toString(base), blockSize);
+    };
+
+    const generateCacheId = () => {
+      const timestamp = new Date().getTime().toString(base);
+      const random = `${randomBlock()}${randomBlock()}`;
+      return `${timestamp}${random}`;
+    };
+  }
+  {
+    util.readUrlConfig = () => {
+      const urlsConfig = { ...self.generatedUrlsConfig,
+        ...config.manualUrlsConfig
+      };
+      const urlsToCacheOnInstall = [];
+      const urlsToReloadOnInstall = [];
+      const urlMapping = {};
+      forEachUniqueUrlIn(urlsConfig, (url, urlConfig) => {
+        if (!urlConfig) urlConfig = {
+          cache: false
+        };
+        if (urlConfig === true) urlConfig = {
+          cache: true
+        };
+        const {
+          cache = true,
+          versioned = false,
+          alias
+        } = urlConfig;
+
+        if (cache) {
+          urlsToCacheOnInstall.push(url);
+
+          if (!versioned) {
+            urlsToReloadOnInstall.push(url);
+          }
+        }
+
+        if (alias) {
+          urlMapping[url] = util.resolveUrl(alias);
+        }
+      });
+      return {
+        urlsToCacheOnInstall,
+        urlsToReloadOnInstall,
+        urlMapping
+      };
+    };
+
+    const forEachUniqueUrlIn = (object, callback) => {
+      const urls = [];
+      Object.keys(object).forEach(key => {
+        const url = util.resolveUrl(key);
+
+        if (!urls.includes(url)) {
+          urls.push(url);
+          callback(url, object[key]);
+        }
+      });
+    };
+  }
+
+  util.redirectRequest = async (request, url) => {
+    const {
+      mode
+    } = request; // see https://github.com/GoogleChrome/workbox/issues/1796
+
+    if (mode !== "navigate") {
+      return new Request(url, request);
+    }
+
+    const requestClone = request.clone();
+    const {
+      body,
+      credentials,
+      headers,
+      integrity,
+      referrer,
+      referrerPolicy
+    } = requestClone;
+    const bodyPromise = body ? Promise.resolve(body) : requestClone.blob();
+    const bodyValue = await bodyPromise;
+    const requestMutated = new Request(url, {
+      body: bodyValue,
+      credentials,
+      headers,
+      integrity,
+      referrer,
+      referrerPolicy,
+      mode: "same-origin",
+      redirect: "manual"
+    });
+    return requestMutated;
+  };
+
+  return util;
+};
+
+assertContextLooksGood();
+const util = getUtil();
+const cacheName = util.getCacheName(config);
+const logger = util.createLogger(config);
+const {
+  urlsToCacheOnInstall,
+  urlsToReloadOnInstall,
+  urlMapping
+} = util.readUrlConfig(config);
+logger.info(`cache key: ${cacheName}`); // --- installation phase ---
+
+const install = async () => {
+  logger.info("install start");
+
+  try {
+    const total = urlsToCacheOnInstall.length;
+    let installed = 0;
+    await Promise.all(urlsToCacheOnInstall.map(async url => {
+      try {
+        const requestUrlsInUrlsToReloadOnInstall = urlsToReloadOnInstall.includes(url);
+        const request = new Request(url, { ...(requestUrlsInUrlsToReloadOnInstall ? {
+            // A non versioned url must ignore navigator cache
+            // otherwise we might (99% chances) hit previous worker cache
+            // and miss the new version
+            cache: "reload"
+          } : {// If versioned url is the same as before, it's ok to reuse
+            // cache from previous worker or navigator itself.
+          })
+        });
+        await fetchAndCache(request, {
+          oncache: () => {
+            installed += 1;
+          }
+        });
+      } catch (e) {
+        logger.warn(`cannot put ${url} in cache due to error while fetching: ${e.stack}`);
+      }
+    }));
+
+    if (installed === total) {
+      logger.info(`install done (${total} urls added in cache)`);
+    } else {
+      logger.info(`install done (${installed}/${total} urls added in cache)`);
+    }
+  } catch (error) {
+    logger.error(`install error: ${error.stack}`);
+  }
+};
+
+self.addEventListener("install", installEvent => {
+  installEvent.waitUntil(install(installEvent));
+}); // --- fetch implementation ---
+
+const handleRequest = async (request, fetchEvent) => {
+  logger.debug(`received fetch event for ${request.url}`);
+
+  try {
+    const responseFromCache = await self.caches.match(request);
+
+    if (responseFromCache) {
+      logger.debug(`respond with response from cache for ${request.url}`);
+      return responseFromCache;
+    }
+
+    const responsePreloaded = await fetchEvent.preloadResponse;
+
+    if (responsePreloaded) {
+      logger.debug(`respond with preloaded response for ${request.url}`);
+      return responsePreloaded;
+    }
+  } catch (error) {
+    logger.warn(`error while trying to use cache for ${request.url}`, error.stack);
+    return fetch(request);
+  }
+
+  logger.debug(`no cache for ${request.url}, fetching it`);
+  return fetchAndCache(request);
+};
+
+const remapRequest = request => {
+  if (Object.prototype.hasOwnProperty.call(urlMapping, request.url)) {
+    const newUrl = urlMapping[request.url];
+    logger.debug(`redirect request from ${request.url} to ${newUrl}`);
+    return util.redirectRequest(request, newUrl);
+  }
+
+  return request;
+};
+
+self.addEventListener("fetch", fetchEvent => {
+  const request = remapRequest(fetchEvent.request);
+
+  if (config.shouldHandleRequest(request, {
+    requestWasCachedOnInstall: urlsToCacheOnInstall.includes(request.url)
+  })) {
+    const responsePromise = handleRequest(request, fetchEvent);
+
+    if (responsePromise) {
+      fetchEvent.respondWith(responsePromise);
+    }
+  }
+}); // --- activation phase ---
+
+const activate = async () => {
+  logger.info("activate start");
+  await Promise.all([enableNavigationPreloadIfPossible(), deleteOtherUrls(), deleteOtherCaches()]);
+  logger.info("activate done");
+};
+
+const enableNavigationPreloadIfPossible = async () => {
+  if (config.navigationPreloadEnabled && self.registration.navigationPreload) {
+    await self.registration.navigationPreload.enable();
+  }
+};
+
+const deleteOtherUrls = async () => {
+  const cache = await self.caches.open(cacheName);
+  const requestsInCache = await cache.keys();
+  await Promise.all(requestsInCache.map(async requestInCache => {
+    const responseInCache = await cache.match(requestInCache);
+
+    if (config.shouldCleanOnActivate(responseInCache, requestInCache, {
+      requestWasCachedOnInstall: urlsToCacheOnInstall.includes(requestInCache.url)
+    })) {
+      logger.info(`delete ${requestInCache.url}`);
+      await cache.delete(requestInCache);
+    }
+  }));
+};
+
+const deleteOtherCaches = async () => {
+  const cacheKeys = await self.caches.keys();
+  await Promise.all(cacheKeys.map(async cacheKey => {
+    if (cacheKey !== cacheName && cacheKey.startsWith(config.cachePrefix)) {
+      logger.info(`delete cache ${cacheKey}`);
+      await self.caches.delete(cacheKey);
+    }
+  }));
+};
+
+self.addEventListener("activate", activateEvent => {
+  const activatePromise = activate(activateEvent);
+
+  if (activatePromise) {
+    activateEvent.waitUntil(activatePromise);
+  }
+}); // --- postMessage communication ---
+
+const actions = {
+  skipWaiting: () => {
+    self.skipWaiting();
+  },
+  refreshCacheKey: async url => {
+    url = util.resolveUrl(url);
+    const response = await fetchAndCache(new Request(url, {
+      cache: "reload"
+    }));
+    return response.status;
+  },
+  addCacheKey: async url => {
+    url = util.resolveUrl(url);
+    const response = await fetchAndCache(url);
+    return response.status;
+  },
+  removeCacheKey: async url => {
+    url = util.resolveUrl(url);
+    const cache = await self.caches.open(cacheName);
+    const deleted = await cache.delete(url);
+    return deleted;
+  },
+  ...config.actions
+};
+self.addEventListener("message", async messageEvent => {
+  const {
+    data
+  } = messageEvent;
+  if (typeof data !== "object") return;
+  const {
+    action
+  } = data;
+  const actionFn = actions[action];
+  if (!actionFn) return;
+  const {
+    payload
+  } = data;
+  let status;
+  let value;
+
+  try {
+    const actionFnReturnValue = await actionFn(payload, {
+      cacheName
+    });
+    status = "resolved";
+    value = actionFnReturnValue;
+  } catch (e) {
+    status = "rejected";
+    value = e;
+  }
+
+  messageEvent.ports[0].postMessage({
+    status,
+    value
+  });
+});
+
+const fetchAndCache = async (request, {
+  oncache
+} = {}) => {
+  const [response, cache] = await Promise.all([fetchUsingNetwork(request), getCache()]);
+
+  if (response.status === 200) {
+    logger.debug(`fresh response found for ${request.url}, put it in cache and respond with it`);
+    const responseForCache = await responseToResponseForCache(response);
+    const cacheWrittenPromise = cache.put(request, responseForCache);
+
+    if (oncache) {
+      await cacheWrittenPromise;
+      oncache();
+    }
+
+    return response;
+  }
+
+  logger.warn(`cannot put ${request.url} in cache due to response status (${response.status})`);
+  return response;
+};
+
+const responseToResponseForCache = async response => {
+  const responseClone = response.clone();
+
+  if (!response.redirected) {
+    return responseClone;
+  } // When passed a redirected response, this will create a new, "clean" response
+  // that can be used to respond to a navigation request.
+  // See https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
+  // Not all browsers support the Response.body stream, so fall back to reading
+  // the entire body into memory as a blob.
+
+
+  const bodyPromise = "body" in responseClone ? Promise.resolve(responseClone.body) : responseClone.blob();
+  const body = await bodyPromise; // new Response() is happy when passed either a stream or a Blob.
+
+  return new Response(body, {
+    headers: responseClone.headers,
+    status: responseClone.status,
+    statusText: responseClone.statusText
+  });
+};
+
+const fetchUsingNetwork = async request => {
+  const controller = new AbortController();
+  const {
+    signal
+  } = controller;
+
+  try {
+    const response = await fetch(request, {
+      signal
+    });
+    return response;
+  } catch (e) {
+    // abort request in any case
+    // I don't know how useful this is ?
+    controller.abort();
+    throw e;
+  }
+};
+
+const getCache = async () => {
+  const cache = await self.caches.open(cacheName);
+  return cache;
+};
+
 //# sourceMappingURL=service_worker.js.map
