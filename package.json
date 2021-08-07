@@ -47,7 +47,7 @@
   "devDependencies": {
     "@jsenv/assert": "2.2.6",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "19.1.2",
+    "@jsenv/core": "19.4.5",
     "@jsenv/eslint-config": "15.0.2",
     "@jsenv/file-size-impact": "9.2.0",
     "@jsenv/importmap-eslint-resolver": "5.1.0",
