@@ -18,17 +18,17 @@ const prepareApp = async () => {
 
   updateSplascreenText(`Loading banana...`)
   await new Promise((resolve) => {
-    setTimeout(resolve, 300)
+    setTimeout(resolve, 600)
   })
 
   updateSplascreenText(`Loading gorilla...`)
   await new Promise((resolve) => {
-    setTimeout(resolve, 1000)
+    setTimeout(resolve, 800)
   })
 
   updateSplascreenText(`Loading the entire jungle...`)
   await new Promise((resolve) => {
-    setTimeout(resolve, 2500)
+    setTimeout(resolve, 1200)
   })
 }
 
