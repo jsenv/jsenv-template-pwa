@@ -16,9 +16,6 @@ await buildProject({
     "./service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
-  // disable preserveEntrySignatures otherwise an empty (and useless) file is generated
-  // as main js entry point
-  preserveEntrySignatures: false,
   minify: true,
   minifyHtmlOptions: {
     collapseWhitespace: true,
