@@ -14,8 +14,8 @@ const BUILD_FILE_CACHE_VALIDITY_IN_SECONDS = SECONDS_IN_30_DAYS
 
 export const server = await startServer({
   logLevel: process.env.LOG_LEVEL || "info",
-  protocol: process.env.HTTPS ? "https" : "http",
-  http2: Boolean(process.env.HTTPS),
+  protocol: process.env.HTTP ? "http" : "https",
+  http2: !process.env.HTTP,
   port: process.env.PORT || 0,
   requestToResponse: (request) => {
     if (request.ressource === "/") {
