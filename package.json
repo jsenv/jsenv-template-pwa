@@ -37,7 +37,7 @@
     "prettier-check": "npm run prettier-format -- --dry-run",
     "upload-coverage": "node ./script/test/upload_coverage.mjs",
     "install-playwright": "npx playwright install-deps && npx playwright install",
-    "postinstall": "npm run generate-importmap && npm run install-playwright"
+    "postinstall": "npm run generate-importmap"
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
