@@ -14,7 +14,7 @@ The application is deployed at https://jsenv-pwa-template.herokuapp.com.
 
 Use this repository as a way of finding example files and use the checklist to setup the repository.
 
-# Whats in it?
+# What's in it?
 
 All the features are pre-enabled in the template. Steps to use or remove each feature are described in the [checklist](#Checklist).
 
