@@ -4,8 +4,8 @@
     "../../../src/boot/boot.css"
   ],
   "names": [],
-  "mappings": "AAAA,8DAA8D;;AAE9D;EACE,mBAAmB;AACrB",
-  "file": "boot-a54dc422.css",
+  "mappings": "AAAA,8DAA8D,CAE9D,cACE,kBACF",
+  "file": "boot-e974415e.css",
   "sourcesContent": [
     "@import url(\"https://fonts.googleapis.com/css2?family=Roboto\");\n\n#splashscreen {\n  font-family: Roboto;\n}\n"
   ]
