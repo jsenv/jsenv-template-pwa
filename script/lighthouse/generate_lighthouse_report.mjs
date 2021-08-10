@@ -5,21 +5,22 @@ import {
 
 export const generateLighthouseReport = async ({
   runCount = 4,
+  serverLogLevel = "info",
   jsonFile = false,
   htmlFile = false,
 } = {}) => {
   await import("../build/build.mjs")
-  process.env.LOG_LEVEL = "warn"
+  process.env.LOG_LEVEL = serverLogLevel
   const { server } = await import("../start/start_prod.mjs")
 
   const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(server.origin, {
-    projectDirectoryUrl: new URL("../../", import.meta.url),
     runCount,
     // prevent a CERT_INVALID error thrown by lighthouse
     // on jsenv self signed certificate
     ignoreCertificateErrors: true,
     jsonFile,
     htmlFile,
+    projectDirectoryUrl: new URL("../../", import.meta.url),
     jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
     htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
   })
@@ -34,6 +35,7 @@ if (executeAndLog) {
     runCount: 1,
     jsonFile: true,
     htmlFile: true,
+    serverLogLevel: "warn",
   })
   logLighthouseReport(lighthouseReport)
 }
