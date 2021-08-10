@@ -1,16 +1,16 @@
-# This file configure a GitHub workflow responsible to analyse
-# a pull request impact and post comment with the result of this analysis
-# into the pull request.
+# This is a GitHub workflow YAML file
+# see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 #
-# For this reason it's runned on every pull request.
+# For every push on a pull request, it
+# - creates or updates a comment about potential pr impact on several files size
+# - creates or updates comment about potential pr impact on lighthouse score
+# Read more in
+# - https://github.com/jsenv/file-size-impact
+# - https://github.com/jsenv/lighthouse-impact
 #
-# It does the following:
-#  - Report a potential pr impact on several files size
-#  - Report a potential pr impact on lighthouse score
-#
-# If you want to update this file it's recommended to use
-# a YAML validator such as https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
-# configured to validate this file with https://json.schemastore.org/github-workflow.json
+# If you want to update this file it's recommended to use a YAML validator
+# https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+# configured to validate with https://json.schemastore.org/github-workflow.json
 
 name: pr impact
 
@@ -20,12 +20,13 @@ jobs:
   pr-impact:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14.17.0]
+        # To make build more predictable:
+        # - explicit OS version ("ubuntu-20.04" instead of "ubuntu-latest")
+        # - Explicit node version ("16.6.1" instead of "lts")
+        os: [ubuntu-20.04]
+        node: [16.6.1]
     runs-on: ${{ matrix.os }}
     name: pr impact
-    env:
-      CI: true
     steps:
       - name: Setup git
         uses: actions/checkout@v2
@@ -36,7 +37,7 @@ jobs:
       - name: Setup npm
         run: npm install
       - name: Report file size impact
-        run: node ./.github/workflows/pr_impact/report_size_impact.mjs
+        run: node ./.github/workflows/pr_impact/report_file_size_impact.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Report lighthouse impact

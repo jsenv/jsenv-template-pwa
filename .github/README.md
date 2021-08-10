@@ -12,28 +12,36 @@ This repository is meant to serve as a general template for how to set up reposi
 
 The application is deployed at https://jsenv-pwa-template.herokuapp.com.
 
-Use this repository as a way of finding example files and use the checklist to setup the repository.
+# How to use
 
-# What's in it?
+Create a GitHub repository using this template at https://github.com/jsenv/jsenv-template-pwa/generate.
+Then follow checklist below to setup your repository.
 
-All the features are pre-enabled in the template. Steps to use or remove each feature are described in the [checklist](#Checklist).
+- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author".`
+- [ ] Update [README.md](../README.md) and delete `.github/README.md`
+- [ ] Review [LICENSE](./LICENSE) and `"license"` in [package.json](../package.json#L6)
 
-- Url versionning to enable long term caching
+# Features
+
+Documentation of the features, how to use and or remove them.
+
+- [Formatting](../docs/formatting/formatting.md#formatting): Formatting with prettier
+- [Linting](../docs/linting/linting.md#linting): Linting with ESLint
+- [import resolution](../docs/import_resolution/import_resolution.md#import-resolution): importmap resolution for ESLint and VSCode
+- [Production mode](../docs/production_mode/production_mode.md#production-mode): Ability to write code specific to production or development
+- [Development server](../docs/dev_server/dev_server.md#Development-server): A dev server **without build step** and livereloading
+- [PWA compatibility](../docs/pwa_compat/pwa_compat.md#PWA-compatibility): Can run offline and be added to user home screen
+- [Testing](../docs/testing/testing.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
+- [Code coverage](../docs/code_coverage/code_coverage.md#Code-coverage): Code coverage with codecov
+- [Building](../docs/building/building.md#Building): Optimize files for production supporting importmap, top level await and more
+- [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
+- [Deploying](../docs/deploying/deploying.md#deploying): Auto deployment with heroku
+
+TO document
+
+- Splashscreen
+- Url versioning to enable long term caching
 - Accurate cache invalidation: no need for the browser to redownload many files when you change one file
-- Production files are compatible with "old browsers": importmap, top level await and many more are turned into old code
-- PWA compatible: can run offline and be added to user home screen
-- A dev server **without build step** and livereloading
-- Ability to write code specific to production or development
-- A GitHub workflow checking lint and tests on every push
-- A GitHub workflow tracking pull request impacts on:
-  - Custom performance metrics
-  - Lighthouse score
-  - Build files sizes
-- Formatting with prettier
-- Linting with ESLint
-- Run tests on Chrome, Firefox and Webkit with jsenv
-- Code coverage with codecov
-- Auto deployment with heroku
 
 # Things to know
 
@@ -42,27 +50,3 @@ All the features are pre-enabled in the template. Steps to use or remove each fe
 - Default branch of the repository is named _main_. It can be renamed in repository settings on GitHub.
 
 - There is 2 type of js files: js meant to be runned by node and js meant to be runned by a browser. To help recognize which are which, browser files use _.js_ extension while node files uses _.mjs_ extension. This pattern is subjective and you are free to change it.
-
-# Install checklist
-
-Go through this checklist after creating a repository with this template.
-
-- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author".`
-
-- [ ] Check the available features and see how use or remove them.
-
-  - [Formatting](../docs/formatting/formatting.md#formatting)
-  - [Linting](../docs/linting/linting.md#linting)
-  - [import resolution](../docs/import_resolution/import_resolution.md#import-resolution)
-  - [Production mode](../docs/production_mode/production_mode.md#production-mode)
-  - [Development server](../docs/dev_server/dev_server.md#Development-server)
-  - [Service worker](../docs/service_worker/service_worker.md#Service-worker)
-  - [Testing](../docs/testing/testing.md#testing)
-  - [Code coverage](../docs/code_coverage/code_coverage.md#Code-coverage)
-  - [Building](../docs/building/building.md#Building)
-  - [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts)
-  - [Deploying](../docs/deploying/deploying.md#deploying)
-
-- [ ] Update [README.md](../README.md)
-- [ ] Delete `.github/README.md`
-- [ ] Review [LICENSE](./LICENSE) and `"license"` in [package.json](../package.json#L6)

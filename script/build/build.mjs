@@ -1,3 +1,10 @@
+/*
+ * This file uses "@jsenv/core" to convert source files into systemjs format
+ * and write them into "./dist/" directory.
+ *
+ * Read more at https://github.com/jsenv/jsenv-core/blob/master/docs/building/readme.md#jsenv-build
+ */
+
 import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
 import { copyFileSystemNode, resolveUrl } from "@jsenv/util"
 

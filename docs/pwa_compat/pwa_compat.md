@@ -1,0 +1,3 @@
+# PWA compatibility
+
+TODO

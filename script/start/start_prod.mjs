@@ -1,13 +1,15 @@
+/*
+ * This file uses "@jsenv/server" to start a production server.
+ * https://github.com/jsenv/server#presentation
+ */
+
 import { startServer, serveFile } from "@jsenv/server"
 
-// not taken from jsenv.config.js because this code
-// will run in production and jsenv.config.js depends on
-// @jsenv/core which is a devDependency
+// projectDirectoryUrl cannot be imported from jsenv.config.mjs
+// because this code will run in "production" where "devDependencies" are not installed
+// and jsenv.config.mjs depends on @jsenv/core which is a dev dependency
 const projectDirectoryUrl = new URL("../../", import.meta.url)
-
-const resolveUrl = (specifier, baseUrl) => String(new URL(specifier, baseUrl))
-
-const buildDirectoryUrl = resolveUrl("./dist/systemjs/", projectDirectoryUrl)
+const buildDirectoryUrl = new URL("./dist/systemjs/", projectDirectoryUrl)
 
 const SECONDS_IN_30_DAYS = 60 * 60 * 24 * 30
 const BUILD_FILE_CACHE_VALIDITY_IN_SECONDS = SECONDS_IN_30_DAYS

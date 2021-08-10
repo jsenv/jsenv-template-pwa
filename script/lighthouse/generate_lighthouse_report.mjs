@@ -1,37 +1,39 @@
-import { getLighthouseReportFromHeadlessChrome } from "@jsenv/lighthouse-impact"
+import {
+  getLighthouseReportUsingHeadlessChrome,
+  logLighthouseReport,
+} from "@jsenv/lighthouse-impact"
 
-export const generateLighthouseReport = async (params = {}) => {
+export const generateLighthouseReport = async ({
+  runCount = 4,
+  jsonFile = false,
+  htmlFile = false,
+} = {}) => {
   await import("../build/build.mjs")
-
   process.env.LOG_LEVEL = "warn"
-  process.env.HTTPS = true
   const { server } = await import("../start/start_prod.mjs")
 
-  const lighthouseReport = await getLighthouseReportFromHeadlessChrome(server.origin, {
+  const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(server.origin, {
     projectDirectoryUrl: new URL("../../", import.meta.url),
-    runCount: 4,
-    // prevent a CERT_INVALID error
-    // thrown by lighthouse on jsenv self signed certificate
+    runCount,
+    // prevent a CERT_INVALID error thrown by lighthouse
+    // on jsenv self signed certificate
     ignoreCertificateErrors: true,
-    ...params,
+    jsonFile,
+    htmlFile,
+    jsonFileRelativeUrl: "./lighthouse_report.json",
+    htmlFileRelativeUrl: "./lighthouse_report.html",
   })
 
   server.stop("lighthouse report generated")
-
   return lighthouseReport
 }
 
-const executeAndLog = process.argv.includes("--log")
+const executeAndLog = process.argv.includes("--local")
 if (executeAndLog) {
   const lighthouseReport = await generateLighthouseReport({
+    runCount: 1,
     jsonFile: true,
-    jsonFileRelativeUrl: "./lighthouse/lighthouse_report.json",
     htmlFile: true,
-    htmlFileRelativeUrl: "./lighthouse/lighthouse_report.html",
   })
-  const scores = {}
-  Object.keys(lighthouseReport.categories).forEach((name) => {
-    scores[name] = lighthouseReport.categories[name].score
-  })
-  console.log(JSON.stringify(scores, null, "  "))
+  logLighthouseReport(lighthouseReport)
 }

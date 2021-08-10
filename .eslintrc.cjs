@@ -1,8 +1,6 @@
-/**
- *
+/*
  * This file uses "@jsenv/eslint-config" to configure ESLint
  * https://github.com/jsenv/eslint-config#eslint-config
- *
  */
 
 const {
