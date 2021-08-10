@@ -17,9 +17,9 @@ The application is deployed at https://jsenv-pwa-template.herokuapp.com.
 Create a GitHub repository using this template at https://github.com/jsenv/jsenv-template-pwa/generate.
 Then follow checklist below to setup your repository.
 
-- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author".`
+- [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author"`
 - [ ] Update [README.md](../README.md) and delete `.github/README.md`
-- [ ] Review [LICENSE](./LICENSE) and `"license"` in [package.json](../package.json#L6)
+- [ ] Review [LICENSE.txt](./LICENSE.txt) and `"license"` in [package.json](../package.json#L6)
 
 # Features
 
