@@ -2,6 +2,6 @@ import { reportLighthouseImpact, readGitHubWorkflowEnv } from "@jsenv/lighthouse
 
 reportLighthouseImpact({
   ...readGitHubWorkflowEnv(),
-  // logLevel: 'debug',
+  logLevel: "debug",
   moduleGeneratingLighthouseReportRelativeUrl: "./script/lighthouse/generate_lighthouse_report.mjs",
 })

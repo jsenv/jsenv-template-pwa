@@ -1,3 +1,16 @@
+/*
+ * This file is designed to be executed locally or by an automated process.
+ *
+ * To run it locally, use one of
+ * - node ./script/lighthouse/generate_lighthouse_report.mjs --local
+ * - npm run generate-lighthouse-report
+ *
+ * The automated process is a GitHub workflow: ".github/workflows/pr_impact.yml"
+ * It will dynamically import this file and call generateLighthouseReport.
+ *
+ * See https://github.com/jsenv/lighthouse-impact
+ */
+
 import {
   getLighthouseReportUsingHeadlessChrome,
   logLighthouseReport,
@@ -9,9 +22,12 @@ export const generateLighthouseReport = async ({
   jsonFile = false,
   htmlFile = false,
 } = {}) => {
-  await import("../build/build.mjs")
+  // this function is executed a second time after merging the pull request
+  // without the ?cache_busting param, the second execution of the function
+  // would not rebuild the project
+  await import(`../build/build.mjs?cache_busting=${Date.now()}`)
   process.env.LOG_LEVEL = serverLogLevel
-  const { server } = await import("../start/start_prod.mjs")
+  const { server } = await import(`../start/start_prod.mjs?cache_busting=${Date.now()}`)
 
   const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(server.origin, {
     runCount,
