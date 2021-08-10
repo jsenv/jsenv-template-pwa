@@ -20,8 +20,8 @@ export const generateLighthouseReport = async ({
     ignoreCertificateErrors: true,
     jsonFile,
     htmlFile,
-    jsonFileRelativeUrl: "./lighthouse_report.json",
-    htmlFileRelativeUrl: "./lighthouse_report.html",
+    jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
+    htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
   })
 
   server.stop("lighthouse report generated")
