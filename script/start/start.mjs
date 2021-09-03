@@ -4,12 +4,18 @@
  */
 
 import { startExploring } from "@jsenv/core"
+import { requestCertificateForLocalhost } from "@jsenv/https-local"
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
+
+const { serverCertificate, serverCertificatePrivateKey } =
+  await requestCertificateForLocalhost()
 
 export const server = await startExploring({
   ...jsenvConfig,
   compileServerPort: 3472,
+  compileServerCertificate: serverCertificate,
+  compileServerPrivateKey: serverCertificatePrivateKey,
   explorableConfig: {
     "app": {
       "./main.html": true,
