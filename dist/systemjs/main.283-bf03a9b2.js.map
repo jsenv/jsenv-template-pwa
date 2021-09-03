@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "../../main.283.js"
+  ],
+  "names": [
+    "window",
+    "addEventListener",
+    "beforeinstallpromptEvent",
+    "preventDefault"
+  ],
+  "mappings": "AAIMA,OAAOC,iBACL,uBACCC,IACCA,EAAyBC,iBACzBH,OAAOE,yBAA2BA",
+  "sourcesContent": [
+    "\n      // we have to register early to this event in case browser dispatch it quickly\n      // other scripts will have to check window.beforeinstallpromptEvent\n      // presence, otherwise listen the before install prompt event\n      window.addEventListener(\n        \"beforeinstallprompt\",\n        (beforeinstallpromptEvent) => {\n          beforeinstallpromptEvent.preventDefault()\n          window.beforeinstallpromptEvent = beforeinstallpromptEvent\n        },\n      )\n    "
+  ],
+  "file": "main.283-bf03a9b2.js"
+}
