@@ -33,7 +33,13 @@ await buildProject({
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
 
-const robotsProjectFileUrl = resolveUrl("robots.txt", jsenvConfig.projectDirectoryUrl)
-const buildDirectoryUrl = resolveUrl("dist/systemjs/", jsenvConfig.projectDirectoryUrl)
+const robotsProjectFileUrl = resolveUrl(
+  "robots.txt",
+  jsenvConfig.projectDirectoryUrl,
+)
+const buildDirectoryUrl = resolveUrl(
+  "dist/systemjs/",
+  jsenvConfig.projectDirectoryUrl,
+)
 const robotsBuildFileUrl = resolveUrl("robots.txt", buildDirectoryUrl)
 await copyFileSystemNode(robotsProjectFileUrl, robotsBuildFileUrl)

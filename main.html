@@ -251,7 +251,9 @@
       const setBootingState = (nextBootingState, data = {}) => {
         //  bootingState = nextBootingState
 
-        const splashscreenMessageNode = document.querySelector("#splashscreen_message")
+        const splashscreenMessageNode = document.querySelector(
+          "#splashscreen_message",
+        )
         splashscreenMessageNode.innerHTML = ""
         const variantModel = document.querySelector(`#${nextBootingState}`)
         const variantInstance = variantModel.cloneNode(true)
@@ -262,9 +264,12 @@
 
       const replaceNodeVariables = (node, data) => {
         if (node.nodeName === "#text") {
-          node.textContent = node.textContent.replace(/\${(\w*)}/g, (_, key) => {
-            return data.hasOwnProperty(key) ? data[key] : ""
-          })
+          node.textContent = node.textContent.replace(
+            /\${(\w*)}/g,
+            (_, key) => {
+              return data.hasOwnProperty(key) ? data[key] : ""
+            },
+          )
           return
         }
 
@@ -279,10 +284,13 @@
       // we have to register early to this event in case browser dispatch it quickly
       // other scripts will have to check window.beforeinstallpromptEvent
       // presence, otherwise listen the before install prompt event
-      window.addEventListener("beforeinstallprompt", (beforeinstallpromptEvent) => {
-        beforeinstallpromptEvent.preventDefault()
-        window.beforeinstallpromptEvent = beforeinstallpromptEvent
-      })
+      window.addEventListener(
+        "beforeinstallprompt",
+        (beforeinstallpromptEvent) => {
+          beforeinstallpromptEvent.preventDefault()
+          window.beforeinstallpromptEvent = beforeinstallpromptEvent
+        },
+      )
     </script>
   </body>
 </html>

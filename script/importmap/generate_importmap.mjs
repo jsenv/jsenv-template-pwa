@@ -13,11 +13,17 @@
  * It also update "paths" in "./jsconfig.json" file that is used by VSCode to resolve imports
  */
 
-import { getImportMapFromProjectFiles, writeImportMapFile } from "@jsenv/importmap-node-module"
+import {
+  getImportMapFromProjectFiles,
+  writeImportMapFile,
+} from "@jsenv/importmap-node-module"
 
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
-const generateFile = async (importMapFileRelativeUrl, { dev, ...rest } = {}) => {
+const generateFile = async (
+  importMapFileRelativeUrl,
+  { dev, ...rest } = {},
+) => {
   await writeImportMapFile(
     [
       getImportMapFromProjectFiles({

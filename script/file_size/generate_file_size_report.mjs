@@ -11,7 +11,12 @@
  * See https://github.com/jsenv/file-size-impact
  */
 
-import { getFileSizeReport, raw, gzip, logFileSizeReport } from "@jsenv/file-size-impact"
+import {
+  getFileSizeReport,
+  raw,
+  gzip,
+  logFileSizeReport,
+} from "@jsenv/file-size-impact"
 
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 

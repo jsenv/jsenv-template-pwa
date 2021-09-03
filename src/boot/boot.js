@@ -5,14 +5,18 @@
 import { injectCSS, nextIDLEPromise } from "./boot.utils.js"
 
 const prepareApp = async () => {
-  await injectCSS(new URL("./boot.css", import.meta.url), { crossOrigin: true }).catch(() => {})
+  await injectCSS(new URL("./boot.css", import.meta.url), {
+    crossOrigin: true,
+  }).catch(() => {})
   await document.fonts.ready
   // window.splashscreen.takeOver() means this code is taking responsability of the splashscreen.
   // It prevents main.html to display <div id="booting_is_slow"></div> to the user
   window.splashscreen.takeOver()
 
   const updateSplascreenText = (message) => {
-    const splashscreenMessageNode = document.querySelector("#splashscreen_message")
+    const splashscreenMessageNode = document.querySelector(
+      "#splashscreen_message",
+    )
     splashscreenMessageNode.innerHTML = message
   }
 

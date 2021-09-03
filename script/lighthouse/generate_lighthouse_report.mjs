@@ -27,19 +27,24 @@ export const generateLighthouseReport = async ({
   // would not rebuild the project
   await import(`../build/build.mjs?cache_busting=${Date.now()}`)
   process.env.LOG_LEVEL = serverLogLevel
-  const { server } = await import(`../start/start_prod.mjs?cache_busting=${Date.now()}`)
+  const { server } = await import(
+    `../start/start_prod.mjs?cache_busting=${Date.now()}`
+  )
 
-  const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(server.origin, {
-    runCount,
-    // prevent a CERT_INVALID error thrown by lighthouse
-    // on jsenv self signed certificate
-    ignoreCertificateErrors: true,
-    jsonFile,
-    htmlFile,
-    projectDirectoryUrl: new URL("../../", import.meta.url),
-    jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
-    htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
-  })
+  const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(
+    server.origin,
+    {
+      runCount,
+      // prevent a CERT_INVALID error thrown by lighthouse
+      // on jsenv self signed certificate
+      ignoreCertificateErrors: true,
+      jsonFile,
+      htmlFile,
+      projectDirectoryUrl: new URL("../../", import.meta.url),
+      jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
+      htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
+    },
+  )
 
   server.stop("lighthouse report generated")
   return lighthouseReport
