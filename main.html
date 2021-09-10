@@ -18,14 +18,12 @@
     <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
     <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
 
-    <script type="importmap" src="./importmap.prod.importmap"></script>
+    <script type="importmap" src="./dev.importmap"></script>
     <!--
-    Why importmap.prod.importmap?
-
-    - JS in this HTML page is the web application runned in "production mode"
-      -> importmap must contain a mapping for "#env": "./env.prod.js"
-    - JS can import code from files files located in node_modules/
-      -> importmap must contain mappings for every "dependencies" in package.json
+    Why dev.importmap?
+    -> We want to execute this file in "development" mode meaning you we
+    can add custom behaviour to help developper experience. When this file is built, the importmap
+    is replaced by "prod.importmap" so that the custom developer code is treeshaked.
     -->
   </head>
 

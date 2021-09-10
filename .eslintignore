@@ -21,7 +21,7 @@
 # -> no need for ESLint on files written by others
 /node_modules/
 
-/script/lighthouse/lighthouse.html
+/script/lighthouse/lighthouse_report.html
 
 # ESLint ignores ".eslintrc.cjs" file by default.
 # But we can still do mistakes in this file.

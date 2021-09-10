@@ -5,9 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
-    <script type="importmap" src="../importmap.prod.test.importmap"></script>
+    <script type="importmap" src="../prod.importmap"></script>
     <!--
-    Why importmap.prod.test.importmap?
+    Disabled for now because we should create 3rd importmap for this use case
+    and I'm not sure there is a use case for this.
+    Test should test the code in development mode;
+    Production mode should be strictly reserved to the code being executed after a build, from the build directory
+
+    Why prod.importmap?
 
     - JS in this HTML page is testing the web application runned in "production mode"
       -> importmap must contain a mapping for "#env": "./env.prod.js"

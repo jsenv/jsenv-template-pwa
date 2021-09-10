@@ -28,18 +28,17 @@ This repository has preconfigured a _production mode_, if you want to keep this 
 
 _npm run generate-importmap_ generates multiple import map files. The one to use depend in which context you want to execute your code.
 
-| importmap file           | importmap file content                             | HTML file using it                                              |
-| ------------------------ | -------------------------------------------------- | --------------------------------------------------------------- |
-| importmap.prod.importmap | "dependencies" + "env.prod.js"                     | [main.html](../../main.html#L10)                                |
-| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.dev.js"  | [test/greet.dev.test.html](../../test/greet.dev.test.html#L8)   |
-| importmap.dev.importmap  | "dependencies" + "devDependencies" + "env.prod.js" | [test/greet.prod.test.html](../../test/greet.prod.test.html#L8) |
+| importmap file | importmap file content                            |
+| -------------- | ------------------------------------------------- |
+| prod.importmap | "dependencies" + "env.prod.js"                    |
+| dev.importmap  | "dependencies" + "devDependencies" + "env.dev.js" |
 
 # How to remove production mode
 
 1. Remove all `#env` imports in files
-2. Replace `"importmap.prod.test.importmap"` by `"importmap.dev.importmap"` in HTML files
-3. Remove line generating `"importmap.prod.test.importmap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L33)
-4. Remove `"initialImportMap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L11)
+2. Remove `"./dev.importmap": "./prod.importmap"` from `"urlMappings"` in [script/build/build.mjs](../../script/build/build.mjs#L23)
+3. Remove line generating `"prod.importmap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L34)
+4. Remove `"#env"` from `"initialImportMap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L11)
 5. Delete [env.prod.js](../../env.prod.js)
 6. Delete [env.dev.js](../../env.dev.js)
-7. Remove `"/importmap.prod.test.importmap"` from [.gitignore](../../.gitignore#L22)
+7. Remove `"/prod.importmap"` from [.gitignore](../../.gitignore#L22)

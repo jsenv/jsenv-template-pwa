@@ -6,7 +6,7 @@
  */
 
 import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
-import { copyFileSystemNode, resolveUrl } from "@jsenv/util"
+import { copyFileSystemNode, resolveUrl } from "@jsenv/filesystem"
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
@@ -18,6 +18,9 @@ await buildProject({
   buildDirectoryClean: true,
   entryPointMap: {
     "./main.html": "./main.prod.html",
+  },
+  urlMappings: {
+    "./dev.importmap": "./prod.importmap",
   },
   serviceWorkers: {
     "./service_worker.js": "./service_worker.js",
@@ -42,4 +45,4 @@ const buildDirectoryUrl = resolveUrl(
   jsenvConfig.projectDirectoryUrl,
 )
 const robotsBuildFileUrl = resolveUrl("robots.txt", buildDirectoryUrl)
-await copyFileSystemNode(robotsProjectFileUrl, robotsBuildFileUrl)
+await copyFileSystemNode({ from: robotsProjectFileUrl, to: robotsBuildFileUrl })

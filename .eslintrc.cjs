@@ -1,6 +1,6 @@
 /*
  * This file uses "@jsenv/eslint-config" to configure ESLint
- * https://github.com/jsenv/eslint-config#eslint-config
+ * https://github.com/jsenv/eslint-config#eslint-config----
  */
 
 const {
@@ -14,6 +14,14 @@ const {
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
+
+  // use "@babel/eslint-parser" until top level await is supported by ESLint default parser
+  {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      requireConfigFile: false,
+    },
+  },
 
   // Files in this repository are meant to be executed in browser
   // and we want to tell this to ESLint.
@@ -51,7 +59,7 @@ const eslintConfig = composeEslintConfig(
         // Read more in https://github.com/jsenv/jsenv-node-module-import-map#Configure-vscode-and-eslint-for-importmap
         "@jsenv/importmap-eslint-resolver": {
           projectDirectoryUrl: __dirname,
-          importMapFileRelativeUrl: "./importmap.dev.importmap",
+          importMapFileRelativeUrl: "./dev.importmap",
         },
       },
     },
