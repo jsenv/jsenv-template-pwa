@@ -4,13 +4,17 @@
  * or the splashscreen will stay forever on top of the app UI
  */
 
-import "src/app/pwa/pwa.js"
+import { initPwa } from "src/app/pwa/pwa.js"
 import { greet } from "src/app/greet.js"
 
+const app = document.querySelector("#app")
+
 export const render = () => {
-  document.querySelector("#app").innerHTML = `
+  app.innerHTML = `
 
 <img src=${new URL("../logo.png", import.meta.url)} width="64" />
 
 <p>${greet()}</p>`
+
+  initPwa(app)
 }

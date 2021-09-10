@@ -1,17 +1,34 @@
 import {
   canUseServiceWorker,
+  registerServiceWorker,
   getServiceWorkerUpdate,
   listenServiceWorkerUpdate,
   checkServiceWorkerUpdate,
   activateServiceWorkerUpdate,
 } from "@jsenv/pwa"
 
-const installServiceWorkerUpdateUI = () => {
+export const initServiceWorker = (app) => {
+  if (!canUseServiceWorker) {
+    return
+  }
+
+  // wait a bit that browser is less busy to register the service worker
+  const callLater = requestIdleCallback
+    ? requestIdleCallback
+    : requestAnimationFrame
+  callLater(() => {
+    registerServiceWorker("/service_worker.js")
+  })
+
+  installServiceWorkerUpdateUI(app)
+}
+
+const installServiceWorkerUpdateUI = (app) => {
   const buttonCheckUpdate = document.createElement("button")
   buttonCheckUpdate.innerHTML = "Check update"
   const paragraph = document.createElement("p")
-  document.body.appendChild(buttonCheckUpdate)
-  document.body.appendChild(paragraph)
+  app.appendChild(buttonCheckUpdate)
+  app.appendChild(paragraph)
 
   buttonCheckUpdate.onclick = async () => {
     buttonCheckUpdate.disabled = true
@@ -38,8 +55,4 @@ const installServiceWorkerUpdateUI = () => {
       paragraph.innerHTML = ""
     }
   })
-}
-
-if (canUseServiceWorker) {
-  installServiceWorkerUpdateUI()
 }

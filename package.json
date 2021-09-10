@@ -22,7 +22,7 @@
   "type": "module",
   "main": "./src/boot/boot.js",
   "scripts": {
-    "start": "node ./script/start/start.mjs",
+    "start": "node ./script/start/start_dev_server.mjs",
     "eslint-check": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
     "generate-importmap": "node ./script/importmap/generate_importmap.mjs",
     "generate-lighthouse-report": "node ./script/lighthouse/generate_lighthouse_report.mjs --local",
@@ -31,7 +31,7 @@
     "build": "node ./script/build/build.mjs",
     "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
-    "start-prod": "node ./script/start/start_prod.mjs",
+    "start-prod": "node ./script/start/start_prod_server.mjs",
     "prettier-format": "node ./script/prettier/prettier_format.mjs",
     "prettier-format-stage": "npm run prettier-format -- --staged",
     "prettier-check": "npm run prettier-format -- --dry-run",
