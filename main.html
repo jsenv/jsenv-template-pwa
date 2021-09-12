@@ -7,17 +7,6 @@
     <link rel="icon" href="./icons/favicon.png" />
     <link rel="manifest" href="./pwa.webmanifest" />
     <link rel="stylesheet" href="./src/app/app.css" />
-
-    <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto"
-      as="font"
-      crossorigin
-    />
-    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
-    <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
-
     <script type="importmap" src="./dev.importmap"></script>
     <!--
     Why dev.importmap?
@@ -25,6 +14,16 @@
     can add custom behaviour to help developper experience. When this file is built, the importmap
     is replaced by "prod.importmap" so that the custom developer code is treeshaked.
     -->
+
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      as="font"
+      crossorigin
+    />
+    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
+    <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
+    <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
   </head>
 
   <body>
@@ -59,13 +58,32 @@
     <div id="app" data-booting></div>
     <style>
       #app[data-booting] {
-        visibility: hidden; /* Hide the app while its booting */
         width: 100%;
         height: 100%;
-        /* While app is booting, layout might be broken, prevent scrollbar with overflow hidden */
-        overflow: hidden;
+        visibility: hidden; /* Hides app while its booting */
+        overflow: hidden; /* While app is booting layout might be broken -> prevent scrollbar */
       }
-
+    </style>
+    <div id="splashscreen">
+      <div id="splashscreen_logo">
+        <img src="./src/logo.png" data-jsenv-force-inline />
+      </div>
+      <div id="splashscreen_brand">PWA template</div>
+      <div id="splashscreen_message"></div>
+      <div style="display: none">
+        <div id="booting_start"></div>
+        <div id="booting_is_slow">Booting...</div>
+        <div id="booting_error">
+          <p>An error occured while booting</p>
+          <br />
+          <details>
+            <summary>See error stack</summary>
+            <pre id="boot_runtime_error_stack">${errorStack}</pre>
+          </details>
+        </div>
+      </div>
+    </div>
+    <style>
       #splashscreen {
         position: fixed;
         z-index: 1000;
@@ -150,25 +168,6 @@
         }
       }
     </style>
-    <div id="splashscreen">
-      <div id="splashscreen_logo">
-        <img src="./src/logo.png" data-jsenv-force-inline />
-      </div>
-      <div id="splashscreen_brand">PWA template</div>
-      <div id="splashscreen_message"></div>
-      <div style="display: none">
-        <div id="booting_start"></div>
-        <div id="booting_is_slow">Booting...</div>
-        <div id="booting_error">
-          <p>An error occured while booting</p>
-          <br />
-          <details>
-            <summary>See error stack</summary>
-            <pre id="boot_runtime_error_stack">${errorStack}</pre>
-          </details>
-        </div>
-      </div>
-    </div>
     <script type="module">
       window.splashscreen = {
         /*
