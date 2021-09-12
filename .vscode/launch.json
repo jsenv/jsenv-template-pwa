@@ -12,6 +12,7 @@
         "--experimental-json-modules",
         "--experimental-top-level-await"
       ],
+      "console": "integratedTerminal",
       "autoAttachChildProcesses": true,
       "sourceMaps": true,
       "smartStep": true,

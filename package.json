@@ -40,7 +40,6 @@
     "postinstall": "npm run generate-importmap"
   },
   "dependencies": {
-    "@jsenv/https-local": "1.0.2",
     "@jsenv/pwa": "4.0.0",
     "@jsenv/server": "7.1.0",
     "systemjs": "6.10.3"
@@ -54,6 +53,7 @@
     "@jsenv/eslint-config": "16.0.1",
     "@jsenv/file-size-impact": "10.0.3",
     "@jsenv/filesystem": "2.1.1",
+    "@jsenv/https-local": "1.0.2",
     "@jsenv/importmap-eslint-resolver": "5.1.2",
     "@jsenv/importmap-node-module": "2.2.0",
     "@jsenv/lighthouse-impact": "1.2.1",

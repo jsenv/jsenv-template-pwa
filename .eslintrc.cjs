@@ -42,14 +42,6 @@ const eslintConfig = composeEslintConfig(
     },
   },
 
-  // Enable HTML plugin
-  {
-    plugins: ["html"],
-    settings: {
-      extensions: [".html"],
-    },
-  },
-
   // Enable import plugin
   {
     plugins: ["import"],
@@ -64,6 +56,14 @@ const eslintConfig = composeEslintConfig(
       },
     },
     rules: jsenvEslintRulesForImport,
+  },
+
+  // Enable HTML plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
   },
 
   // tell to ESLint which files are for Node.js in ESM
