@@ -28,7 +28,7 @@ export const generateLighthouseReport = async ({
   await import(`../build/build.mjs?cache_busting=${Date.now()}`)
   process.env.LOG_LEVEL = serverLogLevel
   const { server } = await import(
-    `../start/start_prod.mjs?cache_busting=${Date.now()}`
+    `../start/start_prod_server.mjs?cache_busting=${Date.now()}`
   )
 
   const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(
