@@ -10,7 +10,7 @@ One last thing: it can be used to debug and execute **any html file in your proj
 
 _For example, [test/greet.test.html](../../test/greet.test.html):_
 
-![stuff](./test_dev_server.png)
+![stuff](./greet_test_chrome.png)
 
 If you want to keep the development server, check [How to use development server](#how-to-use-development-server). Otherwise see [How to remove development server](#how-to-remove-development-server).
 
