@@ -36,7 +36,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Setup npm
         run: npm install
-      - name: Setup http certificates
+      - name: Setup certificate authority
         run: npm run install-certificate-authority
       - name: Report file size impact
         run: node ./.github/workflows/pr_impact/report_file_size_impact.mjs

@@ -7,7 +7,7 @@ import {
 
 import { projectDirectoryUrl } from "../../../jsenv.config.mjs"
 
-const measureBoot = async ({ iterations = 3 } = {}) => {
+export const measureBoot = async ({ iterations = 3 } = {}) => {
   const metrics = await measurePerformanceMultipleTimes(
     async () => {
       const executionResult = await execute({
