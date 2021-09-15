@@ -1,7 +1,7 @@
 # Building
 
 In order to optimize files for production use `npm run dist`.
-This will write files into [dist/](./dist/) directory.
+This will write files into [dist/](../../dist/) directory.
 
 The build perform the following things:
 
