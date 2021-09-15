@@ -40,8 +40,6 @@ Documentation of the features, how to use and or remove them.
 TO document
 
 - Splashscreen
-- Url versioning to enable long term caching
-- Accurate cache invalidation: no need for the browser to redownload many files when you change one file
 
 # Things to know
 
