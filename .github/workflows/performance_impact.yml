@@ -2,11 +2,9 @@
 # see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 #
 # For every push on a pull request, it
-# - creates or updates a comment about potential pr impact on several files size
-# - creates or updates comment about potential pr impact on lighthouse score
+# - creates or updates a comment about potential pr impact on performance metrics
 # Read more in
-# - https://github.com/jsenv/file-size-impact
-# - https://github.com/jsenv/lighthouse-impact
+# - https://github.com/jsenv/performance-impact
 #
 # If you want to update this file it's recommended to use a YAML validator
 # https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
@@ -38,14 +36,6 @@ jobs:
         run: npm install
       - name: Setup certificate authority
         run: npm run install-certificate-authority
-      - name: Report file size impact
-        run: node ./.github/workflows/pr_impact/report_file_size_impact.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Report lighthouse impact
-        run: node ./.github/workflows/pr_impact/report_lighthouse_impact.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.LIGHTHOUSE_GITHUB_TOKEN }}
       - name: Report performance impact
         run: node ./.github/workflows/pr_impact/report_performance_impact.mjs
         env:
