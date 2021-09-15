@@ -20,7 +20,6 @@ const getDynamicParametersFromProcessEnv = async () => {
   if (forceHttp) {
     // happens when runned by heroku
     return {
-      logLevel: process.env.LOG_LEVEL,
       protocol: "http",
       port: process.env.PORT,
     }
@@ -44,6 +43,7 @@ const dynamicParams = await getDynamicParametersFromProcessEnv()
 
 export const server = await startServer({
   ...dynamicParams,
+  logLevel: process.env.LOG_LEVEL,
   requestToResponse: (request) => {
     if (request.ressource === "/") {
       request = {

@@ -18,13 +18,15 @@ import {
 
 export const generateLighthouseReport = async ({
   runCount = 4,
-  serverLogLevel = "info",
+  buildLogLevel = "warn",
+  serverLogLevel = "warn",
   jsonFile = false,
   htmlFile = false,
 } = {}) => {
   // this function is executed a second time after merging the pull request
   // without the ?cache_busting param, the second execution of the function
   // would not rebuild the project
+  process.env.LOG_LEVEL = buildLogLevel
   await import(`../build/build.mjs?cache_busting=${Date.now()}`)
   process.env.LOG_LEVEL = serverLogLevel
   const { server } = await import(

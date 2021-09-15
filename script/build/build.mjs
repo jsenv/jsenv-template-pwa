@@ -31,7 +31,7 @@ await buildProject({
     collapseWhitespace: true,
     removeComments: true,
   },
-  // logLevel: "debug",
+  logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
