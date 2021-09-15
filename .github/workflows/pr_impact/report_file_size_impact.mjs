@@ -10,7 +10,7 @@ import {
   readGitHubWorkflowEnv,
 } from "@jsenv/file-size-impact"
 
-reportFileSizeImpact({
+await reportFileSizeImpact({
   ...readGitHubWorkflowEnv(),
   buildCommand: "npm run dist",
   moduleGeneratingFileSizeReportRelativeUrl:

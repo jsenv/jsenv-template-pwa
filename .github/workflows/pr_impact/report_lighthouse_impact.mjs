@@ -3,7 +3,7 @@ import {
   readGitHubWorkflowEnv,
 } from "@jsenv/lighthouse-impact"
 
-reportLighthouseImpact({
+await reportLighthouseImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
   moduleGeneratingLighthouseReportRelativeUrl:
