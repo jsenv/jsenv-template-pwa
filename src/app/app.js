@@ -4,8 +4,8 @@
  * or the splashscreen will stay forever on top of the app UI
  */
 
-import { initPwa } from "src/app/pwa/pwa.js"
-import { greet } from "src/app/greet.js"
+import { initPwa } from "root/src/app/pwa/pwa.js"
+import { greet } from "root/src/app/greet.js"
 
 const app = document.querySelector("#app")
 
