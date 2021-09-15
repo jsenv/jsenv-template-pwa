@@ -1,6 +1,9 @@
 # PWA compatiblity
 
-If you want to build a regular web application you can follow the [Steps to remove pwa](#Steps-to-remove-pwa)
+A progressive web application is a regular website that meets some "installability requirements".
+Once requirements are met the website can be "installed" on a device and provides a user experience similar to native application.
+
+You can remove PWA compatibility as described in [Steps to remove pwa](#Steps-to-remove-pwa)
 
 # Steps to remove pwa
 
