@@ -1,1 +1,1 @@
-Features documentation, see [.github/README.md#features](../.github/README.MD#features)
+Features documentation, see [.github/README.md#features](../.github/README.md#features)
