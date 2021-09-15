@@ -1,22 +1,6 @@
 # Building
 
-In order to optimize files for production use `npm run dist`.
-This will write files into [dist/](../../dist/) directory.
-
-The build perform the following things:
-
-- Code treeshaking
-  - The code specific to development is removed. See [Production mode](../production_mode/readme.md#Production-mode)
-  - Unused code is removed
-- Minify js, css, json, html, and svg files
-- Url versionning (replacing url with an hash to enable long term caching)
-- Concatenation of js files
-- Configure service worker to put all static urls into browser cache
-- Use [systemjs format](https://github.com/systemjs/systemjs)
-  - importmap support for old browsers
-    - Enables accurate cache invalidation: 1 file modified -> 1 file to redownload for the browser
-  - top level await support for old browsers
-  - dynamic import support for old browsers
+In order to optimize files for production use `node ./script/build/build.mjs` or `npm run dist`.
 
 ```console
 > node ./script/build/build.mjs
@@ -56,4 +40,21 @@ build duration: 4.48 seconds
 ✔ build end
 ```
 
+The build perform the following things:
+
+- Code treeshaking
+  - The code specific to development is removed. See [Production mode](../production_mode/readme.md#Production-mode)
+  - Unused code is removed
+- Minify js, css, json, html, and svg files
+- Url versionning (replacing url with an hash to enable long term caching)
+- Concatenation of js files
+- Configure service worker to put all urls into browser cache
+- Use [systemjs format](https://github.com/systemjs/systemjs)
+  - importmap support for old browsers
+    - Enables accurate cache invalidation: 1 file modified -> 1 file to redownload for the browser
+  - top level await support for old browsers
+  - dynamic import support for old browsers
+
 Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#build-overview).
+
+See also the content [dist/systemjs/](../../dist/systemjs/) in this repository.
