@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto");
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), url(./roboto-v27-latin-regular.woff2) format("woff2");
+}
 
 #splashscreen {
   font-family: Roboto;

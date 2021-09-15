@@ -15,13 +15,14 @@
     is replaced by "prod.importmap" so that the custom developer code is treeshaked.
     -->
 
+    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
     <link
       rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto"
+      href="./src/boot/roboto-v27-latin-regular.woff2"
       as="font"
+      type="font/woff2"
       crossorigin
     />
-    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
     <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
     <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
   </head>
@@ -275,7 +276,7 @@
         })
       }
 
-      boot()
+      await boot()
     </script>
     <script>
       // we have to register early to this event in case browser dispatch it quickly
