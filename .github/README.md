@@ -25,17 +25,17 @@ Then follow checklist below to setup your repository.
 
 Documentation of the features, how to use and or remove them.
 
-- [Formatting](../docs/formatting/formatting.md#formatting): Formatting with prettier
-- [Linting](../docs/linting/linting.md#linting): Linting with ESLint
-- [import resolution](../docs/import_resolution/import_resolution.md#import-resolution): importmap resolution for ESLint and VSCode
-- [Production mode](../docs/production_mode/production_mode.md#production-mode): Ability to write code specific to production or development
-- [Development server](../docs/dev_server/dev_server.md#Development-server): A dev server **without build step** and livereloading
-- [PWA compatibility](../docs/pwa_compat/pwa_compat.md#PWA-compatibility): Can run offline and be added to user home screen
-- [Testing](../docs/testing/testing.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
-- [Code coverage](../docs/code_coverage/code_coverage.md#Code-coverage): Code coverage with codecov
-- [Building](../docs/building/building.md#Building): Optimize files for production supporting importmap, top level await and more
+- [Formatting](../docs/formatting/readme.md#formatting): Formatting with prettier
+- [Linting](../docs/linting/readme.md#linting): Linting with ESLint
+- [import resolution](../docs/import_resolution/readme.md#import-resolution): importmap resolution for ESLint and VSCode
+- [Production mode](../docs/production_mode/readme.md#production-mode): Ability to write code specific to production or development
+- [Development server](../docs/dev_server/readme.md#Development-server): A dev server **without build step** and livereloading
+- [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility): Can run offline and be added to user home screen
+- [Testing](../docs/testing/readme.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
+- [Code coverage](../docs/code_coverage/readme.md#Code-coverage): Code coverage with codecov
+- [Building](../docs/building/readme.md#Building): Optimize files for production supporting importmap, top level await and more
 - [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
-- [Deploying](../docs/deploying/deploying.md#deploying): Auto deployment with heroku
+- [Deploying](../docs/deploying/readme.md#deploying): Auto deployment with heroku
 
 TO document
 
