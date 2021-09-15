@@ -1,11 +1,11 @@
 {
   "version": 3,
   "sources": [
-    "../../main.59.css"
+    "../../main.60.css"
   ],
   "names": [],
   "mappings": "AACM,mBAEE,WAAY,CAEZ,eAAgB,CADhB,iBAAkB,CAFlB,UAIF",
-  "file": "main.59-78f0e11f.css",
+  "file": "main.60-67bb3d44.css",
   "sourcesContent": [
     "\n      #app[data-booting] {\n        width: 100%;\n        height: 100%;\n        visibility: hidden; /* Hides app while its booting */\n        overflow: hidden; /* While app is booting layout might be broken -> prevent scrollbar */\n      }\n    "
   ]
