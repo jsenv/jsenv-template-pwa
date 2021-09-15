@@ -3,7 +3,11 @@
  * See https://github.com/jsenv/jsenv-core/blob/master/docs/testing/readme.md#jsenv-test-runner
  */
 
-import { executeTestPlan, launchChromiumTab } from "@jsenv/core"
+import {
+  executeTestPlan,
+  launchChromiumTab,
+  launchFirefoxTab,
+} from "@jsenv/core"
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
@@ -11,8 +15,11 @@ executeTestPlan({
   ...jsenvConfig,
   testPlan: {
     "./test/**/*.test.html": {
-      browser: {
+      chromium: {
         launch: launchChromiumTab,
+      },
+      firefox: {
+        launch: launchFirefoxTab,
       },
     },
   },
