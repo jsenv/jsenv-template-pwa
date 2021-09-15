@@ -47,7 +47,7 @@ The build perform the following things:
   - Unused code is removed
 - Minify js, css, json, html, and svg files
 - Url versionning (replacing url with an hash to enable long term caching)
-- Concatenation of js files
+- Concatenation of js static imports, code splitting on dynamic imports
 - Configure service worker to put all urls into browser cache
 - Use [systemjs format](https://github.com/systemjs/systemjs)
   - importmap support for old browsers
