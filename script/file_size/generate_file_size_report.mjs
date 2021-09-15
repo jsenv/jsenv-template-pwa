@@ -5,7 +5,7 @@
  * - node ./script/file_size/generate_file_size_report.mjs --local
  * - npm run measure-file-sizes
  *
- * The automated process is a GitHub workflow: ".github/workflows/pr_impact.yml"
+ * The automated process is a GitHub workflow: ".github/workflows/file_size_impact.yml"
  * It will dynamically import this file and call generateFileSizeReport.
  *
  * See https://github.com/jsenv/file-size-impact

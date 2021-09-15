@@ -17,6 +17,7 @@ export const measureBoot = async ({ iterations = 3 } = {}) => {
         // measurePerformance: true,
         // compileServerCanWriteOnFilesystem: false,
         collectPerformance: true,
+        stopAfterExecute: true,
       })
       const { measures } = executionResult.performance
       const metrics = {}

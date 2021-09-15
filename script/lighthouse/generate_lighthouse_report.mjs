@@ -5,7 +5,7 @@
  * - node ./script/lighthouse/generate_lighthouse_report.mjs --local
  * - npm run generate-lighthouse-report
  *
- * The automated process is a GitHub workflow: ".github/workflows/pr_impact.yml"
+ * The automated process is a GitHub workflow: ".github/workflows/lighthouse_impact.yml"
  * It will dynamically import this file and call generateLighthouseReport.
  *
  * See https://github.com/jsenv/lighthouse-impact
