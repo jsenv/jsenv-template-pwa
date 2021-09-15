@@ -1,3 +1,7 @@
+# File size impact
+
+![stuff](./file_size_impact.png)
+
 # How to use file size impact?
 
 A js file exports [generateFileSizeReport](../../script/file_size/generate_file_size_report.mjs) function. This function measure a subset of file size and is used to analyse impact on file sizes.

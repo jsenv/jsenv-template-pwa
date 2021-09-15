@@ -1,3 +1,7 @@
+## Lighthouse impact
+
+![stuff](./lighthouse_impact.png)
+
 # How to use ligthouse impact?
 
 A js file exports [generateLighthouseReport](../../script/lighthouse/generate_lighthouse_report.mjs) function. This function starts a headless chrome and measure lighthouse score.

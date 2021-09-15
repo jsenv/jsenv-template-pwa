@@ -1,3 +1,7 @@
+# Performance impact
+
+![stuff](./performance_impact.png)
+
 # How to use performance impact?
 
 A js file exports [generatePerformanceReport](../../../script/performance/generate_performance_report.mjs) function. _generatePerformanceReport_ measure 7 metrics and is used to analyse impact on performances.
