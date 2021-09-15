@@ -34,7 +34,7 @@ Documentation of the features, how to use and or remove them.
 - [Testing](../docs/testing/testing.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
 - [Code coverage](../docs/code_coverage/code_coverage.md#Code-coverage): Code coverage with codecov
 - [Building](../docs/building/building.md#Building): Optimize files for production supporting importmap, top level await and more
-- [Pull request impacts](../docs/pr_impacts/pr_impacts.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
+- [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
 - [Deploying](../docs/deploying/deploying.md#deploying): Auto deployment with heroku
 
 TO document
