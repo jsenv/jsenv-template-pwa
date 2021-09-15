@@ -24,4 +24,6 @@ executeTestPlan({
     },
   },
   coverageJsonFileRelativeUrl: "coverage/coverage.json",
+  coverageForceIstanbul: true,
+  coverage: process.argv.includes("--coverage"),
 })
