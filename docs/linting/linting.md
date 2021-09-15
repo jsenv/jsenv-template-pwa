@@ -19,10 +19,10 @@ To execute ESLint on all files use the following command: `npm run eslint-check`
 # How to remove ESLint
 
 1. Remove `check lint` step in [.github/workflows/main.yml](../../.github/workflows/main.yml#L42)
-2. Remove `"eslint-check"` from `"scripts"` in [package.json](../../package.json#L47)
+2. Remove `"eslint-check"` from `"scripts"` in [package.json](../../package.json#L24)
 3. Delete [.eslintrc.cjs](../../.eslintrc.cjs)
 4. Delete [.eslintignore](../../.eslintignore)
-5. Remove these `"devDependencies"` in [package.json](../../package.json#L63)
+5. Remove these `"devDependencies"` in [package.json](../../package.json#L47)
 
    - `"@jsenv/eslint-config"`
    - `"@jsenv/importmap-eslint-resolver"`
