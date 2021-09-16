@@ -14,6 +14,7 @@ const { serverCertificate, serverCertificatePrivateKey } =
 export const server = await startExploring({
   ...jsenvConfig,
   compileServerPort: 3472,
+  compileServerProtocol: "https",
   compileServerCertificate: serverCertificate,
   compileServerPrivateKey: serverCertificatePrivateKey,
   explorableConfig: {
