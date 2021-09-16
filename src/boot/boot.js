@@ -27,6 +27,11 @@ const prepareApp = async () => {
     new Promise((resolve) => setTimeout(resolve, 400)),
   ])
 
+  // De-comment the await below to test the case where boot is slow
+  // await new Promise((resolve) => {
+  //   setTimeout(resolve, 3500)
+  // })
+
   // window.splashscreen.takeOver() means this code is taking responsability of the splashscreen.
   // It prevents main.html to display <div id="booting_is_slow"></div> to the user
   window.splashscreen.takeOver()

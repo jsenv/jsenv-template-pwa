@@ -99,6 +99,8 @@
         flex-direction: column;
         align-items: center;
         opacity: 0;
+      }
+      #splashscreen[data-splashin] {
         animation-name: splashin;
         animation-duration: 0.4s;
         animation-fill-mode: forwards;
@@ -152,9 +154,7 @@
         text-align: left;
         overflow: auto;
       }
-
-      #splashscreen[data-booting-done] {
-        animation-delay: 0;
+      #splashscreen[data-splashout] {
         animation-duration: 0.3s;
         animation-name: splashout;
         animation-fill-mode: forwards;
@@ -178,7 +178,7 @@
         injectDevRibbon()
       }
 
-      window.splashscreen = {
+      const splashscreen = {
         /*
          * takeOver is implemented later in this script.
          * takeOver is meant to be called by code that want to take responsability
@@ -197,6 +197,19 @@
          */
         appIsReady: () => {},
       }
+      window.splashscreen = splashscreen
+
+      // When it take more than "BOOTING_SLOW"ms for code to call window.splashscreen.takeOver()
+      // splashscreen displays <div id="booting_is_slow"> content
+      const BOOTING_SLOW = 2500
+      // When it takes less than "SPLASHIN_DELAY"ms for code to call window.splashscreen.appIsReady()
+      // we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
+      const SPLASHIN_DELAY = 300
+      // When less than "SPLASHOUT_MIN_INTERVAL"ms have ellapsed since splashin animation started
+      // we will ensure "SPLASHOUT_MIN_INTERVAL"ms ellapses before playing the splashout animation
+      // This is to prevent a disturbing blink when code calls window.splashscreen.appIsReady() just after
+      // splashin animation
+      const SPLASHOUT_MIN_INTERVAL = 650
 
       const appNode = document.querySelector("#app")
       const splashscreenNode = document.querySelector("#splashscreen")
@@ -206,38 +219,66 @@
       const BOOTING_ERROR = "booting_error"
 
       const boot = async () => {
-        // In case page takes more than 2,5s to boot
+        const bootStartMs = Date.now()
+
+        let splashIsVisible = false
+        const splashin = () => {
+          splashscreenNode.setAttribute("data-splashin", "")
+          splashIsVisible = true
+        }
+
+        const splashout = async () => {
+          splashscreenNode.setAttribute("data-splashout", "")
+          await new Promise((resolve) => {
+            setTimeout(() => {
+              splashIsVisible = false
+              resolve()
+            }, 300)
+          })
+        }
+
+        const killSplashscreen = () => {
+          appNode.removeAttribute("data-booting")
+          // Here splashscreen is "killed" with display: 'none' but it could also
+          // be removed from the DOM
+          splashscreenNode.style.display = "none"
+          splashIsVisible = false
+        }
+
+        const splashInTimeout = setTimeout(splashin, SPLASHIN_DELAY)
+
         const bootingIsSlowTimeout = setTimeout(() => {
           setBootingState(BOOTING_IS_SLOW)
-        }, 2500)
-        // De-comment the await below to test the case where boot is slow
-        // await new Promise((resolve) => {
-        //   setTimeout(resolve, 3500)
-        // })
+        }, BOOTING_SLOW)
 
         window.splashscreen.takeOver = () => {
           clearTimeout(bootingIsSlowTimeout)
         }
 
-        // In case boot main file loads and execute fast, splashscreen would
-        // fadein + fadeout too soon creating a blink.
-        // -> To prevent the blink we wait at leat 700ms before actually removing the splashscreen
-        // Other strategies are valid and could be preferred instead of this one.
-        const minMsEllapsed = new Promise((resolve) => {
-          setTimeout(resolve, 700)
-        })
         window.splashscreen.appIsReady = async () => {
+          clearTimeout(splashInTimeout)
           clearTimeout(bootingIsSlowTimeout)
-          appNode.removeAttribute("data-booting")
 
-          await minMsEllapsed
-          splashscreenNode.setAttribute("data-booting-done", "")
+          if (!splashIsVisible) {
+            // app was super fast to load, splashscreen was not even displayed, cool
+            killSplashscreen()
+            return
+          }
+
+          const splashInMs = bootStartMs + SPLASHIN_DELAY
+          const msEllapsedSinceSplashIn = Date.now() - splashInMs
+
+          if (msEllapsedSinceSplashIn < SPLASHOUT_MIN_INTERVAL) {
+            const msToWaitToPreventBlink =
+              SPLASHOUT_MIN_INTERVAL - msEllapsedSinceSplashIn
+            await new Promise((resolve) => {
+              setTimeout(resolve, msToWaitToPreventBlink)
+            })
+          }
+
           // Wait the end of the "splashout" animation before killing splashscreen entirely
-          setTimeout(() => {
-            // Here splashscreen is "killed" with display: 'none' but it could also
-            // be removed from the DOM
-            splashscreenNode.style.display = "none"
-          }, 300)
+          await splashout()
+          killSplashscreen()
         }
 
         try {
