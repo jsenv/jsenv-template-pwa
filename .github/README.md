@@ -6,7 +6,7 @@ deleted and only ../README.md should be kept
 
 # Progressive Web Application template
 
-This documentation is 80% completed.
+This documentation is 90% completed.
 
 This repository is meant to serve as a general template for how to set up repositories to create a progressive web application. If you want to build a regular web application, use this template and remove files specific to PWA as explained in the documentation.
 
