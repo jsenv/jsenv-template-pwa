@@ -171,6 +171,13 @@
       }
     </style>
     <script type="module">
+      import { DEV } from "#env"
+
+      if (DEV) {
+        const { injectDevRibbon } = await import("./src/dev_ribbon.js")
+        injectDevRibbon()
+      }
+
       window.splashscreen = {
         /*
          * takeOver is implemented later in this script.
