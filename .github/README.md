@@ -37,10 +37,6 @@ Documentation of the features, how to use and or remove them.
 - [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
 - [Deploying](../docs/deploying/readme.md#deploying): Auto deployment with heroku
 
-TO document
-
-- Splashscreen
-
 # Things to know
 
 - Node.js Long Term Support version should be used while coding. At the time of writing this documentation it means version 14.17.0.
