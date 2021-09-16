@@ -11,10 +11,35 @@
     <!--
     Why dev.importmap?
     -> We want to execute this file in "development" mode meaning you we
-    can add custom behaviour to help developper experience. When this file is built, the importmap
-    is replaced by "prod.importmap" so that the custom developer code is treeshaked.
+    can add custom behaviour to help developper experience.
+    When this file is built, the importmap is replaced by "prod.importmap".
+    This will remove code specific to development thanks to treeshaking.
     -->
 
+    <!--
+    Explanation of this HTMl file and why it's the way it is
+
+    First thing user sees is the HTML in this file. If HTML was empty,
+    user would see a blank page. To have something better to show, there is
+    inline HTML, CSS and JS to immediatly display something called "splashscreen".
+
+    splashscreen has several reponsabilities:
+    1. Be the first thing a user see
+    2. Load the main js file from network (boot/boot.js)
+    3. When loading main js takes times, invite user to wait
+    4. When loading fails (due to a network error), display an error message
+    5. When main js file throws, display an error message
+
+    As splashscreen is inline it is displayed instantly to the user.
+    As it is inlined, splashscreen should be small and simple.
+    This project enrich the splashscreen inside boot/boot.js to provide a
+    better loading experience.
+
+    From user point of view it goes like this:
+    1. splashscreen is immediatly displayed
+    2. Very shortly after JS and CSS improves the loading experience (when boot.js executes)
+    3. splashscreen fades away and website is displayed (when app.js is executed by boot.js)
+    -->
     <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
     <link
       rel="preload"
@@ -32,30 +57,6 @@
       <h1>JavaScript is required</h1>
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
-    <!--
-    Explanation of this HTMl file and why it's the way it is
-
-    First thing user sees is the HTML in this file. If HTML was empty,
-    user would see a blank page. To have something better to show, there is
-    inline HTML, CSS and JS to immediatly display something called "splashscreen".
-
-    splashscreen has several reponsabilities:
-    1. Be the first thing a user see
-    2. Load the main js file from network (boot/boot.js)
-    3. When loading main js takes times, invite user to wait
-    4. When loading fails (due to a network error), display an error message
-    5. When main js file throws, display an error message
-
-    As splashscreen is inline it loads instantly but it also means it cannot go too far
-    in terms of user experience and features: it should stay small and simple.
-    A good compromise is to enrich the splashscreen into boot/boot.js to provide a better loading experience
-    while the whole app is still loading
-
-    From user point of view it goes like this:
-    1. splashscreen is immediatly displayed
-    2. Very shortly after JS and CSS comes to improve the loading experience.
-    3. splashscreen fades away and website is displayed
-    -->
     <div id="app" data-booting></div>
     <style>
       #app[data-booting] {
@@ -181,8 +182,9 @@
         takeOver: () => {},
         /*
          * appIsReady is implemented later in this script.
-         * appIsReady is meant to be called once the app inside <div id="app"></div>
-         * is ready to be displayed to the user (HTML rendered and CSS, images, fonts, ... are loaded).
+         * appIsReady is meant to be called once:
+         * - Code has rendered html inside <div id="app"></div>
+         * - This html is ready to be displayed (css ands fonts loaded for example)
          *
          * It is used by app/app.js once it has rendered the HTML and font is loaded
          */
@@ -247,8 +249,6 @@
       }
 
       const setBootingState = (nextBootingState, data = {}) => {
-        //  bootingState = nextBootingState
-
         const splashscreenMessageNode = document.querySelector(
           "#splashscreen_message",
         )
@@ -279,9 +279,8 @@
       await boot()
     </script>
     <script>
-      // we have to register early to this event in case browser dispatch it quickly
-      // other scripts will have to check window.beforeinstallpromptEvent
-      // presence, otherwise listen the before install prompt event
+      // We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
+      // Event is stored in window.beforeinstallpromptEvent to be used later
       window.addEventListener(
         "beforeinstallprompt",
         (beforeinstallpromptEvent) => {
