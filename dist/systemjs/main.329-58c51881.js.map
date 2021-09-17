@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../main.288.js"
+    "../../main.329.js"
   ],
   "names": [
     "window",
@@ -13,5 +13,5 @@
   "sourcesContent": [
     "\n      // We must listen to \"beforeinstallprompt\" as soon as possible or it could be missed.\n      // Event is stored in window.beforeinstallpromptEvent to be used later\n      window.addEventListener(\n        \"beforeinstallprompt\",\n        (beforeinstallpromptEvent) => {\n          beforeinstallpromptEvent.preventDefault()\n          window.beforeinstallpromptEvent = beforeinstallpromptEvent\n        },\n      )\n    "
   ],
-  "file": "main.288-58c51881.js"
+  "file": "main.329-58c51881.js"
 }
