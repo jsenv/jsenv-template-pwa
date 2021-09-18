@@ -37,10 +37,9 @@
 
     From user point of view it goes like this:
     1. splashscreen is immediatly displayed
-    2. Very shortly after JS and CSS improves the loading experience (when boot.js executes)
-    3. splashscreen fades away and website is displayed (when app.js is executed by boot.js)
+    2. Very shortly after JS and CSS improves the loading experience (when app_loader.js executes)
+    3. splashscreen fades away and website is displayed (when app.js is executed by app_loader.js)
     -->
-    <link rel="preload" href="./src/boot/boot.css" as="style" crossorigin />
     <link
       rel="preload"
       href="./src/boot/roboto-v27-latin-regular.woff2"
@@ -50,6 +49,9 @@
     />
     <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
     <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
+
+    <!-- TODO: explain boot.css and data-jsenv-force-inline  -->
+    <link rel="stylesheet" href="./src/boot/boot.css" data-jsenv-force-inline />
   </head>
 
   <body>
@@ -57,15 +59,11 @@
       <h1>JavaScript is required</h1>
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
+    <div id="browser_not_supported">
+      <h1>Browser not supported</h1>
+      <p>Please update your internet browser or try with an other one</p>
+    </div>
     <div id="app" data-booting></div>
-    <style>
-      #app[data-booting] {
-        width: 100%;
-        height: 100%;
-        visibility: hidden; /* Hides app while its booting */
-        overflow: hidden; /* While app is booting layout might be broken -> prevent scrollbar */
-      }
-    </style>
     <div id="splashscreen">
       <div id="splashscreen_logo">
         <img src="./src/logo.png" data-jsenv-force-inline />
@@ -85,247 +83,24 @@
         </div>
       </div>
     </div>
-    <style>
-      #splashscreen {
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #030713;
-        color: #a9a8a8;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        opacity: 0;
-      }
-      #splashscreen[data-splashin] {
-        animation-name: splashin;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-      }
-      @keyframes splashin {
-        from {
-          opacity: 0;
-          /* transform: scale(0); */
-        }
 
-        to {
-          opacity: 1;
-          /* transform: scale(1); */
-        }
-      }
-      #splashscreen_logo {
-        margin: 2em;
-      }
-      #splashscreen_brand {
-        font-size: 2em;
-        color: orange;
-      }
-      #splashscreen_message {
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        width: 80%;
-        max-width: 40em;
-        margin: 2em;
-      }
-      #booting_error {
-        display: block;
-        text-align: center;
-        width: 100%;
-      }
-      #booting_error p {
-        display: inline-block;
-        color: #ba3939;
-        background: #ffe0e0;
-        border: 1px solid #a33a3a;
-        padding: 1em 3em;
-      }
-      #booting_error details {
-        display: inline-block;
-        max-width: 100%;
-      }
-      #booting_error details summary {
-        text-align: center;
-      }
-      #booting_error details pre {
-        text-align: left;
-        overflow: auto;
-      }
-      #splashscreen[data-splashout] {
-        animation-duration: 0.3s;
-        animation-name: splashout;
-        animation-fill-mode: forwards;
-      }
-      @keyframes splashout {
-        from {
-          opacity: 1;
-        }
+    <!--
+      "browser_support_detection.js" file sets window.browserIsSupported
+      It will be used to either
+      - Display "browser not supported" message
+      - Or booting the application
 
-        to {
-          opacity: 0;
-          display: none;
-        }
-      }
-    </style>
-    <script type="module">
-      import { DEV } from "#env"
-
-      if (DEV) {
-        const { injectDevRibbon } = await import("./src/dev_ribbon.js")
-        injectDevRibbon()
-      }
-
-      const splashscreen = {
-        /*
-         * takeOver is implemented later in this script.
-         * takeOver is meant to be called by code that want to take responsability
-         * of what is displayed in the splashscreen
-         *
-         * It is used by boot/boot.js once it starts to render a different UI in the splashscreen
-         */
-        takeOver: () => {},
-        /*
-         * appIsReady is implemented later in this script.
-         * appIsReady is meant to be called once:
-         * - Code has rendered html inside <div id="app"></div>
-         * - This html is ready to be displayed (css ands fonts loaded for example)
-         *
-         * It is used by app/app.js once it has rendered the HTML and font is loaded
-         */
-        appIsReady: () => {},
-      }
-      window.splashscreen = splashscreen
-
-      // When it take more than "BOOTING_SLOW"ms for code to call window.splashscreen.takeOver()
-      // splashscreen displays <div id="booting_is_slow"> content
-      const BOOTING_SLOW = 2500
-      // When it takes less than "SPLASHIN_DELAY"ms for code to call window.splashscreen.appIsReady()
-      // we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
-      const SPLASHIN_DELAY = 300
-      // When less than "SPLASHOUT_MIN_INTERVAL"ms have ellapsed since splashin animation started
-      // we will ensure "SPLASHOUT_MIN_INTERVAL"ms ellapses before playing the splashout animation
-      // This is to prevent a disturbing blink when code calls window.splashscreen.appIsReady() just after
-      // splashin animation
-      const SPLASHOUT_MIN_INTERVAL = 650
-
-      const appNode = document.querySelector("#app")
-      const splashscreenNode = document.querySelector("#splashscreen")
-
-      const BOOTING_START = "booting_start"
-      const BOOTING_IS_SLOW = "booting_is_slow"
-      const BOOTING_ERROR = "booting_error"
-
-      const boot = async () => {
-        const bootStartMs = Date.now()
-
-        let splashIsVisible = false
-        const splashin = () => {
-          splashscreenNode.setAttribute("data-splashin", "")
-          splashIsVisible = true
-        }
-
-        const splashout = async () => {
-          splashscreenNode.setAttribute("data-splashout", "")
-          await new Promise((resolve) => {
-            setTimeout(() => {
-              splashIsVisible = false
-              resolve()
-            }, 300)
-          })
-        }
-
-        const killSplashscreen = () => {
-          appNode.removeAttribute("data-booting")
-          // Here splashscreen is "killed" with display: 'none' but it could also
-          // be removed from the DOM
-          splashscreenNode.style.display = "none"
-          splashIsVisible = false
-        }
-
-        const splashInTimeout = setTimeout(splashin, SPLASHIN_DELAY)
-
-        const bootingIsSlowTimeout = setTimeout(() => {
-          setBootingState(BOOTING_IS_SLOW)
-        }, BOOTING_SLOW)
-
-        window.splashscreen.takeOver = () => {
-          clearTimeout(bootingIsSlowTimeout)
-        }
-
-        window.splashscreen.appIsReady = async () => {
-          clearTimeout(splashInTimeout)
-          clearTimeout(bootingIsSlowTimeout)
-
-          if (!splashIsVisible) {
-            // app was super fast to load, splashscreen was not even displayed, cool
-            killSplashscreen()
-            return
-          }
-
-          const splashInMs = bootStartMs + SPLASHIN_DELAY
-          const msEllapsedSinceSplashIn = Date.now() - splashInMs
-
-          if (msEllapsedSinceSplashIn < SPLASHOUT_MIN_INTERVAL) {
-            const msToWaitToPreventBlink =
-              SPLASHOUT_MIN_INTERVAL - msEllapsedSinceSplashIn
-            await new Promise((resolve) => {
-              setTimeout(resolve, msToWaitToPreventBlink)
-            })
-          }
-
-          // Wait the end of the "splashout" animation before killing splashscreen entirely
-          await splashout()
-          killSplashscreen()
-        }
-
-        try {
-          setBootingState(BOOTING_START)
-          await import("./src/boot/boot.js")
-        } catch (error) {
-          clearTimeout(bootingIsSlowTimeout)
-
-          setBootingState(BOOTING_ERROR, {
-            errorStack:
-              error.stack ||
-              `<No stack associated with this error> (Check devtools to get more info)`,
-          })
-          throw error
-        }
-      }
-
-      const setBootingState = (nextBootingState, data = {}) => {
-        const splashscreenMessageNode = document.querySelector(
-          "#splashscreen_message",
-        )
-        splashscreenMessageNode.innerHTML = ""
-        const variantModel = document.querySelector(`#${nextBootingState}`)
-        const variantInstance = variantModel.cloneNode(true)
-
-        replaceNodeVariables(variantInstance, data)
-        splashscreenMessageNode.appendChild(variantInstance)
-      }
-
-      const replaceNodeVariables = (node, data) => {
-        if (node.nodeName === "#text") {
-          node.textContent = node.textContent.replace(
-            /\${(\w*)}/g,
-            (_, key) => {
-              return data.hasOwnProperty(key) ? data[key] : ""
-            },
-          )
-          return
-        }
-
-        Array.from(node.childNodes).forEach((node) => {
-          replaceNodeVariables(node, data)
-        })
-      }
-
-      await boot()
-    </script>
+      [data-jsenv-force-inline] attribute inlines the js file content in this HTML during the build
+    -->
+    <script
+      src="./src/boot/browser_support_detection.js"
+      data-jsenv-force-inline
+    ></script>
+    <script
+      type="module"
+      src="./src/boot/boot.js"
+      data-jsenv-force-inline
+    ></script>
     <script>
       // We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
       // Event is stored in window.beforeinstallpromptEvent to be used later

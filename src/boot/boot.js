@@ -1,96 +1,151 @@
-/**
- * This is where you can orchestrate the loading of your application
- */
-
 import { DEV } from "#env"
-import { injectCSS, nextIDLEPromise } from "./boot.utils.js"
+
+if (DEV) {
+  const { injectDevRibbon } = await import("./dev_ribbon.js")
+  injectDevRibbon()
+}
+
+const splashscreen = {
+  /*
+   * takeOver is implemented later in this script.
+   * takeOver is meant to be called by code that want to take responsability
+   * of what is displayed in the splashscreen
+   *
+   * It is used by boot/boot.js once it starts to render a different UI in the splashscreen
+   */
+  takeOver: () => {},
+  /*
+   * appIsReady is implemented later in this script.
+   * appIsReady is meant to be called once:
+   * - Code has rendered html inside <div id="app"></div>
+   * - This html is ready to be displayed (css ands fonts loaded for example)
+   *
+   * It is used by app/app.js once it has rendered the HTML and font is loaded
+   */
+  appIsReady: () => {},
+}
+window.splashscreen = splashscreen
+
+// When it take more than "BOOTING_SLOW"ms for code to call window.splashscreen.takeOver()
+// splashscreen displays <div id="booting_is_slow"> content
+const BOOTING_SLOW = 2500
+// When it takes less than "SPLASHIN_DELAY"ms for code to call window.splashscreen.appIsReady()
+// we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
+const SPLASHIN_DELAY = 300
+// When less than "SPLASHOUT_MIN_INTERVAL"ms have ellapsed since splashin animation started
+// we will ensure "SPLASHOUT_MIN_INTERVAL"ms ellapses before playing the splashout animation
+// This is to prevent a disturbing blink when code calls window.splashscreen.appIsReady() just after
+// splashin animation
+const SPLASHOUT_MIN_INTERVAL = 650
+
+const appNode = document.querySelector("#app")
+const splashscreenNode = document.querySelector("#splashscreen")
+
+const BOOTING_START = "booting_start"
+const BOOTING_IS_SLOW = "booting_is_slow"
+const BOOTING_ERROR = "booting_error"
 
 const boot = async () => {
-  const [, app] = await Promise.all([prepareApp(), loadApp()])
-  // app.render() can be very expensive so we wait a bit
-  // to let navigator an opportunity to cooldown.
-  // This should help to save battery power and RAM
-  await nextIDLEPromise()
-  app.render()
-  if (DEV) {
-    performance.measure(`App displayed`)
-  }
-  window.splashscreen.appIsReady()
-}
+  const bootStartMs = Date.now()
 
-const prepareApp = async () => {
-  // try to load CSS + get the main fonts before displaying any text
-  // to avoid font swapping if possible
-  // give max 400ms for this
-  await Promise.race([
-    loadBootCSSAndFonts(),
-    new Promise((resolve) => setTimeout(resolve, 400)),
-  ])
-
-  // De-comment the await below to test the case where boot is slow
-  // await new Promise((resolve) => {
-  //   setTimeout(resolve, 3500)
-  // })
-
-  // window.splashscreen.takeOver() means this code is taking responsability of the splashscreen.
-  // It prevents main.html to display <div id="booting_is_slow"></div> to the user
-  window.splashscreen.takeOver()
-
-  const updateSplascreenText = (message) => {
-    const splashscreenMessageNode = document.querySelector(
-      "#splashscreen_message",
-    )
-    splashscreenMessageNode.innerHTML = message
+  let splashIsVisible = false
+  const splashin = () => {
+    splashscreenNode.setAttribute("data-splashin", "")
+    splashIsVisible = true
   }
 
-  updateSplascreenText(`Loading banana...`)
-  if (DEV) {
-    performance.measure(`"loading bannana..." displayed`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 800)
-  })
-
-  updateSplascreenText(`Loading gorilla...`)
-  if (DEV) {
-    performance.measure(`"loading gorilla..." displayed`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000)
-  })
-
-  updateSplascreenText(`Loading the entire jungle...`)
-  if (DEV) {
-    performance.measure(`"entire jungle..." displayed`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1200)
-  })
-}
-
-const loadBootCSSAndFonts = async () => {
-  try {
-    await injectCSS(new URL("./boot.css", import.meta.url), {
-      crossOrigin: true,
+  const splashout = async () => {
+    splashscreenNode.setAttribute("data-splashout", "")
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        splashIsVisible = false
+        resolve()
+      }, 300)
     })
-    if (DEV) {
-      performance.measure(`boot.css loaded`)
+  }
+
+  const killSplashscreen = () => {
+    appNode.removeAttribute("data-booting")
+    // Here splashscreen is "killed" with display: 'none' but it could also
+    // be removed from the DOM
+    splashscreenNode.style.display = "none"
+    splashIsVisible = false
+  }
+
+  const splashInTimeout = setTimeout(splashin, SPLASHIN_DELAY)
+
+  const bootingIsSlowTimeout = setTimeout(() => {
+    setBootingState(BOOTING_IS_SLOW)
+  }, BOOTING_SLOW)
+
+  window.splashscreen.takeOver = () => {
+    clearTimeout(bootingIsSlowTimeout)
+  }
+
+  window.splashscreen.appIsReady = async () => {
+    clearTimeout(splashInTimeout)
+    clearTimeout(bootingIsSlowTimeout)
+
+    if (!splashIsVisible) {
+      // app was super fast to load, splashscreen was not even displayed, cool
+      killSplashscreen()
+      return
     }
-  } catch (e) {
+
+    const splashInMs = bootStartMs + SPLASHIN_DELAY
+    const msEllapsedSinceSplashIn = Date.now() - splashInMs
+
+    if (msEllapsedSinceSplashIn < SPLASHOUT_MIN_INTERVAL) {
+      const msToWaitToPreventBlink =
+        SPLASHOUT_MIN_INTERVAL - msEllapsedSinceSplashIn
+      await new Promise((resolve) => {
+        setTimeout(resolve, msToWaitToPreventBlink)
+      })
+    }
+
+    // Wait the end of the "splashout" animation before killing splashscreen entirely
+    await splashout()
+    killSplashscreen()
+  }
+
+  try {
+    setBootingState(BOOTING_START)
+    await import("../app_loader/app_loader.js")
+  } catch (error) {
+    clearTimeout(bootingIsSlowTimeout)
+
+    setBootingState(BOOTING_ERROR, {
+      errorStack:
+        error.stack ||
+        `<No stack associated with this error> (Check devtools to get more info)`,
+    })
+    throw error
+  }
+}
+
+const setBootingState = (nextBootingState, data = {}) => {
+  const splashscreenMessageNode = document.querySelector(
+    "#splashscreen_message",
+  )
+  splashscreenMessageNode.innerHTML = ""
+  const variantModel = document.querySelector(`#${nextBootingState}`)
+  const variantInstance = variantModel.cloneNode(true)
+
+  replaceNodeVariables(variantInstance, data)
+  splashscreenMessageNode.appendChild(variantInstance)
+}
+
+const replaceNodeVariables = (node, data) => {
+  if (node.nodeName === "#text") {
+    node.textContent = node.textContent.replace(/\${(\w*)}/g, (_, key) => {
+      return data.hasOwnProperty(key) ? data[key] : ""
+    })
     return
   }
-  await document.fonts.ready
-  if (DEV) {
-    performance.measure(`fonts ready`)
-  }
-}
 
-const loadApp = async () => {
-  const app = await import("../app/app.js")
-  if (DEV) {
-    performance.measure("app.js imported")
-  }
-  return app
+  Array.from(node.childNodes).forEach((node) => {
+    replaceNodeVariables(node, data)
+  })
 }
 
 await boot()

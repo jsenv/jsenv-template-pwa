@@ -10,8 +10,8 @@
 export const projectDirectoryUrl = String(new URL("./", import.meta.url))
 
 export const runtimeSupport = {
-  chrome: "47",
-  firefox: "48",
-  safari: "10",
-  edge: "17",
+  chrome: "55",
+  edge: "14",
+  firefox: "52",
+  safari: "11",
 }
