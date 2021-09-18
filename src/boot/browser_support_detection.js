@@ -49,3 +49,7 @@ function versionFromUserAgent(regexp) {
 }
 
 window.browserIsSupported = browserIsSupported()
+
+if (!window.browserIsSupported) {
+  document.getElementById("browser_not_supported").style.display = "block"
+}

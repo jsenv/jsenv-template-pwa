@@ -112,7 +112,8 @@ const boot = async () => {
 
   try {
     setBootingState(BOOTING_START)
-    await import("../app_loader/app_loader.js")
+    const { loadApp } = await import("../app_loader/app_loader.js")
+    await loadApp()
   } catch (error) {
     clearTimeout(bootingIsSlowTimeout)
 
@@ -150,4 +151,6 @@ const replaceNodeVariables = (node, data) => {
   })
 }
 
-await boot()
+if (window.browserIsSupported) {
+  await boot()
+}

@@ -76,12 +76,12 @@ const loadCSSAndFonts = async () => {
     if (DEV) {
       performance.measure(`app_loader.css loaded`)
     }
+    await document.fonts.ready
+    if (DEV) {
+      performance.measure(`fonts ready`)
+    }
   } catch (e) {
     return
-  }
-  await document.fonts.ready
-  if (DEV) {
-    performance.measure(`fonts ready`)
   }
 }
 
