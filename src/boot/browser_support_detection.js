@@ -7,6 +7,11 @@
 var userAgent = window.navigator.userAgent
 
 function browserIsSupported() {
+  var isIE = typeof document.documentMode !== "undefined"
+  if (isIE) {
+    return false
+  }
+
   var chromeVersion = versionFromUserAgent(
     /(?:chrome|chromium|crios|crmo)\/(\d+)/i,
   )
