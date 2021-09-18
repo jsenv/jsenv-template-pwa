@@ -27,6 +27,13 @@ const prepareApp = async () => {
     new Promise((resolve) => setTimeout(resolve, 400)),
   ])
 
+  const appCSSLoadedPromise = injectCSS(
+    new URL("../app/app.css", import.meta.url),
+    {
+      crossOrigin: true,
+    },
+  )
+
   // De-comment the await below to test the case where load is slow
   // await new Promise((resolve) => {
   //   setTimeout(resolve, 3500)
@@ -66,6 +73,8 @@ const prepareApp = async () => {
   await new Promise((resolve) => {
     setTimeout(resolve, 1200)
   })
+
+  await appCSSLoadedPromise
 }
 
 const loadCSSAndFonts = async () => {

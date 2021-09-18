@@ -3,6 +3,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("Roboto"), url(./roboto-v27-latin-regular.woff2) format("woff2");
+  font-display: swap;
 }
 
 #splashscreen {

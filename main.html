@@ -6,63 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="./icons/favicon.png" />
     <link rel="manifest" href="./pwa.webmanifest" />
-    <link rel="stylesheet" href="./src/app/app.css" />
-    <script type="importmap" src="./dev.importmap"></script>
     <!--
-    Why dev.importmap?
-    -> We want to execute this file in "development" mode meaning you we
-    can add custom behaviour to help developper experience.
-    When this file is built, the importmap is replaced by "prod.importmap".
-    This will remove code specific to development thanks to treeshaking.
-    -->
-
+      boot.css is responsible to set styles the very first styles displayed when
+      - JavaScript is disabled
+      - Browser is not supported
+      - App is "booting"
+        - "booting" is when code in this HTML file will try to fetch the first ressource from network
+        - Files implementing the booting of the application actually inlined in this HTML
+          during build by [data-jsenv-force-inline] attribute
+    --->
+    <link rel="stylesheet" href="./src/boot/boot.css" data-jsenv-force-inline />
     <!--
-    Explanation of this HTMl file and why it's the way it is
-
-    First thing user sees is the HTML in this file. If HTML was empty,
-    user would see a blank page. To have something better to show, there is
-    inline HTML, CSS and JS to immediatly display something called "splashscreen".
-
-    splashscreen has several reponsabilities:
-    1. Be the first thing a user see
-    2. Load the main js file from network (boot/boot.js)
-    3. When loading main js takes times, invite user to wait
-    4. When loading fails (due to a network error), display an error message
-    5. When main js file throws, display an error message
-
-    As splashscreen is inline it is displayed instantly to the user.
-    As it is inlined, splashscreen should be small and simple.
-    This project enrich the splashscreen inside boot/boot.js to provide a
-    better loading experience.
-
-    From user point of view it goes like this:
-    1. splashscreen is immediatly displayed
-    2. Very shortly after JS and CSS improves the loading experience (when app_loader.js executes)
-    3. splashscreen fades away and website is displayed (when app.js is executed by app_loader.js)
+      Tell browser to start fetching theses ressources right now:
+      - The font
+      - CSS and JS used to load the app
+      - CSS and JS of the app
     -->
     <link
       rel="preload"
-      href="./src/boot/roboto-v27-latin-regular.woff2"
+      href="./src/app_loader/roboto-v27-latin-regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-    <link rel="preload" href="./src/boot/boot.js" as="script" crossorigin />
+    <link
+      rel="preload"
+      href="./src/app_loader/app_loader.css"
+      as="style"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./src/app_loader/app_loader.js"
+      as="script"
+      crossorigin
+    />
+    <link rel="preload" href="./src/app/app.css" as="style" crossorigin />
     <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
+    <!--
+      This HTML uses "dev.importmap" controlling how js import are resolved so that
 
-    <!-- TODO: explain boot.css and data-jsenv-force-inline  -->
-    <link rel="stylesheet" href="./src/boot/boot.css" data-jsenv-force-inline />
+      import { DEV } from "#env"
+      if (DEV) alert('Hi dev!')
+
+      Would display an alert dialog during dev but not in prod.
+      This is because alert would be removed by tree shaking during the build
+
+      Read more at https://github.com/jsenv/jsenv-template-pwa/blob/main/docs/production_mode/readme.md#production-mod
+    -->
+    <script type="importmap" src="./dev.importmap"></script>
   </head>
 
   <body>
+    <!--
+      Handles JavaScript disabled use case
+    -->
     <noscript>
       <h1>JavaScript is required</h1>
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
+
+    <!--
+      Handled browser not supported use case
+
+      Js detects if browser is supported and displays "browser not supported" dom node
+      when browser is not supported.
+
+      When browser is not supported, the application won't try to boot.
+    -->
     <div id="browser_not_supported" style="display: none">
       <h1>Browser not supported</h1>
       <p>Please update your internet browser or try with an other one</p>
     </div>
+    <script
+      src="./src/boot/browser_support_detection.js"
+      data-jsenv-force-inline
+    ></script>
+
+    <!--
+      Booting the application
+
+      <div id="app"> is hidden until [data-booting] is removed which happens when
+      "app_loader.js" calls window.splashscreen.appIsReady()
+
+      <div id="splashscreen"> is displayed when:
+      - Network is slow and "app_loader.js" takes time to fetch
+      - Error while fetching, parsing or executing "app_loader.js"
+      - Application "started" in less than 300ms (yes it happens thanks to service worker)
+
+      The code implementing this logic is configurable and visible in "boot.js"
+    -->
     <div id="app" data-booting></div>
     <div id="splashscreen">
       <div id="splashscreen_logo">
@@ -83,27 +116,19 @@
         </div>
       </div>
     </div>
-
-    <!--
-      "browser_support_detection.js" file sets window.browserIsSupported
-      It will be used to either
-      - Display "browser not supported" message
-      - Or booting the application
-
-      [data-jsenv-force-inline] attribute inlines the js file content in this HTML during the build
-    -->
-    <script
-      src="./src/boot/browser_support_detection.js"
-      data-jsenv-force-inline
-    ></script>
     <script
       type="module"
       src="./src/boot/boot.js"
       data-jsenv-force-inline
     ></script>
+
+    <!--
+      Early beforeinstallprompt listener
+
+      We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
+      The event is stored in window.beforeinstallpromptEvent to be used later
+    -->
     <script>
-      // We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
-      // Event is stored in window.beforeinstallpromptEvent to be used later
       window.addEventListener(
         "beforeinstallprompt",
         (beforeinstallpromptEvent) => {

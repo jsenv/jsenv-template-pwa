@@ -1,4 +1,4 @@
-// TODO: explain this file, handle !window.browserIsSupported
+// TODO: explain this file
 
 import { DEV } from "#env"
 
