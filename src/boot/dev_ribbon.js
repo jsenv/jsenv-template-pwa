@@ -11,8 +11,8 @@ export const injectDevRibbon = () => {
   z-index: 1001;
   top: 0;
   right: 0;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
 }
 #dev_ribbon {
@@ -24,17 +24,17 @@ export const injectDevRibbon = () => {
 }
 #dev_ribbon_text {
   position: absolute;
-  left: -25px;
-  top: 30px;
+  left: 0px;
+  top: 20px;
   transform: rotate(45deg);
   display: block;
-  width: 225px;
-  line-height: 48px;
+  width: 125px;
+  line-height: 36px;
   background-color: orange;
   color: rgb(55, 7, 7);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   font-family: "Lato", sans-serif;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-align: center;
