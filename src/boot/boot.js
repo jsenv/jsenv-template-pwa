@@ -1,3 +1,5 @@
+// TODO: explain this file, handle !window.browserIsSupported
+
 import { DEV } from "#env"
 
 if (DEV) {

@@ -1,5 +1,7 @@
 /*
- *
+ * TODO: explain this file and display the browser not supported message
+ * explain that this file will be served as such (only minified)
+ * so it must use very compatible js
  */
 
 var userAgent = window.navigator.userAgent
