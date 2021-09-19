@@ -11,10 +11,10 @@ The application boot progressively handling nicely the following:
 
 ## Screenshots
 
-TODO: js disabled and browser not supported
-
 | Scenario                       | Screenshot                             |
 | ------------------------------ | -------------------------------------- |
+| JavaScript disabled            | ![stuff](./js_disabled.png)            |
+| Browser not supported          | ![stuff](./browser_not_supported.png)  |
 | Booting start                  | ![stuff](./booting_start.png)          |
 | Booting is slow                | ![stuff](./booting_is_slow.png)        |
 | Booting fetch error\*          | ![stuff](./booting_error.png)          |
