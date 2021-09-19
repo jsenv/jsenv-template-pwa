@@ -25,6 +25,7 @@ Documentation of the features, how to use and or remove them.
 
 - [Formatting](../docs/formatting/readme.md#formatting): Formatting with prettier
 - [Linting](../docs/linting/readme.md#linting): Linting with ESLint
+- [Booting](../docs/booting/readme.md#booting): User friendly application booting
 - [import resolution](../docs/import_resolution/readme.md#import-resolution): importmap resolution for ESLint and VSCode
 - [Production mode](../docs/production_mode/readme.md#production-mode): Ability to write code specific to production or development
 - [Development server](../docs/dev_server/readme.md#Development-server): A dev server **without build step** and livereloading
