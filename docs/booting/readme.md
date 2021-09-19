@@ -23,7 +23,7 @@ The application boot progressively handling nicely the following:
 | App loading start              | ![stuff](./app_loading_start.png)      |
 | App loading progress           | ![stuff](./app_loading_progress.png)   |
 | App ready                      | ![stuff](./app_ready.png)              |
-| Booting super fast             | ![stuff](./booting_super_fast.png)     |
+| Booting super fast             | ![stuff](./booting_super_fast.gif)     |
 
 \* 404 on app_loader.js for example
 
