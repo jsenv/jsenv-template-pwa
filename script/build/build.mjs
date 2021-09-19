@@ -25,7 +25,7 @@ await buildProject({
     "./service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
-  minify: false,
+  minify: true,
   minifyHtmlOptions: {
     collapseWhitespace: true,
     removeComments: true,
