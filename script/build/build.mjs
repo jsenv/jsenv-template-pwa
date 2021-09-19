@@ -14,7 +14,6 @@ await buildProject({
   ...jsenvConfig,
   buildDirectoryRelativeUrl: "./dist/systemjs/",
   format: "systemjs",
-  systemJsUrl: "/node_modules/systemjs/dist/s.js",
   buildDirectoryClean: true,
   entryPointMap: {
     "./main.html": "./main.prod.html",
