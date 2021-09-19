@@ -13,9 +13,7 @@ export const initServiceWorker = (app) => {
   }
 
   // wait a bit that browser is less busy to register the service worker
-  const callLater = requestIdleCallback
-    ? requestIdleCallback
-    : requestAnimationFrame
+  const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
     registerServiceWorker("/service_worker.js")
   })
