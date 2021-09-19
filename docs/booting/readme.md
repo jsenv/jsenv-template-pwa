@@ -29,7 +29,7 @@ Some remarks:
 
 - Fetch error happens if there is a 404 on app_loader.js for example
 - Runtime error occurs when an error is thrown during app_loader.js execution
-- As you can see on last scenarion, splashscreen is not displayed if app is very fast to boot and load. It can happen on very fast network on when everything is in browser cache.
+- As you can see on last scenario, splashscreen is not displayed if app is very fast to boot and load. It can happen on very fast network or when everything is in browser cache.
 
 ## Booting explanation
 
