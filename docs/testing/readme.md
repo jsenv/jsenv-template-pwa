@@ -12,7 +12,9 @@ If you want to keep test files check [How to use tests](#How-to-use-tests). Othe
 
 # How to use tests
 
-Test files are written using jsenv philosophy: **A test file is a regular html file**.
+Test files are written using jsenv philosophy:
+
+**A test file is a regular html file**.
 
 ![stuff](./greet_test_chrome.png)
 
