@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../main.132.js"
+    "../../main.106.js"
   ],
   "names": [
     "window",
@@ -13,5 +13,5 @@
   "sourcesContent": [
     "\n      window.addEventListener(\n        \"beforeinstallprompt\",\n        (beforeinstallpromptEvent) => {\n          beforeinstallpromptEvent.preventDefault()\n          window.beforeinstallpromptEvent = beforeinstallpromptEvent\n        },\n      )\n    "
   ],
-  "file": "main.132-f43edf52.js"
+  "file": "main.106-f43edf52.js"
 }

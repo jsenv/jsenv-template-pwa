@@ -29,9 +29,6 @@ const prepareApp = async () => {
 
   const appCSSLoadedPromise = injectCSS(
     new URL("../app/app.css", import.meta.url),
-    {
-      crossOrigin: true,
-    },
   )
 
   // De-comment the await below to test the case where load is slow
@@ -79,9 +76,7 @@ const prepareApp = async () => {
 
 const loadCSSAndFonts = async () => {
   try {
-    await injectCSS(new URL("./app_loader.css", import.meta.url), {
-      crossOrigin: true,
-    })
+    await injectCSS(new URL("./app_loader.css", import.meta.url))
     if (DEV) {
       performance.measure(`app_loader.css loaded`)
     }
