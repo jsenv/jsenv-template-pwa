@@ -17,6 +17,12 @@
     --->
     <link rel="stylesheet" href="./src/boot/boot.css" data-jsenv-force-inline />
     <!--
+      This HTML uses "dev.importmap" to control how js import are resolved.
+      It is used to have code specific to dev or prod.
+      See https://github.com/jsenv/jsenv-template-pwa/blob/main/docs/production_mode/readme.md#production-mode
+    -->
+    <script type="importmap" src="./dev.importmap"></script>
+    <!--
       Tell browser to start fetching theses ressources right now:
       - The font
       - CSS and JS used to load the app
@@ -24,55 +30,29 @@
     -->
     <link
       rel="preload"
-      href="./src/app_loader/roboto-v27-latin-regular.woff2"
+      href="/src/app_loader/roboto_v27_latin_regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-    <link
-      rel="preload"
-      href="./src/app_loader/app_loader.css"
-      as="style"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="./src/app_loader/app_loader.js"
-      as="script"
-      crossorigin
-    />
-    <link rel="preload" href="./src/app/app.css" as="style" crossorigin />
-    <link rel="preload" href="./src/app/app.js" as="script" crossorigin />
-    <!--
-      This HTML uses "dev.importmap" controlling how js import are resolved so that
-
-      import { DEV } from "#env"
-      if (DEV) alert('Hi dev!')
-
-      Would display an alert dialog during dev but not in prod.
-      This is because alert would be removed by tree shaking during the build
-
-      Read more at https://github.com/jsenv/jsenv-template-pwa/blob/main/docs/production_mode/readme.md#production-mod
-    -->
-    <script type="importmap" src="./dev.importmap"></script>
+    <link rel="preload" href="./src/app_loader/app_loader.css" as="style" />
+    <link rel="modulepreload" href="./src/app_loader/app_loader.js" />
+    <link rel="preload" href="./src/app/app.css" as="style" />
+    <link rel="modulepreload" href="./src/app/app.js" />
   </head>
 
   <body>
     <!--
-      Handles JavaScript disabled use case
+      Displaying a message when JavaScript is disabled
     -->
     <noscript>
       <h1>JavaScript is required</h1>
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
-
     <!--
-      Handled browser not supported use case
-
-      Js detects if browser is supported and displays "browser not supported" dom node
-      when browser is not supported.
-
-      When browser is not supported, the application won't try to boot.
+      Displaying a message when browser is not supported
+      - Js detects displays "browser not supported" dom node when browser is not supported.
+      - When browser is not supported, the application won't try to boot.
     -->
     <div id="browser_not_supported" style="display: none">
       <h1>Browser not supported</h1>
@@ -82,19 +62,15 @@
       src="./src/boot/browser_support_detection.js"
       data-jsenv-force-inline
     ></script>
-
     <!--
       Booting the application
-
-      <div id="app"> is hidden until [data-booting] is removed which happens when
-      "app_loader.js" calls window.splashscreen.appIsReady()
-
-      <div id="splashscreen"> is displayed when:
-      - Network is slow and "app_loader.js" takes time to fetch
-      - Error while fetching, parsing or executing "app_loader.js"
-      - Application "started" in less than 300ms (yes it happens thanks to service worker)
-
+      - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
+      - <div id="splashscreen"> is displayed when:
+        - Network is slow, so HTML is slow to fetch "app_loader.js"
+        - Error while fetching, parsing or executing "app_loader.js"
+        - Application starts in less than 300ms (yes it happens thanks to long term cache)
       The code implementing this logic is configurable and visible in "boot.js"
+      See https://github.com/jsenv/jsenv-template-pwa/tree/main/docs/booting#booting
     -->
     <div id="app" data-booting></div>
     <div id="splashscreen">
@@ -121,12 +97,10 @@
       src="./src/boot/boot.js"
       data-jsenv-force-inline
     ></script>
-
     <!--
-      Early beforeinstallprompt listener
-
-      We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
-      The event is stored in window.beforeinstallpromptEvent to be used later
+      Installing an early "beforeinstallprompt" event listener
+      - We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
+      - The event is stored in window.beforeinstallpromptEvent to be used later
       See https://github.com/jsenv/pwa#add-to-home-screen
     -->
     <script>
