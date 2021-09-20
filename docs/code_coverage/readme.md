@@ -1,6 +1,6 @@
 # Code coverage
 
-Code coverage shows which part of the source files code have been covered by the execution of test files.
+Code coverage shows which part of source code have been covered by execution of tests.
 
 You can get coverage locally on your machine. It is also integrated to GitHub using [Codecov](https://docs.codecov.io/docs/pull-request-comments).
 
