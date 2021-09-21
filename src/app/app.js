@@ -1,7 +1,5 @@
 /**
- * The actual app UI, very simplified of course.
- * Don't forget to call window.splashscreen.appIsReady() at some point
- * or the splashscreen will stay forever on top of the app UI
+ * The actual app UI, very simplified of course
  */
 
 import { initPwa } from "root/src/app/pwa/pwa.js"

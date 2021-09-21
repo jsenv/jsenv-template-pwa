@@ -1,4 +1,14 @@
-// TODO: explain this file
+/*
+ * This file is inlined in the HTML file by [data-jsenv-force-inline]
+ * Responsabilities:
+ * - inject the dev ribbon in development mode
+ * - Dynamic import of "app_loader.js" (fetch+parse+execute)
+ *   - Catch error during the dynamic import
+ *   - Display splashscreen during this dynamic import
+ * - Call loadApp exported by "app_loader.js"
+ *   - Provide an updateSplashscreenText
+ *   - Hide splashscreen once app is ready to be displayed
+ */
 
 import { DEV } from "#env"
 
@@ -7,37 +17,15 @@ if (DEV) {
   injectDevRibbon()
 }
 
-const splashscreen = {
-  /*
-   * takeOver is implemented later in this script.
-   * takeOver is meant to be called by code that want to take responsability
-   * of what is displayed in the splashscreen
-   *
-   * It is used by boot/boot.js once it starts to render a different UI in the splashscreen
-   */
-  takeOver: () => {},
-  /*
-   * appIsReady is implemented later in this script.
-   * appIsReady is meant to be called once:
-   * - Code has rendered html inside <div id="app"></div>
-   * - This html is ready to be displayed (css ands fonts loaded for example)
-   *
-   * It is used by app/app.js once it has rendered the HTML and font is loaded
-   */
-  appIsReady: () => {},
-}
-window.splashscreen = splashscreen
-
-// When it take more than "BOOTING_SLOW"ms for code to call window.splashscreen.takeOver()
-// splashscreen displays <div id="booting_is_slow"> content
+// When it take more than "BOOTING_SLOW"ms for loadApp to resolve or call updateSplashscreenText
+// -> splashscreen displays <div id="booting_is_slow"> content
 const BOOTING_SLOW = 2500
-// When it takes less than "SPLASHIN_DELAY"ms for code to call window.splashscreen.appIsReady()
-// we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
+// When it takes less than "SPLASHIN_DELAY"ms for loadApp to resolve
+// -> we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
 const SPLASHIN_DELAY = 300
 // When less than "SPLASHOUT_MIN_INTERVAL"ms have ellapsed since splashin animation started
-// we will ensure "SPLASHOUT_MIN_INTERVAL"ms ellapses before playing the splashout animation
-// This is to prevent a disturbing blink when code calls window.splashscreen.appIsReady() just after
-// splashin animation
+// -> code ensures "SPLASHOUT_MIN_INTERVAL"ms ellapses before playing the splashout animation
+// This is to prevent a disturbing blink when loadApp resolves shortly after splashin animation
 const SPLASHOUT_MIN_INTERVAL = 650
 
 const appNode = document.querySelector("#app")
@@ -80,11 +68,19 @@ const boot = async () => {
     setBootingState(BOOTING_IS_SLOW)
   }, BOOTING_SLOW)
 
-  window.splashscreen.takeOver = () => {
-    clearTimeout(bootingIsSlowTimeout)
-  }
+  try {
+    setBootingState(BOOTING_START)
+    const { loadApp } = await import("../app_loader/app_loader.js")
+    await loadApp({
+      updateSplashscreenText: (message) => {
+        clearTimeout(bootingIsSlowTimeout)
+        const splashscreenMessageNode = document.querySelector(
+          "#splashscreen_message",
+        )
+        splashscreenMessageNode.innerHTML = message
+      },
+    })
 
-  window.splashscreen.appIsReady = async () => {
     clearTimeout(splashInTimeout)
     clearTimeout(bootingIsSlowTimeout)
 
@@ -108,12 +104,6 @@ const boot = async () => {
     // Wait the end of the "splashout" animation before killing splashscreen entirely
     await splashout()
     killSplashscreen()
-  }
-
-  try {
-    setBootingState(BOOTING_START)
-    const { loadApp } = await import("../app_loader/app_loader.js")
-    await loadApp()
   } catch (error) {
     clearTimeout(bootingIsSlowTimeout)
 

@@ -1,7 +1,10 @@
 /*
- * TODO: explain this file and display the browser not supported message
- * explain that this file will be served as such (only minified)
- * so it must use very compatible js
+ * This file is inlined in the HTML file by [data-jsenv-force-inline]
+ * Responsabilities:
+ * - Set window.browserIsSupported boolean
+ * - Display #browser_not_supported div when browser is not supported
+ * This file will be executed as such in every browsers. It will just be minified.
+ * -> The JS used must be as compatible as possible (no const, no arrow function etc)
  */
 
 var userAgent = window.navigator.userAgent

@@ -7,13 +7,12 @@
     <link rel="icon" href="./icons/favicon.png" />
     <link rel="manifest" href="./pwa.webmanifest" />
     <!--
-      boot.css is responsible to set styles the very first styles displayed when
+      boot.css contains styles for the following use cases:
       - JavaScript is disabled
       - Browser is not supported
-      - App is "booting"
-        - "booting" is when code in this HTML file will try to fetch the first ressource from network
-        - Files implementing the booting of the application are actually inlined in this HTML
-          during build by [data-jsenv-force-inline] attribute
+      - App is "booting" (detailed later in this file)
+      boot.css is part of the ressources inlined in this HTML during build
+      by [data-jsenv-force-inline] attribute
     --->
     <link rel="stylesheet" href="./src/boot/boot.css" data-jsenv-force-inline />
     <!--
