@@ -1,0 +1,25 @@
+{
+  "version": 3,
+  "sources": [
+    "../../../src/boot/browser_support_detection.js"
+  ],
+  "names": [
+    "isIE",
+    "chromeVersion",
+    "versionFromUserAgent",
+    "userAgent",
+    "firefoxVersion",
+    "safariVersion",
+    "undefined",
+    "regexp",
+    "window",
+    "browserIsSupported",
+    "document",
+    "firstMatch"
+  ],
+  "mappings": "yCAYE,SAAIA,qBACJ,kCACE,OAAA,EAGF,IAAIC,EAAgBC,+DAIlB,GAAAD,GAAAA,EAAA,GACD,OAAA,6BAMD,gCACEE,sBAGF,OAAA,EAIE,IAAAC,EAAAF,qBACD,0CAED,GAAIG,GACFD,EAAkB,YAKnB,IAAAC,4CAEDH,qBAAA,wBACDI,mBAQA,SAAAJ,qBAAAK,4BAEDC,GAAOC,GAAqBA,IAArBA,EAAPD,OAAAA,YAGEE,OADUD,SAAZE",
+  "sourcesContent": [
+    "/*\n * This file is inlined in the HTML file by [data-jsenv-force-inline]\n * Responsabilities:\n * - Set window.browserIsSupported boolean\n * - Display #browser_not_supported div when browser is not supported\n * This file will be executed as such in every browsers. It will just be minified.\n * -> The JS used must be as compatible as possible (no const, no arrow function etc)\n */\n\nvar userAgent = window.navigator.userAgent\n\nfunction browserIsSupported() {\n  var isIE = typeof document.documentMode !== \"undefined\"\n  if (isIE) {\n    return false\n  }\n\n  var chromeVersion = versionFromUserAgent(\n    /(?:chrome|chromium|crios|crmo)\\/(\\d+)/i,\n  )\n  if (chromeVersion && chromeVersion < 55) {\n    return false\n  }\n\n  var edgeVersion = versionFromUserAgent(\n    /(?:edge|edgea|edgios)\\/(\\d+)/i,\n    userAgent,\n  )\n  if (edgeVersion && edgeVersion < 14) {\n    return false\n  }\n\n  var firefoxVersion = versionFromUserAgent(\n    /(?:firefox|iceweasel|fxios)[\\s/](\\d+)/i,\n  )\n  if (firefoxVersion && firefoxVersion < 52) {\n    return false\n  }\n\n  var safariVersion =\n    !chromeVersion && /safari|applewebkit/i.test(userAgent)\n      ? versionFromUserAgent(/version\\/(\\d+)/i)\n      : undefined\n  if (safariVersion && safariVersion < 11) {\n    return false\n  }\n\n  return true\n}\n\nfunction versionFromUserAgent(regexp) {\n  var match = userAgent.match(regexp)\n  if (!match || match.length === 0) return undefined\n  var firstMatch = match[1]\n  var version = parseInt(firstMatch)\n  return version\n}\n\nwindow.browserIsSupported = browserIsSupported()\n\nif (!window.browserIsSupported) {\n  document.getElementById(\"browser_not_supported\").style.display = \"block\"\n}\n"
+  ],
+  "file": "browser_support_detection-c77800a1.js"
+}
