@@ -6,11 +6,17 @@ deleted and only ../README.md should be kept
 
 # Progressive Web Application template
 
-This repository is meant to serve as a general template for how to set up repositories to create a progressive web application. If you want to build a regular web application, use this template and remove files specific to PWA as explained in the documentation.
+This repository is meant to serve as a general template for how to set up repositories to create a progressive web application.
+
+_Screenshot of [lighthouse](https://github.com/GoogleChrome/lighthouse#lighthouse-------) scores for this template:_
+
+![lighthouse score screenshot](../docs/lighthouse_score.png)
 
 The application is deployed at https://jsenv-pwa-template.herokuapp.com.
 
 # How to use
+
+> If you want to create a regular web application without PWA compatibility, use this template and remove files specific to PWA as explained in [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility).
 
 Create a GitHub repository using this template at https://github.com/jsenv/jsenv-template-pwa/generate.
 Then follow checklist below to setup your repository.
