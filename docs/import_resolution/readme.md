@@ -4,7 +4,7 @@ This codebase relies on standard import resolution used in web browsers. It also
 
 Importmap file is used for [import aliases](#import-aliases), [node module resolution](#node-module-resolution) and to [configure ESLint and VSCode](#configure-eslint-and-vscode)
 
-> At the time of writing this documentation, _importmap_ are supported only by chrome so files are transformed during the build to be compatible with other browsers.
+> At the time of writing this documentation, _importmap_ are supported only by chrome so files are transformed in dev and during build to be compatible with other browsers.
 
 # import aliases
 
