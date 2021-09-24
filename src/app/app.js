@@ -8,10 +8,10 @@ import { greet } from "root/src/app/greet.js"
 const app = document.querySelector("#app")
 
 export const render = () => {
+  const logoUrl = new URL("../logo.png", import.meta.url)
+
   app.innerHTML = `
-
-<img src=${new URL("../logo.png", import.meta.url)} width="64" />
-
+<img src=${logoUrl} width="64" height="64" alt="jsenv logo" />
 <p>${greet()}</p>`
 
   initPwa(app)
