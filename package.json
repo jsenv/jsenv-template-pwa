@@ -51,7 +51,7 @@
     "@jsenv/codecov-upload": "3.5.0",
     "@jsenv/core": "20.1.9",
     "@jsenv/eslint-config": "16.0.1",
-    "@jsenv/file-size-impact": "10.0.3",
+    "@jsenv/file-size-impact": "10.0.4",
     "@jsenv/filesystem": "2.1.1",
     "@jsenv/https-local": "1.0.2",
     "@jsenv/importmap-eslint-resolver": "5.1.2",
