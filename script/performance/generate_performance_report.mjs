@@ -8,9 +8,11 @@
  * The automated process is a GitHub workflow: ".github/workflows/performance_impact.yml"
  * It will dynamically import this file and call generatePerformanceReport.
  *
- * generatePerformanceReport is measuring:
- * - Time and memory used to import @jsenv/template-node-package
- * - Size and number of files inside the npm tarball that would be published on npm
+ * generatePerformanceReport is collecting all performance.measure() calls
+ * done during execution of main.html.
+ * The performance measures are done on dev files, it means they do not 100% represent
+ * the measure you would have on files after build.
+ * All performance.measure calls are removed by tree-shaking during the build
  *
  * See https://github.com/jsenv/performance-impact
  */
