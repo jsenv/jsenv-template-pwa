@@ -7,6 +7,12 @@
       "src": "./icons/pwa-icon.png",
       "sizes": "192x192",
       "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "./icons/maskable_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ],
   "start_url": "/",
