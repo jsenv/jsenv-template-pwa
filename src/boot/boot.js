@@ -36,6 +36,10 @@ const BOOTING_IS_SLOW = "booting_is_slow"
 const BOOTING_ERROR = "booting_error"
 
 const boot = async () => {
+  if (DEV) {
+    performance.measure(`booting app`)
+  }
+
   const bootStartMs = Date.now()
 
   let splashIsVisible = false
@@ -60,6 +64,9 @@ const boot = async () => {
     // be removed from the DOM
     splashscreenNode.style.display = "none"
     splashIsVisible = false
+    if (DEV) {
+      performance.measure(`app displayed`)
+    }
   }
 
   const splashInTimeout = setTimeout(splashin, SPLASHIN_DELAY)

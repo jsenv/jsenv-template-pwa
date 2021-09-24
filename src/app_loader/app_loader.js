@@ -6,8 +6,37 @@ import { DEV } from "#env"
 import { injectCSS, nextIDLEPromise } from "./app_loader_utils.js"
 
 export const loadApp = async ({ updateSplashscreenText }) => {
+  if (DEV) {
+    performance.measure(`loading app`)
+  }
+
+  // try to load CSS + get the main fonts before displaying any text
+  // to avoid font swapping if possible
+  // give max 400ms for this
+  const appLoaderCssPromise = loadCSSAndFonts(
+    new URL("./app_loader.css", import.meta.url),
+    {
+      timeout: 400,
+      onCssReady: () => {
+        if (DEV) {
+          performance.measure(`app_loader.css ready`)
+        }
+      },
+      onFontsReady: () => {
+        if (DEV) {
+          performance.measure(`fonts ready`)
+        }
+      },
+    },
+  )
   // start importing app right away
-  const appPromise = importApp()
+  const appPromise = importApp({
+    onJsReady: () => {
+      if (DEV) {
+        performance.measure("app.js ready")
+      }
+    },
+  })
   const appCSSPromise = loadCSSAndFonts(
     new URL("../app/app.css", import.meta.url),
     {
@@ -19,24 +48,8 @@ export const loadApp = async ({ updateSplashscreenText }) => {
     },
   )
 
-  // try to load CSS + get the main fonts before displaying any text
-  // to avoid font swapping if possible
-  // give max 400ms for this
-  await loadCSSAndFonts(new URL("./app_loader.css", import.meta.url), {
-    timeout: 400,
-    onCssReady: () => {
-      if (DEV) {
-        performance.measure(`app_loader.css ready`)
-      }
-    },
-    onFontsReady: () => {
-      if (DEV) {
-        performance.measure(`fonts ready`)
-      }
-    },
-  })
-
-  updateSplashscreenText(`Loading banana...`)
+  await appLoaderCssPromise
+  await updateSplashscreenText(`Loading banana...`)
   if (DEV) {
     performance.measure(`"loading bannana..." displayed`)
   }
@@ -61,6 +74,9 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   })
 
   const app = await appPromise
+  if (DEV) {
+    performance.measure(`rendering app`)
+  }
   app.render()
   await appCSSPromise
   // app.render() can be very expensive so we wait a bit
@@ -68,7 +84,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   // This should help to save battery power and RAM
   await nextIDLEPromise()
   if (DEV) {
-    performance.measure(`App displayed`)
+    performance.measure(`app rendered`)
   }
 }
 
@@ -96,10 +112,8 @@ const loadCSSAndFonts = async (
   ])
 }
 
-const importApp = async () => {
+const importApp = async ({ onJsReady = () => {} }) => {
   const app = await import("../app/app.js")
-  if (DEV) {
-    performance.measure("app.js imported")
-  }
+  onJsReady()
   return app
 }
