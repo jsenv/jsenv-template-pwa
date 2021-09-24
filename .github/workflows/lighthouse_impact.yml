@@ -10,7 +10,7 @@
 # https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 # configured to validate with https://json.schemastore.org/github-workflow.json
 
-name: pr impact
+name: lighthouse impact
 
 on: pull_request
 
