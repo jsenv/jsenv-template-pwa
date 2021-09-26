@@ -11,7 +11,7 @@ import {
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
-executeTestPlan({
+await executeTestPlan({
   ...jsenvConfig,
   testPlan: {
     "./test/**/*.test.html": {
@@ -23,7 +23,7 @@ executeTestPlan({
       },
     },
   },
+  coverage: process.argv.includes("--coverage"),
   coverageJsonFileRelativeUrl: "coverage/coverage.json",
   coverageForceIstanbul: true,
-  coverage: process.argv.includes("--coverage"),
 })
