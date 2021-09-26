@@ -12,7 +12,7 @@ noscript {
   display: block;
   text-align: center;
   width: 80%;
-  max-width: 40em;
+  max-width: 640px;
   margin: auto;
 }
 
@@ -20,7 +20,7 @@ noscript {
   display: block;
   text-align: center;
   width: 80%;
-  max-width: 40em;
+  max-width: 640px;
   margin: auto;
 }
 
@@ -62,10 +62,10 @@ noscript {
   }
 }
 #splashscreen_logo {
-  margin: 2em;
+  margin: 32px;
 }
 #splashscreen_brand {
-  font-size: 2em;
+  font-size: 32px;
   color: orange;
 }
 #splashscreen_message {
@@ -73,8 +73,8 @@ noscript {
   justify-content: center;
   flex: 1;
   width: 80%;
-  max-width: 40em;
-  margin: 2em;
+  max-width: 640px;
+  margin: 32px;
 }
 #booting_error {
   display: block;
@@ -86,7 +86,7 @@ noscript {
   color: #ba3939;
   background: #ffe0e0;
   border: 1px solid #a33a3a;
-  padding: 1em 3em;
+  padding: 16px 48px;
 }
 #booting_error details {
   display: inline-block;
