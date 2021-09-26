@@ -1,4 +1,28 @@
-export const injectCSS = (cssUrl, { crossOrigin } = {}) => {
+export const loadCSSAndFonts = async (
+  cssUrl,
+  { timeout = 1000, onCssReady = () => {}, onFontsReady = () => {} } = {},
+) => {
+  const loadedPromise = (async () => {
+    try {
+      await injectCSS(cssUrl)
+      onCssReady()
+      if (onFontsReady) {
+        await document.fonts.ready
+        onFontsReady()
+      }
+    } catch (e) {
+      return
+    }
+  })()
+  return Promise.race([
+    loadedPromise,
+    new Promise((resolve) => {
+      setTimeout(resolve, timeout)
+    }),
+  ])
+}
+
+const injectCSS = (cssUrl, { crossOrigin } = {}) => {
   return new Promise((resolve, reject) => {
     const link = document.createElement("link")
     link.rel = "stylesheet"

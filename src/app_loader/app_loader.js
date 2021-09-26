@@ -3,7 +3,7 @@
  */
 
 import { DEV } from "#env"
-import { injectCSS, nextIDLEPromise } from "./app_loader_utils.js"
+import { loadCSSAndFonts, nextIDLEPromise } from "./app_loader_utils.js"
 
 export const loadApp = async ({ updateSplashscreenText }) => {
   if (DEV) {
@@ -86,30 +86,6 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   if (DEV) {
     performance.measure(`app rendered`)
   }
-}
-
-const loadCSSAndFonts = async (
-  cssUrl,
-  { timeout = 1000, onCssReady = () => {}, onFontsReady = () => {} } = {},
-) => {
-  const loadedPromise = (async () => {
-    try {
-      await injectCSS(cssUrl)
-      onCssReady()
-      if (onFontsReady) {
-        await document.fonts.ready
-        onFontsReady()
-      }
-    } catch (e) {
-      return
-    }
-  })()
-  return Promise.race([
-    loadedPromise,
-    new Promise((resolve) => {
-      setTimeout(resolve, timeout)
-    }),
-  ])
 }
 
 const importApp = async ({ onJsReady = () => {} }) => {
