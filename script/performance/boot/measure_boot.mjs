@@ -5,13 +5,13 @@ import {
   logPerformanceMetrics,
 } from "@jsenv/performance-impact"
 
-import { projectDirectoryUrl } from "../../../jsenv.config.mjs"
+import * as jsenvConfig from "../../../jsenv.config.mjs"
 
 export const measureBoot = async ({ iterations = 3 } = {}) => {
   const metrics = await measurePerformanceMultipleTimes(
     async () => {
       const executionResult = await execute({
-        projectDirectoryUrl,
+        ...jsenvConfig,
         launch: launchChromium,
         fileRelativeUrl: "./main.html",
         // measurePerformance: true,
