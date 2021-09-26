@@ -64,10 +64,6 @@ noscript {
 #splashscreen_logo {
   margin: 32px;
 }
-#splashscreen_brand {
-  font-size: 32px;
-  color: orange;
-}
 #splashscreen_message {
   display: flex;
   justify-content: center;
