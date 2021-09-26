@@ -59,7 +59,6 @@ const boot = async () => {
   }
 
   const killSplashscreen = () => {
-    appNode.removeAttribute("data-booting")
     // Here splashscreen is "killed" with display: 'none' but it could also
     // be removed from the DOM
     splashscreenNode.style.display = "none"
@@ -92,6 +91,7 @@ const boot = async () => {
     clearTimeout(bootingIsSlowTimeout)
 
     if (!splashIsVisible) {
+      appNode.removeAttribute("data-booting")
       // app was super fast to load, splashscreen was not even displayed, cool
       killSplashscreen()
       return
@@ -108,6 +108,7 @@ const boot = async () => {
       })
     }
 
+    appNode.removeAttribute("data-booting")
     // Wait the end of the "splashout" animation before killing splashscreen entirely
     await splashout()
     killSplashscreen()
