@@ -24,7 +24,7 @@ export const generatePerformanceReport = async () => {
 
   return {
     groups: {
-      boot: bootMetrics,
+      "boot metrics": bootMetrics,
     },
   }
 }
