@@ -21,43 +21,34 @@ import {
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
 export const generateFileSizeReport = async () => {
+  const booting = {
+    "./dist/systemjs/main.prod.html": true,
+    "./dist/systemjs/app_loader-*.js": true,
+    "./dist/systemjs/app_loader-*.css": true,
+    "./dist/assets/roboto_v27_latin_regular-*.woff": true,
+  }
+  const app = {
+    "./dist/systemjs/**/*": true,
+    "./dist/systemjs/**/*.map": false,
+    ...revertTrackingGroup(booting),
+  }
+
   return getFileSizeReport({
     projectDirectoryUrl,
     transformations: { raw, gzip },
-    trackingConfig: {
-      script: {
-        "./dist/systemjs/**/*.js": true,
-        "./dist/systemjs/**/*.jsx": true,
-        "./dist/systemjs/**/*.map": false,
-      },
-      style: {
-        "./dist/systemjs/**/*.css": true,
-        "./dist/systemjs/**/*.map": false,
-      },
-      image: {
-        "./dist/systemjs/**/*.png": true,
-        "./dist/systemjs/**/*.jpg": true,
-        "./dist/systemjs/**/*.jpeg": true,
-        "./dist/systemjs/**/*.gif": true,
-        "./dist/systemjs/**/*.svg": true,
-      },
-      other: {
-        "./dist/systemjs/**/*": true,
-        "./dist/systemjs/**/*.map": false,
-        "./dist/systemjs/**/*.js": false,
-        "./dist/systemjs/**/*.jsx": false,
-        "./dist/systemjs/**/*.css": false,
-        "./dist/systemjs/**/*.png": false,
-        "./dist/systemjs/**/*.jpg": false,
-        "./dist/systemjs/**/*.jpeg": false,
-        "./dist/systemjs/**/*.gif": false,
-        "./dist/systemjs/**/*.svg": false,
-      },
-    },
+    trackingConfig: { booting, app },
     manifestConfig: {
       "./dist/**/asset-manifest.json": true,
     },
   })
+}
+
+const revertTrackingGroup = (trackingGroup) => {
+  const opposite = {}
+  Object.keys(trackingGroup).forEach((pattern) => {
+    opposite[pattern] = !trackingGroup[pattern]
+  })
+  return opposite
 }
 
 const executeAndLog = process.argv.includes("--local")

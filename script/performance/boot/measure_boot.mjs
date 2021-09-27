@@ -7,7 +7,7 @@ import {
 
 import * as jsenvConfig from "../../../jsenv.config.mjs"
 
-export const measureBoot = async ({ iterations = 3 } = {}) => {
+export const measureBoot = async ({ iterations = 5 } = {}) => {
   const metrics = await measurePerformanceMultipleTimes(
     async () => {
       const executionResult = await execute({
