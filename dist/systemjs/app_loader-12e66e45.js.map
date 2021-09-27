@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "file": "app_loadapp_loader.js",
+  "file": "app_loader.js",
   "sources": [
     "../../src/app_loader/app_loader_utils.js",
     "../../src/app_loader/app_loader.js"
