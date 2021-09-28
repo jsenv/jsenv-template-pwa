@@ -9,7 +9,7 @@ import { uploadCoverage } from "@jsenv/codecov-upload"
 
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
-uploadCoverage({
+await uploadCoverage({
   projectDirectoryUrl,
   coverageJsonFileRelativeUrl: "coverage/coverage.json",
 })

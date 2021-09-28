@@ -22,9 +22,9 @@ If you want to keep the development server, check [How to use development server
 server started at https://localhost:3472 (https://192.168.1.15:3472)
 ```
 
-See [script/start/start.mjs](../../script/start/start.mjs)
+See [script/server/start_dev_server.mjs](../../script/server/start_dev_server.mjs)
 
 # How to remove development server
 
 1. Remove `"start"` from `"scripts"` in [package.json](../../package.json#L25)
-2. Delete [script/start/start_dev_server.mjs](../../script/start/start_dev_server.mjs)
+2. Delete [script/server/start_dev_server.mjs](../../script/start/start_dev_server.mjs)
