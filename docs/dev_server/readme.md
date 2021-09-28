@@ -27,4 +27,4 @@ See [script/server/start_dev_server.mjs](../../script/server/start_dev_server.mj
 # How to remove development server
 
 1. Remove `"start"` from `"scripts"` in [package.json](../../package.json#L25)
-2. Delete [script/server/start_dev_server.mjs](../../script/start/start_dev_server.mjs)
+2. Delete [script/server/start_dev_server.mjs](../../script/server/start_dev_server.mjs)
