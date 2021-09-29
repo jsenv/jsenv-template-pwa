@@ -6,7 +6,8 @@
  * It write 2 importmap files, the one to use in your HTML file depends how you want to execute your code.
  * dev.importmap -> execute code in development mode, with "devDependencies"
  * prod.importmap -> execute code in production mode, without "devDependencies"
- * see https://github.com/jsenv/jsenv-template-pwa/blob/main/docs/production_mode/production_mode.md#how-to-use-production-mode
+ * see https://github.com/jsenv/jsenv-template-pwa/tree/main/docs/production_mode#how-to-use-production-mode
+ * and https://github.com/jsenv/importmap-node-module#writeimportmapfiles
  *
  * It also update "paths" in "./jsconfig.json" file that is used by VSCode to resolve imports
  */
