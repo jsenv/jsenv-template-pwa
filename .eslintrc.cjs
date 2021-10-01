@@ -79,6 +79,7 @@ const eslintConfig = composeEslintConfig(
           __filename: "off",
           __dirname: "off",
           require: "off",
+          exports: "off",
         },
         settings: {
           "import/resolver": {
@@ -105,6 +106,7 @@ const eslintConfig = composeEslintConfig(
           __filename: true,
           __dirname: true,
           require: true,
+          exports: true,
         },
         // inside *.cjs files, use commonjs module resolution
         settings: {
