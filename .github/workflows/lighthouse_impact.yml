@@ -35,7 +35,7 @@ jobs:
       - name: Setup npm
         run: npm install
       - name: Setup certificate authority
-        run: npm run install-certificate-authority
+        run: npm run certificate-authority-install
       - name: Report lighthouse impact
         run: node ./.github/workflows/pr_impact/report_lighthouse_impact.mjs
         env:
