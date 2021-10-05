@@ -62,7 +62,7 @@ If you don't need test or want to use an other test framework/library follow the
 
    - `"test"`
    - `"test-with-coverage"`
-   - `"install-playwright"`
+   - `"playwright-install"`
 
 3. Delete [script/test/](../../script/test/) directory
 4. Remove `"@jsenv/assert"` from `"devDependencies"` [package.json](../../package.json#L47)
