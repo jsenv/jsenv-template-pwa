@@ -4,7 +4,7 @@
  * script/test/test.mjs
  * script/build/build.mjs
  *
- * See https://github.com/jsenv/jsenv-core#jsenvconfigjs
+ * Read more at https://github.com/jsenv/jsenv-core#jsenvconfigmjs
  */
 
 export const projectDirectoryUrl = String(new URL("./", import.meta.url))
