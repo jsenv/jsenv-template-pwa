@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../../.jsenv/out-build/best/src/app/app.css"
+    "../../../src/app/app.css"
   ],
   "names": [],
   "mappings": "AAAA,KACE,kBACF,CAEA,KACE,kBAAmB,CACnB,iBACF",
