@@ -1,4 +1,4 @@
-import { execute, launchChromium } from "@jsenv/core"
+import { execute, chromiumRuntime } from "@jsenv/core"
 import {
   measurePerformanceMultipleTimes,
   computeMetricsMedian,
@@ -12,7 +12,7 @@ export const measureBoot = async ({ iterations = 5 } = {}) => {
     async () => {
       const executionResult = await execute({
         ...jsenvConfig,
-        launch: launchChromium,
+        runtime: chromiumRuntime,
         fileRelativeUrl: "./main.html",
         // measurePerformance: true,
         // compileServerCanWriteOnFilesystem: false,

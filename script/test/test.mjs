@@ -5,8 +5,8 @@
 
 import {
   executeTestPlan,
-  launchChromiumTab,
-  launchFirefoxTab,
+  chromiumTabRuntime,
+  firefoxTabRuntime,
 } from "@jsenv/core"
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
@@ -16,10 +16,10 @@ await executeTestPlan({
   testPlan: {
     "./test/**/*.test.html": {
       chromium: {
-        launch: launchChromiumTab,
+        runtime: chromiumTabRuntime,
       },
       firefox: {
-        launch: launchFirefoxTab,
+        runtime: firefoxTabRuntime,
       },
     },
   },
