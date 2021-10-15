@@ -11,6 +11,9 @@
 # -> no need for prettier on files generated dynamically
 /dist/
 
+/script/lighthouse/lighthouse_report.html
+/script/lighthouse/lighthouse_report.json
+
 # Files inside "node_modules" directory are not under our control.
 # -> no need for prettier on files written by others
 /node_modules/

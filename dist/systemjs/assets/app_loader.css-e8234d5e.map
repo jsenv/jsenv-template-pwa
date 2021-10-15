@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../../.jsenv/out-build/best/src/app_loader/app_loader.css"
+    "../../../src/app_loader/app_loader.css"
   ],
   "names": [],
   "mappings": "AAAA,WAKE,iBAAkB,CAJlB,kBAAqB,CACrB,iBAAkB,CAClB,eAAgB,CAChB,gFAEF,CAEA,cACE,kBACF",
