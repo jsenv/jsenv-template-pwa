@@ -58,7 +58,7 @@
     "@jsenv/importmap-eslint-resolver": "5.1.2",
     "@jsenv/importmap-node-module": "2.4.1",
     "@jsenv/lighthouse-impact": "2.1.0",
-    "@jsenv/performance-impact": "2.0.2",
+    "@jsenv/performance-impact": "2.1.0",
     "@jsenv/prettier-check-project": "5.6.1",
     "eslint": "7.32.0",
     "eslint-plugin-html": "6.2.0",
