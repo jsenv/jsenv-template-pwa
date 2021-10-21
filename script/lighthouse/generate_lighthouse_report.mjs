@@ -11,58 +11,28 @@
  * See https://github.com/jsenv/lighthouse-impact
  */
 
-import {
-  getLighthouseReportUsingHeadlessChrome,
-  logLighthouseReport,
-} from "@jsenv/lighthouse-impact"
+import { generateLighthouseReport } from "@jsenv/lighthouse-impact"
 
-export const generateLighthouseReport = async ({
-  runCount = 4,
-  buildLogLevel = "warn",
-  serverLogLevel = "warn",
-  skipBuild = false,
-  jsonFile = false,
-  htmlFile = false,
-} = {}) => {
-  // this function is executed a second time after merging the pull request
-  // without the ?cache_busting param, the second execution of the function
-  // would not rebuild the project
-  if (skipBuild) {
-    process.env.LOG_LEVEL = buildLogLevel
-    await import(`../build/build.mjs?cache_busting=${Date.now()}`)
-  }
-  process.env.LOG_LEVEL = serverLogLevel
-  const { server } = await import(
-    `../server/start_prod_server.mjs?cache_busting=${Date.now()}`
-  )
+const local = process.argv.includes("--local")
 
-  const lighthouseReport = await getLighthouseReportUsingHeadlessChrome(
-    server.origin,
-    {
-      runCount,
-      // prevent a CERT_INVALID error thrown by lighthouse
-      // on jsenv self signed certificate
-      ignoreCertificateErrors: true,
-      jsonFile,
-      htmlFile,
-      projectDirectoryUrl: new URL("../../", import.meta.url),
-      jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
-      htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
-    },
-  )
-
-  server.stop("lighthouse report generated")
-  return lighthouseReport
+if (!local) {
+  process.env.LOG_LEVEL = "warn"
+  await import(`../build/build.mjs`)
 }
+process.env.LOG_LEVEL = "warn"
+const { server } = await import(`../server/start_prod_server.mjs`)
 
-const executeAndLog = process.argv.includes("--local")
-if (executeAndLog) {
-  const lighthouseReport = await generateLighthouseReport({
-    runCount: 1,
-    skipBuild: true,
-    jsonFile: true,
-    htmlFile: true,
-    serverLogLevel: "warn",
-  })
-  logLighthouseReport(lighthouseReport)
-}
+const lighthouseReport = await generateLighthouseReport(server.origin, {
+  runCount: local ? 1 : 2,
+  // prevent a CERT_INVALID error thrown by lighthouse
+  // on jsenv self signed certificate
+  ignoreCertificateErrors: true,
+  log: local,
+  jsonFile: local,
+  htmlFile: local,
+  projectDirectoryUrl: new URL("../../", import.meta.url),
+  jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
+  htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
+})
+server.stop("lighthouse report generated")
+export { lighthouseReport }

@@ -11,37 +11,9 @@
  * See https://github.com/jsenv/file-size-impact
  */
 
-import {
-  getFileSizeReport,
-  raw,
-  gzip,
-  logFileSizeReport,
-} from "@jsenv/file-size-impact"
+import { generateFileSizeReport, raw, gzip } from "@jsenv/file-size-impact"
 
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
-
-export const generateFileSizeReport = async () => {
-  const booting = {
-    "./dist/systemjs/main.prod.html": true,
-    "./dist/systemjs/app_loader-*.js": true,
-    "./dist/systemjs/assets/app_loader-*.css": true,
-    "./dist/systemjs/assets/roboto_v27_latin_regular-*.woff": true,
-  }
-  const app = {
-    "./dist/systemjs/**/*": true,
-    "./dist/systemjs/**/*.map": false,
-    ...revertTrackingGroup(booting),
-  }
-
-  return getFileSizeReport({
-    projectDirectoryUrl,
-    transformations: { raw, gzip },
-    trackingConfig: { booting, app },
-    manifestConfig: {
-      "./dist/**/asset-manifest.json": true,
-    },
-  })
-}
 
 const revertTrackingGroup = (trackingGroup) => {
   const opposite = {}
@@ -51,8 +23,24 @@ const revertTrackingGroup = (trackingGroup) => {
   return opposite
 }
 
-const executeAndLog = process.argv.includes("--local")
-if (executeAndLog) {
-  const fileSizeReport = await generateFileSizeReport()
-  logFileSizeReport(fileSizeReport)
+const booting = {
+  "./dist/systemjs/main.prod.html": true,
+  "./dist/systemjs/app_loader-*.js": true,
+  "./dist/systemjs/assets/app_loader-*.css": true,
+  "./dist/systemjs/assets/roboto_v27_latin_regular-*.woff": true,
 }
+const app = {
+  "./dist/systemjs/**/*": true,
+  "./dist/systemjs/**/*.map": false,
+  ...revertTrackingGroup(booting),
+}
+
+export const fileSizeReport = await generateFileSizeReport({
+  log: process.argv.includes("--log"),
+  projectDirectoryUrl,
+  transformations: { raw, gzip },
+  trackingConfig: { booting, app },
+  manifestConfig: {
+    "./dist/**/asset-manifest.json": true,
+  },
+})

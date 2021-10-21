@@ -17,19 +17,22 @@
  * See https://github.com/jsenv/performance-impact
  */
 
-export const generatePerformanceReport = async () => {
-  const { measureBoot } = await import("./boot/measure_boot.mjs")
+import { importMetricFromFiles } from "@jsenv/performance-impact"
 
-  const bootMetrics = await measureBoot()
-
-  return {
-    groups: {
-      "boot metrics": bootMetrics,
+const { bootMetrics } = await importMetricFromFiles({
+  directoryUrl: new URL("./", import.meta.url),
+  metricsDescriptions: {
+    bootMetrics: {
+      file: "./measure_boot.mjs#bootMetrics",
+      iterations: process.argv.includes("--once") ? 1 : 7,
+      msToWaitBetweenEachIteration: 500,
     },
-  }
-}
+  },
+  logLevel: process.argv.includes("--log") ? "info" : "warn",
+})
 
-const executeAndLog = process.argv.includes("--local")
-if (executeAndLog) {
-  await import("./boot/measure_boot.mjs")
+export const performanceReport = {
+  "boot metrics": {
+    ...bootMetrics,
+  },
 }
