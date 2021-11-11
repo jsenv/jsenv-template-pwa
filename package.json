@@ -51,7 +51,7 @@
     "@jsenv/babel-preset": "1.1.1",
     "@jsenv/assert": "2.3.2",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "23.8.1",
+    "@jsenv/core": "23.8.2",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.0.0",
     "@jsenv/filesystem": "2.5.1",
