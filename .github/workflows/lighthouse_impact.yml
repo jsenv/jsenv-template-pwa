@@ -15,14 +15,11 @@ name: lighthouse impact
 on: pull_request
 
 jobs:
-  pr-impact:
+  pr_impact:
     strategy:
       matrix:
-        # To make build more predictable:
-        # - explicit OS version ("ubuntu-20.04" instead of "ubuntu-latest")
-        # - Explicit node version ("16.6.1" instead of "lts")
         os: [ubuntu-20.04]
-        node: [16.6.1]
+        node: [16.13.0]
     runs-on: ${{ matrix.os }}
     name: pr impact
     steps:

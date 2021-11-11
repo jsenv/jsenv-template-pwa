@@ -10,21 +10,18 @@
 # https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 # configured to validate with https://json.schemastore.org/github-workflow.json
 
-name: performance impact
+name: performance_impact
 
 on: pull_request
 
 jobs:
-  pr-impact:
+  pr_impact:
     strategy:
       matrix:
-        # To make build more predictable:
-        # - explicit OS version ("ubuntu-20.04" instead of "ubuntu-latest")
-        # - Explicit node version ("16.6.1" instead of "lts")
         os: [ubuntu-20.04]
-        node: [16.6.1]
+        node: [16.13.0]
     runs-on: ${{ matrix.os }}
-    name: pr impact
+    name: performance impact
     steps:
       - name: Setup git
         uses: actions/checkout@v2
@@ -39,6 +36,6 @@ jobs:
       - name: Setup certificate authority
         run: npm run certificate-authority-install
       - name: Report performance impact
-        run: node ./.github/workflows/pr_impact/report_performance_impact.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node ./.github/workflows/performance_impact/report_performance_impact.mjs
