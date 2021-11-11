@@ -3,7 +3,7 @@
  * https://github.com/jsenv/server#presentation
  */
 
-import { startServer, serveFile } from "@jsenv/server"
+import { startServer, fetchFileSystem } from "@jsenv/server"
 
 // projectDirectoryUrl cannot be imported from jsenv.config.mjs
 // because this code will run in "production" where "devDependencies" are not installed
@@ -52,8 +52,8 @@ export const server = await startServer({
       }
     }
     const longTermCacheDisabled = request.ressource === "/main.prod.html"
-    return serveFile(request, {
-      rootDirectoryUrl: buildDirectoryUrl,
+    return fetchFileSystem(new URL(request.ressource.slice(1), buildDirectoryUrl), {
+      headers: request.headers,
       cacheControl: longTermCacheDisabled
         ? `private,max-age=0,must-revalidate`
         : `private,max-age=${BUILD_FILE_CACHE_VALIDITY_IN_SECONDS},immutable`,

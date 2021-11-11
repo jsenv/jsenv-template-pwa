@@ -1,10 +1,10 @@
-import { startServer, serveFile } from "@jsenv/server"
+import { startServer, fetchFileSystem } from "@jsenv/server"
 
 startServer({
   port: 80,
   requestToResponse: (request) => {
-    return serveFile(request, {
-      rootDirectoryUrl: new URL("./", import.meta.url),
+    return fetchFileSystem(new URL(request.ressource.slice(1), import.meta.url), {
+      headers: request.headers
     })
   },
 })
