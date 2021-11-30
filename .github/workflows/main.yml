@@ -35,13 +35,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: npm install
+      - name: Install NPM
         run: npm install
-      - name: check lint
+      - name: Generate importmap
+        run: npm run importmap
+      - name: Run ESLint
         run: npm run eslint
-      - name: check tests
+      - name: Run tests
         run: npm run test-with-coverage
-      - name: upload coverage
+      - name: Upload coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         if: env.CODECOV_TOKEN != null
