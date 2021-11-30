@@ -10,18 +10,15 @@ The prettier configuration can be found in [.prettierrc.yml](../../.prettierrc.y
 
 Install [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and **let the extension do the formatting** when you save a file.
 
-This repository has pre-configured some commands related to prettier:
+This repository has pre-configured the following commands related to prettier:
 
-| Command                       | Description                                                                                        | Screenshot                                     |
-| ----------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| npm run prettier-check        | Log files matching and not matching prettier format                                                | ![stuff](./prettier-check-terminal.png)        |
-| npm run prettier-format       | Format all files in the project                                                                    | ![stuff](./prettier-format-terminal.png)       |
-| npm run prettier-format-stage | Format all files in the [git staging area](https://softwareengineering.stackexchange.com/a/119790) | ![stuff](./prettier-format-stage-terminal.png) |
+| Command          | Description                     | Screenshot                               |
+| ---------------- | ------------------------------- | ---------------------------------------- |
+| npm run prettier | Format all files in the project | ![stuff](./prettier-format-terminal.png) |
 
 # How to remove prettier
 
-1. Remove prettier scripts from `"scripts"` in [package.json](../../package.json#L25)
-2. Delete [script/prettier/](../../script/prettier/) directory
-3. Delete [.prettierignore](../../.prettierignore)
-4. Delete [.prettierrc.yml](../../.prettierrc.yml)
-5. Remove `"@jsenv/prettier-check-project"` and `"prettier"` from `"devDependencies"` in [package.json](../../package.json#L63)
+1. Remove `"prettier"` from `"scripts"` in [package.json](../../package.json#L25)
+2. Delete [.prettierignore](../../.prettierignore)
+3. Delete [.prettierrc.yml](../../.prettierrc.yml)
+4. Remove `"prettier"` from `"devDependencies"` in [package.json](../../package.json#L63)

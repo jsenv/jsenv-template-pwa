@@ -23,47 +23,43 @@
   "main": "./src/boot/boot.js",
   "scripts": {
     "dev": "node ./script/server/start_dev_server.mjs",
-    "eslint-check": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
-    "generate-importmap": "node ./script/importmap/generate_importmap.mjs",
-    "generate-lighthouse-report": "node ./script/lighthouse/generate_lighthouse_report.mjs --local",
-    "measure-file-sizes": "node ./script/file_size/generate_file_size_report.mjs --log",
-    "measure-performances": "node ./script/performance/generate_performance_report.mjs --log --once",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
+    "importmap": "node ./script/importmap/generate_importmap.mjs",
     "dist": "npm run build",
     "build": "node ./script/build/build.mjs",
+    "lighthouse": "node ./script/lighthouse/generate_lighthouse_report.mjs --local",
+    "file-size": "node ./script/file_size/generate_file_size_report.mjs --log",
+    "performance": "node ./script/performance/generate_performance_report.mjs --log --once",
     "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
     "start": "npm run build && npm run start-prod",
     "start-prod": "node ./script/server/start_prod_server.mjs",
-    "prettier-format": "node ./script/prettier/prettier_format.mjs",
-    "prettier-format-stage": "npm run prettier-format -- --staged",
-    "prettier-check": "npm run prettier-format -- --dry-run",
+    "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "certificate-authority-install": "node ./script/server/install_certificate_authority.mjs",
-    "postinstall": "npm run generate-importmap"
+    "certificate-authority-install": "node ./script/server/install_certificate_authority.mjs"
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
-    "@jsenv/server": "10.0.9"
+    "@jsenv/server": "12.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/eslint-parser": "7.16.3",
     "@jsenv/babel-preset": "1.1.1",
-    "@jsenv/assert": "2.3.2",
+    "@jsenv/assert": "2.4.0",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "23.8.2",
+    "@jsenv/core": "24.4.1",
     "@jsenv/eslint-config": "16.0.9",
-    "@jsenv/file-size-impact": "12.0.0",
+    "@jsenv/file-size-impact": "12.1.1",
     "@jsenv/filesystem": "2.5.1",
     "@jsenv/https-local": "1.0.3",
-    "@jsenv/importmap-eslint-resolver": "5.1.2",
-    "@jsenv/importmap-node-module": "2.4.1",
+    "@jsenv/importmap-eslint-resolver": "5.2.1",
+    "@jsenv/importmap-node-module": "2.8.0",
     "@jsenv/lighthouse-impact": "2.1.0",
-    "@jsenv/performance-impact": "2.1.1",
-    "@jsenv/prettier-check-project": "5.6.1",
+    "@jsenv/performance-impact": "2.2.1",
     "eslint": "7.32.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.3",
-    "prettier": "2.4.1"
+    "prettier": "2.5.0"
   }
 }

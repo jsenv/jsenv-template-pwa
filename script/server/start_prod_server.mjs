@@ -34,8 +34,8 @@ const getDynamicParametersFromProcessEnv = async () => {
 
   return {
     protocol: "https",
-    serverCertificate,
-    serverCertificatePrivateKey,
+    certificate: serverCertificate,
+    privateKey: serverCertificatePrivateKey,
   }
 }
 
@@ -52,13 +52,16 @@ export const server = await startServer({
       }
     }
     const longTermCacheDisabled = request.ressource === "/main.prod.html"
-    return fetchFileSystem(new URL(request.ressource.slice(1), buildDirectoryUrl), {
-      headers: request.headers,
-      cacheControl: longTermCacheDisabled
-        ? `private,max-age=0,must-revalidate`
-        : `private,max-age=${BUILD_FILE_CACHE_VALIDITY_IN_SECONDS},immutable`,
-      etagEnabled: true,
-      compressionEnabled: true,
-    })
+    return fetchFileSystem(
+      new URL(request.ressource.slice(1), buildDirectoryUrl),
+      {
+        headers: request.headers,
+        cacheControl: longTermCacheDisabled
+          ? `private,max-age=0,must-revalidate`
+          : `private,max-age=${BUILD_FILE_CACHE_VALIDITY_IN_SECONDS},immutable`,
+        etagEnabled: true,
+        compressionEnabled: true,
+      },
+    )
   },
 })
