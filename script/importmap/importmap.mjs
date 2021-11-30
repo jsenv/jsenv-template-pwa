@@ -20,26 +20,26 @@ await writeImportMapFiles({
   projectDirectoryUrl,
   importMapFiles: {
     "./dev.importmap": {
-      initialImportMap: {
+      mappingsForNodeResolution: true,
+      mappingsForDevDependencies: true,
+      packageUserConditions: ["development"],
+      manualImportMap: {
         imports: {
           "root/": "./",
           "#env": "./env.dev.js",
         },
       },
-      mappingsForNodeResolution: true,
-      mappingsForDevDependencies: true,
-      packageUserConditions: ["development"],
       useForJsConfigJSON: true,
     },
     "./prod.importmap": {
-      initialImportMap: {
+      mappingsForNodeResolution: true,
+      packageUserConditions: ["production"],
+      manualImportMap: {
         imports: {
           "root/": "./",
           "#env": "./env.prod.js",
         },
       },
-      mappingsForNodeResolution: true,
-      packageUserConditions: ["production"],
       removeUnusedMappings: true,
     },
   },

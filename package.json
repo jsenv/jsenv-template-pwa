@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "node ./script/server/start_dev_server.mjs",
     "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
-    "importmap": "node ./script/importmap/generate_importmap.mjs",
+    "importmap": "node ./script/importmap/importmap.mjs",
     "dist": "npm run build",
     "build": "node ./script/build/build.mjs",
     "lighthouse": "node ./script/lighthouse/generate_lighthouse_report.mjs --local",
