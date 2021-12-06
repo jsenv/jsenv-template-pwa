@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../../../../../src/service_worker.js"
+    "../../../../../src/service_worker.js"
   ],
   "names": [
     "self",
