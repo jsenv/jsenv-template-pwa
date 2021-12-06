@@ -29,8 +29,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Setup npm
+      - name: Install node modules
         run: npm install
+      - name: Generate importmap
+        run: npm run importmap
       - name: Setup certificate authority
         run: npm run certificate-authority-install
       - name: Report lighthouse impact
