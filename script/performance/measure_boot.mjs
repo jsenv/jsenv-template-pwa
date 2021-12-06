@@ -5,7 +5,7 @@ import * as jsenvConfig from "../../jsenv.config.mjs"
 const executionResult = await execute({
   ...jsenvConfig,
   runtime: chromiumRuntime,
-  fileRelativeUrl: "./main.html",
+  fileRelativeUrl: "./src/main.html",
   // measurePerformance: true,
   // compileServerCanWriteOnFilesystem: false,
   collectPerformance: true,
