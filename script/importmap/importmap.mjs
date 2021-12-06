@@ -47,6 +47,10 @@ await writeImportMapFiles({
       packageUserConditions: ["production"],
       removeUnusedMappings: true,
     },
+    "./test/test.importmap": {
+      ...sharedParameters,
+      mappingsForDevDependencies: true,
+    },
     "./eslint.importmap": {
       ...sharedParameters,
       mappingsForDevDependencies: true,

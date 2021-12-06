@@ -22,7 +22,7 @@
   "type": "module",
   "main": "./src/boot/boot.js",
   "scripts": {
-    "dev": "node ./script/server/start_dev_server.mjs",
+    "dev": "node ./script/dev/start_dev_server.mjs",
     "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
     "importmap": "node ./script/importmap/importmap.mjs",
     "build": "node ./script/build/build.mjs",
@@ -32,7 +32,7 @@
     "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
     "start": "npm run build && npm run start-prod",
-    "start-prod": "node ./script/server/start_prod_server.mjs",
+    "start-prod": "node ./script/build/start_prod_server.mjs",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
     "certificate-authority-install": "node ./script/server/install_certificate_authority.mjs"
@@ -44,8 +44,8 @@
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/eslint-parser": "7.16.3",
-    "@jsenv/babel-preset": "1.1.1",
     "@jsenv/assert": "2.4.0",
+    "@jsenv/babel-preset": "1.1.1",
     "@jsenv/core": "24.5.0",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.1.1",
@@ -58,6 +58,7 @@
     "eslint": "7.32.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.3",
+    "playwright": "1.17.1",
     "prettier": "2.5.1"
   }
 }

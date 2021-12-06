@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
-    <script type="importmap" src="../dev.importmap"></script>
+    <script type="importmap" src="./test.importmap"></script>
     <!--
-    Why dev.importmap?
+    Why test.importmap?
 
     - JS in this HTML page is testing the web application runned in "development mode"
-      -> importmap must contain a mapping for "#env": "./env.dev.js"
+      -> importmap must contain a mapping for "#env": "./env_dev.js"
     - JS can import code from files files located in node_modules/
       -> importmap must contain mappings for every "dependencies" in package.json
     - JS is test code so it can import code from "devDependencies" too
