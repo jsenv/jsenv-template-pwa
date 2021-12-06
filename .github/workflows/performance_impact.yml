@@ -38,4 +38,4 @@ jobs:
       - name: Report performance impact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node ./.github/workflows/performance_impact/report_performance_impact.mjs
+        run: node ./.github/workflows/pr_impact/report_performance_impact.mjs
