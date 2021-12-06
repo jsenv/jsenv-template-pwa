@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "sources": [
+    "../../../../../../src/service_worker.js"
+  ],
+  "names": [
+    "self"
+  ],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;;AATA;AAEA,IAAA,CAAA,MAAA,GAAA,EAAA;AAEA,IAAA,CAAA,MAAA,CAAA,WAAA,GAAA,OAAA;AAEA;AACA;;AAEA;AAEAA;AAEAA;;AAGAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAHAA,IAAI,CAAJA,MAAAA,CAAAA,WAAAA,GAAAA,cAAAA,C,CACA;;AAdA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;AAEAA;AAEAA;;AAGAA",
+  "sourcesContent": [
+    "/*\n * This file is the service worker file of this pwa.\n *\n * self.config can be used to configure the service worker\n * behaviour implemented in \"service-worker.main.js\".\n *\n * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration\n */\n\n/* globals self */\n\nself.importScripts(\"../node_modules/@jsenv/pwa/src/service-worker.setup.js\")\n\nself.config.cachePrefix = \"pwa-template\"\n// self.config.logLevel = \"debug\"\n\nself.importScripts(\"../node_modules/@jsenv/pwa/src/service-worker.main.js\")\n"
+  ],
+  "file": "service_worker.js"
+}
