@@ -1,48 +1,45 @@
 
 self.generatedUrlsConfig = {
-  "assets/app_loader-4f96cbab.css": {
+  "app_loader-4f96cbab.css": {
     "versioned": true
   },
-  "assets/app-648bc845.css": {
+  "app-648bc845.css": {
     "versioned": true
   },
-  "assets/logo-25e95a00.png": {
+  "logo-25e95a00.png": {
     "versioned": true
   },
-  "assets/service_worker.js": {
+  "": {
     "versioned": false,
     "version": "a8081018"
   },
-  "app_loader-7592728e.js": {
+  "../app_loader-7b020ac8.js": {
     "versioned": true
   },
-  "app-cb7cd5c8.js": {
+  "../app-e3c43fb1.js": {
     "versioned": true
   },
-  "dev_ribbon-a0f6ad36.js": {
-    "versioned": true
-  },
-  "main.prod.html": {
+  "../main.prod.html": {
     "versioned": false,
-    "version": "ea9503b7"
+    "version": "cfc64e6f"
   },
-  "assets/favicon-25e95a00.png": {
+  "favicon-25e95a00.png": {
     "versioned": true
   },
-  "assets/pwa.webmanifest": {
+  "pwa.webmanifest": {
     "versioned": false,
     "version": "0a231734"
   },
-  "assets/pwa_icon_192-574c1c76.png": {
+  "pwa_icon_192-574c1c76.png": {
     "versioned": true
   },
-  "assets/pwa_icon_512-d2dd96fd.png": {
+  "pwa_icon_512-d2dd96fd.png": {
     "versioned": true
   },
-  "assets/maskable_icon_192-c20be9d4.png": {
+  "maskable_icon_192-c20be9d4.png": {
     "versioned": true
   },
-  "assets/roboto_v27_latin_regular-cc46322d.woff2": {
+  "roboto_v27_latin_regular-cc46322d.woff2": {
     "versioned": true
   }
 }

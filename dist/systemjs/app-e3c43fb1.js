@@ -612,7 +612,7 @@ System.register([], (function (exports, module) {
       };
 
       const greet = () => {
-        return "Welcome dev" ;
+        return "Welcome";
       };
 
       /**
@@ -629,4 +629,4 @@ System.register([], (function (exports, module) {
   };
 }));
 
-//# sourceMappingURL=app-cb7cd5c8.js.map
+//# sourceMappingURL=app-e3c43fb1.js.map

@@ -14,8 +14,7 @@
   "assets/roboto_v27_latin_regular.woff2": "assets/roboto_v27_latin_regular-cc46322d.woff2",
   "assets/service_worker.js": "assets/service_worker.js",
   "assets/service_worker.js.map": "assets/service_worker.js-9a90bb6e.map",
-  "app_loader.js": "app_loader-7592728e.js",
-  "app.js": "app-cb7cd5c8.js",
-  "dev_ribbon.js": "dev_ribbon-a0f6ad36.js",
+  "app_loader.js": "app_loader-7b020ac8.js",
+  "app.js": "app-e3c43fb1.js",
   "main.prod.html": "main.prod.html"
 }

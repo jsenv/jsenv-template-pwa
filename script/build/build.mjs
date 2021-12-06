@@ -19,7 +19,7 @@ await buildProject({
     "./src/main.html": "./main.prod.html",
   },
   urlMappings: {
-    "./dev.importmap": "./prod.importmap",
+    "./src/dev.importmap": "./src/prod.importmap",
   },
   serviceWorkers: {
     "./src/service_worker.js": "./service_worker.js",

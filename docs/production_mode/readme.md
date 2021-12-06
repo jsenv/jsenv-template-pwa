@@ -28,16 +28,16 @@ This repository has preconfigured a _production mode_, if you want to keep this 
 
 In development mode there is an orange ribbon. After the build code specific to development is removed by treeshaking.
 
-| npm start               | npm build + npm start-prod |
-| ----------------------- | -------------------------- |
-| ![stuff](./pwa_dev.png) | ![stuff](./pwa_prod.png)   |
+| npm run dev             | npm start                |
+| ----------------------- | ------------------------ |
+| ![stuff](./pwa_dev.png) | ![stuff](./pwa_prod.png) |
 
 # How to remove production mode
 
 1. Remove all `#env` imports in files
 2. Remove `"./dev.importmap": "./prod.importmap"` from `"urlMappings"` in [script/build/build.mjs](../../script/build/build.mjs#L23)
-3. Remove line generating `"prod.importmap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L34)
-4. Remove `"#env"` from `"initialImportMap"` in [script/importmap/generate_importmap.mjs](../../script/importmap/generate_importmap.mjs#L11)
-5. Delete [env.prod.js](../../env.prod.js)
-6. Delete [env.dev.js](../../env.dev.js)
+3. Remove line generating `"prod.importmap"` in [script/importmap/importmap.mjs](../../script/importmap/generate_importmap.mjs#L34)
+4. Remove `"#env"` from `"initialImportMap"` in [script/importmap/importmap.mjs](../../script/importmap/generate_importmap.mjs#L11)
+5. Delete [env_prod.js](../../env_prod.js)
+6. Delete [env_dev.js](../../env_dev.js)
 7. Remove `"/prod.importmap"` from [.gitignore](../../.gitignore#L22)

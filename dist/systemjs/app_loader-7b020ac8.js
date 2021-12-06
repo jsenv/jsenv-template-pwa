@@ -164,10 +164,6 @@ System.register([], (function (exports, module) {
 
       const loadApp = exports('loadApp', _async(function (_ref) {
         let updateSplashscreenText = _ref.updateSplashscreenText;
-
-        {
-          performance.measure("loading app");
-        } // try to load CSS + get the main fonts before displaying any text
         // to avoid font swapping if possible
         // give max 400ms for this
 
@@ -175,62 +171,36 @@ System.register([], (function (exports, module) {
         const appLoaderCssPromise = loadCSSAndFonts(new URL(System.resolve("./assets/app_loader.css", module.meta.url)), {
           timeout: 400,
           onCssReady: () => {
-            {
-              performance.measure("app_loader.css ready");
-            }
           },
           onFontsReady: () => {
-            {
-              performance.measure("fonts ready");
-            }
           }
         }); // start importing app right away
 
         const appPromise = importApp({
           onJsReady: () => {
-            {
-              performance.measure("app.js ready");
-            }
           }
         });
         const appCSSPromise = loadCSSAndFonts(new URL(System.resolve("./assets/app.css", module.meta.url)), {
           onCssReady: () => {
-            {
-              performance.measure("app.css ready");
-            }
           }
         });
         return _await(appLoaderCssPromise, function () {
           return _await(updateSplashscreenText("Loading banana..."), function () {
-            {
-              performance.measure("\"loading bannana...\" displayed");
-            }
 
             return _await(new Promise(resolve => {
               setTimeout(resolve, 800);
             }), function () {
               updateSplashscreenText("Loading gorilla...");
 
-              {
-                performance.measure("\"loading gorilla...\" displayed");
-              }
-
               return _await(new Promise(resolve => {
                 setTimeout(resolve, 1000);
               }), function () {
                 updateSplashscreenText("Loading the entire jungle...");
 
-                {
-                  performance.measure("\"entire jungle...\" displayed");
-                }
-
                 return _await(new Promise(resolve => {
                   setTimeout(resolve, 1200);
                 }), function () {
                   return _await(appPromise, function (app) {
-                    {
-                      performance.measure("rendering app");
-                    }
 
                     app.render();
                     return _await(appCSSPromise, function () {
@@ -238,9 +208,6 @@ System.register([], (function (exports, module) {
                       // to let navigator an opportunity to cooldown
                       // This should help to save battery power and RAM
                       return _call(nextIDLEPromise, function () {
-                        {
-                          performance.measure("app rendered");
-                        }
                       });
                     });
                   });
@@ -264,4 +231,4 @@ System.register([], (function (exports, module) {
   };
 }));
 
-//# sourceMappingURL=app_loader-7592728e.js.map
+//# sourceMappingURL=app_loader-7b020ac8.js.map

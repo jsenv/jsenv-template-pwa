@@ -908,10 +908,9 @@ noscript {
     "./assets/app_loader.css": "./assets/app_loader-4f96cbab.css",
     "./assets/app.css": "./assets/app-648bc845.css",
     "./assets/logo.png": "./assets/logo-25e95a00.png",
-    "./app_loader.js": "./app_loader-7592728e.js",
-    "./app.js": "./app-cb7cd5c8.js",
-    "./boot.js": "./boot-4f2a37bc.js",
-    "./dev_ribbon.js": "./dev_ribbon-a0f6ad36.js"
+    "./app_loader.js": "./app_loader-7b020ac8.js",
+    "./app.js": "./app-e3c43fb1.js",
+    "./boot.js": "./boot-d526574f.js"
   }
 }</script>
     <!--
@@ -922,9 +921,9 @@ noscript {
     -->
     <link rel="preload" href="assets/roboto_v27_latin_regular-cc46322d.woff2" as="font" type="font/woff2" crossorigin="">
     <link rel="preload" href="assets/app_loader-4f96cbab.css" as="style">
-    <link rel="preload" href="app_loader-7592728e.js" as="script">
+    <link rel="preload" href="app_loader-7b020ac8.js" as="script">
     <link rel="preload" href="assets/app-648bc845.css" as="style">
-    <link rel="preload" href="app-cb7cd5c8.js" as="script">
+    <link rel="preload" href="app-e3c43fb1.js" as="script">
   </head>
 
   <body>
@@ -1121,13 +1120,6 @@ if (!window.browserIsSupported) {
         };
       }
 
-      {
-        const _await$import = await module.import('./dev_ribbon.js'),
-              injectDevRibbon = _await$import.injectDevRibbon;
-
-        injectDevRibbon();
-      }
-
       const BOOTING_SLOW = 2500; // When it takes less than "SPLASHIN_DELAY"ms for loadApp to resolve
       // -> we won't even show the splashscreen (happens on user second visit because everything is in browser cache)
 
@@ -1143,9 +1135,6 @@ if (!window.browserIsSupported) {
       const BOOTING_ERROR = "booting_error";
 
       const boot = _async(function () {
-        {
-          performance.measure("booting app");
-        }
 
         const bootStartMs = Date.now();
         let splashIsVisible = false;
@@ -1170,10 +1159,6 @@ if (!window.browserIsSupported) {
           // be removed from the DOM
           splashscreenNode.style.display = "none";
           splashIsVisible = false;
-
-          {
-            performance.measure("app displayed");
-          }
         };
 
         const splashInTimeout = setTimeout(splashin, SPLASHIN_DELAY);
@@ -1259,7 +1244,7 @@ if (!window.browserIsSupported) {
   };
 }));
 
-//# sourceMappingURL=boot-4f2a37bc.js.map</script>
+//# sourceMappingURL=boot-d526574f.js.map</script>
     <!--
       Installing an early "beforeinstallprompt" event listener
       - We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
