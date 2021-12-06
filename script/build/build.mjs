@@ -25,11 +25,7 @@ await buildProject({
     "./src/service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
-  minify: true,
-  minifyHtmlOptions: {
-    collapseWhitespace: true,
-    removeComments: true,
-  },
+  minify: false,
   logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",

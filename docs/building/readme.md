@@ -1,6 +1,6 @@
 # Building
 
-In order to optimize files for production use `node ./script/build/build.mjs` or `npm run dist`.
+In order to optimize files for production use `node ./script/build/build.mjs` or `npm run build`.
 
 ```console
 > node ./script/build/build.mjs
