@@ -118,5 +118,12 @@
         },
       )
     </script>
+    <script type="module">
+      import { DEV } from "#env"
+
+      if (DEV) {
+        await import("./dev_ribbon.js")
+      }
+    </script>
   </body>
 </html>

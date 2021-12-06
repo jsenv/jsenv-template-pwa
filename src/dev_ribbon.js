@@ -1,7 +1,6 @@
-export const injectDevRibbon = () => {
-  const devRibbonContainer = document.createElement("div")
-  devRibbonContainer.id = "dev_ribbon_container"
-  devRibbonContainer.innerHTML = `
+const devRibbonContainer = document.createElement("div")
+devRibbonContainer.id = "dev_ribbon_container"
+devRibbonContainer.innerHTML = `
 <div id="dev_ribbon">
   <div id="dev_ribbon_text">DEV</span>
 </div>
@@ -41,5 +40,4 @@ export const injectDevRibbon = () => {
   user-select: none;
 }
 </style>`
-  document.body.appendChild(devRibbonContainer)
-}
+document.body.appendChild(devRibbonContainer)

@@ -21,7 +21,7 @@ self.generatedUrlsConfig = {
   },
   "../main.prod.html": {
     "versioned": false,
-    "version": "33ed915d"
+    "version": "683ad76b"
   },
   "favicon-25e95a00.png": {
     "versioned": true
