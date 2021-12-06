@@ -16,13 +16,13 @@ await buildProject({
   format: "systemjs",
   buildDirectoryClean: true,
   entryPointMap: {
-    "./main.html": "./main.prod.html",
+    "./src/main.html": "./main.prod.html",
   },
   urlMappings: {
     "./dev.importmap": "./prod.importmap",
   },
   serviceWorkers: {
-    "./service_worker.js": "./service_worker.js",
+    "./src/service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   minify: true,
@@ -36,7 +36,7 @@ await buildProject({
 })
 
 const robotsProjectFileUrl = resolveUrl(
-  "robots.txt",
+  "src/robots.txt",
   jsenvConfig.projectDirectoryUrl,
 )
 const buildDirectoryUrl = resolveUrl(

@@ -48,7 +48,7 @@
     "@jsenv/babel-preset": "1.1.1",
     "@jsenv/assert": "2.4.0",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "24.4.1",
+    "@jsenv/core": "24.4.8",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.1.1",
     "@jsenv/filesystem": "2.5.1",
@@ -60,6 +60,6 @@
     "eslint": "7.32.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.3",
-    "prettier": "2.5.0"
+    "prettier": "2.5.1"
   }
 }

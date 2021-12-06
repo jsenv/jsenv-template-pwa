@@ -16,31 +16,41 @@ import { writeImportMapFiles } from "@jsenv/importmap-node-module"
 
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
+const sharedParameters = {
+  runtime: "browser",
+  mappingsForNodeResolution: true,
+  manualImportMap: {
+    imports: {
+      "#env": "./src/env_dev.js",
+      "root/": "./",
+    },
+  },
+}
+
 await writeImportMapFiles({
   projectDirectoryUrl,
   importMapFiles: {
-    "./dev.importmap": {
-      mappingsForNodeResolution: true,
-      mappingsForDevDependencies: true,
+    "./src/dev.importmap": {
+      ...sharedParameters,
       packageUserConditions: ["development"],
-      manualImportMap: {
-        imports: {
-          "root/": "./",
-          "#env": "./env.dev.js",
-        },
-      },
-      useForJsConfigJSON: true,
-    },
-    "./prod.importmap": {
-      mappingsForNodeResolution: true,
-      packageUserConditions: ["production"],
-      manualImportMap: {
-        imports: {
-          "root/": "./",
-          "#env": "./env.prod.js",
-        },
-      },
       removeUnusedMappings: true,
+    },
+    "./src/prod.importmap": {
+      ...sharedParameters,
+      manualImportMap: {
+        imports: {
+          ...sharedParameters.manualImportMap.imports,
+          "#env": "./src/env_prod.js",
+        },
+        scopes: sharedParameters.manualImportMap.scopes,
+      },
+      packageUserConditions: ["production"],
+      removeUnusedMappings: true,
+    },
+    "./eslint.importmap": {
+      ...sharedParameters,
+      mappingsForDevDependencies: true,
+      useForJsConfigJSON: true,
     },
   },
 })

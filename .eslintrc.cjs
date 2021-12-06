@@ -51,7 +51,7 @@ const eslintConfig = composeEslintConfig(
         // Read more in https://github.com/jsenv/jsenv-node-module-import-map#Configure-vscode-and-eslint-for-importmap
         "@jsenv/importmap-eslint-resolver": {
           projectDirectoryUrl: __dirname,
-          importMapFileRelativeUrl: "./dev.importmap",
+          importMapFileRelativeUrl: "./eslint.importmap",
         },
       },
     },
