@@ -4,8 +4,8 @@
     "../../../src/app_loader/app_loader.css"
   ],
   "names": [],
-  "mappings": "AAAA;EACE,qBAAqB;EACrB,kBAAkB;EAClB,gBAAgB;EAChB,kFAA2E;EAC3E,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;AACrB",
-  "file": "app_loader-4f96cbab.css",
+  "mappings": "AAAA,WAKE,iBAAkB,CAJlB,kBAAqB,CACrB,iBAAkB,CAClB,eAAgB,CAChB,gFAEF,CAEA,cACE,kBACF",
+  "file": "app_loader-bced8497.css",
   "sourcesContent": [
     "@font-face {\n  font-family: \"Roboto\";\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Roboto\"), url(./roboto_v27_latin_regular.woff2) format(\"woff2\");\n  font-display: swap;\n}\n\n#splashscreen {\n  font-family: Roboto;\n}\n"
   ]
