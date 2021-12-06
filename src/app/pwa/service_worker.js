@@ -7,7 +7,7 @@ import {
   activateServiceWorkerUpdate,
 } from "@jsenv/pwa"
 
-const serviceWorkerUrl = new URL("../../service_worker.js", import.meta.url)
+const serviceWorkerUrl = new URL("/src/service_worker.js", import.meta.url)
 
 export const initServiceWorker = (app) => {
   if (!canUseServiceWorker) {
