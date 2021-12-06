@@ -16,27 +16,23 @@ await buildProject({
   format: "systemjs",
   buildDirectoryClean: true,
   entryPointMap: {
-    "./main.html": "./main.prod.html",
+    "./src/main.html": "./main.prod.html",
   },
   urlMappings: {
-    "./dev.importmap": "./prod.importmap",
+    "./src/dev.importmap": "./src/prod.importmap",
   },
   serviceWorkers: {
-    "./service_worker.js": "./service_worker.js",
+    "./src/service_worker.js": "./service_worker.js",
   },
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   minify: true,
-  minifyHtmlOptions: {
-    collapseWhitespace: true,
-    removeComments: true,
-  },
   logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
 
 const robotsProjectFileUrl = resolveUrl(
-  "robots.txt",
+  "src/robots.txt",
   jsenvConfig.projectDirectoryUrl,
 )
 const buildDirectoryUrl = resolveUrl(

@@ -11,9 +11,6 @@ import { startServer, fetchFileSystem } from "@jsenv/server"
 const projectDirectoryUrl = new URL("../../", import.meta.url)
 const buildDirectoryUrl = new URL("./dist/systemjs/", projectDirectoryUrl)
 
-const SECONDS_IN_30_DAYS = 60 * 60 * 24 * 30
-const BUILD_FILE_CACHE_VALIDITY_IN_SECONDS = SECONDS_IN_30_DAYS
-
 const getDynamicParametersFromProcessEnv = async () => {
   const forceHttp = process.env.HTTP
 
@@ -25,7 +22,7 @@ const getDynamicParametersFromProcessEnv = async () => {
     }
   }
 
-  // runned by "npm run start-prod" or "npm run generate-lighthouse-report"
+  // runned by "npm run build-serve" or "npm run lighthouse"
   // we use dynamic import because "@jsenv/https-local" is in devDependencies
   // and would not be found when this file is executed in production (by heroku)
   const { requestCertificateForLocalhost } = await import("@jsenv/https-local")
@@ -51,6 +48,7 @@ export const server = await startServer({
         ressource: "/main.prod.html",
       }
     }
+    const SECONDS_IN_30_DAYS = 60 * 60 * 24 * 30
     const longTermCacheDisabled = request.ressource === "/main.prod.html"
     return fetchFileSystem(
       new URL(request.ressource.slice(1), buildDirectoryUrl),
@@ -58,7 +56,7 @@ export const server = await startServer({
         headers: request.headers,
         cacheControl: longTermCacheDisabled
           ? `private,max-age=0,must-revalidate`
-          : `private,max-age=${BUILD_FILE_CACHE_VALIDITY_IN_SECONDS},immutable`,
+          : `private,max-age=${SECONDS_IN_30_DAYS},immutable`,
         etagEnabled: true,
         compressionEnabled: true,
       },

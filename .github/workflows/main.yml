@@ -35,7 +35,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Install NPM
+      - name: Install node modules
         run: npm install
       - name: Generate importmap
         run: npm run importmap
@@ -44,7 +44,8 @@ jobs:
       - name: Run tests
         run: npm run test-with-coverage
       - name: Upload coverage
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: env.CODECOV_TOKEN != null
-        run: node ./script/test/upload_coverage.mjs
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage.json
+          verbose: true

@@ -22,21 +22,20 @@
   "type": "module",
   "main": "./src/boot/boot.js",
   "scripts": {
-    "dev": "node ./script/server/start_dev_server.mjs",
+    "dev": "node ./script/dev/dev.mjs",
     "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
     "importmap": "node ./script/importmap/importmap.mjs",
-    "dist": "npm run build",
     "build": "node ./script/build/build.mjs",
-    "lighthouse": "node ./script/lighthouse/generate_lighthouse_report.mjs --local",
-    "file-size": "node ./script/file_size/generate_file_size_report.mjs --log",
-    "performance": "node ./script/performance/generate_performance_report.mjs --log --once",
+    "build-serve": "node ./script/build/build_serve.mjs",
+    "file-size": "node ./script/file_size/file_size.mjs --log",
+    "lighthouse": "node ./script/lighthouse/lighthouse.mjs --local",
+    "performance": "node ./script/performance/performance.mjs --log --once",
     "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
-    "start": "npm run build && npm run start-prod",
-    "start-prod": "node ./script/server/start_prod_server.mjs",
+    "start": "npm run build && npm run build-serve",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "certificate-authority-install": "node ./script/server/install_certificate_authority.mjs"
+    "certificate-authority-install": "node ./script/dev/install_certificate_authority.mjs"
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
@@ -45,10 +44,9 @@
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/eslint-parser": "7.16.3",
-    "@jsenv/babel-preset": "1.1.1",
     "@jsenv/assert": "2.4.0",
-    "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "24.4.1",
+    "@jsenv/babel-preset": "1.1.1",
+    "@jsenv/core": "24.5.2",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.1.1",
     "@jsenv/filesystem": "2.5.1",
@@ -60,6 +58,7 @@
     "eslint": "7.32.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.25.3",
-    "prettier": "2.5.0"
+    "playwright": "1.17.1",
+    "prettier": "2.5.1"
   }
 }

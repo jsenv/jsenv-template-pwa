@@ -1,1 +1,1 @@
-web: PORT=$PORT HTTP=1 npm run start-prod
+web: PORT=$PORT HTTP=1 npm run build-serve

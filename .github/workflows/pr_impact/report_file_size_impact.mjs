@@ -13,7 +13,6 @@ import {
 await reportFileSizeImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
-  buildCommand: "npm run dist",
-  fileSizeReportModulePath:
-    "./script/file_size/generate_file_size_report.mjs#fileSizeReport",
+  buildCommand: "npm run build",
+  fileSizeReportModulePath: "./script/file_size/file_size.mjs#fileSizeReport",
 })

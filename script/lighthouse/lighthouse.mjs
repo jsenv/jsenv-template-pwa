@@ -2,8 +2,8 @@
  * This file is designed to be executed locally or by an automated process.
  *
  * To run it locally, use one of
- * - node ./script/lighthouse/generate_lighthouse_report.mjs --local
- * - npm run generate-lighthouse-report
+ * - node ./script/lighthouse/lighthouse.mjs --local
+ * - npm run lighthouse
  *
  * The automated process is a GitHub workflow: ".github/workflows/lighthouse_impact.yml"
  * It will dynamically import this file and call generateLighthouseReport.
@@ -20,10 +20,11 @@ if (!local) {
   await import(`../build/build.mjs`)
 }
 process.env.LOG_LEVEL = "warn"
-const { server } = await import(`../server/start_prod_server.mjs`)
+const { server } = await import(`../build/build_serve.mjs`)
 
 const lighthouseReport = await generateLighthouseReport(server.origin, {
   runCount: local ? 1 : 2,
+
   // prevent a CERT_INVALID error thrown by lighthouse
   // on jsenv self signed certificate
   ignoreCertificateErrors: true,

@@ -2,8 +2,8 @@
  * This file is designed to be executed locally or by an automated process.
  *
  * To run it locally, use one of
- * - node ./script/file_size/generate_file_size_report.mjs --local
- * - npm run measure-file-sizes
+ * - node ./script/file_size/file_size.mjs --local
+ * - npm run file-sizes
  *
  * The automated process is a GitHub workflow: ".github/workflows/file_size_impact.yml"
  * It will dynamically import this file and call generateFileSizeReport.

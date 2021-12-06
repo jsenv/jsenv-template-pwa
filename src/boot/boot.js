@@ -12,11 +12,6 @@
 
 import { DEV } from "#env"
 
-if (DEV) {
-  const { injectDevRibbon } = await import("./dev_ribbon.js")
-  injectDevRibbon()
-}
-
 // When it take more than "BOOTING_SLOW"ms for loadApp to resolve or call updateSplashscreenText
 // -> splashscreen displays <div id="booting_is_slow"> content
 const BOOTING_SLOW = 2500

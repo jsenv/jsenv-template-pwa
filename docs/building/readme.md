@@ -1,11 +1,11 @@
 # Building
 
-In order to optimize files for production use `node ./script/build/build.mjs` or `npm run dist`.
+In order to optimize files for production use `node ./script/build/build.mjs` or `npm run build`.
 
 ```console
 > node ./script/build/build.mjs
 
-building ./main.html...
+building ./src/main.html...
 --- files in the build: 14 ---
 dist/systemjs/assets/app-0f239860.css (111 B)
 dist/systemjs/assets/boot-9c6848bb.css (224 B)

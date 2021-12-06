@@ -45,7 +45,7 @@ HTML files can be opened in a browser to explore coverage. Red and yellow parts 
 
 ## Codecov
 
-To enable integration into GitHub, coverage must be sent to codecov after each push to a pull request or the repository main branch. This is done by `upload coverage` in [./.github/workflows/main.yml](../../.github/workflows/main.yml#L51).
+To enable integration into GitHub, coverage must be sent to codecov after each push to a pull request or the repository main branch. This is done by "upload coverage" in [./.github/workflows/main.yml](../../.github/workflows/main.yml#L51).
 
 If you want to enable this, see [Configure codecov](#Configure-codecov), otherwise see [Remove codecov](#Remove-codecov).
 
@@ -57,16 +57,14 @@ If you want to enable this, see [Configure codecov](#Configure-codecov), otherwi
 
 ### Remove codecov
 
-1. Remove `upload coverage` in [.github/workflows/main.yml](../../.github/workflows/main.yml#L46)
-2. Remove `"@jsenv/codecov-upload"` from `"devDependencies"` in [package.json](../../package.json#L47)
-3. Delete [test/upload_coverage.mjs](../../script/test/upload_coverage.mjs)
-4. Delete [codecov.yml](../../codecov.yml)
+1. Remove "upload coverage" in [.github/workflows/main.yml](../../.github/workflows/main.yml#L46)
+2. Delete [codecov.yml](../../codecov.yml)
 
 # How to remove code coverage
 
 1. Follow steps from [Remove codecov](#remove-codecov)
-2. Replace `npm run test-with-coverage` by `npm test` in [.github/workflows/main.yml](../../.github/workflows/main.yml#L50)
-3. Remove `"test-with-coverage"` from `"scripts"` in [package.json](../../package.json#L46)
-4. Remove `/coverage/` in [.gitignore](../../.gitignore#L9)
-5. Remove `/coverage/` in [.eslintignore](../../.eslintignore#L13)
-6. Remove `/coverage/` in [.prettierignore](../../.prettierignore#L8)
+2. Replace "npm run test-with-coverage" by "npm test" in [.github/workflows/main.yml](../../.github/workflows/main.yml#L50)
+3. Remove "test-with-coverage" from "scripts" in [package.json](../../package.json#L46)
+4. Remove _/coverage/_ in [.gitignore](../../.gitignore#L9)
+5. Remove _/coverage/_ in [.eslintignore](../../.eslintignore#L13)
+6. Remove _/coverage/_ in [.prettierignore](../../.prettierignore#L8)
