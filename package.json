@@ -20,7 +20,6 @@
     "access": "public"
   },
   "type": "module",
-  "main": "./src/boot/boot.js",
   "scripts": {
     "dev": "node ./script/dev/dev.mjs",
     "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
@@ -52,7 +51,7 @@
     "@jsenv/filesystem": "2.5.1",
     "@jsenv/https-local": "1.0.3",
     "@jsenv/importmap-eslint-resolver": "5.2.1",
-    "@jsenv/importmap-node-module": "2.8.0",
+    "@jsenv/importmap-node-module": "4.0.0",
     "@jsenv/lighthouse-impact": "2.1.0",
     "@jsenv/performance-impact": "2.2.1",
     "eslint": "7.32.0",
