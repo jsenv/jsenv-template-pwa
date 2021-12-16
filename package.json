@@ -34,7 +34,8 @@
     "start": "npm run build && npm run build-serve",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "certificate-authority-install": "node ./script/dev/install_certificate_authority.mjs"
+    "certificate-authority-install": "node ./script/dev/install_certificate_authority.mjs",
+    "heroku-postbuild": "npm run importmap && npm run build"
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
