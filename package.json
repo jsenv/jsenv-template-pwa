@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.0",
-    "@jsenv/server": "12.2.0"
+    "@jsenv/server": "12.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
