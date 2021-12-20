@@ -33,4 +33,4 @@ Some remarks:
 
 ## Booting explanation
 
-There is comments in [main.html](../../main.html) highlighting how booting is designed.
+There is comments in [main.html](../../src/main.html) highlighting how booting is designed.

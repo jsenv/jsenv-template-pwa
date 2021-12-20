@@ -7,9 +7,9 @@ You can remove PWA compatibility as described in [Steps to remove pwa](#Steps-to
 
 # Steps to remove pwa
 
-- Remove `<link rel="manifest">` from [main.html](../../main.html#L8)
-- Remove `beforeinstallprompt` script from [main.html](../../main.html#L280)
-- Remove [pwa.webmanifest](../../pwa.webmanifest) file
+- Remove `<link rel="manifest">` from [main.html](../../src/main.html#L8)
+- Remove `beforeinstallprompt` script from [main.html](../../src/main.html#L280)
+- Remove [pwa.webmanifest](../../src/pwa.webmanifest) file
 - Remove `initPwa` from [src/app/app.js](../../src/app/app.js)
 - Remove [src/app/pwa/](../../src/app/pwa) directory
 - Remove `serviceWorkers` and `serviceWorkerFinalizer` from [build script](../../script/build/build.mjs#L25)
