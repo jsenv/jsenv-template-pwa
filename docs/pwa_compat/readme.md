@@ -8,6 +8,7 @@ You can remove PWA compatibility as described in [Steps to remove pwa](#Steps-to
 # Steps to remove pwa
 
 - Remove `<link rel="manifest">` from [main.html](../../src/main.html#L13)
+- Remove `<link rel="apple-touch-icon">` from [main.html](../../src/main.html#L14)
 - Remove _beforeinstallprompt_ script from [main.html](../../src/main.html#L106-L120)
 - Remove [pwa.webmanifest](../../src/pwa.webmanifest) file
 - Remove _initPwa_ from [src/app/app.js](../../src/app/app.js)
