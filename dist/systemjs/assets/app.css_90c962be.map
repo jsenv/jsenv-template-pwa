@@ -5,7 +5,7 @@
   ],
   "names": [],
   "mappings": "AAAA,KACE,kBACF,CAEA,KACE,kBAAmB,CACnB,iBACF",
-  "file": "app-0f239860.css",
+  "file": "app_0f239860.css",
   "sourcesContent": [
     "body {\n  background: lightgrey;\n}\n\n#app {\n  font-family: Roboto;\n  text-align: center;\n}\n"
   ]
