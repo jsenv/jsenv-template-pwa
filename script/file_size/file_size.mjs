@@ -25,9 +25,9 @@ const revertTrackingGroup = (trackingGroup) => {
 
 const booting = {
   "./dist/systemjs/main.prod.html": true,
-  "./dist/systemjs/app_loader-*.js": true,
-  "./dist/systemjs/assets/app_loader-*.css": true,
-  "./dist/systemjs/assets/roboto_v27_latin_regular-*.woff": true,
+  "./dist/systemjs/app_loader_*.js": true,
+  "./dist/systemjs/assets/app_loader_*.css": true,
+  "./dist/systemjs/assets/roboto_v27_latin_regular_*.woff": true,
 }
 const app = {
   "./dist/systemjs/**/*": true,

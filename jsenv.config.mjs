@@ -15,3 +15,5 @@ export const runtimeSupport = {
   firefox: "52",
   safari: "11",
 }
+
+export const classicServiceWorkers = ["./src/service_worker.js"]

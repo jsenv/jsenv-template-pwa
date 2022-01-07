@@ -35,8 +35,8 @@ jobs:
         run: npm run importmap
       - name: Setup playwright
         run: npm run playwright-install
-      - name: Setup certificate authority
-        run: npm run certificate-authority-install
+      - name: Setup certificate
+        run: npm run certificate-install
       - name: Report performance impact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -8,22 +8,25 @@
 import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
 import { copyFileSystemNode, resolveUrl } from "@jsenv/filesystem"
 
-import * as jsenvConfig from "../../jsenv.config.mjs"
+import {
+  projectDirectoryUrl,
+  runtimeSupport,
+  classicServiceWorkers,
+} from "../../jsenv.config.mjs"
 
 await buildProject({
-  ...jsenvConfig,
+  projectDirectoryUrl,
+  runtimeSupport,
   buildDirectoryRelativeUrl: "./dist/systemjs/",
   format: "systemjs",
   buildDirectoryClean: true,
-  entryPointMap: {
-    "./src/main.html": "./main.prod.html",
+  entryPoints: {
+    "./src/main.html": "main.prod.html",
   },
   urlMappings: {
     "./src/dev.importmap": "./src/prod.importmap",
   },
-  serviceWorkers: {
-    "./src/service_worker.js": "./service_worker.js",
-  },
+  classicServiceWorkers,
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   minify: true,
   logLevel: process.env.LOG_LEVEL,
@@ -31,13 +34,7 @@ await buildProject({
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
 
-const robotsProjectFileUrl = resolveUrl(
-  "src/robots.txt",
-  jsenvConfig.projectDirectoryUrl,
-)
-const buildDirectoryUrl = resolveUrl(
-  "dist/systemjs/",
-  jsenvConfig.projectDirectoryUrl,
-)
+const robotsProjectFileUrl = resolveUrl("src/robots.txt", projectDirectoryUrl)
+const buildDirectoryUrl = resolveUrl("dist/systemjs/", projectDirectoryUrl)
 const robotsBuildFileUrl = resolveUrl("robots.txt", buildDirectoryUrl)
 await copyFileSystemNode({ from: robotsProjectFileUrl, to: robotsBuildFileUrl })
