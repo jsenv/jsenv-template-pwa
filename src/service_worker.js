@@ -9,9 +9,9 @@
 
 /* globals self */
 
-self.importScripts("../node_modules/@jsenv/pwa/src/service-worker.setup.js")
+self.importScripts("../node_modules/@jsenv/pwa/src/service_worker.js")
 
-self.config.cachePrefix = "pwa-template"
-// self.config.logLevel = "debug"
-
-self.importScripts("../node_modules/@jsenv/pwa/src/service-worker.main.js")
+self.initJsenvServiceWorker({
+  cachePrefix: "pwa-template",
+  // logLevel:  "debug"
+})
