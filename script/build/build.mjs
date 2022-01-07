@@ -8,7 +8,11 @@
 import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
 import { copyFileSystemNode, resolveUrl } from "@jsenv/filesystem"
 
-import { projectDirectoryUrl, runtimeSupport } from "../../jsenv.config.mjs"
+import {
+  projectDirectoryUrl,
+  runtimeSupport,
+  classicServiceWorkers,
+} from "../../jsenv.config.mjs"
 
 await buildProject({
   projectDirectoryUrl,
@@ -16,13 +20,13 @@ await buildProject({
   buildDirectoryRelativeUrl: "./dist/systemjs/",
   format: "systemjs",
   buildDirectoryClean: true,
-  entryPointMap: {
-    "./src/main.html": "./main.prod.html",
+  entryPoints: {
+    "./src/main.html": "main.prod.html",
   },
   urlMappings: {
     "./src/dev.importmap": "./src/prod.importmap",
   },
-  serviceWorkers: ["./src/service_worker.js"],
+  classicServiceWorkers,
   serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   minify: true,
   logLevel: process.env.LOG_LEVEL,
