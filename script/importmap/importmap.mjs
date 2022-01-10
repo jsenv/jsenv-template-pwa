@@ -25,7 +25,7 @@ const sharedParameters = {
       "root/": "./",
     },
   },
-  entryPointsToCheck: ['./src/boot/boot.js']
+  entryPointsToCheck: ["./src/main.html"],
 }
 
 await writeImportMapFiles({
