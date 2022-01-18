@@ -177,5 +177,5 @@
   "sourcesContent": [
     "/*\n * This file is the service worker file of this pwa.\n *\n * self.config can be used to configure the service worker\n * behaviour implemented in \"service-worker.main.js\".\n *\n * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration\n */\n\n/* globals self */\n\nself.importScripts(\"../node_modules/@jsenv/pwa/src/service_worker.js\")\n\nself.initJsenvServiceWorker({\n  cachePrefix: \"pwa-template\",\n  // logLevel:  \"debug\"\n})\n"
   ],
-  "file": "service_worker.js"
+  "file": "service_worker2.js"
 }

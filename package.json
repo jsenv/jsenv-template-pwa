@@ -39,17 +39,17 @@
   },
   "dependencies": {
     "@jsenv/pwa": "4.0.1",
-    "@jsenv/server": "12.2.1"
+    "@jsenv/server": "12.3.2"
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
     "@babel/eslint-parser": "7.16.5",
-    "@jsenv/assert": "2.4.0",
+    "@jsenv/assert": "2.4.1",
     "@jsenv/babel-preset": "1.1.2",
-    "@jsenv/core": "25.1.1",
+    "@jsenv/core": "25.2.0",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/file-size-impact": "12.1.1",
-    "@jsenv/filesystem": "2.6.0",
+    "@jsenv/filesystem": "2.6.1",
     "@jsenv/https-local": "1.0.3",
     "@jsenv/importmap-eslint-resolver": "5.2.2",
     "@jsenv/importmap-node-module": "5.1.0",

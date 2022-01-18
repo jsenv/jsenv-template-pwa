@@ -13,5 +13,5 @@
   "sourcesContent": [
     "\n      window.addEventListener(\n        \"beforeinstallprompt\",\n        (beforeinstallpromptEvent) => {\n          beforeinstallpromptEvent.preventDefault()\n          window.beforeinstallpromptEvent = beforeinstallpromptEvent\n        },\n      )\n    "
   ],
-  "file": "main.prod_ebb27e1f.js"
+  "file": "main.html__inline__112_ebb27e1f.js"
 }
