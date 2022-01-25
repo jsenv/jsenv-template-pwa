@@ -15,7 +15,14 @@ const {
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
 
-  // use "@babel/eslint-parser" until top level await is supported by ESLint default parser
+  // enable top level await
+  {
+    parserOptions: {
+      ecmaVersion: 2022,
+    },
+  },
+
+  // use "@babel/eslint-parser" until import assertions is supported natively by ESLint
   {
     parser: "@babel/eslint-parser",
     parserOptions: {
