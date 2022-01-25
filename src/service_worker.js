@@ -1,9 +1,6 @@
 /*
  * This file is the service worker file of this pwa.
  *
- * self.config can be used to configure the service worker
- * behaviour implemented in "service-worker.main.js".
- *
  * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration
  */
 

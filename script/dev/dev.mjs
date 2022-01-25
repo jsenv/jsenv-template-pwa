@@ -1,6 +1,6 @@
 /*
  * This file uses "@jsenv/core" to start a development server.
- * https://github.com/jsenv/jsenv-core/blob/master/docs/exploring/readme.md#jsenv-dev-server
+ * https://github.com/jsenv/jsenv-core/tree/master/docs/dev_server#jsenv-dev-server
  */
 
 import { startDevServer } from "@jsenv/core"

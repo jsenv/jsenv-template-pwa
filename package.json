@@ -22,7 +22,7 @@
   "type": "module",
   "scripts": {
     "dev": "node ./script/dev/dev.mjs",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js . --ext=.js,.html",
+    "eslint": "npx eslint . --ext=.js,.html,.mjs",
     "importmap": "node ./script/importmap/importmap.mjs",
     "build": "node ./script/build/build.mjs",
     "build-serve": "node ./script/build/build_serve.mjs",
