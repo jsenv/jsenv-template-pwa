@@ -54,11 +54,8 @@ const eslintConfig = composeEslintConfig(
     plugins: ["import"],
     settings: {
       "import/resolver": {
-        // Tell ESLint to use the importmap to resolve imports.
-        // Read more in https://github.com/jsenv/jsenv-node-module-import-map#Configure-vscode-and-eslint-for-importmap
-        "@jsenv/importmap-eslint-resolver": {
-          projectDirectoryUrl: __dirname,
-          importMapFileRelativeUrl: "./eslint.importmap",
+        "@jsenv/eslint-import-resolver": {
+          rootDirectoryUrl: __dirname,
         },
       },
     },
@@ -90,8 +87,9 @@ const eslintConfig = composeEslintConfig(
         },
         settings: {
           "import/resolver": {
-            "@jsenv/importmap-eslint-resolver": {
-              node: true,
+            "@jsenv/eslint-import-resolver": {
+              rootDirectoryUrl: __dirname,
+              packageConditions: ["node", "import"],
             },
           },
         },
@@ -118,7 +116,10 @@ const eslintConfig = composeEslintConfig(
         // inside *.cjs files, use commonjs module resolution
         settings: {
           "import/resolver": {
-            node: {},
+            "@jsenv/eslint-import-resolver": {
+              rootDirectoryUrl: __dirname,
+              packageConditions: ["node", "require"],
+            },
           },
         },
       },

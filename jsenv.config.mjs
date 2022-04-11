@@ -7,7 +7,7 @@
  * Read more at https://github.com/jsenv/jsenv-core#jsenvconfigmjs
  */
 
-export const projectDirectoryUrl = String(new URL("./", import.meta.url))
+export const rootDirectoryUrl = String(new URL("./", import.meta.url))
 
 export const runtimeSupport = {
   chrome: "55",
@@ -15,5 +15,3 @@ export const runtimeSupport = {
   firefox: "52",
   safari: "11",
 }
-
-export const classicServiceWorkers = ["./src/service_worker.js"]

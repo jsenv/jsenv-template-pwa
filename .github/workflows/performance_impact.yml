@@ -31,8 +31,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install node modules
         run: npm install
-      - name: Generate importmap
-        run: npm run importmap
       - name: Setup playwright
         run: npm run playwright-install
       - name: Setup certificate
