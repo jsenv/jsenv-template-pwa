@@ -56,6 +56,7 @@ const eslintConfig = composeEslintConfig(
       "import/resolver": {
         "@jsenv/eslint-import-resolver": {
           rootDirectoryUrl: __dirname,
+          logLevel: "debug",
         },
       },
     },

@@ -10,8 +10,6 @@
  *   - Hide splashscreen once app is ready to be displayed
  */
 
-import { DEV } from "#env"
-
 // When it take more than "BOOTING_SLOW"ms for loadApp to resolve or call updateSplashscreenText
 // -> splashscreen displays <div id="booting_is_slow"> content
 const BOOTING_SLOW = 2500
@@ -31,7 +29,7 @@ const BOOTING_IS_SLOW = "booting_is_slow"
 const BOOTING_ERROR = "booting_error"
 
 const boot = async () => {
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`booting app`)
   }
 
@@ -58,7 +56,7 @@ const boot = async () => {
     // be removed from the DOM
     splashscreenNode.style.display = "none"
     splashIsVisible = false
-    if (DEV) {
+    if (import.meta.dev) {
       performance.measure(`app displayed`)
     }
   }

@@ -7,7 +7,10 @@ import {
   activateServiceWorkerUpdate,
 } from "@jsenv/pwa"
 
-const serviceWorkerUrl = new URL("/src/service_worker.js", import.meta.url)
+const serviceWorkerUrl = new URL(
+  "/src/service_worker.js?service_worker_type_module",
+  import.meta.url,
+)
 
 export const initServiceWorker = (app) => {
   if (!canUseServiceWorker) {
@@ -17,7 +20,9 @@ export const initServiceWorker = (app) => {
   // wait a bit that browser is less busy to register the service worker
   const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
-    registerServiceWorker(serviceWorkerUrl)
+    registerServiceWorker(serviceWorkerUrl, {
+      type: "module",
+    })
   })
 
   installServiceWorkerUpdateUI(app)

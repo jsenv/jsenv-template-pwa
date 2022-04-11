@@ -5,24 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
-    <script type="importmap" src="./test.importmap"></script>
-    <!--
-    Why test.importmap?
-
-    - JS in this HTML page is testing the web application runned in "development mode"
-      -> importmap must contain a mapping for "#env": "./env_dev.js"
-    - JS can import code from files files located in node_modules/
-      -> importmap must contain mappings for every "dependencies" in package.json
-    - JS is test code so it can import code from "devDependencies" too
-      -> importmap must contain mappings for every "devDependencies" in package.json
-    -->
   </head>
 
   <body>
     <script type="module">
       import { assert } from "@jsenv/assert"
 
-      import { greet } from "root/src/app/greet.js"
+      import { greet } from "/src/app/greet.js"
 
       const actual = greet()
       const expected = "Welcome dev"

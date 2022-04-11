@@ -2,11 +2,10 @@
  * This is where you can orchestrate the loading of your application
  */
 
-import { DEV } from "#env"
 import { loadCSSAndFonts, nextIDLEPromise } from "./app_loader_utils.js"
 
 export const loadApp = async ({ updateSplashscreenText }) => {
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`loading app`)
   }
 
@@ -18,12 +17,12 @@ export const loadApp = async ({ updateSplashscreenText }) => {
     {
       timeout: 400,
       onCssReady: () => {
-        if (DEV) {
+        if (import.meta.dev) {
           performance.measure(`app_loader.css ready`)
         }
       },
       onFontsReady: () => {
-        if (DEV) {
+        if (import.meta.dev) {
           performance.measure(`fonts ready`)
         }
       },
@@ -32,7 +31,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   // start importing app right away
   const appPromise = importApp({
     onJsReady: () => {
-      if (DEV) {
+      if (import.meta.dev) {
         performance.measure("app.js ready")
       }
     },
@@ -41,7 +40,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
     new URL("../app/app.css", import.meta.url),
     {
       onCssReady: () => {
-        if (DEV) {
+        if (import.meta.dev) {
           performance.measure(`app.css ready`)
         }
       },
@@ -50,7 +49,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
 
   await appLoaderCssPromise
   await updateSplashscreenText(`Loading banana...`)
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`"loading bannana..." displayed`)
   }
   await new Promise((resolve) => {
@@ -58,7 +57,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   })
 
   updateSplashscreenText(`Loading gorilla...`)
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`"loading gorilla..." displayed`)
   }
   await new Promise((resolve) => {
@@ -66,7 +65,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   })
 
   updateSplashscreenText(`Loading the entire jungle...`)
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`"entire jungle..." displayed`)
   }
   await new Promise((resolve) => {
@@ -74,7 +73,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   })
 
   const app = await appPromise
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`rendering app`)
   }
   app.render()
@@ -83,7 +82,7 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   // to let navigator an opportunity to cooldown
   // This should help to save battery power and RAM
   await nextIDLEPromise()
-  if (DEV) {
+  if (import.meta.dev) {
     performance.measure(`app rendered`)
   }
 }

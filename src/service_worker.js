@@ -6,7 +6,7 @@
 
 /* globals self */
 
-self.importScripts("../node_modules/@jsenv/pwa/src/service_worker.js")
+import "@jsenv/pwa/src/service_worker.js"
 
 self.initJsenvServiceWorker({
   cachePrefix: "pwa-template",

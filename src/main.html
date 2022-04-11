@@ -22,12 +22,6 @@
     --->
     <link rel="stylesheet" href="./boot/boot.css" data-jsenv-force-inline />
     <!--
-      This HTML uses "dev.importmap" to control how js import are resolved.
-      It is used to have code specific to dev or prod.
-      See https://github.com/jsenv/jsenv-template-pwa/blob/main/docs/production_mode/readme.md#production-mode
-    -->
-    <script type="importmap" src="./dev.importmap"></script>
-    <!--
       Tell browser to start fetching theses ressources right now:
       - The font
       - CSS and JS used to load the app
@@ -119,9 +113,7 @@
       )
     </script>
     <script type="module">
-      import { DEV } from "#env"
-
-      if (DEV) {
+      if (import.meta.dev) {
         await import("./dev_ribbon.js")
       }
     </script>

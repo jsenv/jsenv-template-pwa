@@ -2,8 +2,8 @@
  * The actual app UI, very simplified of course
  */
 
-import { initPwa } from "root/src/app/pwa/pwa.js"
-import { greet } from "root/src/app/greet.js"
+import { initPwa } from "/src/app/pwa/pwa.js"
+import { greet } from "/src/app/greet.js"
 
 const app = document.querySelector("#app")
 
