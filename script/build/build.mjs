@@ -5,36 +5,25 @@
  * Read more at https://github.com/jsenv/jsenv-core/blob/master/docs/building/readme.md#jsenv-build
  */
 
-import { buildProject, jsenvServiceWorkerFinalizer } from "@jsenv/core"
-import { copyFileSystemNode, resolveUrl } from "@jsenv/filesystem"
+import { build } from "@jsenv/core"
+import { copyEntry } from "@jsenv/filesystem"
 
-import {
-  projectDirectoryUrl,
-  runtimeSupport,
-  classicServiceWorkers,
-} from "../../jsenv.config.mjs"
+import { rootDirectoryUrl, runtimeSupport } from "../../jsenv.config.mjs"
 
-await buildProject({
-  projectDirectoryUrl,
+const buildDirectoryUrl = new URL("./dist/", rootDirectoryUrl)
+await build({
+  rootDirectoryUrl,
+  buildDirectoryUrl,
   runtimeSupport,
-  buildDirectoryRelativeUrl: "./dist/systemjs/",
-  format: "systemjs",
   buildDirectoryClean: true,
   entryPoints: {
     "./src/main.html": "main.prod.html",
   },
-  urlMappings: {
-    "./src/dev.importmap": "./src/prod.importmap",
-  },
-  classicServiceWorkers,
-  serviceWorkerFinalizer: jsenvServiceWorkerFinalizer,
   minify: true,
   logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
-
-const robotsProjectFileUrl = resolveUrl("src/robots.txt", projectDirectoryUrl)
-const buildDirectoryUrl = resolveUrl("dist/systemjs/", projectDirectoryUrl)
-const robotsBuildFileUrl = resolveUrl("robots.txt", buildDirectoryUrl)
-await copyFileSystemNode({ from: robotsProjectFileUrl, to: robotsBuildFileUrl })
+const robotsFileUrl = new URL("src/robots.txt", rootDirectoryUrl)
+const robotsBuildFileUrl = new URL("robots.txt", buildDirectoryUrl)
+await copyEntry({ from: robotsFileUrl, to: robotsBuildFileUrl })

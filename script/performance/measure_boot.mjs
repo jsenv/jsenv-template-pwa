@@ -1,10 +1,10 @@
-import { execute, chromiumRuntime } from "@jsenv/core"
+import { execute, chromium } from "@jsenv/core"
 
 import * as jsenvConfig from "../../jsenv.config.mjs"
 
 const executionResult = await execute({
   ...jsenvConfig,
-  runtime: chromiumRuntime,
+  runtime: chromium,
   fileRelativeUrl: "./src/main.html",
   // measurePerformance: true,
   // compileServerCanWriteOnFilesystem: false,

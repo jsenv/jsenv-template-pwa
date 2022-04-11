@@ -20,7 +20,7 @@ if (!local) {
   await import(`../build/build.mjs`)
 }
 process.env.LOG_LEVEL = "warn"
-const { server } = await import(`../build/build_serve.mjs`)
+const { server } = await import(`../build/preview.mjs`)
 
 const lighthouseReport = await generateLighthouseReport(server.origin, {
   runCount: local ? 1 : 2,

@@ -5,11 +5,11 @@
 
 import { startServer, fetchFileSystem } from "@jsenv/server"
 
-// projectDirectoryUrl cannot be imported from jsenv.config.mjs
+// rootDirectoryUrl cannot be imported from jsenv.config.mjs
 // because this code will run in "production" where "devDependencies" are not installed
 // and jsenv.config.mjs depends on @jsenv/core which is a dev dependency
-const projectDirectoryUrl = new URL("../../", import.meta.url)
-const buildDirectoryUrl = new URL("./dist/systemjs/", projectDirectoryUrl)
+const rootDirectoryUrl = new URL("../../", import.meta.url)
+const buildDirectoryUrl = new URL("./dist/", rootDirectoryUrl)
 
 const getDynamicParametersFromProcessEnv = async () => {
   const forceHttp = process.env.HTTP
