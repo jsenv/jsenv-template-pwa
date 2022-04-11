@@ -8,7 +8,7 @@ import {
 } from "@jsenv/pwa"
 
 const serviceWorkerUrl = new URL(
-  "/src/service_worker.js?service_worker_type_module",
+  "/src/service_worker.js?service_worker",
   import.meta.url,
 )
 

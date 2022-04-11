@@ -530,7 +530,7 @@ function _call(body, then, direct) {
   }
 }
 
-const serviceWorkerUrl = new URL(__v__("/js/service_worker.js"), import.meta.url);
+const serviceWorkerUrl = new URL(__v__("/service_worker.js"), import.meta.url);
 
 function _async(f) {
   return function () {
