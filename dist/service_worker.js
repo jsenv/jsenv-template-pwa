@@ -2,7 +2,7 @@
 self.serviceWorkerUrls = {
   "main.html": {
     "versioned": false,
-    "version": "dc8e28de"
+    "version": "2789a0f3"
   },
   "assets/favicon.png?v=25e95a00": {
     "versioned": true
@@ -22,19 +22,19 @@ self.serviceWorkerUrls = {
   "css/app_loader.css?v=ef7f6856": {
     "versioned": true
   },
-  "js/app_loader.js?v=813d24ae": {
+  "js/app_loader.js?v=7e18be37": {
     "versioned": true
   },
   "css/app.css?v=d105632b": {
     "versioned": true
   },
-  "js/app.js?v=812a2693": {
+  "js/app.js?v=2df390e0": {
     "versioned": true
   },
   "js/browser_support_detection.js?v=e5151dbd": {
     "versioned": true
   },
-  "js/boot.js?v=f56a7e54": {
+  "js/boot.js?v=d5cdd36d": {
     "versioned": true
   },
   "js/dev_ribbon.js?v=9bc5582c": {
@@ -185,8 +185,10 @@ function _objectSpread2(target) {
  *
  * Do not use relative self.importScripts in there because
  * They are resolved against self.location. It means
- * ./file.js would be resoled against the project root
+ * ./file.js would be resolved against the project root
 */
+
+/* env serviceworker */
 
 /* globals self */
 function _await(value, then, direct) {
@@ -273,10 +275,10 @@ self.initJsenvServiceWorker = function () {
       logsBackgroundColor = _ref$logsBackgroundCo === void 0 ? "#ffdc00" : _ref$logsBackgroundCo,
       _ref$cachePrefix = _ref.cachePrefix,
       cachePrefix = _ref$cachePrefix === void 0 ? "jsenv" : _ref$cachePrefix,
-      _ref$manualUrlsConfig = _ref.manualUrlsConfig,
-      manualUrlsConfig = _ref$manualUrlsConfig === void 0 ? {
+      _ref$urlsConfig = _ref.urlsConfig,
+      urlsConfig = _ref$urlsConfig === void 0 ? {
     "/": {}
-  } : _ref$manualUrlsConfig,
+  } : _ref$urlsConfig,
       _ref$shouldHandleRequ = _ref.shouldHandleRequest,
       shouldHandleRequest = _ref$shouldHandleRequ === void 0 ? (request, _ref2) => {
     let requestWasCachedOnInstall = _ref2.requestWasCachedOnInstall;
@@ -295,18 +297,8 @@ self.initJsenvServiceWorker = function () {
     ping: () => "pong"
   } : _ref$actions;
 
-  if (self.generatedUrlsConfig === undefined) {
-    self.generatedUrlsConfig = {};
-  }
-
-  const generatedUrlsConfig = self.generatedUrlsConfig;
-
-  if (typeof generatedUrlsConfig !== "object") {
-    throw new TypeError("self.generatedUrlsConfig should be an object, got ".concat(generatedUrlsConfig));
-  }
-
-  if (typeof manualUrlsConfig !== "object") {
-    throw new TypeError("manualUrlsConfig should be an object, got ".concat(manualUrlsConfig));
+  if (typeof urlsConfig !== "object") {
+    throw new TypeError("urlsConfig should be an object, got ".concat(urlsConfig));
   }
 
   if (typeof cachePrefix !== "string") {
@@ -347,8 +339,7 @@ self.initJsenvServiceWorker = function () {
   const urlResolver = createUrlResolver();
 
   const _createUrlActions = createUrlActions({
-    generatedUrlsConfig,
-    manualUrlsConfig,
+    urlsConfig,
     urlResolver
   }),
         urlsToCacheOnInstall = _createUrlActions.urlsToCacheOnInstall,
@@ -769,15 +760,46 @@ const createUrlResolver = () => {
 };
 
 const createUrlActions = _ref9 => {
-  let generatedUrlsConfig = _ref9.generatedUrlsConfig,
-      manualUrlsConfig = _ref9.manualUrlsConfig;
-      _ref9.urlResolver;
-
-  _objectSpread2(_objectSpread2({}, generatedUrlsConfig), manualUrlsConfig);
-
+  let urlsConfig = _ref9.urlsConfig,
+      urlResolver = _ref9.urlResolver;
   const urlsToCacheOnInstall = [];
   const urlsToReloadOnInstall = [];
   const urlMapping = {};
+  const urls = [];
+  Object.keys(urlsConfig).forEach(key => {
+    const url = urlResolver.resolve(key);
+
+    if (urls.includes(url)) {
+      return;
+    }
+
+    urls.push(url);
+    let urlConfig = urlsConfig[key];
+    if (!urlConfig) urlConfig = {
+      cache: false
+    };
+    if (urlConfig === true) urlConfig = {
+      cache: true
+    };
+    const _urlConfig = urlConfig,
+          _urlConfig$cache = _urlConfig.cache,
+          cache = _urlConfig$cache === void 0 ? true : _urlConfig$cache,
+          _urlConfig$versioned = _urlConfig.versioned,
+          versioned = _urlConfig$versioned === void 0 ? false : _urlConfig$versioned,
+          alias = _urlConfig.alias;
+
+    if (cache) {
+      urlsToCacheOnInstall.push(url);
+
+      if (!versioned) {
+        urlsToReloadOnInstall.push(url);
+      }
+    }
+
+    if (alias) {
+      urlMapping[url] = urlResolver.resolve(alias);
+    }
+  });
   return {
     urlsToCacheOnInstall,
     urlsToReloadOnInstall,

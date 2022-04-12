@@ -5,10 +5,10 @@
   "css/boot.css": "css/boot.css?v=3e16dd11",
   "assets/roboto_v27_latin_regular.woff2": "assets/roboto_v27_latin_regular.woff2?v=cc46322d",
   "css/app_loader.css": "css/app_loader.css?v=ef7f6856",
-  "js/app_loader.js": "js/app_loader.js?v=813d24ae",
+  "js/app_loader.js": "js/app_loader.js?v=7e18be37",
   "css/app.css": "css/app.css?v=d105632b",
-  "js/app.js": "js/app.js?v=812a2693",
+  "js/app.js": "js/app.js?v=2df390e0",
   "js/browser_support_detection.js": "js/browser_support_detection.js?v=e5151dbd",
-  "js/boot.js": "js/boot.js?v=f56a7e54",
+  "js/boot.js": "js/boot.js?v=d5cdd36d",
   "js/dev_ribbon.js": "js/dev_ribbon.js?v=9bc5582c"
 }

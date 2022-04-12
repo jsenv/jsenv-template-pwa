@@ -1,28 +1,23 @@
-import {
-  canUseServiceWorker,
-  registerServiceWorker,
-  getServiceWorkerUpdate,
-  listenServiceWorkerUpdate,
-  checkServiceWorkerUpdate,
-  activateServiceWorkerUpdate,
-} from "@jsenv/pwa"
+import { canUseServiceWorkers, createServiceWorkerScript } from "@jsenv/pwa"
 
 const serviceWorkerUrl = new URL(
   "/src/service_worker.js?service_worker",
   import.meta.url,
 )
+const script = createServiceWorkerScript()
 
 export const initServiceWorker = (app) => {
-  if (!canUseServiceWorker) {
+  if (!canUseServiceWorkers) {
     return
   }
-
   // wait a bit that browser is less busy to register the service worker
   const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
-    registerServiceWorker(serviceWorkerUrl, {
-      type: "module",
-    })
+    script.setRegistrationPromise(
+      window.navigator.serviceWorker.register(serviceWorkerUrl, {
+        type: "module",
+      }),
+    )
   })
 
   installServiceWorkerUpdateUI(app)
@@ -38,7 +33,7 @@ const installServiceWorkerUpdateUI = (app) => {
   buttonCheckUpdate.onclick = async () => {
     buttonCheckUpdate.disabled = true
     paragraph.innerHTML = "checking for update"
-    const found = await checkServiceWorkerUpdate()
+    const found = await script.checkForUpdate()
 
     if (found) {
       // when update is found, we already know from listenServiceWorkerUpdate
@@ -48,13 +43,13 @@ const installServiceWorkerUpdateUI = (app) => {
     }
   }
 
-  listenServiceWorkerUpdate(() => {
-    const available = Boolean(getServiceWorkerUpdate())
-    if (available) {
+  script.listenUpdateChange(() => {
+    const update = script.getUpdate()
+    if (update) {
       paragraph.innerHTML = `Update available <button>Activate update</button>`
-      paragraph.querySelector("button").onclick = async () => {
+      paragraph.querySelector("button").onclick = () => {
         paragraph.querySelector("button").disabled = true
-        await activateServiceWorkerUpdate()
+        update.activate()
       }
     } else {
       paragraph.innerHTML = ""
