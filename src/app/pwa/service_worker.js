@@ -1,9 +1,5 @@
 import { canUseServiceWorkers, createServiceWorkerScript } from "@jsenv/pwa"
 
-const serviceWorkerUrl = new URL(
-  "/src/service_worker.js?service_worker",
-  import.meta.url,
-)
 const script = createServiceWorkerScript()
 
 export const initServiceWorker = (app) => {
@@ -14,9 +10,12 @@ export const initServiceWorker = (app) => {
   const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
     script.setRegistrationPromise(
-      window.navigator.serviceWorker.register(serviceWorkerUrl, {
-        type: "module",
-      }),
+      window.navigator.serviceWorker.register(
+        new URL("/src/service_worker.js"),
+        {
+          type: "module",
+        },
+      ),
     )
   })
 

@@ -1,17 +1,15 @@
 const createSignal = () => {
   let listeners = [];
 
-  const listen = function listen(callback) {
-    let _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-        _ref$once = _ref.once,
-        once = _ref$once === void 0 ? false : _ref$once;
-
+  const listen = (callback, {
+    once = false
+  } = {}) => {
     if (once) {
       const callbackOriginal = callback;
 
-      callback = function callback() {
+      callback = (...args) => {
         stopListening();
-        callbackOriginal(...arguments);
+        callbackOriginal(...args);
       };
     }
 
@@ -45,11 +43,7 @@ const createSignal = () => {
     return stopListening;
   };
 
-  const emit = function emit() {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
+  const emit = (...args) => {
     listeners.forEach(listener => {
       listener(...args);
     });
@@ -70,10 +64,10 @@ const listenEvent = (objectWithEventEmitter, event, callback) => {
 
 // https://felixgerschau.com/how-to-communicate-with-service-workers/
 const sendMessageUsingChannel = (objectWithPostMessage, message) => {
-  const _MessageChannel = new MessageChannel(),
-        port1 = _MessageChannel.port1,
-        port2 = _MessageChannel.port2;
-
+  const {
+    port1,
+    port2
+  } = new MessageChannel();
   return new Promise((resolve, reject) => {
     port1.onmessage = function (event) {
       if (event.data.status === "rejected") {
@@ -87,82 +81,15 @@ const sendMessageUsingChannel = (objectWithPostMessage, message) => {
   });
 };
 
-function _await$2(value, then, direct) {
-  if (direct) {
-    return then ? then(value) : value;
-  }
-
-  if (!value || !value.then) {
-    value = Promise.resolve(value);
-  }
-
-  return then ? value.then(then) : value;
-}
-
 const serviceWorkerAPI = window.navigator.serviceWorker;
-
-function _async$2(f) {
-  return function () {
-    for (var args = [], i = 0; i < arguments.length; i++) {
-      args[i] = arguments[i];
-    }
-
-    try {
-      return Promise.resolve(f.apply(this, args));
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  };
-}
-
-function _call(body, then, direct) {
-  if (direct) {
-    return then ? then(body()) : body();
-  }
-
-  try {
-    var result = Promise.resolve(body());
-    return then ? result.then(then) : result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-}
-
-function _invoke(body, then) {
-  var result = body();
-
-  if (result && result.then) {
-    return result.then(then);
-  }
-
-  return then(result);
-}
-
-function _catch(body, recover) {
-  try {
-    var result = body();
-  } catch (e) {
-    return recover(e);
-  }
-
-  if (result && result.then) {
-    return result.then(void 0, recover);
-  }
-
-  return result;
-}
-
 const canUseServiceWorkers = Boolean(serviceWorkerAPI) && document.location.protocol === "https:";
-const createServiceWorkerScript = function createServiceWorkerScript() {
-  let _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref$logsEnabled = _ref.logsEnabled,
-      logsEnabled = _ref$logsEnabled === void 0 ? false : _ref$logsEnabled,
-      _ref$autoReloadAfterU = _ref.autoReloadAfterUpdate,
-      autoReloadAfterUpdate = _ref$autoReloadAfterU === void 0 ? true : _ref$autoReloadAfterU;
-
-  const log = function log() {
+const createServiceWorkerScript = ({
+  logsEnabled = false,
+  autoReloadAfterUpdate = true
+} = {}) => {
+  const log = (...args) => {
     if (logsEnabled) {
-      console.log(...arguments);
+      console.log(...args);
     }
   };
 
@@ -230,7 +157,7 @@ const createServiceWorkerScript = function createServiceWorkerScript() {
     hasRegistered: () => {
       return Boolean(registrationPromise);
     },
-    setRegistrationPromise: _async$2(function (promise) {
+    setRegistrationPromise: async promise => {
       if (registered) {
         throw new Error("setRegistrationPromise already called");
       }
@@ -242,33 +169,34 @@ const createServiceWorkerScript = function createServiceWorkerScript() {
       };
 
       registrationPromise = promise;
-      return _await$2(registrationPromise, function (registration) {
-        const installing = registration.installing,
-              waiting = registration.waiting,
-              active = registration.active;
-        registeredSetter(installing || waiting || active);
-        const removeUpdateFoundListener = listenEvent(registration, "updatefound", () => {
-          log("browser notifies use an worker is installing");
+      const registration = await registrationPromise;
+      const {
+        installing,
+        waiting,
+        active
+      } = registration;
+      registeredSetter(installing || waiting || active);
+      const removeUpdateFoundListener = listenEvent(registration, "updatefound", () => {
+        log("browser notifies use an worker is installing");
 
-          if (registration.installing === installing) {
-            log("it's not an worker update, it's first time worker registers");
-            return;
-          }
+        if (registration.installing === installing) {
+          log("it's not an worker update, it's first time worker registers");
+          return;
+        }
 
-          updatingSetter(registration.installing);
-        });
+        updatingSetter(registration.installing);
+      });
 
-        if (unregisterCalled) {
+      if (unregisterCalled) {
+        registration.unregister();
+        removeUpdateFoundListener();
+      } else {
+        unregisterRef.current = () => {
           registration.unregister();
           removeUpdateFoundListener();
-        } else {
-          unregisterRef.current = () => {
-            registration.unregister();
-            removeUpdateFoundListener();
-          };
-        }
-      });
-    }),
+        };
+      }
+    },
     unregister: () => {
       registeredSetter(null);
       updatingSetter(null);
@@ -301,19 +229,14 @@ const createServiceWorkerScript = function createServiceWorkerScript() {
         shouldBecomeNavigatorController: serviceWorkerAPI.controller === updating,
         navigatorWillReload: autoReloadAfterUpdate,
         sendMessage,
-        activate: _async$2(function () {
-          let _exit = false;
-
-          let _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-              _ref2$onActivating = _ref2.onActivating,
-              onActivating = _ref2$onActivating === void 0 ? () => {} : _ref2$onActivating,
-              _ref2$onActivated = _ref2.onActivated,
-              onActivated = _ref2$onActivated === void 0 ? () => {} : _ref2$onActivated,
-              _ref2$onBecomesNaviga = _ref2.onBecomesNavigatorController,
-              onBecomesNavigatorController = _ref2$onBecomesNaviga === void 0 ? () => {} : _ref2$onBecomesNaviga;
-
-          const _updating = updating,
-                state = _updating.state;
+        activate: async ({
+          onActivating = () => {},
+          onActivated = () => {},
+          onBecomesNavigatorController = () => {}
+        } = {}) => {
+          const {
+            state
+          } = updating;
 
           const waitUntilActivated = () => {
             return new Promise(resolve => {
@@ -338,91 +261,90 @@ const createServiceWorkerScript = function createServiceWorkerScript() {
           // If it's activated, we'll just return early
 
 
-          return _invoke(function () {
-            if (state === "installed" || state === "activating") {
-              if (state === "installed") {
-                sendMessage({
-                  action: "skipWaiting"
-                });
-              }
-
-              if (state === "activating") {
-                registeredSetter(updating);
-              }
-
-              return _call(waitUntilActivated, function () {
-                if (serviceWorkerAPI.controller === registered) {
-                  const removeControllerChangeListener = listenEvent(serviceWorkerAPI, "controllerchange", () => {
-                    removeControllerChangeListener();
-                    onBecomesNavigatorController();
-                  });
-                }
-
-                updatingSetter(null);
-
-                if (autoReloadAfterUpdate) {
-                  reload();
-                }
-
-                _exit = true;
+          if (state === "installed" || state === "activating") {
+            if (state === "installed") {
+              sendMessage({
+                action: "skipWaiting"
               });
             }
-          }, function (_result) {
-            if (_exit) return _result;
-            registeredSetter(updating);
-            onBecomesNavigatorController();
+
+            if (state === "activating") {
+              registeredSetter(updating);
+            }
+
+            await waitUntilActivated();
+
+            if (serviceWorkerAPI.controller === registered) {
+              const removeControllerChangeListener = listenEvent(serviceWorkerAPI, "controllerchange", () => {
+                removeControllerChangeListener();
+                onBecomesNavigatorController();
+              });
+            }
+
             updatingSetter(null);
 
             if (autoReloadAfterUpdate) {
               reload();
             }
-          });
-        })
+
+            return;
+          }
+
+          registeredSetter(updating);
+          onBecomesNavigatorController();
+          updatingSetter(null);
+
+          if (autoReloadAfterUpdate) {
+            reload();
+          }
+        }
       };
     },
     listenUpdateChange: callback => {
       return updatingSignal.listen(callback);
     },
-    checkForUpdate: _async$2(function () {
+    checkForUpdate: async () => {
       if (!registrationPromise) {
         console.warn("\"setRegistrationPromise\" must be called before \"checkForUpdate\"");
         return false;
       }
 
-      return _await$2(registrationPromise, function (registration) {
-        // await for the registration promise above can take some time
-        // especially when the service worker is installing for the first time
-        // because it is fetching a lot of urls to put into cache.
-        // In that scenario we might want to display something different ?
-        // Without this, UI seems to take ages to check for an update
-        return _catch(function () {
-          return _await$2(registration.update(), function (updateRegistration) {
-            const installing = updateRegistration.installing;
+      const registration = await registrationPromise; // await for the registration promise above can take some time
+      // especially when the service worker is installing for the first time
+      // because it is fetching a lot of urls to put into cache.
+      // In that scenario we might want to display something different ?
+      // Without this, UI seems to take ages to check for an update
 
-            if (installing) {
-              log("a service worker script is installing");
-              updatingSetter(installing);
-              return true;
-            }
+      try {
+        const updateRegistration = await registration.update();
+        const {
+          installing
+        } = updateRegistration;
 
-            const waiting = updateRegistration.waiting;
+        if (installing) {
+          log("a service worker script is installing");
+          updatingSetter(installing);
+          return true;
+        }
 
-            if (waiting) {
-              log("a service worker script is waiting to activate");
-              updatingSetter(waiting);
-              return true;
-            }
+        const {
+          waiting
+        } = updateRegistration;
 
-            log("no update found");
-            return false;
-          });
-        }, function (e) {
-          log("error while updating service worker script. Script will be unregistered.\n--- error stack ---\n".concat(e.stack));
-          registration.unregister();
-          return false;
-        });
-      });
-    })
+        if (waiting) {
+          log("a service worker script is waiting to activate");
+          updatingSetter(waiting);
+          return true;
+        }
+
+        log("no update found");
+        return false;
+      } catch (e) {
+        log("error while updating service worker script. Script will be unregistered.\n--- error stack ---\n".concat(e.stack));
+        registration.unregister();
+        return false;
+      }
+    }
   };
 };
 let refreshing = false;
@@ -496,35 +418,7 @@ const displayModeStandalone = {
   If we do so, chrome will always dismiss subsequent click on install button. (until page is reloaded).
   To avoid that we store the event on window.beforeinstallpromptEvent.
 */
-
-function _await$1(value, then, direct) {
-  if (direct) {
-    return then ? then(value) : value;
-  }
-
-  if (!value || !value.then) {
-    value = Promise.resolve(value);
-  }
-
-  return then ? value.then(then) : value;
-}
-
 let appInstalledEvent = false;
-
-function _async$1(f) {
-  return function () {
-    for (var args = [], i = 0; i < arguments.length; i++) {
-      args[i] = arguments[i];
-    }
-
-    try {
-      return Promise.resolve(f.apply(this, args));
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  };
-}
-
 listenAppInstalled(() => {
   // prompt "becomes" unavailable if user installs app
   // it can happen if user installs app manually from browser toolbar
@@ -581,17 +475,21 @@ const addToHomescreen = {
       removeAppInstalledListener();
     };
   },
-  prompt: _async$1(function () {
+  prompt: async () => {
     if (!window.beforeinstallpromptEvent) {
       console.warn("cannot prompt add to home screen: window.beforeinstallpromptEvent is missing");
       return false;
     }
 
     window.beforeinstallpromptEvent.prompt();
-    return _await$1(window.beforeinstallpromptEvent.userChoice, function (choiceResult) {
-      return choiceResult.outcome === "accepted" ? true : false;
-    });
-  })
+    const choiceResult = await window.beforeinstallpromptEvent.userChoice;
+
+    if (choiceResult.outcome === "accepted") {
+      return true;
+    }
+
+    return false;
+  }
 };
 
 const listenBeforeInstallPrompt = callback => listenEvent(window, "beforeinstallprompt", callback);
@@ -611,34 +509,6 @@ const initAddToHomeScreen = app => {
   });
 };
 
-function _await(value, then, direct) {
-  if (direct) {
-    return then ? then(value) : value;
-  }
-
-  if (!value || !value.then) {
-    value = Promise.resolve(value);
-  }
-
-  return then ? value.then(then) : value;
-}
-
-const serviceWorkerUrl = new URL("/service_worker.js", import.meta.url);
-
-function _async(f) {
-  return function () {
-    for (var args = [], i = 0; i < arguments.length; i++) {
-      args[i] = arguments[i];
-    }
-
-    try {
-      return Promise.resolve(f.apply(this, args));
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  };
-}
-
 const script = createServiceWorkerScript();
 const initServiceWorker = app => {
   if (!canUseServiceWorkers) {
@@ -648,8 +518,8 @@ const initServiceWorker = app => {
 
   const callLater = window.requestIdleCallback || requestAnimationFrame;
   callLater(() => {
-    script.setRegistrationPromise(window.navigator.serviceWorker.register(serviceWorkerUrl, {
-      type: "module"
+    script.setRegistrationPromise(window.navigator.serviceWorker.register(new URL("/service_worker.es5.js"), {
+      type: "classic"
     }));
   });
   installServiceWorkerUpdateUI(app);
@@ -661,16 +531,18 @@ const installServiceWorkerUpdateUI = app => {
   const paragraph = document.createElement("p");
   app.appendChild(buttonCheckUpdate);
   app.appendChild(paragraph);
-  buttonCheckUpdate.onclick = _async(function () {
+
+  buttonCheckUpdate.onclick = async () => {
     buttonCheckUpdate.disabled = true;
     paragraph.innerHTML = "checking for update";
-    return _await(script.checkForUpdate(), function (found) {
-      if (found) ; else {
-        buttonCheckUpdate.disabled = false;
-        paragraph.innerHTML = "No update available";
-      }
-    });
-  });
+    const found = await script.checkForUpdate();
+
+    if (found) ; else {
+      buttonCheckUpdate.disabled = false;
+      paragraph.innerHTML = "No update available";
+    }
+  };
+
   script.listenUpdateChange(() => {
     const update = script.getUpdate();
 
@@ -701,7 +573,7 @@ const greet = () => {
  */
 const app = document.querySelector("#app");
 const render = () => {
-  const logoUrl = new URL(__v__("/assets/logo.png"), import.meta.url);
+  const logoUrl = new URL(__v__("/other/logo.png"), import.meta.url);
   app.innerHTML = "\n<img src=".concat(logoUrl, " width=\"64\" height=\"64\" alt=\"jsenv logo\" />\n<p>").concat(greet(), "</p>");
   initPwa(app);
 };

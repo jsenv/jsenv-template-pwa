@@ -1,12 +1,26 @@
 <!DOCTYPE html><html lang="en"><head>
+    <script>
+var __versionMappings__ = {
+  "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
+  "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
+  "/css/app.css": "/css/app.css?v=7afa9575",
+  "/js/app.js": "/js/app.js?v=df9d72ab",
+  "/other/logo.png": "/other/logo.png?v=25e95a00",
+  "/js/app_loader.js": "/js/app_loader.js?v=2fff8113"
+};
+var __envGlobal__ = typeof self === 'undefined' ? global : self;
+__envGlobal__.__v__ = function (specifier) {
+  return __versionMappings__[specifier] || specifier
+};
+</script>
     <title>PWA Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Progressive Web Application template using jsenv">
     <meta name="theme-color" content="#d3d3d3">
-    <link rel="icon" href="/assets/favicon.png?v=25e95a00">
-    <link rel="manifest" href="/assets/pwa.webmanifest?v=2d78c02d">
-    <link rel="apple-touch-icon" href="/assets/logo.png?v=25e95a00">
+    <link rel="icon" href="/other/favicon.png?v=25e95a00">
+    <link rel="manifest" href="/other/pwa.webmanifest">
+    <link rel="apple-touch-icon" href="/other/logo.png?v=25e95a00">
     <!--
       boot.css contains styles for the following use cases:
       - JavaScript is disabled
@@ -15,32 +29,19 @@
       boot.css is part of the ressources inlined in this HTML during build
       by [data-jsenv-force-inline] attribute
     --->
-    <link rel="stylesheet" href="/css/boot.css?v=3e16dd11" data-jsenv-force-inline="">
+    <link rel="stylesheet" href="/css/boot.css?v=4bb7768c" data-jsenv-force-inline="">
     <!--
       Tell browser to start fetching theses ressources right now:
       - The font
       - CSS and JS used to load the app
       - CSS and JS of the app
     -->
-    <link rel="preload" href="/assets/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
-    <link rel="preload" href="/css/app_loader.css?v=ef7f6856" as="style">
-    <link rel="modulepreload" href="/js/app_loader.js?v=7e18be37">
-    <link rel="preload" href="/css/app.css?v=d105632b" as="style">
-    <link rel="modulepreload" href="/js/app.js?v=2df390e0">
-  <script injected-by="jsenv:versioning">
-var __versionMappings__ = {
-  "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
-  "/css/app_loader.css": "/css/app_loader.css?v=ef7f6856",
-  "/css/app.css": "/css/app.css?v=d105632b",
-  "/js/app.js": "/js/app.js?v=2df390e0",
-  "/assets/logo.png": "/assets/logo.png?v=25e95a00",
-  "/js/app_loader.js": "/js/app_loader.js?v=7e18be37"
-}
-var __envGlobal__ = typeof self === 'undefined' ? global : self
-__envGlobal__.__v__ = function (specifier) {
-  return __versionMappings__[specifier] || specifier
-}
-</script></head>
+    <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="/css/app_loader.css?v=34b60847" as="style">
+    <link rel="modulepreload" href="/js/app_loader.js?v=2fff8113">
+    <link rel="preload" href="/css/app.css?v=7afa9575" as="style">
+    <link rel="modulepreload" href="/js/app.js?v=df9d72ab">
+  </head>
 
   <body>
     <!--
@@ -59,7 +60,7 @@ __envGlobal__.__v__ = function (specifier) {
       <h1>Browser not supported</h1>
       <p>Please update your internet browser or try with an other one</p>
     </div>
-    <script src="/js/browser_support_detection.js?v=e5151dbd" data-jsenv-force-inline=""></script>
+    <script src="/js/browser_support_detection.js?v=7217bbac" data-jsenv-force-inline=""></script>
     <!--
       Booting the application
       - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
@@ -73,7 +74,7 @@ __envGlobal__.__v__ = function (specifier) {
     <div id="app" data-booting=""></div>
     <div id="splashscreen">
       <div id="splashscreen_logo">
-        <img src="/assets/logo.png?v=25e95a00" width="128" height="128" alt="jsenv logo" data-jsenv-force-inline="">
+        <img src="/other/logo.png?v=25e95a00" width="128" height="128" alt="jsenv logo" data-jsenv-force-inline="">
       </div>
       <div id="splashscreen_message"></div>
       <div style="display: none">
@@ -89,7 +90,7 @@ __envGlobal__.__v__ = function (specifier) {
         </div>
       </div>
     </div>
-    <script type="module" src="/js/boot.js?v=d5cdd36d" data-jsenv-force-inline=""></script>
+    <script type="module" src="/js/boot.js?v=a8d01095" data-jsenv-force-inline=""></script>
     <!--
       Installing an early "beforeinstallprompt" event listener
       - We must listen to "beforeinstallprompt" as soon as possible or it could be missed.

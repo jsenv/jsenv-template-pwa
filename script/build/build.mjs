@@ -19,8 +19,7 @@ await build({
   entryPoints: {
     "./src/main.html": "main.prod.html",
   },
-  minify: false,
-  versioning: "search_param",
+  minification: false,
   logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",

@@ -30,7 +30,7 @@
     "lighthouse": "node ./script/lighthouse/lighthouse.mjs --local",
     "performance": "node ./script/performance/performance.mjs --log --once",
     "test-with-coverage": "npm run test -- --coverage",
-    "start": "npm run build && npm run build-serve",
+    "start": "npm run preview",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
     "certificate-install": "node ./script/dev/install_certificate.mjs",
@@ -38,25 +38,25 @@
   },
   "dependencies": {
     "@jsenv/pwa": "5.0.0",
-    "@jsenv/server": "12.6.0"
+    "@jsenv/server": "12.6.1"
   },
   "devDependencies": {
-    "@babel/core": "7.17.9",
+    "@babel/core": "7.17.10",
     "@babel/eslint-parser": "7.17.0",
     "@babel/plugin-syntax-import-assertions": "7.16.7",
-    "@jsenv/assert": "2.5.3",
-    "@jsenv/core": "27.0.0-alpha.12",
+    "@jsenv/assert": "2.5.4",
+    "@jsenv/core": "27.0.0-alpha.20",
     "@jsenv/eslint-config": "16.0.9",
-    "@jsenv/eslint-import-resolver": "0.1.4",
-    "@jsenv/file-size-impact": "12.1.10",
+    "@jsenv/eslint-import-resolver": "0.1.5",
+    "@jsenv/file-size-impact": "12.1.12",
     "@jsenv/filesystem": "3.1.0",
     "@jsenv/https-local": "1.0.8",
-    "@jsenv/lighthouse-impact": "2.1.9",
-    "@jsenv/performance-impact": "2.2.9",
-    "eslint": "8.13.0",
+    "@jsenv/lighthouse-impact": "2.1.11",
+    "@jsenv/performance-impact": "2.2.11",
+    "eslint": "8.15.0",
     "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.26.0",
-    "playwright": "1.21.0",
+    "playwright": "1.21.1",
     "prettier": "2.6.2"
   }
 }

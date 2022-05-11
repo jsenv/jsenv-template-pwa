@@ -1,1 +1,1 @@
-web: PORT=$PORT HTTP=1 npm run build-serve
+web: PORT=$PORT HTTP=1 node ./script/build/serve.mjs

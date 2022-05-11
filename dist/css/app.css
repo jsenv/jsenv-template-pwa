@@ -1,8 +1,8 @@
 body {
-  background: lightgrey;
+  background: #d3d3d3;
 }
 
 #app {
-  font-family: Roboto;
   text-align: center;
+  font-family: Roboto;
 }

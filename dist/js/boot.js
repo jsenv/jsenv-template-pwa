@@ -114,7 +114,6 @@ function _invokeIgnored(body) {
 }
 
 const boot = _async(function () {
-
   const bootStartMs = Date.now();
   let splashIsVisible = false;
 
@@ -146,8 +145,9 @@ const boot = _async(function () {
   }, BOOTING_SLOW);
   return _catch(function () {
     setBootingState(BOOTING_START);
-    return _await(import(__v__("/js/app_loader.js")), function (_ref) {
-      let loadApp = _ref.loadApp;
+    return _await(import(__v__("/js/app_loader.js")), function ({
+      loadApp
+    }) {
       return _await(loadApp({
         updateSplashscreenText: message => {
           clearTimeout(bootingIsSlowTimeout);
@@ -192,8 +192,7 @@ const boot = _async(function () {
   });
 });
 
-const setBootingState = function setBootingState(nextBootingState) {
-  let data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+const setBootingState = (nextBootingState, data = {}) => {
   const splashscreenMessageNode = document.querySelector("#splashscreen_message");
   splashscreenMessageNode.innerHTML = "";
   const variantModel = document.querySelector("#".concat(nextBootingState));

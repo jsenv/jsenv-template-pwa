@@ -21,7 +21,7 @@ function browserIsSupported() {
     return false;
   }
 
-  var edgeVersion = versionFromUserAgent(/(?:edge|edgea|edgios)\/(\d+)/i);
+  var edgeVersion = versionFromUserAgent(/(?:edge|edgea|edgios)\/(\d+)/i, userAgent);
 
   if (edgeVersion && edgeVersion < 14) {
     return false;

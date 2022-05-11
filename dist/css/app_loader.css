@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "Roboto";
+  font-family: Roboto;
   font-style: normal;
   font-weight: 400;
-  src: local("Roboto"), url(/assets/roboto_v27_latin_regular.woff2?v=cc46322d) format("woff2");
+  src: local(Roboto), url(/other/roboto_v27_latin_regular.woff2?v=cc46322d) format("woff2");
   font-display: swap;
 }
 
