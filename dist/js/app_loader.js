@@ -54,7 +54,7 @@ const nextIDLEPromise = window.requestIdleCallback ? ({
  * This is where you can orchestrate the loading of your application
  */
 const loadApp = async ({
-  updateSplashscreenText
+  appNode
 }) => {
   // to avoid font swapping if possible
   // give max 400ms for this
@@ -62,42 +62,42 @@ const loadApp = async ({
 
   const appLoaderCssPromise = loadCSSAndFonts(new URL(__v__("/css/app_loader.css"), import.meta.url), {
     timeout: 400,
-    onCssReady: () => {
-      if (undefined) ;
-    },
-    onFontsReady: () => {
-      if (undefined) ;
-    }
+    ...(undefined ? {
+      onCssReady: () => {
+        performance.measure("app_loader.css ready");
+      },
+      onFontsReady: () => {
+        performance.measure("fonts ready");
+      }
+    } : {})
   }); // start importing app right away
 
-  const appPromise = importApp({
-    onJsReady: () => {
-    }
+  const appPromise = importApp({ ...({})
   });
-  const appCSSPromise = loadCSSAndFonts(new URL(__v__("/css/app.css"), import.meta.url), {
-    onCssReady: () => {
-      if (undefined) ;
-    }
+  const appCSSPromise = loadCSSAndFonts(new URL(__v__("/css/app.css"), import.meta.url), { ...(undefined ? {
+      onCssReady: () => {
+        performance.measure("app.css ready");
+      }
+    } : {})
   });
   await appLoaderCssPromise;
-  await updateSplashscreenText("Loading banana...");
 
   await new Promise(resolve => {
     setTimeout(resolve, 800);
   });
-  updateSplashscreenText("Loading gorilla...");
 
   await new Promise(resolve => {
     setTimeout(resolve, 1000);
   });
-  updateSplashscreenText("Loading the entire jungle...");
 
   await new Promise(resolve => {
     setTimeout(resolve, 1200);
   });
   const app = await appPromise;
 
-  app.render();
+  app.render({
+    appNode
+  });
   await appCSSPromise; // app.render() can be very expensive so we wait a bit
   // to let navigator an opportunity to cooldown
   // This should help to save battery power and RAM

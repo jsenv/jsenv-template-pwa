@@ -24,10 +24,10 @@ const revertTrackingGroup = (trackingGroup) => {
 }
 
 const booting = {
-  "./dist/main.prod.html": true,
-  "./dist/app_loader_*.js": true,
-  "./dist/assets/app_loader_*.css": true,
-  "./dist/assets/roboto_v27_latin_regular_*.woff": true,
+  "./dist/main.html": true,
+  "./dist/js/app_loader.js": true,
+  "./dist/css/app_loader.css": true,
+  "./dist/other/roboto_v27_latin_regular.woff2": true,
 }
 const app = {
   "./dist/**/*": true,

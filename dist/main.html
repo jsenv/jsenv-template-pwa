@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en"><head>
     <script>
 var __versionMappings__ = {
+  "/js/app_loader.js": "/js/app_loader.js?v=575dcd1b",
   "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
   "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.js": "/js/app.js?v=df9d72ab",
-  "/other/logo.png": "/other/logo.png?v=25e95a00",
-  "/js/app_loader.js": "/js/app_loader.js?v=2fff8113"
+  "/js/app.js": "/js/app.js?v=64b02437",
+  "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;
 __envGlobal__.__v__ = function (specifier) {
@@ -22,15 +22,6 @@ __envGlobal__.__v__ = function (specifier) {
     <link rel="manifest" href="/other/pwa.webmanifest">
     <link rel="apple-touch-icon" href="/other/logo.png?v=25e95a00">
     <!--
-      boot.css contains styles for the following use cases:
-      - JavaScript is disabled
-      - Browser is not supported
-      - App is "booting" (detailed later in this file)
-      boot.css is part of the ressources inlined in this HTML during build
-      by [data-jsenv-force-inline] attribute
-    --->
-    <link rel="stylesheet" href="/css/boot.css?v=4bb7768c" data-jsenv-force-inline="">
-    <!--
       Tell browser to start fetching theses ressources right now:
       - The font
       - CSS and JS used to load the app
@@ -38,29 +29,117 @@ __envGlobal__.__v__ = function (specifier) {
     -->
     <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
     <link rel="preload" href="/css/app_loader.css?v=34b60847" as="style">
-    <link rel="modulepreload" href="/js/app_loader.js?v=2fff8113">
+    <link rel="modulepreload" href="/js/app_loader.js?v=575dcd1b">
     <link rel="preload" href="/css/app.css?v=7afa9575" as="style">
-    <link rel="modulepreload" href="/js/app.js?v=df9d72ab">
+    <link rel="modulepreload" href="/js/app.js?v=64b02437">
+
+    <style>html, body {
+  height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+[data-hidden] {
+  display: none !important;
+}
+</style>
   </head>
 
   <body>
-    <!--
-      Displaying a message when JavaScript is disabled
-    -->
+    <!-- JavaScript disabled -->
+    <style>noscript {
+  text-align: center;
+  width: 80%;
+  max-width: 640px;
+  margin: auto;
+  display: block;
+}
+</style>
     <noscript>
       <h1>JavaScript is required</h1>
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
-    <!--
-      Displaying a message when browser is not supported
-      - "browser_support_detection.js" sets display block when browser is not supported.
-      - When browser is not supported, the application won't try to boot.
-    -->
+
+    <!-- Browser not supported -->
+    <style>#browser_not_supported {
+  text-align: center;
+  width: 80%;
+  max-width: 640px;
+  margin: auto;
+  display: block;
+}
+</style>
     <div id="browser_not_supported" style="display: none">
       <h1>Browser not supported</h1>
       <p>Please update your internet browser or try with an other one</p>
     </div>
-    <script src="/js/browser_support_detection.js?v=7217bbac" data-jsenv-force-inline=""></script>
+    <script>/*
+ * - Set window.browserIsSupported boolean
+ * - Display #browser_not_supported div when browser is not supported
+ * This file will be executed as such in every browsers. It will just be minified.
+ * -> The JS used must be as compatible as possible (no const, no arrow function etc)
+ */
+var userAgent = window.navigator.userAgent;
+
+function browserIsSupported() {
+  var isIE = typeof document.documentMode !== "undefined";
+
+  if (isIE) {
+    return false;
+  }
+
+  var chromeVersion = versionFromUserAgent(/(?:chrome|chromium|crios|crmo)\/(\d+)/i);
+
+  if (chromeVersion && chromeVersion < 55) {
+    return false;
+  }
+
+  var edgeVersion = versionFromUserAgent(/(?:edge|edgea|edgios)\/(\d+)/i, userAgent);
+
+  if (edgeVersion && edgeVersion < 14) {
+    return false;
+  }
+
+  var firefoxVersion = versionFromUserAgent(/(?:firefox|iceweasel|fxios)[\s/](\d+)/i);
+
+  if (firefoxVersion && firefoxVersion < 52) {
+    return false;
+  }
+
+  var safariVersion = !chromeVersion && /safari|applewebkit/i.test(userAgent) ? versionFromUserAgent(/version\/(\d+)/i) : undefined;
+
+  if (safariVersion && safariVersion < 11) {
+    return false;
+  }
+
+  return true;
+}
+
+function versionFromUserAgent(regexp) {
+  var match = userAgent.match(regexp);
+  if (!match || match.length === 0) return undefined;
+  var firstMatch = match[1];
+  var version = parseInt(firstMatch);
+  return version;
+}
+
+window.browserIsSupported = browserIsSupported();
+
+if (!window.browserIsSupported) {
+  document.getElementById("browser_not_supported").style.display = "block";
+}</script>
+
     <!--
       Booting the application
       - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
@@ -68,29 +147,151 @@ __envGlobal__.__v__ = function (specifier) {
         - Network is slow, so HTML is slow to fetch "app_loader.js"
         - Error while fetching, parsing or executing "app_loader.js"
         - Application starts in less than 300ms (yes it happens thanks to long term cache)
-      The code implementing this logic is configurable and visible in "boot.js"
-      See https://github.com/jsenv/jsenv-template-pwa/tree/main/docs/booting#booting
     -->
-    <div id="app" data-booting=""></div>
-    <div id="splashscreen">
-      <div id="splashscreen_logo">
-        <img src="/other/logo.png?v=25e95a00" width="128" height="128" alt="jsenv logo" data-jsenv-force-inline="">
-      </div>
-      <div id="splashscreen_message"></div>
-      <div style="display: none">
-        <div id="booting_start"></div>
-        <div id="booting_is_slow">Booting...</div>
-        <div id="booting_error">
-          <p>An error occured while booting</p>
-          <br>
-          <details>
-            <summary>See error stack</summary>
-            <pre id="boot_runtime_error_stack">${errorStack}</pre>
-          </details>
-        </div>
-      </div>
+    <style>#booting_screen, #booting_error_screen {
+  z-index: 1000;
+  color: #a9a8a8;
+  opacity: 0;
+  background-color: #030713;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#app {
+  background: #0d0d0d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+#booting_error_screen {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#booting_error_screen p {
+  color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;
+  padding: 16px 48px;
+  display: inline-block;
+}
+
+#app {
+  color: #fff;
+  text-align: center;
+  background: #0d0d0d;
+  font-family: Retina, sans-serif;
+  font-weight: 300;
+}
+
+#app[data-fadein] {
+  animation-name: app_fade_in;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes app_fade_in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+</style>
+    <div id="booting_screen" data-hidden="">
+      <svg viewBox="0 0 100 100">
+        <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5"></circle>
+        <circle fill="#fff" stroke="currentColor" stroke-width="3" cx="8" cy="54" r="6">
+          <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
     </div>
-    <script type="module" src="/js/boot.js?v=a8d01095" data-jsenv-force-inline=""></script>
+    <div id="booting_error_screen" data-hidden="">
+      <p>A critical error occured</p>
+    </div>
+    <div id="app" data-hidden=""></div>
+    <script type="module">function _await(value, then, direct) {
+  if (direct) {
+    return then ? then(value) : value;
+  }
+
+  if (!value || !value.then) {
+    value = Promise.resolve(value);
+  }
+
+  return then ? value.then(then) : value;
+}
+
+const bootingScreenNode = document.querySelector("#booting_screen");
+
+function _catch(body, recover) {
+  try {
+    var result = body();
+  } catch (e) {
+    return recover(e);
+  }
+
+  if (result && result.then) {
+    return result.then(void 0, recover);
+  }
+
+  return result;
+}
+
+const bootingErrorScreenNode = document.querySelector("#booting_error_screen");
+
+function _empty() {}
+
+const appNode = document.querySelector("#app");
+
+function _invokeIgnored(body) {
+  var result = body();
+
+  if (result && result.then) {
+    return result.then(_empty);
+  }
+}
+
+const showBootNode = node => {
+  bootingScreenNode.setAttribute("data-hidden", "");
+  bootingErrorScreenNode.setAttribute("data-hidden", "");
+  appNode.setAttribute("data-hidden", "");
+  node.removeAttribute("data-hidden");
+};
+
+_invokeIgnored(function () {
+  if (window.browserIsSupported) {
+    showBootNode(bootingScreenNode);
+
+    _catch(function () {
+      return _await(import(__v__("/js/app_loader.js")), function ({
+        loadApp
+      }) {
+        loadApp({
+          appNode
+        });
+        showBootNode(appNode);
+      });
+    }, function (e) {
+      showBootNode(bootingErrorScreenNode);
+      throw e;
+    });
+  }
+});</script>
+
     <!--
       Installing an early "beforeinstallprompt" event listener
       - We must listen to "beforeinstallprompt" as soon as possible or it could be missed.

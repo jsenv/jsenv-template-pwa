@@ -4,7 +4,7 @@
 
 import { loadCSSAndFonts, nextIDLEPromise } from "./app_loader_utils.js"
 
-export const loadApp = async ({ updateSplashscreenText }) => {
+export const loadApp = async ({ appNode }) => {
   if (import.meta.dev) {
     performance.measure(`loading app`)
   }
@@ -16,57 +16,58 @@ export const loadApp = async ({ updateSplashscreenText }) => {
     new URL("./app_loader.css", import.meta.url),
     {
       timeout: 400,
-      onCssReady: () => {
-        if (import.meta.dev) {
-          performance.measure(`app_loader.css ready`)
-        }
-      },
-      onFontsReady: () => {
-        if (import.meta.dev) {
-          performance.measure(`fonts ready`)
-        }
-      },
+      ...(import.meta.dev
+        ? {
+            onCssReady: () => {
+              performance.measure(`app_loader.css ready`)
+            },
+            onFontsReady: () => {
+              performance.measure(`fonts ready`)
+            },
+          }
+        : {}),
     },
   )
   // start importing app right away
   const appPromise = importApp({
-    onJsReady: () => {
-      if (import.meta.dev) {
-        performance.measure("app.js ready")
-      }
-    },
+    ...(import.meta.dev
+      ? {
+          onJsReady: () => {
+            performance.measure("app.js ready")
+          },
+        }
+      : {}),
   })
   const appCSSPromise = loadCSSAndFonts(
     new URL("../app/app.css", import.meta.url),
     {
-      onCssReady: () => {
-        if (import.meta.dev) {
-          performance.measure(`app.css ready`)
-        }
-      },
+      ...(import.meta.dev
+        ? {
+            onCssReady: () => {
+              performance.measure(`app.css ready`)
+            },
+          }
+        : {}),
     },
   )
 
   await appLoaderCssPromise
-  await updateSplashscreenText(`Loading banana...`)
   if (import.meta.dev) {
-    performance.measure(`"loading bannana..." displayed`)
+    performance.measure(`"loading bannana..." done`)
   }
   await new Promise((resolve) => {
     setTimeout(resolve, 800)
   })
 
-  updateSplashscreenText(`Loading gorilla...`)
   if (import.meta.dev) {
-    performance.measure(`"loading gorilla..." displayed`)
+    performance.measure(`"loading gorilla..." done`)
   }
   await new Promise((resolve) => {
     setTimeout(resolve, 1000)
   })
 
-  updateSplashscreenText(`Loading the entire jungle...`)
   if (import.meta.dev) {
-    performance.measure(`"entire jungle..." displayed`)
+    performance.measure(`"entire jungle..." done`)
   }
   await new Promise((resolve) => {
     setTimeout(resolve, 1200)
@@ -76,7 +77,9 @@ export const loadApp = async ({ updateSplashscreenText }) => {
   if (import.meta.dev) {
     performance.measure(`rendering app`)
   }
-  app.render()
+  app.render({
+    appNode,
+  })
   await appCSSPromise
   // app.render() can be very expensive so we wait a bit
   // to let navigator an opportunity to cooldown

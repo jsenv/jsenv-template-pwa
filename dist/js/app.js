@@ -571,11 +571,12 @@ const greet = () => {
 /**
  * The actual app UI, very simplified of course
  */
-const app = document.querySelector("#app");
-const render = () => {
+const render = ({
+  appNode
+}) => {
   const logoUrl = new URL(__v__("/other/logo.png"), import.meta.url);
-  app.innerHTML = "\n<img src=".concat(logoUrl, " width=\"64\" height=\"64\" alt=\"jsenv logo\" />\n<p>").concat(greet(), "</p>");
-  initPwa(app);
+  appNode.innerHTML = "\n<img src=".concat(logoUrl, " width=\"64\" height=\"64\" alt=\"jsenv logo\" />\n<p>").concat(greet(), "</p>");
+  initPwa(appNode);
 };
 
 export { render };
