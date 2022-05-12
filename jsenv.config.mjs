@@ -9,7 +9,7 @@
 
 export const rootDirectoryUrl = String(new URL("./", import.meta.url))
 
-export const runtimeSupport = {
+export const runtimeCompat = {
   chrome: "55",
   edge: "14",
   firefox: "52",
