@@ -13,8 +13,8 @@ export const server = await startBuildServer({
   buildCommand: "node script/build/build.mjs",
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  mainFileRelativeUrl: "main.prod.html", // TODO
+  mainBuildFile: "main.html",
   autorestart: {
-    urlToFork: import.meta.url,
+    url: import.meta.url,
   },
 })

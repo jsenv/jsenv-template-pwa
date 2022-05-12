@@ -25,4 +25,7 @@ export const server = await startDevServer({
       "test/**/*.test.html": true,
     },
   },
+  autorestart: {
+    url: import.meta.url,
+  },
 })
