@@ -2,7 +2,7 @@
 self.serviceWorkerUrls = {
   "/main.html": {
     "versioned": false,
-    "version": "4ca91638"
+    "version": "43db4e4e"
   },
   "/other/favicon.png?v=25e95a00": {
     "versioned": true
@@ -20,13 +20,13 @@ self.serviceWorkerUrls = {
   "/css/app_loader.css?v=34b60847": {
     "versioned": true
   },
-  "/js/app_loader.js?v=575dcd1b": {
+  "/js/app_loader.js?v=85664cc4": {
     "versioned": true
   },
   "/css/app.css?v=7afa9575": {
     "versioned": true
   },
-  "/js/app.js?v=64b02437": {
+  "/js/app.js?v=9ec0c201": {
     "versioned": true
   },
   "/js/dev_ribbon.js?v=9bc5582c": {
@@ -44,11 +44,11 @@ self.serviceWorkerUrls = {
 };
 
 var __versionMappings__ = {
-  "/js/app_loader.js": "/js/app_loader.js?v=575dcd1b",
+  "/js/app_loader.js": "/js/app_loader.js?v=85664cc4",
   "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
   "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.js": "/js/app.js?v=64b02437",
+  "/js/app.js": "/js/app.js?v=9ec0c201",
   "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;

@@ -81,18 +81,7 @@ const loadApp = async ({
     } : {})
   });
   await appLoaderCssPromise;
-
-  await new Promise(resolve => {
-    setTimeout(resolve, 800);
-  });
-
-  await new Promise(resolve => {
-    setTimeout(resolve, 1000);
-  });
-
-  await new Promise(resolve => {
-    setTimeout(resolve, 1200);
-  });
+  await loadBannana();
   const app = await appPromise;
 
   app.render({
@@ -111,6 +100,36 @@ const importApp = async ({
   const app = await import(__v__("/js/app.js"));
   onJsReady();
   return app;
+}; // The 3 functions below simulates the app needs to load 3 things
+// before being ready to be displayed.
+// To keep them generic the functions are just doing a setTimeout
+// in practice you would:
+// - perform http request
+// - load assets
+// - preload external libraries
+// - etc...
+
+
+const loadBannana = async () => {
+  await new Promise(resolve => {
+    setTimeout(resolve, 20);
+  });
+
+  await loadGorilla();
+};
+
+const loadGorilla = async () => {
+  await new Promise(resolve => {
+    setTimeout(resolve, 30);
+  });
+
+  await loadJungle();
+};
+
+const loadJungle = async () => {
+  await new Promise(resolve => {
+    setTimeout(resolve, 20);
+  });
 };
 
 export { loadApp };

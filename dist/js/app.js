@@ -518,7 +518,7 @@ const initServiceWorker = app => {
 
   const callLater = window.requestIdleCallback || requestAnimationFrame;
   callLater(() => {
-    script.setRegistrationPromise(window.navigator.serviceWorker.register(new URL("/service_worker.es5.js"), {
+    script.setRegistrationPromise(window.navigator.serviceWorker.register(new URL("/service_worker.es5.js", import.meta.url), {
       type: "classic"
     }));
   });

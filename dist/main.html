@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="en"><head>
     <script>
 var __versionMappings__ = {
-  "/js/app_loader.js": "/js/app_loader.js?v=575dcd1b",
+  "/js/app_loader.js": "/js/app_loader.js?v=85664cc4",
   "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
   "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.js": "/js/app.js?v=64b02437",
+  "/js/app.js": "/js/app.js?v=9ec0c201",
   "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;
@@ -29,9 +29,9 @@ __envGlobal__.__v__ = function (specifier) {
     -->
     <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
     <link rel="preload" href="/css/app_loader.css?v=34b60847" as="style">
-    <link rel="modulepreload" href="/js/app_loader.js?v=575dcd1b">
+    <link rel="modulepreload" href="/js/app_loader.js?v=85664cc4">
     <link rel="preload" href="/css/app.css?v=7afa9575" as="style">
-    <link rel="modulepreload" href="/js/app.js?v=64b02437">
+    <link rel="modulepreload" href="/js/app.js?v=9ec0c201">
 
     <style>html, body {
   height: 100%;
@@ -150,9 +150,6 @@ if (!window.browserIsSupported) {
     -->
     <style>#booting_screen, #booting_error_screen {
   z-index: 1000;
-  color: #a9a8a8;
-  opacity: 0;
-  background-color: #030713;
   flex-direction: column;
   align-items: center;
   display: flex;
@@ -163,36 +160,39 @@ if (!window.browserIsSupported) {
   right: 0;
 }
 
-#app {
-  background: #0d0d0d;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
+#booting_screen {
+  justify-content: center;
+}
+
+#booting_screen svg {
+  height: 64px;
 }
 
 #booting_error_screen {
   text-align: center;
   width: 100%;
-  margin-top: 20px;
+  color: #a9a8a8;
+  background-color: #030713;
 }
 
 #booting_error_screen p {
   color: #ba3939;
   background: #ffe0e0;
   border: 1px solid #a33a3a;
+  margin-top: 20px;
   padding: 16px 48px;
   display: inline-block;
 }
 
 #app {
-  color: #fff;
   text-align: center;
-  background: #0d0d0d;
   font-family: Retina, sans-serif;
   font-weight: 300;
+  overflow: hidden;
+}
+
+#app p {
+  padding: 16px 48px;
 }
 
 #app[data-fadein] {
@@ -213,8 +213,8 @@ if (!window.browserIsSupported) {
 </style>
     <div id="booting_screen" data-hidden="">
       <svg viewBox="0 0 100 100">
-        <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5"></circle>
-        <circle fill="#fff" stroke="currentColor" stroke-width="3" cx="8" cy="54" r="6">
+        <circle fill="none" stroke="#999" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5"></circle>
+        <circle fill="#333" stroke="currentColor" stroke-width="3" cx="8" cy="54" r="6">
           <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
         </circle>
       </svg>
@@ -280,10 +280,11 @@ _invokeIgnored(function () {
       return _await(import(__v__("/js/app_loader.js")), function ({
         loadApp
       }) {
-        loadApp({
+        return _await(loadApp({
           appNode
+        }), function () {
+          showBootNode(appNode);
         });
-        showBootNode(appNode);
       });
     }, function (e) {
       showBootNode(bootingErrorScreenNode);
