@@ -11,7 +11,7 @@ export const initServiceWorker = (app) => {
   callLater(() => {
     script.setRegistrationPromise(
       window.navigator.serviceWorker.register(
-        new URL("/src/service_worker.js"),
+        new URL("/src/service_worker.js", import.meta.url),
         {
           type: "module",
         },

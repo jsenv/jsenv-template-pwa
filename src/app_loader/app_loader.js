@@ -52,26 +52,7 @@ export const loadApp = async ({ appNode }) => {
   )
 
   await appLoaderCssPromise
-  if (import.meta.dev) {
-    performance.measure(`"loading bannana..." done`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 800)
-  })
-
-  if (import.meta.dev) {
-    performance.measure(`"loading gorilla..." done`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000)
-  })
-
-  if (import.meta.dev) {
-    performance.measure(`"entire jungle..." done`)
-  }
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1200)
-  })
+  await loadBannana()
 
   const app = await appPromise
   if (import.meta.dev) {
@@ -94,4 +75,39 @@ const importApp = async ({ onJsReady = () => {} }) => {
   const app = await import("../app/app.js")
   onJsReady()
   return app
+}
+
+// The 3 functions below simulates the app needs to load 3 things
+// before being ready to be displayed.
+// To keep them generic the functions are just doing a setTimeout
+// in practice you would:
+// - perform http request
+// - load assets
+// - preload external libraries
+// - etc...
+const loadBannana = async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 20)
+  })
+  if (import.meta.dev) {
+    performance.measure(`"loading bannana..." done`)
+  }
+  await loadGorilla()
+}
+const loadGorilla = async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 30)
+  })
+  if (import.meta.dev) {
+    performance.measure(`"loading gorilla..." done`)
+  }
+  await loadJungle()
+}
+const loadJungle = async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 20)
+  })
+  if (import.meta.dev) {
+    performance.measure(`"loading jungle..." done`)
+  }
 }
