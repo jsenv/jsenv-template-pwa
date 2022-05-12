@@ -31,15 +31,14 @@ Documentation of the features, how to use and or remove them.
 
 - [Formatting](../docs/formatting/readme.md#formatting): Formatting with prettier
 - [Linting](../docs/linting/readme.md#linting): Linting with ESLint
-- [Booting](../docs/booting/readme.md#booting): User friendly application booting
-- [import resolution](../docs/import_resolution/readme.md#import-resolution): importmap resolution for ESLint and VSCode
+- [import resolution](../docs/import_resolution/readme.md#import-resolution): Standard import resolution enhanced with Node ESM resolution
 - [Production mode](../docs/production_mode/readme.md#production-mode): Ability to write code specific to production or development
-- [Development server](../docs/dev_server/readme.md#Development-server): A dev server **without build step** and livereloading
-- [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility): Can run offline and be added to user home screen
+- [Development server](../docs/dev_server/readme.md#Development-server): A dev server with auto reload
 - [Testing](../docs/testing/readme.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
 - [Code coverage](../docs/code_coverage/readme.md#Code-coverage): Code coverage with codecov
-- [Building](../docs/building/readme.md#Building): Optimize files for production supporting importmap, top level await and more
+- [Building](../docs/building/readme.md#Building): Optimize files for production
 - [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
+- [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility): Offline + add to home screen compatibility
 - [Deploying](../docs/deploying/readme.md#deploying): Auto deployment with heroku
 
 # Things to know
