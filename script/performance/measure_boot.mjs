@@ -1,15 +1,12 @@
-import { execute, chromiumRuntime } from "@jsenv/core"
+import { execute, chromium } from "@jsenv/core"
 
-import * as jsenvConfig from "../../jsenv.config.mjs"
+import { rootDirectoryUrl } from "@jsenv/template-pwa/jsenv.config.mjs"
 
 const executionResult = await execute({
-  ...jsenvConfig,
-  runtime: chromiumRuntime,
+  rootDirectoryUrl,
   fileRelativeUrl: "./src/main.html",
-  // measurePerformance: true,
-  // compileServerCanWriteOnFilesystem: false,
+  runtime: chromium,
   collectPerformance: true,
-  stopAfterExecute: true,
 })
 const { measures } = executionResult.performance
 const metrics = {}

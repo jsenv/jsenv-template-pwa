@@ -13,7 +13,7 @@
 
 import { generateFileSizeReport, raw, gzip } from "@jsenv/file-size-impact"
 
-import { projectDirectoryUrl } from "../../jsenv.config.mjs"
+import { rootDirectoryUrl } from "../../jsenv.config.mjs"
 
 const revertTrackingGroup = (trackingGroup) => {
   const opposite = {}
@@ -24,20 +24,20 @@ const revertTrackingGroup = (trackingGroup) => {
 }
 
 const booting = {
-  "./dist/systemjs/main.prod.html": true,
-  "./dist/systemjs/app_loader_*.js": true,
-  "./dist/systemjs/assets/app_loader_*.css": true,
-  "./dist/systemjs/assets/roboto_v27_latin_regular_*.woff": true,
+  "./dist/main.html": true,
+  "./dist/js/app_loader.js": true,
+  "./dist/css/app_loader.css": true,
+  "./dist/other/roboto_v27_latin_regular.woff2": true,
 }
 const app = {
-  "./dist/systemjs/**/*": true,
-  "./dist/systemjs/**/*.map": false,
+  "./dist/**/*": true,
+  "./dist/**/*.map": false,
   ...revertTrackingGroup(booting),
 }
 
 export const fileSizeReport = await generateFileSizeReport({
   log: process.argv.includes("--log"),
-  projectDirectoryUrl,
+  rootDirectoryUrl,
   transformations: { raw, gzip },
   trackingConfig: { booting, app },
   manifestConfig: {

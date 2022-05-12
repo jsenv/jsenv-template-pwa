@@ -5,41 +5,15 @@
 
 import { startServer, fetchFileSystem } from "@jsenv/server"
 
-// projectDirectoryUrl cannot be imported from jsenv.config.mjs
+// rootDirectoryUrl cannot be imported from jsenv.config.mjs
 // because this code will run in "production" where "devDependencies" are not installed
 // and jsenv.config.mjs depends on @jsenv/core which is a dev dependency
-const projectDirectoryUrl = new URL("../../", import.meta.url)
-const buildDirectoryUrl = new URL("./dist/systemjs/", projectDirectoryUrl)
-
-const getDynamicParametersFromProcessEnv = async () => {
-  const forceHttp = process.env.HTTP
-
-  if (forceHttp) {
-    // happens when runned by heroku
-    return {
-      protocol: "http",
-      port: process.env.PORT,
-    }
-  }
-
-  // runned by "npm run build-serve" or "npm run lighthouse"
-  // we use dynamic import because "@jsenv/https-local" is in devDependencies
-  // and would not be found when this file is executed in production (by heroku)
-  const { requestCertificateForLocalhost } = await import("@jsenv/https-local")
-  const { serverCertificate, serverCertificatePrivateKey } =
-    await requestCertificateForLocalhost()
-
-  return {
-    protocol: "https",
-    certificate: serverCertificate,
-    privateKey: serverCertificatePrivateKey,
-  }
-}
-
-const dynamicParams = await getDynamicParametersFromProcessEnv()
+const rootDirectoryUrl = new URL("../../", import.meta.url)
+const buildDirectoryUrl = new URL("./dist/", rootDirectoryUrl)
 
 export const server = await startServer({
-  ...dynamicParams,
+  protocol: "http",
+  port: process.env.PORT,
   logLevel: process.env.LOG_LEVEL,
   requestToResponse: (request) => {
     if (request.ressource === "/") {

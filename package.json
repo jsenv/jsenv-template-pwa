@@ -20,45 +20,46 @@
     "access": "public"
   },
   "type": "module",
+  "exports": {
+    "./*": "./*"
+  },
   "scripts": {
     "dev": "node ./script/dev/dev.mjs",
-    "eslint": "npx eslint . --ext=.js,.html,.mjs",
-    "importmap": "node ./script/importmap/importmap.mjs",
+    "test": "node ./script/test/test.mjs",
+    "preview": "node ./script/build/preview.mjs",
     "build": "node ./script/build/build.mjs",
-    "build-serve": "node ./script/build/build_serve.mjs",
+    "eslint": "npx eslint . --ext=.js,.html,.mjs",
     "file-size": "node ./script/file_size/file_size.mjs --log",
     "lighthouse": "node ./script/lighthouse/lighthouse.mjs --local",
     "performance": "node ./script/performance/performance.mjs --log --once",
-    "test": "node ./script/test/test.mjs",
     "test-with-coverage": "npm run test -- --coverage",
-    "start": "npm run build && npm run build-serve",
+    "start": "npm run preview",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
     "certificate-install": "node ./script/dev/install_certificate.mjs",
-    "heroku-postbuild": "npm run importmap && npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "@jsenv/pwa": "4.0.1",
-    "@jsenv/server": "12.4.1"
+    "@jsenv/pwa": "5.0.0",
+    "@jsenv/server": "12.6.1"
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
-    "@babel/eslint-parser": "7.16.5",
-    "@jsenv/assert": "2.4.1",
-    "@jsenv/babel-preset": "1.1.2",
-    "@jsenv/core": "25.4.1",
+    "@babel/core": "7.17.10",
+    "@babel/eslint-parser": "7.17.0",
+    "@babel/plugin-syntax-import-assertions": "7.16.7",
+    "@jsenv/assert": "2.5.4",
+    "@jsenv/core": "27.0.0-alpha.23",
     "@jsenv/eslint-config": "16.0.9",
-    "@jsenv/file-size-impact": "12.1.6",
-    "@jsenv/filesystem": "2.7.1",
-    "@jsenv/https-local": "1.0.7",
-    "@jsenv/importmap-eslint-resolver": "5.2.5",
-    "@jsenv/importmap-node-module": "5.1.3",
-    "@jsenv/lighthouse-impact": "2.1.7",
-    "@jsenv/performance-impact": "2.2.6",
-    "eslint": "8.7.0",
+    "@jsenv/eslint-import-resolver": "0.1.5",
+    "@jsenv/file-size-impact": "12.1.12",
+    "@jsenv/filesystem": "3.1.0",
+    "@jsenv/https-local": "1.0.8",
+    "@jsenv/lighthouse-impact": "2.1.11",
+    "@jsenv/performance-impact": "2.2.11",
+    "eslint": "8.15.0",
     "eslint-plugin-html": "6.2.0",
-    "eslint-plugin-import": "2.25.4",
-    "playwright": "1.18.0",
-    "prettier": "2.5.1"
+    "eslint-plugin-import": "2.26.0",
+    "playwright": "1.21.1",
+    "prettier": "2.6.2"
   }
 }

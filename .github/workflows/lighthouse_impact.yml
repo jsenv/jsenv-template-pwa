@@ -31,8 +31,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install node modules
         run: npm install
-      - name: Generate importmap
-        run: npm run importmap
       - name: Install certificate
         run: npm run certificate-install
       - name: Report lighthouse impact

@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="en"><head>
+    <script>
+var __versionMappings__ = {
+  "/js/app_loader.js": "/js/app_loader.js?v=85664cc4",
+  "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
+  "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
+  "/css/app.css": "/css/app.css?v=7afa9575",
+  "/js/app.js": "/js/app.js?v=9ec0c201",
+  "/other/logo.png": "/other/logo.png?v=25e95a00"
+};
+var __envGlobal__ = typeof self === 'undefined' ? global : self;
+__envGlobal__.__v__ = function (specifier) {
+  return __versionMappings__[specifier] || specifier
+};
+</script>
+    <title>PWA Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Progressive Web Application template using jsenv">
+    <meta name="theme-color" content="#d3d3d3">
+    <link rel="icon" href="/other/favicon.png?v=25e95a00">
+    <link rel="manifest" href="/other/pwa.webmanifest">
+    <link rel="apple-touch-icon" href="/other/logo.png?v=25e95a00">
+    <!--
+      Tell browser to start fetching theses ressources right now:
+      - The font
+      - CSS and JS used to load the app
+      - CSS and JS of the app
+    -->
+    <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="/css/app_loader.css?v=34b60847" as="style">
+    <link rel="modulepreload" href="/js/app_loader.js?v=85664cc4">
+    <link rel="preload" href="/css/app.css?v=7afa9575" as="style">
+    <link rel="modulepreload" href="/js/app.js?v=9ec0c201">
+
+    <style>html, body {
+  height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+[data-hidden] {
+  display: none !important;
+}
+</style>
+  </head>
+
+  <body>
+    <!-- JavaScript disabled -->
+    <style>noscript {
+  text-align: center;
+  width: 80%;
+  max-width: 640px;
+  margin: auto;
+  display: block;
+}
+</style>
+    <noscript>
+      <h1>JavaScript is required</h1>
+      <p>This page needs JavaScript to run but JavaScript is not available</p>
+    </noscript>
+
+    <!-- Browser not supported -->
+    <style>#browser_not_supported {
+  text-align: center;
+  width: 80%;
+  max-width: 640px;
+  margin: auto;
+  display: block;
+}
+</style>
+    <div id="browser_not_supported" style="display: none">
+      <h1>Browser not supported</h1>
+      <p>Please update your internet browser or try with an other one</p>
+    </div>
+    <script>/*
+ * - Set window.browserIsSupported boolean
+ * - Display #browser_not_supported div when browser is not supported
+ * This file will be executed as such in every browsers. It will just be minified.
+ * -> The JS used must be as compatible as possible (no const, no arrow function etc)
+ */
+var userAgent = window.navigator.userAgent;
+
+function browserIsSupported() {
+  var isIE = typeof document.documentMode !== "undefined";
+
+  if (isIE) {
+    return false;
+  }
+
+  var chromeVersion = versionFromUserAgent(/(?:chrome|chromium|crios|crmo)\/(\d+)/i);
+
+  if (chromeVersion && chromeVersion < 55) {
+    return false;
+  }
+
+  var edgeVersion = versionFromUserAgent(/(?:edge|edgea|edgios)\/(\d+)/i, userAgent);
+
+  if (edgeVersion && edgeVersion < 14) {
+    return false;
+  }
+
+  var firefoxVersion = versionFromUserAgent(/(?:firefox|iceweasel|fxios)[\s/](\d+)/i);
+
+  if (firefoxVersion && firefoxVersion < 52) {
+    return false;
+  }
+
+  var safariVersion = !chromeVersion && /safari|applewebkit/i.test(userAgent) ? versionFromUserAgent(/version\/(\d+)/i) : undefined;
+
+  if (safariVersion && safariVersion < 11) {
+    return false;
+  }
+
+  return true;
+}
+
+function versionFromUserAgent(regexp) {
+  var match = userAgent.match(regexp);
+  if (!match || match.length === 0) return undefined;
+  var firstMatch = match[1];
+  var version = parseInt(firstMatch);
+  return version;
+}
+
+window.browserIsSupported = browserIsSupported();
+
+if (!window.browserIsSupported) {
+  document.getElementById("browser_not_supported").style.display = "block";
+}</script>
+
+    <!--
+      Booting the application
+      - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
+      - <div id="splashscreen"> is displayed when:
+        - Network is slow, so HTML is slow to fetch "app_loader.js"
+        - Error while fetching, parsing or executing "app_loader.js"
+        - Application starts in less than 300ms (yes it happens thanks to long term cache)
+    -->
+    <style>#booting_screen, #booting_error_screen {
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#booting_screen {
+  justify-content: center;
+}
+
+#booting_screen svg {
+  height: 64px;
+}
+
+#booting_error_screen {
+  text-align: center;
+  width: 100%;
+  color: #a9a8a8;
+  background-color: #030713;
+}
+
+#booting_error_screen p {
+  color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;
+  margin-top: 20px;
+  padding: 16px 48px;
+  display: inline-block;
+}
+
+#app {
+  text-align: center;
+  font-family: Retina, sans-serif;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+#app p {
+  padding: 16px 48px;
+}
+
+#app[data-fadein] {
+  animation-name: app_fade_in;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes app_fade_in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+</style>
+    <div id="booting_screen" data-hidden="">
+      <svg viewBox="0 0 100 100">
+        <circle fill="none" stroke="#999" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5"></circle>
+        <circle fill="#333" stroke="currentColor" stroke-width="3" cx="8" cy="54" r="6">
+          <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+    <div id="booting_error_screen" data-hidden="">
+      <p>A critical error occured</p>
+    </div>
+    <div id="app" data-hidden=""></div>
+    <script type="module">function _await(value, then, direct) {
+  if (direct) {
+    return then ? then(value) : value;
+  }
+
+  if (!value || !value.then) {
+    value = Promise.resolve(value);
+  }
+
+  return then ? value.then(then) : value;
+}
+
+const bootingScreenNode = document.querySelector("#booting_screen");
+
+function _catch(body, recover) {
+  try {
+    var result = body();
+  } catch (e) {
+    return recover(e);
+  }
+
+  if (result && result.then) {
+    return result.then(void 0, recover);
+  }
+
+  return result;
+}
+
+const bootingErrorScreenNode = document.querySelector("#booting_error_screen");
+
+function _empty() {}
+
+const appNode = document.querySelector("#app");
+
+function _invokeIgnored(body) {
+  var result = body();
+
+  if (result && result.then) {
+    return result.then(_empty);
+  }
+}
+
+const showBootNode = node => {
+  bootingScreenNode.setAttribute("data-hidden", "");
+  bootingErrorScreenNode.setAttribute("data-hidden", "");
+  appNode.setAttribute("data-hidden", "");
+  node.removeAttribute("data-hidden");
+};
+
+_invokeIgnored(function () {
+  if (window.browserIsSupported) {
+    showBootNode(bootingScreenNode);
+
+    _catch(function () {
+      return _await(import(__v__("/js/app_loader.js")), function ({
+        loadApp
+      }) {
+        return _await(loadApp({
+          appNode
+        }), function () {
+          showBootNode(appNode);
+        });
+      });
+    }, function (e) {
+      showBootNode(bootingErrorScreenNode);
+      throw e;
+    });
+  }
+});</script>
+
+    <!--
+      Installing an early "beforeinstallprompt" event listener
+      - We must listen to "beforeinstallprompt" as soon as possible or it could be missed.
+      - The event is stored in window.beforeinstallpromptEvent to be used later
+      See https://github.com/jsenv/pwa#add-to-home-screen
+    -->
+    <script>window.addEventListener("beforeinstallprompt", beforeinstallpromptEvent => {
+  beforeinstallpromptEvent.preventDefault();
+  window.beforeinstallpromptEvent = beforeinstallpromptEvent;
+});</script>
+    <script type="module">function _empty() {}
+
+function _awaitIgnored(value, direct) {
+  if (!direct) {
+    return value && value.then ? value.then(_empty) : Promise.resolve();
+  }
+}
+
+function _invokeIgnored(body) {
+  var result = body();
+
+  if (result && result.then) {
+    return result.then(_empty);
+  }
+}
+
+_invokeIgnored(function () {
+  if (undefined) {
+    _awaitIgnored(import(__v__("/js/dev_ribbon.js")));
+  }
+});</script>
+  
+
+</body></html>

@@ -15,13 +15,8 @@ import { generateLighthouseReport } from "@jsenv/lighthouse-impact"
 
 const local = process.argv.includes("--local")
 
-if (!local) {
-  process.env.LOG_LEVEL = "warn"
-  await import(`../build/build.mjs`)
-}
 process.env.LOG_LEVEL = "warn"
-const { server } = await import(`../build/build_serve.mjs`)
-
+const { server } = await import(`../build/preview.mjs`)
 const lighthouseReport = await generateLighthouseReport(server.origin, {
   runCount: local ? 1 : 2,
 
@@ -31,7 +26,7 @@ const lighthouseReport = await generateLighthouseReport(server.origin, {
   log: local,
   jsonFile: local,
   htmlFile: local,
-  projectDirectoryUrl: new URL("../../", import.meta.url),
+  rootDirectoryUrl: new URL("../../", import.meta.url),
   jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
   htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
 })
