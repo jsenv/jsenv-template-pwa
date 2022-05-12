@@ -7,6 +7,7 @@ const { serverCertificate, serverCertificatePrivateKey } =
   await requestCertificateForLocalhost()
 
 export const server = await startBuildServer({
+  logLevel: process.env.LOG_LEVEL,
   protocol: "https",
   certificate: serverCertificate,
   privateKey: serverCertificatePrivateKey,
