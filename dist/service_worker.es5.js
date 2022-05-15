@@ -2,7 +2,7 @@
 self.serviceWorkerUrls = {
   "/main.html": {
     "versioned": false,
-    "version": "43db4e4e"
+    "version": "ba58973b"
   },
   "/other/favicon.png?v=25e95a00": {
     "versioned": true
@@ -20,16 +20,19 @@ self.serviceWorkerUrls = {
   "/css/app_loader.css?v=34b60847": {
     "versioned": true
   },
-  "/js/app_loader.js?v=85664cc4": {
-    "versioned": true
-  },
   "/css/app.css?v=7afa9575": {
     "versioned": true
   },
-  "/js/app.js?v=9ec0c201": {
+  "/js/app_loader.es5.js?as_js_classic&v=e12156b4": {
     "versioned": true
   },
-  "/js/dev_ribbon.js?v=9bc5582c": {
+  "/js/app.es5.js?as_js_classic&v=60345a0c": {
+    "versioned": true
+  },
+  "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0": {
+    "versioned": true
+  },
+  "/js/s.js?v=1e59a607": {
     "versioned": true
   },
   "/other/pwa_icon_192.png?v=574c1c76": {
@@ -44,11 +47,11 @@ self.serviceWorkerUrls = {
 };
 
 var __versionMappings__ = {
-  "/js/app_loader.js": "/js/app_loader.js?v=85664cc4",
-  "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
+  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=e12156b4",
+  "/js/dev_ribbon.es5.js": "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
   "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.js": "/js/app.js?v=9ec0c201",
+  "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=60345a0c",
   "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;

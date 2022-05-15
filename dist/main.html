@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="en"><head>
     <script>
 var __versionMappings__ = {
-  "/js/app_loader.js": "/js/app_loader.js?v=85664cc4",
-  "/js/dev_ribbon.js": "/js/dev_ribbon.js?v=9bc5582c",
+  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=e12156b4",
+  "/js/dev_ribbon.es5.js": "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
   "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.js": "/js/app.js?v=9ec0c201",
+  "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=60345a0c",
   "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;
@@ -13,6 +13,7 @@ __envGlobal__.__v__ = function (specifier) {
   return __versionMappings__[specifier] || specifier
 };
 </script>
+    <script src="/js/s.js?v=1e59a607"></script>
     <title>PWA Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,9 +30,9 @@ __envGlobal__.__v__ = function (specifier) {
     -->
     <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
     <link rel="preload" href="/css/app_loader.css?v=34b60847" as="style">
-    <link rel="modulepreload" href="/js/app_loader.js?v=85664cc4">
+    <link rel="preload" href="/js/app_loader.es5.js?as_js_classic&amp;v=e12156b4" as="script">
     <link rel="preload" href="/css/app.css?v=7afa9575" as="style">
-    <link rel="modulepreload" href="/js/app.js?v=9ec0c201">
+    <link rel="preload" href="/js/app.es5.js?as_js_classic&amp;v=60345a0c" as="script">
 
     <style>html, body {
   height: 100%;
@@ -223,74 +224,88 @@ if (!window.browserIsSupported) {
       <p>A critical error occured</p>
     </div>
     <div id="app" data-hidden=""></div>
-    <script type="module">function _await(value, then, direct) {
-  if (direct) {
-    return then ? then(value) : value;
+    <script>window.appDisplayedPromise = new Promise((resolve, reject) => {
+  window.resolveAppDisplayedPromise = resolve;
+  window.rejectAppDisplayedPromise = reject;
+});</script>
+    <script>System.register([], function (_export, _context) {
+  "use strict";
+
+  var bootingScreenNode, bootingErrorScreenNode, appNode, showBootNode;
+
+  function _await(value, then, direct) {
+    if (direct) {
+      return then ? then(value) : value;
+    }
+
+    if (!value || !value.then) {
+      value = Promise.resolve(value);
+    }
+
+    return then ? value.then(then) : value;
   }
 
-  if (!value || !value.then) {
-    value = Promise.resolve(value);
+  function _catch(body, recover) {
+    try {
+      var result = body();
+    } catch (e) {
+      return recover(e);
+    }
+
+    if (result && result.then) {
+      return result.then(void 0, recover);
+    }
+
+    return result;
   }
 
-  return then ? value.then(then) : value;
-}
+  function _empty() {}
 
-const bootingScreenNode = document.querySelector("#booting_screen");
-
-function _catch(body, recover) {
-  try {
+  function _invokeIgnored(body) {
     var result = body();
-  } catch (e) {
-    return recover(e);
+
+    if (result && result.then) {
+      return result.then(_empty);
+    }
   }
 
-  if (result && result.then) {
-    return result.then(void 0, recover);
-  }
+  return {
+    setters: [],
+    execute: function () {
+      bootingScreenNode = document.querySelector("#booting_screen");
+      bootingErrorScreenNode = document.querySelector("#booting_error_screen");
+      appNode = document.querySelector("#app");
 
-  return result;
-}
+      showBootNode = node => {
+        bootingScreenNode.setAttribute("data-hidden", "");
+        bootingErrorScreenNode.setAttribute("data-hidden", "");
+        appNode.setAttribute("data-hidden", "");
+        node.removeAttribute("data-hidden");
+      };
 
-const bootingErrorScreenNode = document.querySelector("#booting_error_screen");
+      _invokeIgnored(function () {
+        if (window.browserIsSupported) {
+          showBootNode(bootingScreenNode);
 
-function _empty() {}
-
-const appNode = document.querySelector("#app");
-
-function _invokeIgnored(body) {
-  var result = body();
-
-  if (result && result.then) {
-    return result.then(_empty);
-  }
-}
-
-const showBootNode = node => {
-  bootingScreenNode.setAttribute("data-hidden", "");
-  bootingErrorScreenNode.setAttribute("data-hidden", "");
-  appNode.setAttribute("data-hidden", "");
-  node.removeAttribute("data-hidden");
-};
-
-_invokeIgnored(function () {
-  if (window.browserIsSupported) {
-    showBootNode(bootingScreenNode);
-
-    _catch(function () {
-      return _await(import(__v__("/js/app_loader.js")), function ({
-        loadApp
-      }) {
-        return _await(loadApp({
-          appNode
-        }), function () {
-          showBootNode(appNode);
-        });
+          _catch(function () {
+            return _await(_context.import(__v__("/js/app_loader.es5.js")), function (_ref) {
+              let loadApp = _ref.loadApp;
+              return _await(loadApp({
+                appNode
+              }), function () {
+                showBootNode(appNode);
+                window.resolveAppDisplayedPromise();
+              });
+            });
+          }, function (e) {
+            showBootNode(bootingErrorScreenNode);
+            window.rejectAppDisplayedPromise(e);
+            throw e;
+          });
+        }
       });
-    }, function (e) {
-      showBootNode(bootingErrorScreenNode);
-      throw e;
-    });
-  }
+    }
+  };
 });</script>
 
     <!--
@@ -303,26 +318,35 @@ _invokeIgnored(function () {
   beforeinstallpromptEvent.preventDefault();
   window.beforeinstallpromptEvent = beforeinstallpromptEvent;
 });</script>
-    <script type="module">function _empty() {}
+    <script>System.register([], function (_export, _context) {
+  "use strict";
 
-function _awaitIgnored(value, direct) {
-  if (!direct) {
-    return value && value.then ? value.then(_empty) : Promise.resolve();
+  function _empty() {}
+
+  function _awaitIgnored(value, direct) {
+    if (!direct) {
+      return value && value.then ? value.then(_empty) : Promise.resolve();
+    }
   }
-}
 
-function _invokeIgnored(body) {
-  var result = body();
+  function _invokeIgnored(body) {
+    var result = body();
 
-  if (result && result.then) {
-    return result.then(_empty);
+    if (result && result.then) {
+      return result.then(_empty);
+    }
   }
-}
 
-_invokeIgnored(function () {
-  if (undefined) {
-    _awaitIgnored(import(__v__("/js/dev_ribbon.js")));
-  }
+  return {
+    setters: [],
+    execute: function () {
+      _invokeIgnored(function () {
+        if (undefined) {
+          _awaitIgnored(_context.import(__v__("/js/dev_ribbon.es5.js")));
+        }
+      });
+    }
+  };
 });</script>
   
 
