@@ -242,6 +242,12 @@
       <p>A critical error occured</p>
     </div>
     <div id="app" data-hidden></div>
+    <script>
+      window.appDisplayedPromise = new Promise((resolve, reject) => {
+        window.resolveAppDisplayedPromise = resolve
+        window.rejectAppDisplayedPromise = reject
+      })
+    </script>
     <script type="module">
       const bootingScreenNode = document.querySelector("#booting_screen")
       const bootingErrorScreenNode = document.querySelector(
@@ -262,8 +268,10 @@
             appNode,
           })
           showBootNode(appNode)
+          window.resolveAppDisplayedPromise()
         } catch (e) {
           showBootNode(bootingErrorScreenNode)
+          window.rejectAppDisplayedPromise(e)
           throw e
         }
       }

@@ -1,20 +1,29 @@
-import { execute, chromium } from "@jsenv/core"
+import { chromium } from "playwright"
 
-import { rootDirectoryUrl } from "@jsenv/template-pwa/jsenv.config.mjs"
+const { server } = await import("../build/preview.mjs")
 
-const executionResult = await execute({
-  rootDirectoryUrl,
-  fileRelativeUrl: "./src/main.html",
-  runtime: chromium,
-  collectPerformance: true,
-})
-const { measures } = executionResult.performance
+const browser = await chromium.launch()
+const browserContext = await browser.newContext()
+const page = await browserContext.newPage()
+await page.goto(server.origin)
+const measures = await page.evaluate(
+  /* eslint-disable no-undef */
+  async () => {
+    await window.appDisplayedPromise
+    const { performance } = window
+    const measures = {}
+    const measurePerfEntries = performance.getEntriesByType("measure")
+    measurePerfEntries.forEach((measurePerfEntry) => {
+      measures[measurePerfEntry.name] = measurePerfEntry.duration
+    })
+    return measures
+  },
+  /* eslint-enable no-undef */
+)
+await browser.close()
+
 const metrics = {}
 Object.keys(measures).forEach((measureName) => {
-  if (measureName.startsWith("jsenv_")) {
-    // filter out jsenv metrics
-    return
-  }
   metrics[measureName] = { value: measures[measureName], unit: "ms" }
 })
 

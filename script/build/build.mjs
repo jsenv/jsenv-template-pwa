@@ -8,22 +8,25 @@
 import { build } from "@jsenv/core"
 import { copyEntry } from "@jsenv/filesystem"
 
-import { rootDirectoryUrl, runtimeSupport } from "../../jsenv.config.mjs"
+import { rootDirectoryUrl, runtimeCompat } from "../../jsenv.config.mjs"
 
-const buildDirectoryUrl = new URL("./dist/", rootDirectoryUrl)
 await build({
+  logLevel: process.env.LOG_LEVEL,
   rootDirectoryUrl,
-  buildDirectoryUrl,
-  runtimeSupport,
+  buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
+  runtimeCompat,
   buildDirectoryClean: true,
   entryPoints: {
-    "./src/main.html": "main.prod.html",
+    "./src/main.html": "main.html",
   },
+  // minification is disabled to make build files readable as it can
+  // help to understand what is going on while discovering this project template.
+  // In the real project you likely want to re-enable minification
   minification: false,
-  logLevel: process.env.LOG_LEVEL,
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
-const robotsFileUrl = new URL("src/robots.txt", rootDirectoryUrl)
-const robotsBuildFileUrl = new URL("robots.txt", buildDirectoryUrl)
-await copyEntry({ from: robotsFileUrl, to: robotsBuildFileUrl })
+await copyEntry({
+  from: new URL("src/robots.txt", rootDirectoryUrl),
+  to: new URL("dist/robots.txt", rootDirectoryUrl),
+})
