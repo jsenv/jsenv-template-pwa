@@ -6,12 +6,12 @@ import appLoaderStylesheet from "./app_loader.css" assert { type: "css" }
 
 export const loadApp = async ({ appNode }) => {
   performance.measure(`loading app`)
-  document.adoptedStylesheets = [
-    ...document.adoptedStylesheets,
+  document.adoptedStyleSheets = [
+    ...document.adoptedStyleSheets,
     appLoaderStylesheet,
   ]
   const appJsPromise = loadAppJs()
-  const appCssPromise = loadAppCss()
+  const appCssPromise = loadAppCss(new URL("/src/app/app.css", import.meta.url))
   const appDepsPromise = loadAppDependencies()
 
   await appDepsPromise

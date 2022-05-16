@@ -48,7 +48,7 @@
     "@babel/eslint-parser": "7.17.0",
     "@babel/plugin-syntax-import-assertions": "7.16.7",
     "@jsenv/assert": "2.5.4",
-    "@jsenv/core": "27.0.0-alpha.29",
+    "@jsenv/core": "27.0.0-alpha.30",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/eslint-import-resolver": "0.1.5",
     "@jsenv/file-size-impact": "12.1.12",

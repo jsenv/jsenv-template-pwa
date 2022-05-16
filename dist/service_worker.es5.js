@@ -17,13 +17,10 @@ self.serviceWorkerUrls = {
   "/other/roboto_v27_latin_regular.woff2?v=cc46322d": {
     "versioned": true
   },
-  "/css/app_loader.css?v=34b60847": {
-    "versioned": true
-  },
   "/css/app.css?v=7afa9575": {
     "versioned": true
   },
-  "/js/app_loader.es5.js?as_js_classic&v=e12156b4": {
+  "/js/app_loader.es5.js?as_js_classic&v=728fcf8c": {
     "versioned": true
   },
   "/js/app.es5.js?as_js_classic&v=60345a0c": {
@@ -47,12 +44,12 @@ self.serviceWorkerUrls = {
 };
 
 var __versionMappings__ = {
-  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=e12156b4",
+  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=728fcf8c",
   "/js/dev_ribbon.es5.js": "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
-  "/css/app_loader.css": "/css/app_loader.css?v=34b60847",
   "/css/app.css": "/css/app.css?v=7afa9575",
   "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=60345a0c",
-  "/other/logo.png": "/other/logo.png?v=25e95a00"
+  "/other/logo.png": "/other/logo.png?v=25e95a00",
+  "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;
 __envGlobal__.__v__ = function (specifier) {
