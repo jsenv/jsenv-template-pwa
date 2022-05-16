@@ -1,6 +1,6 @@
 
 self.serviceWorkerUrls = {
-  "/jsenv-template-pwa/main.html": {
+  "/jsenv-template-pwa/index.html": {
     "versioned": false,
     "version": "251eec80"
   },
