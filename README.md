@@ -4,4 +4,4 @@
 
 Project short description.
 
-This project is deployed at https://jsenv-pwa-template.herokuapp.com.
+This project is deployed at https://jsenv.github.io/jsenv-template-pwa/.
