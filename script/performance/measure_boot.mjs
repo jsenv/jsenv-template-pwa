@@ -1,9 +1,11 @@
 import { chromium } from "playwright"
 
+process.env.LOG_LEVEL = "warn"
 const { server } = await import("../build/preview.mjs")
-
 const browser = await chromium.launch()
-const browserContext = await browser.newContext()
+const browserContext = await browser.newContext({
+  ignoreHTTPSErrors: true,
+})
 const page = await browserContext.newPage()
 await page.goto(server.origin)
 const measures = await page.evaluate(
@@ -21,6 +23,7 @@ const measures = await page.evaluate(
   /* eslint-enable no-undef */
 )
 await browser.close()
+await server.stop()
 
 const metrics = {}
 Object.keys(measures).forEach((measureName) => {
