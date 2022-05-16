@@ -1,7 +1,6 @@
 <!--
-README about the GitHub repository template.
-Once the template is used, this README should be
-deleted and only ../README.md should be kept
+README about the GitHub repository template. Once the template is used,
+this README should be deleted and only ../README.md should be kept
 -->
 
 # Progressive Web Application template
@@ -12,15 +11,13 @@ _Screenshot of [lighthouse](https://github.com/GoogleChrome/lighthouse#lighthous
 
 ![lighthouse score screenshot](../docs/lighthouse_score.png)
 
-The application is deployed at https://jsenv-pwa-template.herokuapp.com.
+The application is deployed at https://jsenv.github.io/jsenv-template-pwa/.
 
 # How to use
 
 > If you want to create a regular web application without PWA compatibility, use this template and remove files specific to PWA as explained in [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility).
 
-Create a GitHub repository using this template at https://github.com/jsenv/jsenv-template-pwa/generate.
-Then follow checklist below to setup your repository.
-
+- [ ] Create a GitHub repository using this template: https://github.com/jsenv/jsenv-template-pwa/generate
 - [ ] Update fields in [package.json](../package.json), especially `"name"`, `"description"`, and `"author"`
 - [ ] Update [README.md](../README.md) and delete `.github/README.md`
 - [ ] Review [LICENSE.txt](./LICENSE.txt) and `"license"` in [package.json](../package.json#L6)
@@ -34,12 +31,12 @@ Documentation of the features, how to use and or remove them.
 - [import resolution](../docs/import_resolution/readme.md#import-resolution): Standard import resolution enhanced with Node ESM resolution
 - [Production mode](../docs/production_mode/readme.md#production-mode): Ability to write code specific to production or development
 - [Development server](../docs/dev_server/readme.md#Development-server): A dev server with auto reload
-- [Testing](../docs/testing/readme.md#testing): Run tests on Chrome, Firefox and Webkit with jsenv
+- [Testing](../docs/testing/readme.md#testing): Run your tests with jsenv
 - [Code coverage](../docs/code_coverage/readme.md#Code-coverage): Code coverage with codecov
 - [Building](../docs/building/readme.md#Building): Optimize files for production
 - [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
 - [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility): Offline + add to home screen compatibility
-- [Deploying](../docs/deploying/readme.md#deploying): Auto deployment with heroku
+- [Deploying](../docs/deploying/readme.md#deploying): Auto deployment with github pages
 
 # Things to know
 
