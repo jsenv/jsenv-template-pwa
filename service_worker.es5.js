@@ -20,6 +20,12 @@ self.serviceWorkerUrls = {
   "/jsenv-template-pwa/css/app.css?v=e37e2d0a": {
     "versioned": true
   },
+  "/jsenv-template-pwa/js/app_loader.es5.js?as_js_classic&v=83c7e74e": {
+    "versioned": true
+  },
+  "/jsenv-template-pwa/js/app.es5.js?as_js_classic&v=2abda219": {
+    "versioned": true
+  },
   "/jsenv-template-pwa/js/s.js?v=e95730e3": {
     "versioned": true
   },
@@ -35,7 +41,9 @@ self.serviceWorkerUrls = {
 };
 
 var __versionMappings__ = {
+  "/jsenv-template-pwa/js/app_loader.es5.js": "/jsenv-template-pwa/js/app_loader.es5.js?as_js_classic&v=83c7e74e",
   "/jsenv-template-pwa/css/app.css": "/jsenv-template-pwa/css/app.css?v=e37e2d0a",
+  "/jsenv-template-pwa/js/app.es5.js": "/jsenv-template-pwa/js/app.es5.js?as_js_classic&v=2abda219",
   "/jsenv-template-pwa/other/logo.png": "/jsenv-template-pwa/other/logo.png?v=25e95a00",
   "/jsenv-template-pwa/other/roboto_v27_latin_regular.woff2": "/jsenv-template-pwa/other/roboto_v27_latin_regular.woff2?v=cc46322d"
 };
