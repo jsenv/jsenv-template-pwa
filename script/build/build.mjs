@@ -11,7 +11,6 @@ import { copyEntry } from "@jsenv/filesystem"
 import { rootDirectoryUrl, runtimeCompat } from "../../jsenv.config.mjs"
 
 await build({
-  logLevel: process.env.LOG_LEVEL,
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
   runtimeCompat,
@@ -19,10 +18,12 @@ await build({
   entryPoints: {
     "./src/main.html": "main.html",
   },
-  // minification is disabled to make build files readable as it can
-  // help to understand what is going on while discovering this project template.
-  // In the real project you likely want to re-enable minification
-  minification: false,
+  baseUrl: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
+  // minification is disabled during preview to help discover what is generated
+  // during build by this project template.
+  // In the real project you likely want to keep minification during preview
+  minification: !process.argv.includes("--preview"),
+  sourcemaps: process.argv.includes("--lighthouse"),
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
 })
