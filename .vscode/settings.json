@@ -1,8 +1,0 @@
-{
-  "search.exclude": {
-    "/.jsenv/**": true,
-    "/dist/**": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.validate": ["javascript", "html"]
-}
