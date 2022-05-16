@@ -4,12 +4,9 @@
   "other/pwa.webmanifest": "other/pwa.webmanifest",
   "other/logo.png": "other/logo.png?v=25e95a00",
   "other/roboto_v27_latin_regular.woff2": "other/roboto_v27_latin_regular.woff2?v=cc46322d",
-  "css/app.css": "css/app.css?v=7afa9575",
-  "js/app_loader.es5.js?as_js_classic": "js/app_loader.es5.js?as_js_classic&v=728fcf8c",
-  "js/app.es5.js?as_js_classic": "js/app.es5.js?as_js_classic&v=60345a0c",
-  "js/dev_ribbon.es5.js?as_js_classic": "js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
+  "css/app.css": "css/app.css?v=e37e2d0a",
   "service_worker.es5.js?as_js_classic": "service_worker.es5.js?as_js_classic",
-  "js/s.js": "js/s.js?v=1e59a607",
+  "js/s.js": "js/s.js?v=e95730e3",
   "main.html@L22-L44.css": "main.html@L22-L44.css",
   "main.html@L49-L57.css": "main.html@L49-L57.css",
   "main.html@L64-L72.css": "main.html@L64-L72.css",
@@ -22,5 +19,5 @@
   "other/maskable_icon_192.png": "other/maskable_icon_192.png?v=c20be9d4",
   "main.html@L218-L245.js": "main.html@L218-L245.js",
   "main.html@L262-L266.js": "main.html@L262-L266.js",
-  "js/app_loader.es5.js@L475C40-L475C279.css": "js/app_loader.es5.js@L475C40-L475C279.css"
+  "js/app_loader.es5.js@L1C6170-L1C6382.css": "js/app_loader.es5.js@L1C6170-L1C6382.css"
 }

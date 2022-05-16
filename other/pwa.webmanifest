@@ -8,18 +8,18 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/other/pwa_icon_192.png?v=574c1c76",
+      "src": "/jsenv-template-pwa/other/pwa_icon_192.png?v=574c1c76",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/other/pwa_icon_512.png?v=d2dd96fd",
+      "src": "/jsenv-template-pwa/other/pwa_icon_512.png?v=d2dd96fd",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
       "purpose": "maskable",
-      "src": "/other/maskable_icon_192.png?v=c20be9d4",
+      "src": "/jsenv-template-pwa/other/maskable_icon_192.png?v=c20be9d4",
       "sizes": "192x192",
       "type": "image/png"
     }
