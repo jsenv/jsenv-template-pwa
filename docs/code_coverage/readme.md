@@ -8,7 +8,7 @@ Codecov will post message into pull requests.
 
 ![stuff](./codecov_pr_comment.png)
 
-And is used to display a badge in the readme.
+And can be used to display a badge in the readme.
 
 ![stuff](./codecov_badge.png)
 

@@ -6,16 +6,17 @@ In order to optimize files for production use `node ./script/build/build.mjs` or
 > node ./script/build/build.mjs
 
 build "./src/main.html"
-✔ prebuild (done in 1 second)
-✔ bundle "css" (done in not implemented)
+✔ prebuild (done in 1.1 seconds)
+✔ bundle "css" (done in 0 second)
 ✔ bundle "js_module" (done in 0.1 second)
-✔ build (done in 0.2 second)
+✔ build (done in 0.7 second)
 ✔ inject version in urls (done in 0.1 second)
 --- build files ---
-- html: 1 (8.88 KB)
-- js: 4 (58.49 KB)
+- html: 1 (5.35 KB)
+- css: 1 (66 B)
+- js: 4 (35.14 KB)
 - other: 7 (99.13 KB)
-Total 12 (166.51 KB)
+Total 13 (139.69 KB)
 --------------------
 ```
 
