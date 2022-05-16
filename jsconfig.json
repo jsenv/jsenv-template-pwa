@@ -2,18 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@jsenv/template-pwa/*": [
-        "./*"
-      ],
-      "@jsenv/template-pwa": [
-        "./index"
-      ],
-      "#env": [
-        "./src/env_dev.js"
-      ],
-      "root/*": [
-        "./*"
-      ]
+      "/*": ["./*"],
+      "@jsenv/template-pwa/*": ["./*"]
     }
   }
 }

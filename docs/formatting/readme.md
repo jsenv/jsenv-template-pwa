@@ -10,11 +10,7 @@ The prettier configuration can be found in [.prettierrc.yml](../../.prettierrc.y
 
 Install [prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and **let the extension do the formatting** when you save a file.
 
-This repository has pre-configured the following commands related to prettier:
-
-| Command          | Description                     | Screenshot                               |
-| ---------------- | ------------------------------- | ---------------------------------------- |
-| npm run prettier | Format all files in the project | ![stuff](./prettier-format-terminal.png) |
+This repository has pre-configured `npm run prettier` to format all files with prettier
 
 # How to remove prettier
 
