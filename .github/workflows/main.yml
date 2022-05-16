@@ -13,7 +13,6 @@
 # configured to validate this file with https://json.schemastore.org/github-workflow.json
 
 name: main
-
 on:
   pull_request:
     branches:
@@ -21,7 +20,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   test:
     strategy:

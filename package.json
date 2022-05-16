@@ -36,19 +36,17 @@
     "start": "npm run preview",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "certificate-install": "node ./script/dev/install_certificate.mjs",
-    "heroku-postbuild": "npm run build"
+    "certificate-install": "node ./script/dev/install_certificate.mjs"
   },
   "dependencies": {
-    "@jsenv/pwa": "5.0.0",
-    "@jsenv/server": "12.6.1"
+    "@jsenv/pwa": "5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.17.10",
     "@babel/eslint-parser": "7.17.0",
     "@babel/plugin-syntax-import-assertions": "7.16.7",
     "@jsenv/assert": "2.5.4",
-    "@jsenv/core": "27.0.0-alpha.30",
+    "@jsenv/core": "27.0.0-alpha.31",
     "@jsenv/eslint-config": "16.0.9",
     "@jsenv/eslint-import-resolver": "0.1.5",
     "@jsenv/file-size-impact": "12.1.12",
