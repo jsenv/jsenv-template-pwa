@@ -45,3 +45,26 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/coverage.json
           verbose: true
+
+  build_and_deploy:
+    needs: [test]
+    if: success() && github.event_name == 'push'
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ⬇️
+        uses: actions/checkout@v3
+      - name: Setup node 🔧
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.13.0"
+      - name: Install node modules ⬇️
+        run: npm install
+      - name: Build 🚧
+        run: npm run build
+      - name: Deploy 🚀
+        # https://github.com/JamesIves/github-pages-deploy-action
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: dist
