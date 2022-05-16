@@ -35,21 +35,21 @@ Use `npm test` command. It is configured to execute [script/test/test.mjs](../..
 Test files are executed twice, a first time on Chrome, a second time on Firefox.
 
 ```console
-❯ node ./script/test/test.mjs
+> node ./script/test/test.mjs
 
 ✔ execution 1 of 2 completed (all completed)
 file: test/greet.test.html
-runtime: chromium/82.0.4057.0
-duration: 2.3 seconds
+runtime: chromium/97.0.4666.0
+duration: 1.6 seconds
 
 ✔ execution 2 of 2 completed (all completed)
 file: test/greet.test.html
-runtime: firefox/73.0b13
-duration: 3.1 seconds
+runtime: firefox/93.0
+duration: 1.6 seconds
 
 -------------- summary -----------------
-2 execution: all completed
-total duration: 5.42 seconds
+2 executions: all completed
+total duration: 3.7 seconds
 ----------------------------------------
 ```
 
@@ -57,12 +57,12 @@ total duration: 5.42 seconds
 
 If you don't need test or want to use an other test framework/library follow the steps below.
 
-1. Remove `check tests` step in [.github/workflows/main.yml](../../.github/workflows/main.yml#L44)
-2. Remove these `"scripts"` in [package.json](../../package.json#L24)
+1. Remove `Run tests` step in [.github/workflows/main.yml](../../.github/workflows/main.yml#L40)
+2. Remove these `"scripts"` in [package.json](../../package.json#L26)
 
    - `"test"`
    - `"test-with-coverage"`
    - `"playwright-install"`
 
 3. Delete [script/test/](../../script/test/) directory
-4. Remove `"@jsenv/assert"` from `"devDependencies"` [package.json](../../package.json#L47)
+4. Remove `"@jsenv/assert"` from `"devDependencies"` [package.json](../../package.json#L44)
