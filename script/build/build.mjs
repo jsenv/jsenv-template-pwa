@@ -16,7 +16,7 @@ await build({
   runtimeCompat,
   buildDirectoryClean: true,
   entryPoints: {
-    "./src/main.html": "main.html",
+    "./src/main.html": "index.html",
   },
   baseUrl: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
   // minification is disabled during preview to help discover what is generated

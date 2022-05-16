@@ -1,6 +1,6 @@
 
 self.serviceWorkerUrls = {
-  "/main.html": {
+  "/index.html": {
     "versioned": false,
     "version": "ba58973b"
   },

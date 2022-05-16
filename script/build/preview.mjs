@@ -16,7 +16,7 @@ export const server = await startBuildServer({
     : "node script/build/build.mjs --preview",
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  mainBuildFile: "main.html",
+  mainBuildFile: "/index.html",
   autorestart: {
     url: import.meta.url,
   },
