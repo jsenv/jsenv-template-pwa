@@ -146,10 +146,10 @@
     <!--
       Booting the application
       - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
-      - <div id="splashscreen"> is displayed when:
-        - Network is slow, so HTML is slow to fetch "app_loader.js"
-        - Error while fetching, parsing or executing "app_loader.js"
-        - Application starts in less than 300ms (yes it happens thanks to long term cache)
+      - <div id="booting_screen"> is displayed while fetching "app_loader.js"
+        and until loadApp is done
+      - <div id="booting_error_screen"> is displayed when there is an error
+        while error while fetching, parsing or executing "app_loader.js"
     -->
     <style>
       #booting_screen,

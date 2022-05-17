@@ -33,7 +33,7 @@ export const loadApp = async ({ appNode }) => {
       }
     }),
   ])
-  await performance.measure(`app displayed`)
+  performance.measure(`app displayed`)
 }
 
 const loadAppJs = async () => {
