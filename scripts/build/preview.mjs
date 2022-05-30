@@ -1,3 +1,4 @@
+import { parentPort } from "node:worker_threads"
 import { startBuildServer } from "@jsenv/core"
 import { requestCertificateForLocalhost } from "@jsenv/https-local"
 
@@ -11,13 +12,9 @@ export const server = await startBuildServer({
   protocol: "https",
   certificate: serverCertificate,
   privateKey: serverCertificatePrivateKey,
-  buildCommand: process.env.LIGHTHOUSE
-    ? "node scripts/build/build.mjs --lighthouse"
-    : "node scripts/build/build.mjs --preview",
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  mainBuildFile: "/index.html",
-  autorestart: {
-    url: import.meta.url,
-  },
+  buildServerMainFile: import.meta.url,
+  // disable autoreload when inside worker thread (happen when launched by performance.mjs)
+  buildServerAutoreload: !parentPort,
 })
