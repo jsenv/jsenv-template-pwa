@@ -2,7 +2,7 @@
 self.serviceWorkerUrls = {
   "/index.html": {
     "versioned": false,
-    "version": "ba58973b"
+    "version": "f593d46c"
   },
   "/other/favicon.png?v=25e95a00": {
     "versioned": true
@@ -17,19 +17,22 @@ self.serviceWorkerUrls = {
   "/other/roboto_v27_latin_regular.woff2?v=cc46322d": {
     "versioned": true
   },
-  "/css/app.css?v=7afa9575": {
+  "/css/app.css?v=c2350902": {
     "versioned": true
   },
-  "/js/app_loader.es5.js?as_js_classic&v=728fcf8c": {
+  "/js/app_loader.es5.js?as_js_classic&v=74163e63": {
     "versioned": true
   },
-  "/js/app.es5.js?as_js_classic&v=60345a0c": {
+  "/js/app.es5.js?as_js_classic&v=bf45f408": {
     "versioned": true
   },
   "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0": {
     "versioned": true
   },
-  "/js/s.js?v=1e59a607": {
+  "/js/s.js?v=85d5759e": {
+    "versioned": true
+  },
+  "/js/babel_helpers.es5.js?as_js_classic&v=ea51f958": {
     "versioned": true
   },
   "/other/pwa_icon_192.png?v=574c1c76": {
@@ -44,184 +47,898 @@ self.serviceWorkerUrls = {
 };
 
 var __versionMappings__ = {
-  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=728fcf8c",
+  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=74163e63",
   "/js/dev_ribbon.es5.js": "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
-  "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=60345a0c",
-  "/other/logo.png": "/other/logo.png?v=25e95a00",
-  "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d"
+  "/css/app.css": "/css/app.css?v=c2350902",
+  "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=bf45f408",
+  "/js/babel_helpers.es5.js": "/js/babel_helpers.es5.js?as_js_classic&v=ea51f958",
+  "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
+  "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
 var __envGlobal__ = typeof self === 'undefined' ? global : self;
 __envGlobal__.__v__ = function (specifier) {
   return __versionMappings__[specifier] || specifier
 };
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define([], factory);
-  } else if (typeof exports !== "undefined") {
-    factory();
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory();
-    global.service_workerEs5 = mod.exports;
+/*
+* SJS 6.12.1
+* Minimal SystemJS Build
+*/
+(function () {
+
+  function errMsg(errCode, msg) {
+    return (msg || "") + " (SystemJS https://git.io/JvFET#" + errCode + ")";
   }
-})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function () {
+
+  var hasSymbol = typeof Symbol !== 'undefined';
+  var hasSelf = typeof self !== 'undefined';
+  var hasDocument = typeof document !== 'undefined';
+
+  var envGlobal = hasSelf ? self : global;
+
+  var baseUrl;
+
+  if (hasDocument) {
+    var baseEl = document.querySelector('base[href]');
+    if (baseEl)
+      baseUrl = baseEl.href;
+  }
+
+  if (!baseUrl && typeof location !== 'undefined') {
+    baseUrl = location.href.split('#')[0].split('?')[0];
+    var lastSepIndex = baseUrl.lastIndexOf('/');
+    if (lastSepIndex !== -1)
+      baseUrl = baseUrl.slice(0, lastSepIndex + 1);
+  }
+
+  var backslashRegEx = /\\/g;
+  function resolveIfNotPlainOrUrl (relUrl, parentUrl) {
+    if (relUrl.indexOf('\\') !== -1)
+      relUrl = relUrl.replace(backslashRegEx, '/');
+    // protocol-relative
+    if (relUrl[0] === '/' && relUrl[1] === '/') {
+      return parentUrl.slice(0, parentUrl.indexOf(':') + 1) + relUrl;
+    }
+    // relative-url
+    else if (relUrl[0] === '.' && (relUrl[1] === '/' || relUrl[1] === '.' && (relUrl[2] === '/' || relUrl.length === 2 && (relUrl += '/')) ||
+        relUrl.length === 1  && (relUrl += '/')) ||
+        relUrl[0] === '/') {
+      var parentProtocol = parentUrl.slice(0, parentUrl.indexOf(':') + 1);
+      // Disabled, but these cases will give inconsistent results for deep backtracking
+      //if (parentUrl[parentProtocol.length] !== '/')
+      //  throw Error('Cannot resolve');
+      // read pathname from parent URL
+      // pathname taken to be part after leading "/"
+      var pathname;
+      if (parentUrl[parentProtocol.length + 1] === '/') {
+        // resolving to a :// so we need to read out the auth and host
+        if (parentProtocol !== 'file:') {
+          pathname = parentUrl.slice(parentProtocol.length + 2);
+          pathname = pathname.slice(pathname.indexOf('/') + 1);
+        }
+        else {
+          pathname = parentUrl.slice(8);
+        }
+      }
+      else {
+        // resolving to :/ so pathname is the /... part
+        pathname = parentUrl.slice(parentProtocol.length + (parentUrl[parentProtocol.length] === '/'));
+      }
+
+      if (relUrl[0] === '/')
+        return parentUrl.slice(0, parentUrl.length - pathname.length - 1) + relUrl;
+
+      // join together and split for removal of .. and . segments
+      // looping the string instead of anything fancy for perf reasons
+      // '../../../../../z' resolved to 'x/y' is just 'z'
+      var segmented = pathname.slice(0, pathname.lastIndexOf('/') + 1) + relUrl;
+
+      var output = [];
+      var segmentIndex = -1;
+      for (var i = 0; i < segmented.length; i++) {
+        // busy reading a segment - only terminate on '/'
+        if (segmentIndex !== -1) {
+          if (segmented[i] === '/') {
+            output.push(segmented.slice(segmentIndex, i + 1));
+            segmentIndex = -1;
+          }
+        }
+
+        // new segment - check if it is relative
+        else if (segmented[i] === '.') {
+          // ../ segment
+          if (segmented[i + 1] === '.' && (segmented[i + 2] === '/' || i + 2 === segmented.length)) {
+            output.pop();
+            i += 2;
+          }
+          // ./ segment
+          else if (segmented[i + 1] === '/' || i + 1 === segmented.length) {
+            i += 1;
+          }
+          else {
+            // the start of a new segment as below
+            segmentIndex = i;
+          }
+        }
+        // it is the start of a new segment
+        else {
+          segmentIndex = i;
+        }
+      }
+      // finish reading out the last segment
+      if (segmentIndex !== -1)
+        output.push(segmented.slice(segmentIndex));
+      return parentUrl.slice(0, parentUrl.length - pathname.length) + output.join('');
+    }
+  }
+
+  /*
+   * Import maps implementation
+   *
+   * To make lookups fast we pre-resolve the entire import map
+   * and then match based on backtracked hash lookups
+   *
+   */
+
+  function resolveUrl (relUrl, parentUrl) {
+    return resolveIfNotPlainOrUrl(relUrl, parentUrl) || (relUrl.indexOf(':') !== -1 ? relUrl : resolveIfNotPlainOrUrl('./' + relUrl, parentUrl));
+  }
+
+  function resolveAndComposePackages (packages, outPackages, baseUrl, parentMap, parentUrl) {
+    for (var p in packages) {
+      var resolvedLhs = resolveIfNotPlainOrUrl(p, baseUrl) || p;
+      var rhs = packages[p];
+      // package fallbacks not currently supported
+      if (typeof rhs !== 'string')
+        continue;
+      var mapped = resolveImportMap(parentMap, resolveIfNotPlainOrUrl(rhs, baseUrl) || rhs, parentUrl);
+      if (!mapped) {
+        targetWarning('W1', p, rhs);
+      }
+      else
+        outPackages[resolvedLhs] = mapped;
+    }
+  }
+
+  function resolveAndComposeImportMap (json, baseUrl, outMap) {
+    if (json.imports)
+      resolveAndComposePackages(json.imports, outMap.imports, baseUrl, outMap, null);
+
+    var u;
+    for (u in json.scopes || {}) {
+      var resolvedScope = resolveUrl(u, baseUrl);
+      resolveAndComposePackages(json.scopes[u], outMap.scopes[resolvedScope] || (outMap.scopes[resolvedScope] = {}), baseUrl, outMap, resolvedScope);
+    }
+
+    for (u in json.depcache || {})
+      outMap.depcache[resolveUrl(u, baseUrl)] = json.depcache[u];
+    
+    for (u in json.integrity || {})
+      outMap.integrity[resolveUrl(u, baseUrl)] = json.integrity[u];
+  }
+
+  function getMatch (path, matchObj) {
+    if (matchObj[path])
+      return path;
+    var sepIndex = path.length;
+    do {
+      var segment = path.slice(0, sepIndex + 1);
+      if (segment in matchObj)
+        return segment;
+    } while ((sepIndex = path.lastIndexOf('/', sepIndex - 1)) !== -1)
+  }
+
+  function applyPackages (id, packages) {
+    var pkgName = getMatch(id, packages);
+    if (pkgName) {
+      var pkg = packages[pkgName];
+      if (pkg === null) return;
+      if (id.length > pkgName.length && pkg[pkg.length - 1] !== '/') {
+        targetWarning('W2', pkgName, pkg);
+      }
+      else
+        return pkg + id.slice(pkgName.length);
+    }
+  }
+
+  function targetWarning (code, match, target, msg) {
+    console.warn(errMsg(code, [target, match].join(', ') ));
+  }
+
+  function resolveImportMap (importMap, resolvedOrPlain, parentUrl) {
+    var scopes = importMap.scopes;
+    var scopeUrl = parentUrl && getMatch(parentUrl, scopes);
+    while (scopeUrl) {
+      var packageResolution = applyPackages(resolvedOrPlain, scopes[scopeUrl]);
+      if (packageResolution)
+        return packageResolution;
+      scopeUrl = getMatch(scopeUrl.slice(0, scopeUrl.lastIndexOf('/')), scopes);
+    }
+    return applyPackages(resolvedOrPlain, importMap.imports) || resolvedOrPlain.indexOf(':') !== -1 && resolvedOrPlain;
+  }
+
+  /*
+   * SystemJS Core
+   * 
+   * Provides
+   * - System.import
+   * - System.register support for
+   *     live bindings, function hoisting through circular references,
+   *     reexports, dynamic import, import.meta.url, top-level await
+   * - System.getRegister to get the registration
+   * - Symbol.toStringTag support in Module objects
+   * - Hookable System.createContext to customize import.meta
+   * - System.onload(err, id, deps) handler for tracing / hot-reloading
+   * 
+   * Core comes with no System.prototype.resolve or
+   * System.prototype.instantiate implementations
+   */
+
+  var toStringTag = hasSymbol && Symbol.toStringTag;
+  var REGISTRY = hasSymbol ? Symbol() : '@';
+
+  function SystemJS () {
+    this[REGISTRY] = {};
+  }
+
+  var systemJSPrototype = SystemJS.prototype;
+
+  systemJSPrototype.import = function (id, parentUrl) {
+    var loader = this;
+    return Promise.resolve(loader.prepareImport())
+    .then(function() {
+      return loader.resolve(String(id), parentUrl);
+    })
+    .then(function (id) {
+      var load = getOrCreateLoad(loader, id);
+      return load.C || topLevelLoad(loader, load);
+    });
+  };
+
+  // Hookable createContext function -> allowing eg custom import meta
+  systemJSPrototype.createContext = function (parentId) {
+    var loader = this;
+    return {
+      url: parentId,
+      resolve: function (id, parentUrl) {
+        return Promise.resolve(loader.resolve(id, parentUrl || parentId));
+      }
+    };
+  };
+  function loadToId (load) {
+    return load.id;
+  }
+  function triggerOnload (loader, load, err, isErrSource) {
+    loader.onload(err, load.id, load.d && load.d.map(loadToId), !!isErrSource);
+    if (err)
+      throw err;
+  }
+
+  var lastRegister;
+  systemJSPrototype.register = function (deps, declare) {
+    lastRegister = [deps, declare];
+  };
+
+  /*
+   * getRegister provides the last anonymous System.register call
+   */
+  systemJSPrototype.getRegister = function () {
+    var _lastRegister = lastRegister;
+    lastRegister = undefined;
+    return _lastRegister;
+  };
+
+  function getOrCreateLoad (loader, id, firstParentUrl) {
+    var load = loader[REGISTRY][id];
+    if (load)
+      return load;
+
+    var importerSetters = [];
+    var ns = Object.create(null);
+    if (toStringTag)
+      Object.defineProperty(ns, toStringTag, { value: 'Module' });
+    
+    var instantiatePromise = Promise.resolve()
+    .then(function () {
+      return loader.instantiate(id, firstParentUrl);
+    })
+    .then(function (registration) {
+      if (!registration)
+        throw Error(errMsg(2, id ));
+      function _export (name, value) {
+        // note if we have hoisted exports (including reexports)
+        load.h = true;
+        var changed = false;
+        if (typeof name === 'string') {
+          if (!(name in ns) || ns[name] !== value) {
+            ns[name] = value;
+            changed = true;
+          }
+        }
+        else {
+          for (var p in name) {
+            var value = name[p];
+            if (!(p in ns) || ns[p] !== value) {
+              ns[p] = value;
+              changed = true;
+            }
+          }
+
+          if (name && name.__esModule) {
+            ns.__esModule = name.__esModule;
+          }
+        }
+        if (changed)
+          for (var i = 0; i < importerSetters.length; i++) {
+            var setter = importerSetters[i];
+            if (setter) setter(ns);
+          }
+        return value;
+      }
+      var declared = registration[1](_export, registration[1].length === 2 ? {
+        import: function (importId) {
+          return loader.import(importId, id);
+        },
+        meta: loader.createContext(id)
+      } : undefined);
+      load.e = declared.execute || function () {};
+      return [registration[0], declared.setters || []];
+    }, function (err) {
+      load.e = null;
+      load.er = err;
+      throw err;
+    });
+
+    var linkPromise = instantiatePromise
+    .then(function (instantiation) {
+      return Promise.all(instantiation[0].map(function (dep, i) {
+        var setter = instantiation[1][i];
+        return Promise.resolve(loader.resolve(dep, id))
+        .then(function (depId) {
+          var depLoad = getOrCreateLoad(loader, depId, id);
+          // depLoad.I may be undefined for already-evaluated
+          return Promise.resolve(depLoad.I)
+          .then(function () {
+            if (setter) {
+              depLoad.i.push(setter);
+              // only run early setters when there are hoisted exports of that module
+              // the timing works here as pending hoisted export calls will trigger through importerSetters
+              if (depLoad.h || !depLoad.I)
+                setter(depLoad.n);
+            }
+            return depLoad;
+          });
+        });
+      }))
+      .then(function (depLoads) {
+        load.d = depLoads;
+      });
+    });
+
+    // Capital letter = a promise function
+    return load = loader[REGISTRY][id] = {
+      id: id,
+      // importerSetters, the setters functions registered to this dependency
+      // we retain this to add more later
+      i: importerSetters,
+      // module namespace object
+      n: ns,
+
+      // instantiate
+      I: instantiatePromise,
+      // link
+      L: linkPromise,
+      // whether it has hoisted exports
+      h: false,
+
+      // On instantiate completion we have populated:
+      // dependency load records
+      d: undefined,
+      // execution function
+      e: undefined,
+
+      // On execution we have populated:
+      // the execution error if any
+      er: undefined,
+      // in the case of TLA, the execution promise
+      E: undefined,
+
+      // On execution, L, I, E cleared
+
+      // Promise for top-level completion
+      C: undefined,
+
+      // parent instantiator / executor
+      p: undefined
+    };
+  }
+
+  function instantiateAll (loader, load, parent, loaded) {
+    if (!loaded[load.id]) {
+      loaded[load.id] = true;
+      // load.L may be undefined for already-instantiated
+      return Promise.resolve(load.L)
+      .then(function () {
+        if (!load.p || load.p.e === null)
+          load.p = parent;
+        return Promise.all(load.d.map(function (dep) {
+          return instantiateAll(loader, dep, parent, loaded);
+        }));
+      })
+      .catch(function (err) {
+        if (load.er)
+          throw err;
+        load.e = null;
+        throw err;
+      });
+    }
+  }
+
+  function topLevelLoad (loader, load) {
+    return load.C = instantiateAll(loader, load, load, {})
+    .then(function () {
+      return postOrderExec(loader, load, {});
+    })
+    .then(function () {
+      return load.n;
+    });
+  }
+
+  // the closest we can get to call(undefined)
+  var nullContext = Object.freeze(Object.create(null));
+
+  // returns a promise if and only if a top-level await subgraph
+  // throws on sync errors
+  function postOrderExec (loader, load, seen) {
+    if (seen[load.id])
+      return;
+    seen[load.id] = true;
+
+    if (!load.e) {
+      if (load.er)
+        throw load.er;
+      if (load.E)
+        return load.E;
+      return;
+    }
+
+    // deps execute first, unless circular
+    var depLoadPromises;
+    load.d.forEach(function (depLoad) {
+      try {
+        var depLoadPromise = postOrderExec(loader, depLoad, seen);
+        if (depLoadPromise) 
+          (depLoadPromises = depLoadPromises || []).push(depLoadPromise);
+      }
+      catch (err) {
+        load.e = null;
+        load.er = err;
+        throw err;
+      }
+    });
+    if (depLoadPromises)
+      return Promise.all(depLoadPromises).then(doExec);
+
+    return doExec();
+
+    function doExec () {
+      try {
+        var execPromise = load.e.call(nullContext);
+        if (execPromise) {
+          execPromise = execPromise.then(function () {
+            load.C = load.n;
+            load.E = null; // indicates completion
+            if (!true) ;
+          }, function (err) {
+            load.er = err;
+            load.E = null;
+            if (!true) ;
+            throw err;
+          });
+          return load.E = execPromise;
+        }
+        // (should be a promise, but a minify optimization to leave out Promise.resolve)
+        load.C = load.n;
+        load.L = load.I = undefined;
+      }
+      catch (err) {
+        load.er = err;
+        throw err;
+      }
+      finally {
+        load.e = null;
+      }
+    }
+  }
+
+  envGlobal.System = new SystemJS();
+
+  /*
+   * SystemJS browser attachments for script and import map processing
+   */
+
+  var importMapPromise = Promise.resolve();
+  var importMap = { imports: {}, scopes: {}, depcache: {}, integrity: {} };
+  systemJSPrototype.importMap = importMap;
+  systemJSPrototype.baseUrl = baseUrl;
+
+  // Scripts are processed immediately, on the first System.import, and on DOMReady.
+  // Import map scripts are processed only once (by being marked) and in order for each phase.
+  // This is to avoid using DOM mutation observers in core, although that would be an alternative.
+  var processFirst = hasDocument;
+  systemJSPrototype.prepareImport = function (doProcessScripts) {
+    if (processFirst || doProcessScripts) {
+      processScripts();
+      processFirst = false;
+    }
+    return importMapPromise;
+  };
+  if (hasDocument) {
+    processScripts();
+    window.addEventListener('DOMContentLoaded', processScripts);
+  }
+
+  function processScripts () {
+    [].forEach.call(document.querySelectorAll('script'), function (script) {
+      if (script.sp) // sp marker = systemjs processed
+        return;
+      // TODO: deprecate systemjs-module in next major now that we have auto import
+      if (script.type === 'systemjs-module') {
+        script.sp = true;
+        if (!script.src)
+          return;
+        System.import(script.src.slice(0, 7) === 'import:' ? script.src.slice(7) : resolveUrl(script.src, baseUrl)).catch(function (e) {
+          // if there is a script load error, dispatch an "error" event
+          // on the script tag.
+          if (e.message.indexOf('https://git.io/JvFET#3') > -1) {
+            var event = document.createEvent('Event');
+            event.initEvent('error', false, false);
+            script.dispatchEvent(event);
+          }
+          return Promise.reject(e);
+        });
+      }
+      else if (script.type === 'systemjs-importmap') {
+        script.sp = true;
+        // The passThrough property is for letting the module types fetch implementation know that this is not a SystemJS module.
+        var fetchPromise = script.src ? (System.fetch || fetch)(script.src, { integrity: script.integrity, passThrough: true }).then(function (res) {
+          if (!res.ok)
+            throw Error(res.status );
+          return res.text();
+        }).catch(function (err) {
+          err.message = errMsg('W4', script.src ) + '\n' + err.message;
+          console.warn(err);
+          if (typeof script.onerror === 'function') {
+              script.onerror();
+          }
+          return '{}';
+        }) : script.innerHTML;
+        importMapPromise = importMapPromise.then(function () {
+          return fetchPromise;
+        }).then(function (text) {
+          extendImportMap(importMap, text, script.src || baseUrl);
+          return importMap
+        });
+      }
+    });
+  }
+
+  function extendImportMap (importMap, newMapText, newMapUrl) {
+    var newMap = {};
+    try {
+      newMap = JSON.parse(newMapText);
+    } catch (err) {
+      console.warn(Error((errMsg('W5')  )));
+    }
+    resolveAndComposeImportMap(newMap, newMapUrl, importMap);
+  }
+  System.extendImportMap = extendImportMap
+
+  /*
+   * Script instantiation loading
+   */
+
+  if (hasDocument) {
+    window.addEventListener('error', function (evt) {
+      lastWindowErrorUrl = evt.filename;
+      lastWindowError = evt.error;
+    });
+    var baseOrigin = location.origin;
+  }
+
+  systemJSPrototype.createScript = function (url) {
+    var script = document.createElement('script');
+    script.async = true;
+    // Only add cross origin for actual cross origin
+    // this is because Safari triggers for all
+    // - https://bugs.webkit.org/show_bug.cgi?id=171566
+    if (url.indexOf(baseOrigin + '/'))
+      script.crossOrigin = 'anonymous';
+    var integrity = importMap.integrity[url];
+    if (integrity)
+      script.integrity = integrity;
+    script.src = url;
+    return script;
+  };
+
+  // Auto imports -> script tags can be inlined directly for load phase
+  var lastAutoImportDeps, lastAutoImportTimeout;
+  var autoImportCandidates = {};
+  var systemRegister = systemJSPrototype.register;
+  var inlineScriptCount = 0;
+  systemJSPrototype.register = function (deps, declare, autoUrl) {
+    if (hasDocument && document.readyState === 'loading' && typeof deps !== 'string') {
+      var scripts = document.querySelectorAll('script');
+      var lastScript = scripts[scripts.length - 1];
+      var lastAutoImportUrl
+      lastAutoImportDeps = deps;
+      if (lastScript && lastScript.src) {
+        lastAutoImportUrl = lastScript.src;
+      }
+      else if (autoUrl) {
+        lastAutoImportUrl = autoUrl
+      }
+      else {
+        inlineScriptCount++
+        lastAutoImportUrl = document.location.href + "__inline_script__" + inlineScriptCount;
+      }
+      // if this is already a System load, then the instantiate has already begun
+      // so this re-import has no consequence
+      var loader = this;
+      lastAutoImportTimeout = setTimeout(function () {
+        autoImportCandidates[lastAutoImportUrl] = [deps, declare];
+        loader.import(lastAutoImportUrl);
+      });
+    }
+    else {
+      lastAutoImportDeps = undefined;
+    }
+    return systemRegister.call(this, deps, declare);
+  };
+
+  var lastWindowErrorUrl, lastWindowError;
+  systemJSPrototype.instantiate = function (url, firstParentUrl) {
+    var autoImportRegistration = autoImportCandidates[url];
+    if (autoImportRegistration) {
+      delete autoImportCandidates[url];
+      return autoImportRegistration;
+    }
+    var loader = this;
+    return Promise.resolve(systemJSPrototype.createScript(url)).then(function (script) {
+      return new Promise(function (resolve, reject) {
+        script.addEventListener('error', function () {
+          reject(Error(errMsg(3, [url, firstParentUrl].join(', ') )));
+        });
+        script.addEventListener('load', function () {
+          document.head.removeChild(script);
+          // Note that if an error occurs that isn't caught by this if statement,
+          // that getRegister will return null and a "did not instantiate" error will be thrown.
+          if (lastWindowErrorUrl === url) {
+            reject(lastWindowError);
+          }
+          else {
+            var register = loader.getRegister(url);
+            // Clear any auto import registration for dynamic import scripts during load
+            if (register && register[0] === lastAutoImportDeps)
+              clearTimeout(lastAutoImportTimeout);
+            resolve(register);
+          }
+        });
+        document.head.appendChild(script);
+      });
+    });
+  };
+
+  /*
+   * Fetch loader, sets up shouldFetch and fetch hooks
+   */
+  systemJSPrototype.shouldFetch = function () {
+    return false;
+  };
+  if (typeof fetch !== 'undefined')
+    systemJSPrototype.fetch = fetch;
+
+  var instantiate = systemJSPrototype.instantiate;
+  var jsContentTypeRegEx = /^(text|application)\/(x-)?javascript(;|$)/;
+  systemJSPrototype.instantiate = function (url, parent) {
+    var loader = this;
+    if (!this.shouldFetch(url))
+      return instantiate.apply(this, arguments);
+    return this.fetch(url, {
+      credentials: 'same-origin',
+      integrity: importMap.integrity[url]
+    })
+    .then(function (res) {
+      if (!res.ok)
+        throw Error(errMsg(7, [res.status, res.statusText, url, parent].join(', ') ));
+      var contentType = res.headers.get('content-type');
+      if (!contentType || !jsContentTypeRegEx.test(contentType))
+        throw Error(errMsg(4, contentType ));
+      return res.text().then(function (source) {
+        if (source.indexOf('//# sourceURL=') < 0)
+          source += '\n//# sourceURL=' + url;
+        (0, eval)(source);
+        return loader.getRegister(url);
+      });
+    });
+  };
+
+  systemJSPrototype.resolve = function (id, parentUrl) {
+    parentUrl = parentUrl || !true  || baseUrl;
+    return resolveImportMap((importMap), resolveIfNotPlainOrUrl(id, parentUrl) || id, parentUrl) || throwUnresolved(id, parentUrl);
+  };
+
+  function throwUnresolved (id, parentUrl) {
+    throw Error(errMsg(8, [id, parentUrl].join(', ') ));
+  }
+
+  var systemInstantiate = systemJSPrototype.instantiate;
+  systemJSPrototype.instantiate = function (url, firstParentUrl) {
+    var preloads = (importMap).depcache[url];
+    if (preloads) {
+      for (var i = 0; i < preloads.length; i++)
+        getOrCreateLoad(this, this.resolve(preloads[i], url), url);
+    }
+    return systemInstantiate.call(this, url, firstParentUrl);
+  };
+
+  /*
+   * Supports loading System.register in workers
+   */
+
+  if (hasSelf && typeof importScripts === 'function') {
+    systemJSPrototype.instantiate = function (url) {
+      var loader = this;
+      return self.fetch(url, {
+        credentials: 'same-origin',
+      }).then(function (response) {
+        if (!response.ok) {
+          throw Error(errMsg(7,  [response.status, response.statusText, url].join(', ') ));
+        }
+        return response.text()
+      }).then(function (source) {
+        if (source.indexOf('//# sourceURL=') < 0) source += '\n//# sourceURL=' + url;
+        (0, eval)(source);
+        return loader.getRegister(url);
+      })
+    };
+  }
+
+}());
+
+(function(){
+  var envGlobal = typeof self !== 'undefined' ? self : global;
+  var System = envGlobal.System;
+
+  var registerRegistry = Object.create(null)
+  var register = System.register;
+  System.registerRegistry = registerRegistry;
+  System.register = function (name, deps, declare) {
+    if (typeof name !== 'string') return register.apply(this, arguments);
+    var define = [deps, declare];
+    return System.prepareImport().then(function () {
+      var url = System.resolve(`./${name}`);
+      registerRegistry[url] = define;
+      return register.call(System, deps, declare, url);
+    })
+  };
+
+  var instantiate = System.instantiate;
+  System.instantiate = function (url, firstParentUrl) {
+    var result = registerRegistry[url];
+
+    if (result) {
+      registerRegistry[url] = null;
+      return result;
+    } else {
+      return instantiate.call(this, url, firstParentUrl);
+    }
+  };
+
+  var getRegister = System.getRegister;
+  System.getRegister = function (url) {
+    // Calling getRegister() because other extras need to know it was called so they can perform side effects
+    var register = getRegister.call(this, url);
+    var result = registerRegistry[url] || register;
+    return result;
+  };
+}());
+
+(function () {
+  // worker or service worker
+  if (typeof WorkerGlobalScope === 'function' && self instanceof WorkerGlobalScope) {
+    /*
+     * SystemJs loads X files before executing the worker/service worker main file
+     * It mean events dispatched during this phase could be missed
+     * A warning like the one below is displayed in chrome devtools:
+     * "Event handler of 'install' event must be added on the initial evaluation of worker script"
+     * To fix that code below listen for these events early and redispatch them later
+     * once the worker file is executed (the listeners are installed)
+    */
+    var firstRegisterCallbacks = []
+    var isServiceWorker = typeof self.skipWaiting === 'function'
+    if (isServiceWorker) {
+      // for service worker there is more events to listen
+      // and, to get rid of the warning, we override self.addEventListener
+      var eventsToCatch = ['message', 'install', 'activate', 'fetch']
+      var eventCallbackProxies = {}
+      var firstRegisterPromise = new Promise((resolve) => {
+        firstRegisterCallbacks.push(resolve)
+      })
+      eventsToCatch.forEach(function(eventName) {
+        var eventsToDispatch = []
+        var eventCallback = function (event) {
+          const eventCallbackProxy = eventCallbackProxies[event.type]
+          if (eventCallbackProxy) {
+            eventCallbackProxy(event)
+          }
+          else {
+            eventsToDispatch.push(event)
+            event.waitUntil(firstRegisterPromise)
+          }
+        }
+        self.addEventListener(eventName, eventCallback)
+        firstRegisterCallbacks.push(function() {
+          if (eventsToDispatch.length) {
+            const eventCallbackProxy = eventCallbackProxies[eventsToDispatch[0].type]
+            if (eventCallbackProxy) {
+              eventsToDispatch.forEach(function (event) {
+                eventCallbackProxy(event)
+              })
+            }
+            eventsToDispatch.length = 0
+          }
+        })
+      })
+     
+      var addEventListener = self.addEventListener
+      self.addEventListener = function (eventName, callback, options) {
+        if (eventsToCatch.indexOf(eventName) > -1) {
+          eventCallbackProxies[eventName] = callback
+          return
+        }
+        return addEventListener.call(self, eventName, callback, options)
+      }
+    }
+    else {
+      var eventsToCatch = ['message']
+      eventsToCatch.forEach(function (eventName) {
+        var eventQueue = []
+        var eventCallback = (event) => {
+          eventQueue.push(event)
+        }
+        self.addEventListener(eventName, eventCallback)
+        firstRegisterCallbacks.push(function() {
+          self.removeEventListener(eventName, eventCallback)
+          eventQueue.forEach(function (event) {
+            self.dispatchEvent(event)
+          })
+          eventQueue.length = 0
+        })
+      })
+    }
+
+
+    // auto import first register
+    var register = System.register;
+    System.register = function(deps, declare) {
+      System.register = register;
+      System.registerRegistry[self.location.href] = [deps, declare];
+      return System.import(self.location.href).then((result) => {
+        firstRegisterCallbacks.forEach(firstRegisterCallback => {
+          firstRegisterCallback()
+        })
+        firstRegisterCallbacks.length = 0
+        return result
+      })
+    }
+  }
+}());
+
+System.register([__v__("/js/babel_helpers.es5.js")], function (_export, _context) {
   "use strict";
 
-  /* eslint-disable no-eq-null, eqeqeq */
-  function arrayLikeToArray(arr, len) {
-    if (len == null || len > arr.length) len = arr.length;
-    var arr2 = new Array(len);
+  var _typeof, _objectSpread2, _slicedToArray, _toConsumableArray, createLogger, getCacheName, base, blockSize, discreteValues, pad, getRandomValue, randomBlock, generateCacheId, createUrlResolver, createUrlActions, redirectRequest;
 
-    for (var i = 0; i < len; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-
-  var arrayWithoutHoles = arr => {
-    if (Array.isArray(arr)) return arrayLikeToArray(arr);
-  };
-
-  function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-  }
-  /* eslint-disable consistent-return */
-
-
-  function unsupportedIterableToArray(o, minLen) {
-    if (!o) return;
-    if (typeof o === "string") return arrayLikeToArray(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(o);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-  }
-
-  var nonIterableSpread = () => {
-    throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  };
-
-  var _toConsumableArray = arr => arrayWithoutHoles(arr) || _iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread(); // eslint-disable-next-line consistent-return
-
-
-  var arrayWithHoles = arr => {
-    if (Array.isArray(arr)) return arr;
-  };
-
-  function _iterableToArrayLimit(arr, i) {
-    // this is an expanded form of \`for...of\` that properly supports abrupt completions of
-    // iterators etc. variable names have been minimised to reduce the size of this massive
-    // helper. sometimes spec compliance is annoying :(
-    //
-    // _n = _iteratorNormalCompletion
-    // _d = _didIteratorError
-    // _e = _iteratorError
-    // _i = _iterator
-    // _s = _step
-    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-    if (_i == null) return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-
-    var _s, _e;
-
-    try {
-      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  var nonIterableRest = () => {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  };
-
-  var _slicedToArray = (arr, i) => arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-
-  var defineProperty = (obj, key, value) => {
-    // Shortcircuit the slow defineProperty path when possible.
-    // We are trying to avoid issues where setters defined on the
-    // prototype cause side effects under the fast path of simple
-    // assignment. By checking for existence of the property with
-    // the in operator, we can optimize most of this overhead away.
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }; // filters on symbol properties only. Returned string properties are always
-  // enumerable. It is good to use in objectSpread.
-
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-
-      if (enumerableOnly) {
-        symbols = symbols.filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-        });
-      }
-
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
-  }
-
-  const nativeTypeOf = obj => typeof obj;
-
-  const customTypeOf = obj => {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  };
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? nativeTypeOf : customTypeOf;
   /**
    * https://web.dev/service-worker-caching-and-http-caching/
    * https://stackoverflow.com/questions/33262385/service-worker-force-update-of-new-assets/64880568#64880568
@@ -241,8 +958,6 @@ __envGlobal__.__v__ = function (specifier) {
   /* env serviceworker */
 
   /* globals self */
-
-
   function _await(value, then, direct) {
     if (direct) {
       return then ? then(value) : value;
@@ -319,629 +1034,638 @@ __envGlobal__.__v__ = function (specifier) {
     return then(result);
   }
 
-  self.initJsenvServiceWorker = function () {
-    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        _ref$logLevel = _ref.logLevel,
-        logLevel = _ref$logLevel === void 0 ? "warn" : _ref$logLevel,
-        _ref$logsBackgroundCo = _ref.logsBackgroundColor,
-        logsBackgroundColor = _ref$logsBackgroundCo === void 0 ? "#ffdc00" : _ref$logsBackgroundCo,
-        _ref$cachePrefix = _ref.cachePrefix,
-        cachePrefix = _ref$cachePrefix === void 0 ? "jsenv" : _ref$cachePrefix,
-        _ref$urlsConfig = _ref.urlsConfig,
-        urlsConfig = _ref$urlsConfig === void 0 ? {
-      "/": {}
-    } : _ref$urlsConfig,
-        _ref$shouldHandleRequ = _ref.shouldHandleRequest,
-        shouldHandleRequest = _ref$shouldHandleRequ === void 0 ? function (request, _ref2) {
-      var requestWasCachedOnInstall = _ref2.requestWasCachedOnInstall;
-      if (request.method !== "GET" && request.method !== "HEAD") return false;
-      return requestWasCachedOnInstall;
-    } : _ref$shouldHandleRequ,
-        _ref$shouldCleanOnAct = _ref.shouldCleanOnActivate,
-        shouldCleanOnActivate = _ref$shouldCleanOnAct === void 0 ? function (response, request, _ref3) {
-      var requestWasCachedOnInstall = _ref3.requestWasCachedOnInstall;
-      return !requestWasCachedOnInstall;
-    } : _ref$shouldCleanOnAct,
-        _ref$navigationPreloa = _ref.navigationPreloadEnabled,
-        navigationPreloadEnabled = _ref$navigationPreloa === void 0 ? false : _ref$navigationPreloa,
-        _ref$actions = _ref.actions,
-        actions = _ref$actions === void 0 ? {
-      ping: function ping() {
-        return "pong";
-      }
-    } : _ref$actions;
+  return {
+    setters: [function (_jsBabel_helpersJs) {
+      _typeof = _jsBabel_helpersJs._;
+      _objectSpread2 = _jsBabel_helpersJs.a;
+      _slicedToArray = _jsBabel_helpersJs.b;
+      _toConsumableArray = _jsBabel_helpersJs.c;
+    }],
+    execute: function () {
+      self.initJsenvServiceWorker = function () {
+        var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+            _ref$logLevel = _ref.logLevel,
+            logLevel = _ref$logLevel === void 0 ? "warn" : _ref$logLevel,
+            _ref$logsBackgroundCo = _ref.logsBackgroundColor,
+            logsBackgroundColor = _ref$logsBackgroundCo === void 0 ? "#ffdc00" : _ref$logsBackgroundCo,
+            _ref$cachePrefix = _ref.cachePrefix,
+            cachePrefix = _ref$cachePrefix === void 0 ? "jsenv" : _ref$cachePrefix,
+            _ref$urlsConfig = _ref.urlsConfig,
+            urlsConfig = _ref$urlsConfig === void 0 ? {
+          "/": {}
+        } : _ref$urlsConfig,
+            _ref$shouldHandleRequ = _ref.shouldHandleRequest,
+            shouldHandleRequest = _ref$shouldHandleRequ === void 0 ? function (request, _ref2) {
+          var requestWasCachedOnInstall = _ref2.requestWasCachedOnInstall;
+          if (request.method !== "GET" && request.method !== "HEAD") return false;
+          return requestWasCachedOnInstall;
+        } : _ref$shouldHandleRequ,
+            _ref$shouldCleanOnAct = _ref.shouldCleanOnActivate,
+            shouldCleanOnActivate = _ref$shouldCleanOnAct === void 0 ? function (response, request, _ref3) {
+          var requestWasCachedOnInstall = _ref3.requestWasCachedOnInstall;
+          return !requestWasCachedOnInstall;
+        } : _ref$shouldCleanOnAct,
+            _ref$navigationPreloa = _ref.navigationPreloadEnabled,
+            navigationPreloadEnabled = _ref$navigationPreloa === void 0 ? false : _ref$navigationPreloa,
+            _ref$actions = _ref.actions,
+            actions = _ref$actions === void 0 ? {
+          ping: function ping() {
+            return "pong";
+          }
+        } : _ref$actions;
 
-    if (_typeof(urlsConfig) !== "object") {
-      throw new TypeError("urlsConfig should be an object, got ".concat(urlsConfig));
-    }
+        if (_typeof(urlsConfig) !== "object") {
+          throw new TypeError("urlsConfig should be an object, got ".concat(urlsConfig));
+        }
 
-    if (typeof cachePrefix !== "string") {
-      throw new TypeError("cachePrefix should be a string, got ".concat(cachePrefix));
-    }
+        if (typeof cachePrefix !== "string") {
+          throw new TypeError("cachePrefix should be a string, got ".concat(cachePrefix));
+        }
 
-    if (cachePrefix.length === 0) {
-      throw new TypeError("cachePrefix must not be empty");
-    }
+        if (cachePrefix.length === 0) {
+          throw new TypeError("cachePrefix must not be empty");
+        }
 
-    if (typeof shouldCleanOnActivate !== "function") {
-      throw new TypeError("shouldCleanOnActivate should be a function, got ".concat(shouldCleanOnActivate));
-    }
+        if (typeof shouldCleanOnActivate !== "function") {
+          throw new TypeError("shouldCleanOnActivate should be a function, got ".concat(shouldCleanOnActivate));
+        }
 
-    if (typeof shouldHandleRequest !== "function") {
-      throw new TypeError("shouldHandleRequest should be a function, got ".concat(shouldHandleRequest));
-    }
+        if (typeof shouldHandleRequest !== "function") {
+          throw new TypeError("shouldHandleRequest should be a function, got ".concat(shouldHandleRequest));
+        }
 
-    if (typeof logLevel !== "string") {
-      throw new TypeError("logLevel should be a boolean, got ".concat(logLevel));
-    }
+        if (typeof logLevel !== "string") {
+          throw new TypeError("logLevel should be a boolean, got ".concat(logLevel));
+        }
 
-    if (typeof logsBackgroundColor !== "string") {
-      throw new TypeError("logsBackgroundColor should be a string, got ".concat(logsBackgroundColor));
-    }
+        if (typeof logsBackgroundColor !== "string") {
+          throw new TypeError("logsBackgroundColor should be a string, got ".concat(logsBackgroundColor));
+        }
 
-    if (typeof navigationPreloadEnabled !== "boolean") {
-      throw new TypeError("navigationPreloadEnabled should be a boolean, got ".concat(navigationPreloadEnabled));
-    }
+        if (typeof navigationPreloadEnabled !== "boolean") {
+          throw new TypeError("navigationPreloadEnabled should be a boolean, got ".concat(navigationPreloadEnabled));
+        }
 
-    var cacheName = getCacheName({
-      cachePrefix: cachePrefix
-    });
-    var logger = createLogger({
-      logLevel: logLevel,
-      logsBackgroundColor: logsBackgroundColor
-    });
-    var urlResolver = createUrlResolver();
+        var cacheName = getCacheName({
+          cachePrefix: cachePrefix
+        });
+        var logger = createLogger({
+          logLevel: logLevel,
+          logsBackgroundColor: logsBackgroundColor
+        });
+        var urlResolver = createUrlResolver();
 
-    var _createUrlActions = createUrlActions({
-      urlsConfig: urlsConfig,
-      urlResolver: urlResolver
-    }),
-        urlsToCacheOnInstall = _createUrlActions.urlsToCacheOnInstall,
-        urlsToReloadOnInstall = _createUrlActions.urlsToReloadOnInstall,
-        urlMapping = _createUrlActions.urlMapping;
+        var _createUrlActions = createUrlActions({
+          urlsConfig: urlsConfig,
+          urlResolver: urlResolver
+        }),
+            urlsToCacheOnInstall = _createUrlActions.urlsToCacheOnInstall,
+            urlsToReloadOnInstall = _createUrlActions.urlsToReloadOnInstall,
+            urlMapping = _createUrlActions.urlMapping;
 
-    logger.info("cache key: ".concat(cacheName)); // --- installation phase ---
+        logger.info("cache key: ".concat(cacheName)); // --- installation phase ---
 
-    self.addEventListener("install", function (installEvent) {
-      installEvent.waitUntil(install(installEvent));
-    });
+        self.addEventListener("install", function (installEvent) {
+          installEvent.waitUntil(install(installEvent));
+        });
 
-    var install = _async(function () {
-      logger.info("install start");
-      return _continueIgnored(_catch(function () {
-        var total = urlsToCacheOnInstall.length;
-        var installed = 0;
-        return _await(Promise.all(urlsToCacheOnInstall.map(_async(function (url) {
+        var install = _async(function () {
+          logger.info("install start");
           return _continueIgnored(_catch(function () {
-            var requestUrlsInUrlsToReloadOnInstall = urlsToReloadOnInstall.includes(url);
-            var request = new Request(url, _objectSpread2({}, requestUrlsInUrlsToReloadOnInstall ? {
-              // A non versioned url must ignore navigator cache
-              // otherwise we might (99% chances) hit previous worker cache
-              // and miss the new version
-              cache: "reload"
-            } : {// If versioned url is the same as before, it's ok to reuse
-              // cache from previous worker or navigator itself.
-            }));
-            return _awaitIgnored(fetchAndCache(request, {
-              oncache: function oncache() {
-                installed += 1;
+            var total = urlsToCacheOnInstall.length;
+            var installed = 0;
+            return _await(Promise.all(urlsToCacheOnInstall.map(_async(function (url) {
+              return _continueIgnored(_catch(function () {
+                var requestUrlsInUrlsToReloadOnInstall = urlsToReloadOnInstall.includes(url);
+                var request = new Request(url, _objectSpread2({}, requestUrlsInUrlsToReloadOnInstall ? {
+                  // A non versioned url must ignore navigator cache
+                  // otherwise we might (99% chances) hit previous worker cache
+                  // and miss the new version
+                  cache: "reload"
+                } : {// If versioned url is the same as before, it's ok to reuse
+                  // cache from previous worker or navigator itself.
+                }));
+                return _awaitIgnored(fetchAndCache(request, {
+                  oncache: function oncache() {
+                    installed += 1;
+                  }
+                }));
+              }, function (e) {
+                logger.warn("cannot put ".concat(url, " in cache due to error while fetching: ").concat(e.stack));
+              }));
+            }))), function () {
+              if (installed === total) {
+                logger.info("install done (".concat(total, " urls added in cache)"));
+              } else {
+                logger.info("install done (".concat(installed, "/").concat(total, " urls added in cache)"));
               }
+            });
+          }, function (error) {
+            logger.error("install error: ".concat(error.stack));
+          }));
+        }); // --- fetch implementation ---
+
+
+        self.addEventListener("fetch", function (fetchEvent) {
+          var request = remapRequest(fetchEvent.request);
+
+          if (shouldHandleRequest(request, {
+            requestWasCachedOnInstall: urlsToCacheOnInstall.includes(request.url)
+          })) {
+            var responsePromise = handleRequest(request, fetchEvent);
+
+            if (responsePromise) {
+              fetchEvent.respondWith(responsePromise);
+            }
+          }
+        });
+
+        var handleRequest = _async(function (request, fetchEvent) {
+          var _exit = false;
+          logger.debug("received fetch event for ".concat(request.url));
+          return _continue(_catch(function () {
+            return _await(self.caches.match(request), function (responseFromCache) {
+              if (responseFromCache) {
+                logger.debug("respond with response from cache for ".concat(request.url));
+                _exit = true;
+                return responseFromCache;
+              }
+
+              return _await(fetchEvent.preloadResponse, function (responsePreloaded) {
+                if (responsePreloaded) {
+                  logger.debug("respond with preloaded response for ".concat(request.url));
+                  _exit = true;
+                  return responsePreloaded;
+                }
+              });
+            });
+          }, function (error) {
+            logger.warn("error while trying to use cache for ".concat(request.url), error.stack);
+
+            var _fetch = fetch(request);
+
+            _exit = true;
+            return _fetch;
+          }), function (_result) {
+            if (_exit) return _result;
+            logger.debug("no cache for ".concat(request.url, ", fetching it"));
+            return fetchAndCache(request);
+          });
+        });
+
+        var remapRequest = function remapRequest(request) {
+          if (Object.prototype.hasOwnProperty.call(urlMapping, request.url)) {
+            var newUrl = urlMapping[request.url];
+            logger.debug("redirect request from ".concat(request.url, " to ").concat(newUrl));
+            return redirectRequest(request, newUrl);
+          }
+
+          return request;
+        }; // --- activation phase ---
+
+
+        self.addEventListener("activate", function (activateEvent) {
+          var activatePromise = activate(activateEvent);
+
+          if (activatePromise) {
+            activateEvent.waitUntil(activatePromise);
+          }
+        });
+
+        var activate = _async(function () {
+          logger.info("activate start");
+          return _await(Promise.all([enableNavigationPreloadIfPossible(), deleteOtherUrls(), deleteOtherCaches()]), function () {
+            logger.info("activate done");
+          });
+        });
+
+        var enableNavigationPreloadIfPossible = _async(function () {
+          return _invokeIgnored(function () {
+            if (navigationPreloadEnabled && self.registration.navigationPreload) {
+              return _awaitIgnored(self.registration.navigationPreload.enable());
+            }
+          });
+        });
+
+        var deleteOtherUrls = _async(function () {
+          return _await(self.caches.open(cacheName), function (cache) {
+            return _await(cache.keys(), function (requestsInCache) {
+              return _awaitIgnored(Promise.all(requestsInCache.map(_async(function (requestInCache) {
+                return _await(cache.match(requestInCache), function (responseInCache) {
+                  return _invokeIgnored(function () {
+                    if (shouldCleanOnActivate(responseInCache, requestInCache, {
+                      requestWasCachedOnInstall: urlsToCacheOnInstall.includes(requestInCache.url)
+                    })) {
+                      logger.info("delete ".concat(requestInCache.url));
+                      return _awaitIgnored(cache.delete(requestInCache));
+                    }
+                  });
+                });
+              }))));
+            });
+          });
+        });
+
+        var deleteOtherCaches = _async(function () {
+          return _await(self.caches.keys(), function (cacheKeys) {
+            return _awaitIgnored(Promise.all(cacheKeys.map(_async(function (cacheKey) {
+              return _invokeIgnored(function () {
+                if (cacheKey !== cacheName && cacheKey.startsWith(cachePrefix)) {
+                  logger.info("delete cache ".concat(cacheKey));
+                  return _awaitIgnored(self.caches.delete(cacheKey));
+                }
+              });
+            }))));
+          });
+        }); // --- postMessage communication ---
+
+
+        self.addEventListener("message", _async(function (messageEvent) {
+          var data = messageEvent.data;
+
+          if (_typeof(data) !== "object") {
+            return;
+          }
+
+          var action = data.action;
+          var actionFn = actions[action];
+
+          if (!actionFn) {
+            return;
+          }
+
+          var payload = data.payload;
+          var status;
+          var value;
+          return _continue(_catch(function () {
+            return _await(actionFn(payload, {
+              cacheName: cacheName
+            }), function (actionFnReturnValue) {
+              status = "resolved";
+              value = actionFnReturnValue;
+            });
+          }, function (e) {
+            status = "rejected";
+            value = e;
+          }), function () {
+            messageEvent.ports[0].postMessage({
+              status: status,
+              value: value
+            });
+          });
+        }));
+        actions = _objectSpread2({
+          skipWaiting: function skipWaiting() {
+            self.skipWaiting();
+          },
+          refreshCacheKey: _async(function (url) {
+            url = urlResolver.resolve(url);
+            return _await(fetchAndCache(new Request(url, {
+              cache: "reload"
+            })), function (response) {
+              return response.status;
+            });
+          }),
+          addCacheKey: _async(function (url) {
+            url = urlResolver.resolve(url);
+            return _await(fetchAndCache(url), function (response) {
+              return response.status;
+            });
+          }),
+          removeCacheKey: _async(function (url) {
+            url = urlResolver.resolve(url);
+            return _await(self.caches.open(cacheName), function (cache) {
+              return _await(cache.delete(url));
+            });
+          })
+        }, actions);
+
+        var fetchAndCache = _async(function (request) {
+          var _ref4 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+              oncache = _ref4.oncache;
+
+          return _await(Promise.all([fetchUsingNetwork(request), getCache()]), function (_ref5) {
+            var _exit2 = false;
+
+            var _ref6 = _slicedToArray(_ref5, 2),
+                response = _ref6[0],
+                cache = _ref6[1];
+
+            return _invoke(function () {
+              if (response.status === 200) {
+                logger.debug("fresh response found for ".concat(request.url, ", put it in cache and respond with it"));
+                return _await(responseToResponseForCache(response), function (responseForCache) {
+                  var cacheWrittenPromise = cache.put(request, responseForCache);
+                  return _invoke(function () {
+                    if (oncache) {
+                      return _await(cacheWrittenPromise, function () {
+                        oncache();
+                      });
+                    }
+                  }, function () {
+                    _exit2 = true;
+                    return response;
+                  });
+                });
+              }
+            }, function (_result2) {
+              if (_exit2) return _result2;
+              logger.warn("cannot put ".concat(request.url, " in cache due to response status (").concat(response.status, ")"));
+              return response;
+            });
+          });
+        });
+
+        var responseToResponseForCache = _async(function (response) {
+          var responseClone = response.clone();
+
+          if (!response.redirected) {
+            return responseClone;
+          } // When passed a redirected response, this will create a new, "clean" response
+          // that can be used to respond to a navigation request.
+          // See https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
+          // Not all browsers support the Response.body stream, so fall back to reading
+          // the entire body into memory as a blob.
+
+
+          var bodyPromise = "body" in responseClone ? Promise.resolve(responseClone.body) : responseClone.blob();
+          return _await(bodyPromise, function (body) {
+            // new Response() is happy when passed either a stream or a Blob.
+            return new Response(body, {
+              headers: responseClone.headers,
+              status: responseClone.status,
+              statusText: responseClone.statusText
+            });
+          });
+        });
+
+        var fetchUsingNetwork = _async(function (request) {
+          var controller = new AbortController();
+          var signal = controller.signal;
+          return _catch(function () {
+            return _await(fetch(request, {
+              signal: signal
             }));
           }, function (e) {
-            logger.warn("cannot put ".concat(url, " in cache due to error while fetching: ").concat(e.stack));
-          }));
-        }))), function () {
-          if (installed === total) {
-            logger.info("install done (".concat(total, " urls added in cache)"));
-          } else {
-            logger.info("install done (".concat(installed, "/").concat(total, " urls added in cache)"));
-          }
-        });
-      }, function (error) {
-        logger.error("install error: ".concat(error.stack));
-      }));
-    }); // --- fetch implementation ---
-
-
-    self.addEventListener("fetch", function (fetchEvent) {
-      var request = remapRequest(fetchEvent.request);
-
-      if (shouldHandleRequest(request, {
-        requestWasCachedOnInstall: urlsToCacheOnInstall.includes(request.url)
-      })) {
-        var responsePromise = handleRequest(request, fetchEvent);
-
-        if (responsePromise) {
-          fetchEvent.respondWith(responsePromise);
-        }
-      }
-    });
-
-    var handleRequest = _async(function (request, fetchEvent) {
-      var _exit = false;
-      logger.debug("received fetch event for ".concat(request.url));
-      return _continue(_catch(function () {
-        return _await(self.caches.match(request), function (responseFromCache) {
-          if (responseFromCache) {
-            logger.debug("respond with response from cache for ".concat(request.url));
-            _exit = true;
-            return responseFromCache;
-          }
-
-          return _await(fetchEvent.preloadResponse, function (responsePreloaded) {
-            if (responsePreloaded) {
-              logger.debug("respond with preloaded response for ".concat(request.url));
-              _exit = true;
-              return responsePreloaded;
-            }
+            // abort request in any case
+            // I don't know how useful this is ?
+            controller.abort();
+            throw e;
           });
         });
-      }, function (error) {
-        logger.warn("error while trying to use cache for ".concat(request.url), error.stack);
 
-        var _fetch = fetch(request);
-
-        _exit = true;
-        return _fetch;
-      }), function (_result) {
-        if (_exit) return _result;
-        logger.debug("no cache for ".concat(request.url, ", fetching it"));
-        return fetchAndCache(request);
-      });
-    });
-
-    var remapRequest = function remapRequest(request) {
-      if (Object.prototype.hasOwnProperty.call(urlMapping, request.url)) {
-        var newUrl = urlMapping[request.url];
-        logger.debug("redirect request from ".concat(request.url, " to ").concat(newUrl));
-        return redirectRequest(request, newUrl);
-      }
-
-      return request;
-    }; // --- activation phase ---
-
-
-    self.addEventListener("activate", function (activateEvent) {
-      var activatePromise = activate(activateEvent);
-
-      if (activatePromise) {
-        activateEvent.waitUntil(activatePromise);
-      }
-    });
-
-    var activate = _async(function () {
-      logger.info("activate start");
-      return _await(Promise.all([enableNavigationPreloadIfPossible(), deleteOtherUrls(), deleteOtherCaches()]), function () {
-        logger.info("activate done");
-      });
-    });
-
-    var enableNavigationPreloadIfPossible = _async(function () {
-      return _invokeIgnored(function () {
-        if (navigationPreloadEnabled && self.registration.navigationPreload) {
-          return _awaitIgnored(self.registration.navigationPreload.enable());
-        }
-      });
-    });
-
-    var deleteOtherUrls = _async(function () {
-      return _await(self.caches.open(cacheName), function (cache) {
-        return _await(cache.keys(), function (requestsInCache) {
-          return _awaitIgnored(Promise.all(requestsInCache.map(_async(function (requestInCache) {
-            return _await(cache.match(requestInCache), function (responseInCache) {
-              return _invokeIgnored(function () {
-                if (shouldCleanOnActivate(responseInCache, requestInCache, {
-                  requestWasCachedOnInstall: urlsToCacheOnInstall.includes(requestInCache.url)
-                })) {
-                  logger.info("delete ".concat(requestInCache.url));
-                  return _awaitIgnored(cache.delete(requestInCache));
-                }
-              });
-            });
-          }))));
+        var getCache = _async(function () {
+          return self.caches.open(cacheName);
         });
-      });
-    });
+      };
 
-    var deleteOtherCaches = _async(function () {
-      return _await(self.caches.keys(), function (cacheKeys) {
-        return _awaitIgnored(Promise.all(cacheKeys.map(_async(function (cacheKey) {
-          return _invokeIgnored(function () {
-            if (cacheKey !== cacheName && cacheKey.startsWith(cachePrefix)) {
-              logger.info("delete cache ".concat(cacheKey));
-              return _awaitIgnored(self.caches.delete(cacheKey));
-            }
-          });
-        }))));
-      });
-    }); // --- postMessage communication ---
+      createLogger = function createLogger(_ref7) {
+        var logLevel = _ref7.logLevel,
+            logsBackgroundColor = _ref7.logsBackgroundColor;
 
-
-    self.addEventListener("message", _async(function (messageEvent) {
-      var data = messageEvent.data;
-
-      if (_typeof(data) !== "object") {
-        return;
-      }
-
-      var action = data.action;
-      var actionFn = actions[action];
-
-      if (!actionFn) {
-        return;
-      }
-
-      var payload = data.payload;
-      var status;
-      var value;
-      return _continue(_catch(function () {
-        return _await(actionFn(payload, {
-          cacheName: cacheName
-        }), function (actionFnReturnValue) {
-          status = "resolved";
-          value = actionFnReturnValue;
-        });
-      }, function (e) {
-        status = "rejected";
-        value = e;
-      }), function () {
-        messageEvent.ports[0].postMessage({
-          status: status,
-          value: value
-        });
-      });
-    }));
-    actions = _objectSpread2({
-      skipWaiting: function skipWaiting() {
-        self.skipWaiting();
-      },
-      refreshCacheKey: _async(function (url) {
-        url = urlResolver.resolve(url);
-        return _await(fetchAndCache(new Request(url, {
-          cache: "reload"
-        })), function (response) {
-          return response.status;
-        });
-      }),
-      addCacheKey: _async(function (url) {
-        url = urlResolver.resolve(url);
-        return _await(fetchAndCache(url), function (response) {
-          return response.status;
-        });
-      }),
-      removeCacheKey: _async(function (url) {
-        url = urlResolver.resolve(url);
-        return _await(self.caches.open(cacheName), function (cache) {
-          return _await(cache.delete(url));
-        });
-      })
-    }, actions);
-
-    var fetchAndCache = _async(function (request) {
-      var _ref4 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-          oncache = _ref4.oncache;
-
-      return _await(Promise.all([fetchUsingNetwork(request), getCache()]), function (_ref5) {
-        var _exit2 = false;
-
-        var _ref6 = _slicedToArray(_ref5, 2),
-            response = _ref6[0],
-            cache = _ref6[1];
-
-        return _invoke(function () {
-          if (response.status === 200) {
-            logger.debug("fresh response found for ".concat(request.url, ", put it in cache and respond with it"));
-            return _await(responseToResponseForCache(response), function (responseForCache) {
-              var cacheWrittenPromise = cache.put(request, responseForCache);
-              return _invoke(function () {
-                if (oncache) {
-                  return _await(cacheWrittenPromise, function () {
-                    oncache();
-                  });
-                }
-              }, function () {
-                _exit2 = true;
-                return response;
-              });
-            });
+        var prefixArgs = function prefixArgs() {
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
           }
-        }, function (_result2) {
-          if (_exit2) return _result2;
-          logger.warn("cannot put ".concat(request.url, " in cache due to response status (").concat(response.status, ")"));
-          return response;
-        });
-      });
-    });
 
-    var responseToResponseForCache = _async(function (response) {
-      var responseClone = response.clone();
+          return ["%csw", "background: ".concat(logsBackgroundColor, "; color: black; padding: 1px 3px; margin: 0 1px")].concat(args);
+        };
 
-      if (!response.redirected) {
-        return responseClone;
-      } // When passed a redirected response, this will create a new, "clean" response
-      // that can be used to respond to a navigation request.
-      // See https://bugs.chromium.org/p/chromium/issues/detail?id=669363&desc=2#c1
-      // Not all browsers support the Response.body stream, so fall back to reading
-      // the entire body into memory as a blob.
+        var createLogMethod = function createLogMethod(method) {
+          return function () {
+            var _console;
 
+            return (_console = console)[method].apply(_console, _toConsumableArray(prefixArgs.apply(void 0, arguments)));
+          };
+        };
 
-      var bodyPromise = "body" in responseClone ? Promise.resolve(responseClone.body) : responseClone.blob();
-      return _await(bodyPromise, function (body) {
-        // new Response() is happy when passed either a stream or a Blob.
-        return new Response(body, {
-          headers: responseClone.headers,
-          status: responseClone.status,
-          statusText: responseClone.statusText
-        });
-      });
-    });
+        var debug = createLogMethod("debug");
+        var info = createLogMethod("info");
+        var warn = createLogMethod("warn");
+        var error = createLogMethod("error");
 
-    var fetchUsingNetwork = _async(function (request) {
-      var controller = new AbortController();
-      var signal = controller.signal;
-      return _catch(function () {
-        return _await(fetch(request, {
-          signal: signal
-        }));
-      }, function (e) {
-        // abort request in any case
-        // I don't know how useful this is ?
-        controller.abort();
-        throw e;
-      });
-    });
+        var noop = function noop() {};
 
-    var getCache = _async(function () {
-      return self.caches.open(cacheName);
-    });
-  };
-
-  var createLogger = function createLogger(_ref7) {
-    var logLevel = _ref7.logLevel,
-        logsBackgroundColor = _ref7.logsBackgroundColor;
-
-    var prefixArgs = function prefixArgs() {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return ["%csw", "background: ".concat(logsBackgroundColor, "; color: black; padding: 1px 3px; margin: 0 1px")].concat(args);
-    };
-
-    var createLogMethod = function createLogMethod(method) {
-      return function () {
-        var _console;
-
-        return (_console = console)[method].apply(_console, _toConsumableArray(prefixArgs.apply(void 0, arguments)));
-      };
-    };
-
-    var debug = createLogMethod("debug");
-    var info = createLogMethod("info");
-    var warn = createLogMethod("warn");
-    var error = createLogMethod("error");
-
-    var noop = function noop() {};
-
-    if (logLevel === "debug") {
-      return {
-        debug: debug,
-        info: info,
-        warn: warn,
-        error: error
-      };
-    }
-
-    if (logLevel === "info") {
-      return {
-        debug: noop,
-        info: info,
-        warn: warn,
-        error: error
-      };
-    }
-
-    if (logLevel === "warn") {
-      return {
-        debug: noop,
-        info: noop,
-        warn: warn,
-        error: error
-      };
-    }
-
-    if (logLevel === "error") {
-      return {
-        debug: noop,
-        info: noop,
-        warn: noop,
-        error: error
-      };
-    }
-
-    if (logLevel === "off") {
-      return {
-        debug: noop,
-        info: noop,
-        warn: noop,
-        error: noop
-      };
-    }
-
-    throw new Error("unknown logLevel, got ".concat(logLevel));
-  };
-
-  var getCacheName = function getCacheName(_ref8) {
-    var cachePrefix = _ref8.cachePrefix;
-    return "".concat(cachePrefix).concat(generateCacheId());
-  };
-
-  var base = 36;
-  var blockSize = 4;
-  var discreteValues = Math.pow(base, blockSize);
-
-  var pad = function pad(number, size) {
-    var s = "000000000".concat(number);
-    return s.substr(s.length - size);
-  };
-
-  var getRandomValue = function () {
-    var _self = self,
-        crypto = _self.crypto;
-
-    if (crypto) {
-      var lim = Math.pow(2, 32) - 1;
-      return function () {
-        return Math.abs(crypto.getRandomValues(new Uint32Array(1))[0] / lim);
-      };
-    }
-
-    return Math.random;
-  }();
-
-  var randomBlock = function randomBlock() {
-    return pad((getRandomValue() * discreteValues << 0).toString(base), blockSize);
-  };
-
-  var generateCacheId = function generateCacheId() {
-    var timestamp = new Date().getTime().toString(base);
-    var random = "".concat(randomBlock()).concat(randomBlock());
-    return "".concat(timestamp).concat(random);
-  };
-
-  var createUrlResolver = function createUrlResolver() {
-    var resolve = function resolve(string) {
-      return String(new URL(string, self.location));
-    };
-
-    return {
-      resolve: resolve
-    };
-  };
-
-  var createUrlActions = function createUrlActions(_ref9) {
-    var urlsConfig = _ref9.urlsConfig,
-        urlResolver = _ref9.urlResolver;
-    var urlsToCacheOnInstall = [];
-    var urlsToReloadOnInstall = [];
-    var urlMapping = {};
-    var urls = [];
-    Object.keys(urlsConfig).forEach(function (key) {
-      var url = urlResolver.resolve(key);
-
-      if (urls.includes(url)) {
-        return;
-      }
-
-      urls.push(url);
-      var urlConfig = urlsConfig[key];
-      if (!urlConfig) urlConfig = {
-        cache: false
-      };
-      if (urlConfig === true) urlConfig = {
-        cache: true
-      };
-      var _urlConfig = urlConfig,
-          _urlConfig$cache = _urlConfig.cache,
-          cache = _urlConfig$cache === void 0 ? true : _urlConfig$cache,
-          _urlConfig$versioned = _urlConfig.versioned,
-          versioned = _urlConfig$versioned === void 0 ? false : _urlConfig$versioned,
-          alias = _urlConfig.alias;
-
-      if (cache) {
-        urlsToCacheOnInstall.push(url);
-
-        if (!versioned) {
-          urlsToReloadOnInstall.push(url);
+        if (logLevel === "debug") {
+          return {
+            debug: debug,
+            info: info,
+            warn: warn,
+            error: error
+          };
         }
-      }
 
-      if (alias) {
-        urlMapping[url] = urlResolver.resolve(alias);
-      }
-    });
-    return {
-      urlsToCacheOnInstall: urlsToCacheOnInstall,
-      urlsToReloadOnInstall: urlsToReloadOnInstall,
-      urlMapping: urlMapping
-    };
-  };
+        if (logLevel === "info") {
+          return {
+            debug: noop,
+            info: info,
+            warn: warn,
+            error: error
+          };
+        }
 
-  var redirectRequest = _async(function (request, url) {
-    var mode = request.mode; // see https://github.com/GoogleChrome/workbox/issues/1796
+        if (logLevel === "warn") {
+          return {
+            debug: noop,
+            info: noop,
+            warn: warn,
+            error: error
+          };
+        }
 
-    if (mode !== "navigate") {
-      return new Request(url, request);
-    }
+        if (logLevel === "error") {
+          return {
+            debug: noop,
+            info: noop,
+            warn: noop,
+            error: error
+          };
+        }
 
-    var requestClone = request.clone();
-    var body = requestClone.body,
-        credentials = requestClone.credentials,
-        headers = requestClone.headers,
-        integrity = requestClone.integrity,
-        referrer = requestClone.referrer,
-        referrerPolicy = requestClone.referrerPolicy;
-    var bodyPromise = body ? Promise.resolve(body) : requestClone.blob();
-    return _await(bodyPromise, function (bodyValue) {
-      var requestMutated = new Request(url, {
-        body: bodyValue,
-        credentials: credentials,
-        headers: headers,
-        integrity: integrity,
-        referrer: referrer,
-        referrerPolicy: referrerPolicy,
-        mode: "same-origin",
-        redirect: "manual"
+        if (logLevel === "off") {
+          return {
+            debug: noop,
+            info: noop,
+            warn: noop,
+            error: noop
+          };
+        }
+
+        throw new Error("unknown logLevel, got ".concat(logLevel));
+      };
+
+      getCacheName = function getCacheName(_ref8) {
+        var cachePrefix = _ref8.cachePrefix;
+        return "".concat(cachePrefix).concat(generateCacheId());
+      };
+
+      base = 36;
+      blockSize = 4;
+      discreteValues = Math.pow(base, blockSize);
+
+      pad = function pad(number, size) {
+        var s = "000000000".concat(number);
+        return s.substr(s.length - size);
+      };
+
+      getRandomValue = function () {
+        var _self = self,
+            crypto = _self.crypto;
+
+        if (crypto) {
+          var lim = Math.pow(2, 32) - 1;
+          return function () {
+            return Math.abs(crypto.getRandomValues(new Uint32Array(1))[0] / lim);
+          };
+        }
+
+        return Math.random;
+      }();
+
+      randomBlock = function randomBlock() {
+        return pad((getRandomValue() * discreteValues << 0).toString(base), blockSize);
+      };
+
+      generateCacheId = function generateCacheId() {
+        var timestamp = new Date().getTime().toString(base);
+        var random = "".concat(randomBlock()).concat(randomBlock());
+        return "".concat(timestamp).concat(random);
+      };
+
+      createUrlResolver = function createUrlResolver() {
+        var resolve = function resolve(string) {
+          return String(new URL(string, self.location));
+        };
+
+        return {
+          resolve: resolve
+        };
+      };
+
+      createUrlActions = function createUrlActions(_ref9) {
+        var urlsConfig = _ref9.urlsConfig,
+            urlResolver = _ref9.urlResolver;
+        var urlsToCacheOnInstall = [];
+        var urlsToReloadOnInstall = [];
+        var urlMapping = {};
+        var urls = [];
+        Object.keys(urlsConfig).forEach(function (key) {
+          var url = urlResolver.resolve(key);
+
+          if (urls.includes(url)) {
+            return;
+          }
+
+          urls.push(url);
+          var urlConfig = urlsConfig[key];
+          if (!urlConfig) urlConfig = {
+            cache: false
+          };
+          if (urlConfig === true) urlConfig = {
+            cache: true
+          };
+          var _urlConfig = urlConfig,
+              _urlConfig$cache = _urlConfig.cache,
+              cache = _urlConfig$cache === void 0 ? true : _urlConfig$cache,
+              _urlConfig$versioned = _urlConfig.versioned,
+              versioned = _urlConfig$versioned === void 0 ? false : _urlConfig$versioned,
+              alias = _urlConfig.alias;
+
+          if (cache) {
+            urlsToCacheOnInstall.push(url);
+
+            if (!versioned) {
+              urlsToReloadOnInstall.push(url);
+            }
+          }
+
+          if (alias) {
+            urlMapping[url] = urlResolver.resolve(alias);
+          }
+        });
+        return {
+          urlsToCacheOnInstall: urlsToCacheOnInstall,
+          urlsToReloadOnInstall: urlsToReloadOnInstall,
+          urlMapping: urlMapping
+        };
+      };
+
+      redirectRequest = _async(function (request, url) {
+        var mode = request.mode; // see https://github.com/GoogleChrome/workbox/issues/1796
+
+        if (mode !== "navigate") {
+          return new Request(url, request);
+        }
+
+        var requestClone = request.clone();
+        var body = requestClone.body,
+            credentials = requestClone.credentials,
+            headers = requestClone.headers,
+            integrity = requestClone.integrity,
+            referrer = requestClone.referrer,
+            referrerPolicy = requestClone.referrerPolicy;
+        var bodyPromise = body ? Promise.resolve(body) : requestClone.blob();
+        return _await(bodyPromise, function (bodyValue) {
+          var requestMutated = new Request(url, {
+            body: bodyValue,
+            credentials: credentials,
+            headers: headers,
+            integrity: integrity,
+            referrer: referrer,
+            referrerPolicy: referrerPolicy,
+            mode: "same-origin",
+            redirect: "manual"
+          });
+          return requestMutated;
+        });
+      }); // const responseUsesLongTermCaching = (responseInCache) => {
+      //   const cacheControlResponseHeader =
+      //     responseInCache.headers.get("cache-control")
+      //   const maxAge = parseMaxAge(cacheControlResponseHeader)
+      //   return maxAge && maxAge > 0
+      // }
+      // // https://github.com/tusbar/cache-control
+      // const parseMaxAge = (cacheControlHeader) => {
+      //   if (!cacheControlHeader || cacheControlHeader.length === 0) {
+      //     return null
+      //   }
+      //   const HEADER_REGEXP =
+      //     /([a-zA-Z][a-zA-Z_-]*)\s*(?:=(?:"([^"]*)"|([^ \t",;]*)))?/g
+      //   const matches = cacheControlHeader.match(HEADER_REGEXP) || []
+      //   const values = {}
+      //   Array.from(matches).forEach((match) => {
+      //     const tokens = match.split("=", 2)
+      //     const [key] = tokens
+      //     let value = null
+      //     if (tokens.length > 1) {
+      //       value = tokens[1].trim()
+      //     }
+      //     values[key.toLowerCase()] = value
+      //   })
+      //   return parseDuration(values["max-age"])
+      // }
+      // const parseDuration = (value) => {
+      //   if (!value) {
+      //     return null
+      //   }
+      //   const duration = Number.parseInt(value, 10)
+      //   if (!Number.isFinite(duration) || duration < 0) {
+      //     return null
+      //   }
+      //   return duration
+      // }
+
+      /*
+       * This file is the service worker file of this pwa.
+       *
+       * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration
+       */
+
+      self.initJsenvServiceWorker({
+        cachePrefix: "pwa-template",
+        // logLevel:  "debug",
+        urlsConfig: self.serviceWorkerUrls || {}
       });
-      return requestMutated;
-    });
-  }); // const responseUsesLongTermCaching = (responseInCache) => {
-  //   const cacheControlResponseHeader =
-  //     responseInCache.headers.get("cache-control")
-  //   const maxAge = parseMaxAge(cacheControlResponseHeader)
-  //   return maxAge && maxAge > 0
-  // }
-  // // https://github.com/tusbar/cache-control
-  // const parseMaxAge = (cacheControlHeader) => {
-  //   if (!cacheControlHeader || cacheControlHeader.length === 0) {
-  //     return null
-  //   }
-  //   const HEADER_REGEXP =
-  //     /([a-zA-Z][a-zA-Z_-]*)\s*(?:=(?:"([^"]*)"|([^ \t",;]*)))?/g
-  //   const matches = cacheControlHeader.match(HEADER_REGEXP) || []
-  //   const values = {}
-  //   Array.from(matches).forEach((match) => {
-  //     const tokens = match.split("=", 2)
-  //     const [key] = tokens
-  //     let value = null
-  //     if (tokens.length > 1) {
-  //       value = tokens[1].trim()
-  //     }
-  //     values[key.toLowerCase()] = value
-  //   })
-  //   return parseDuration(values["max-age"])
-  // }
-  // const parseDuration = (value) => {
-  //   if (!value) {
-  //     return null
-  //   }
-  //   const duration = Number.parseInt(value, 10)
-  //   if (!Number.isFinite(duration) || duration < 0) {
-  //     return null
-  //   }
-  //   return duration
-  // }
-
-  /*
-   * This file is the service worker file of this pwa.
-   *
-   * Read more in https://github.com/jsenv/pwa/blob/master/docs/jsenv-service-worker.md#configuration
-   */
-
-
-  self.initJsenvServiceWorker({
-    cachePrefix: "pwa-template",
-    // logLevel:  "debug",
-    urlsConfig: self.serviceWorkerUrls || {}
-  });
+    }
+  };
 });

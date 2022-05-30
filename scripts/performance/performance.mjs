@@ -19,12 +19,17 @@
 
 import { importMetricFromFiles } from "@jsenv/performance-impact"
 
+const local = process.argv.includes("--local")
+if (!local) {
+  process.env.LOG_LEVEL = "warn" // discard logs related to build
+  await import("../build/build.mjs")
+}
 const { bootMetrics } = await importMetricFromFiles({
   directoryUrl: new URL("./", import.meta.url),
   metricsDescriptions: {
     bootMetrics: {
       file: "./measure_boot.mjs#bootMetrics",
-      iterations: process.argv.includes("--once") ? 1 : 7,
+      iterations: local ? 1 : 7,
       msToWaitBetweenEachIteration: 500,
     },
   },
