@@ -27,5 +27,5 @@ This function can also be runned locally as shown below.
 1. Remove `"measure-performances"` from `"scripts"` in [package.json](../../package.json#L24)
 2. Delete [.github/workflows/performance_impact.yml](../../.github/workflows/performance_impact.yml)
 3. Delete [.github/workflows/pr_impact/report_performance_impact.mjs](../../.github/workflows/pr_impact/report_performance_impact.mjs)
-4. Delete [script/performance/](../../script/performance/) directory
+4. Delete [scripts/performance/](../../scripts/performance/) directory
 5. Remove `"@jsenv/performance-impact"` from `"devDependencies"` in [package.json](../../package.json#L48)

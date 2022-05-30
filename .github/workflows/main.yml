@@ -61,7 +61,7 @@ jobs:
       - name: Install node modules ⬇️
         run: npm install
       - name: Build 🚧
-        run: node ./script/build/build.mjs --prod
+        run: node ./scripts/build/build.mjs --prod
       - name: Deploy 🚀
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4.3.3

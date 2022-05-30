@@ -2,7 +2,7 @@
  * This file is designed to be executed locally or by an automated process.
  *
  * To run it locally, use one of
- * - node ./script/lighthouse/lighthouse.mjs --local
+ * - node ./scripts/lighthouse/lighthouse.mjs --local
  * - npm run lighthouse
  *
  * The automated process is a GitHub workflow: ".github/workflows/lighthouse_impact.yml"
@@ -27,8 +27,8 @@ const lighthouseReport = await generateLighthouseReport(server.origin, {
   jsonFile: local,
   htmlFile: local,
   rootDirectoryUrl: new URL("../../", import.meta.url),
-  jsonFileRelativeUrl: "./script/lighthouse/lighthouse_report.json",
-  htmlFileRelativeUrl: "./script/lighthouse/lighthouse_report.html",
+  jsonFileRelativeUrl: "./scripts/lighthouse/lighthouse_report.json",
+  htmlFileRelativeUrl: "./scripts/lighthouse/lighthouse_report.html",
 })
 server.stop("lighthouse report generated")
 export { lighthouseReport }

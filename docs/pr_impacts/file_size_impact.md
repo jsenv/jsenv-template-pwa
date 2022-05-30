@@ -4,7 +4,7 @@
 
 # How to use file size impact?
 
-A js file exports [generateFileSizeReport](../../script/file_size/generate_file_size_report.mjs) function. This function measure a subset of file size and is used to analyse impact on file sizes.
+A js file exports [generateFileSizeReport](../../scripts/file_size/generate_file_size_report.mjs) function. This function measure a subset of file size and is used to analyse impact on file sizes.
 
 This function can also be runned locally as shown below.
 
@@ -44,5 +44,5 @@ dist/robots.txt: 22 B
 1. Remove `"measure-file-sizes"` from `"scripts"` in [package.json](../../package.json#L24)
 2. Delete [.github/workflows/file_size_impact.yml](../../.github/workflows/file_size_impact.yml)
 3. Delete [.github/workflows/pr_impact/report_file_size_impact.mjs](../../.github/workflows/pr_impact/report_file_size_impact.mjs)
-4. Delete [script/file_size/](../../script/file_size/) directory
+4. Delete [scripts/file_size/](../../scripts/file_size/) directory
 5. Remove `"@jsenv/file-size-impact"` from `"devDependencies"` in [package.json](../../package.json#L48)

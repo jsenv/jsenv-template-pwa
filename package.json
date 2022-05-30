@@ -24,19 +24,19 @@
     "./*": "./*"
   },
   "scripts": {
-    "dev": "node ./script/dev/dev.mjs",
-    "test": "node ./script/test/test.mjs",
-    "preview": "node ./script/build/preview.mjs",
-    "build": "node ./script/build/build.mjs --preview",
+    "dev": "node ./scripts/dev/dev.mjs",
+    "test": "node ./scripts/test/test.mjs",
+    "preview": "node ./scripts/build/preview.mjs",
+    "build": "node ./scripts/build/build.mjs --preview",
     "eslint": "npx eslint . --ext=.js,.html,.mjs",
-    "file-size": "node ./script/file_size/file_size.mjs --log",
-    "lighthouse": "node ./script/lighthouse/lighthouse.mjs --local",
-    "performance": "node ./script/performance/performance.mjs --log --once",
+    "file-size": "node ./scripts/file_size/file_size.mjs --log",
+    "lighthouse": "node ./scripts/lighthouse/lighthouse.mjs --local",
+    "performance": "node ./scripts/performance/performance.mjs --log --once",
     "test-with-coverage": "npm run test -- --coverage",
     "start": "npm run preview",
     "prettier": "prettier --write .",
     "playwright-install": "npx playwright install-deps && npx playwright install",
-    "certificate-install": "node ./script/dev/install_certificate.mjs"
+    "certificate-install": "node ./scripts/dev/install_certificate.mjs"
   },
   "dependencies": {
     "@jsenv/pwa": "5.0.0"

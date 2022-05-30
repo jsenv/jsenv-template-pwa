@@ -1,9 +1,9 @@
 # Building
 
-In order to optimize files for production use `node ./script/build/build.mjs` or `npm run build`.
+In order to optimize files for production use `node ./scripts/build/build.mjs` or `npm run build`.
 
 ```console
-> node ./script/build/build.mjs
+> node ./scripts/build/build.mjs
 
 build "./src/main.html"
 ✔ prebuild (done in 1.1 seconds)

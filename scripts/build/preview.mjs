@@ -12,8 +12,8 @@ export const server = await startBuildServer({
   certificate: serverCertificate,
   privateKey: serverCertificatePrivateKey,
   buildCommand: process.env.LIGHTHOUSE
-    ? "node script/build/build.mjs --lighthouse"
-    : "node script/build/build.mjs --preview",
+    ? "node scripts/build/build.mjs --lighthouse"
+    : "node scripts/build/build.mjs --preview",
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
   mainBuildFile: "/index.html",

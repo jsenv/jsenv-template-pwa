@@ -25,9 +25,9 @@ If you want to keep the development server, check [How to use development server
 - https://localhost:3472
 ```
 
-See [script/server/dev.mjs](../../script/dev/dev.mjs)
+See [scripts/server/dev.mjs](../../scripts/dev/dev.mjs)
 
 # How to remove development server
 
 1. Remove `"dev"` from `"scripts"` in [package.json](../../package.json#L26)
-2. Delete [script/dev/dev.mjs](../../script/dev/dev.mjs)
+2. Delete [scripts/dev/dev.mjs](../../scripts/dev/dev.mjs)
