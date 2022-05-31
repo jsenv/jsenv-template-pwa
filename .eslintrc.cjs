@@ -15,6 +15,16 @@ const {
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
 
+  // By default files are meant to be executed in Node.js
+  // and we want to tell this to ESLint.
+  // As a result ESLint can consider `window` as undefined
+  // and `global` as an existing global variable.
+  {
+    env: {
+      node: true,
+    },
+  },
+
   // enable top level await
   {
     parserOptions: {
@@ -27,16 +37,6 @@ const eslintConfig = composeEslintConfig(
     parser: "@babel/eslint-parser",
     parserOptions: {
       requireConfigFile: false,
-    },
-  },
-
-  // Files in this repository are meant to be executed in browser
-  // and we want to tell this to ESLint.
-  // As a result ESLint can consider `global` as undefined
-  // and `window` as an existing global variable.
-  {
-    env: {
-      browser: true,
     },
   },
 
@@ -56,7 +56,7 @@ const eslintConfig = composeEslintConfig(
       "import/resolver": {
         "@jsenv/eslint-import-resolver": {
           rootDirectoryUrl: __dirname,
-          // logLevel: "debug",
+          packageConditions: ["node", "import"],
         },
       },
     },
@@ -71,26 +71,20 @@ const eslintConfig = composeEslintConfig(
     },
   },
 
-  // tell to ESLint which files are for Node.js in ESM
+  // Configure which files are written for the web
   {
     overrides: [
       {
-        files: ["**/*.mjs"],
+        files: ["./src/**", "./test/**", "./docs/**/src/**"],
         env: {
-          browser: false,
-          node: true,
-        },
-        globals: {
-          __filename: "off",
-          __dirname: "off",
-          require: "off",
-          exports: "off",
+          browser: true,
+          node: false,
         },
         settings: {
           "import/resolver": {
             "@jsenv/eslint-import-resolver": {
               rootDirectoryUrl: __dirname,
-              packageConditions: ["node", "import"],
+              packageConditions: ["browser", "import"],
             },
           },
         },
@@ -98,14 +92,21 @@ const eslintConfig = composeEslintConfig(
     ],
   },
 
-  // tell to ESLint which files are for Node.js in CommonJS
+  // package is "type": "module" so:
+  // 1. disable commonjs globals by default
+  // 2. Re-enable commonjs into *.cjs files
   {
+    globals: {
+      __filename: "off",
+      __dirname: "off",
+      require: "off",
+      exports: "off",
+    },
     overrides: [
       {
         files: ["**/*.cjs"],
         env: {
-          browser: false,
-          node: true,
+          commonjs: true,
         },
         // inside *.cjs files. restore commonJS "globals"
         globals: {

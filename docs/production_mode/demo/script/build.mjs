@@ -4,6 +4,6 @@ await build({
   rootDirectoryUrl: new URL("./", import.meta.url),
   buildDirectoryUrl: new URL("./dist/", import.meta.url),
   entryPoints: {
-    "./main.html": "index.html",
+    "./src/main.html": "index.html",
   },
 })
