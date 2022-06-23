@@ -13,5 +13,8 @@ import {
 await reportLighthouseImpact({
   ...readGitHubWorkflowEnv(),
   logLevel: "debug",
-  lighthouseReportPath: "./scripts/lighthouse/lighthouse.mjs#lighthouseReport",
+  lighthouseReportUrl: new URL(
+    "../../../scripts/lighthouse/lighthouse.mjs#lighthouseReport",
+    import.meta.url,
+  ),
 })

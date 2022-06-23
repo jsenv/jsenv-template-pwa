@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-10.15]
-        node: [16.13.0]
+        node: [16.14.2]
     runs-on: ${{ matrix.os }}
     name: test on ${{ matrix.os }} and node ${{ matrix.node }}
     steps:
@@ -57,7 +57,7 @@ jobs:
       - name: Setup node 🔧
         uses: actions/setup-node@v2
         with:
-          node-version: "16.13.0"
+          node-version: "16.14.2"
       - name: Install node modules ⬇️
         run: npm install
       - name: Build 🚧
