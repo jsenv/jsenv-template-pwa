@@ -1,6 +1,7 @@
 import { chromium } from "playwright"
 
 process.env.LOG_LEVEL = "warn" // discard logs related to build server
+process.env.PERFORMANCE = "1"
 const { server } = await import("../build/preview.mjs")
 const browser = await chromium.launch()
 const browserContext = await browser.newContext({
