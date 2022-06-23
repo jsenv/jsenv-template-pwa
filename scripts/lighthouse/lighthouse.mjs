@@ -28,11 +28,13 @@ const lighthouseReport = await generateLighthouseReport(server.origin, {
   // on jsenv self signed certificate
   ignoreCertificateErrors: true,
   log: local,
-  jsonFile: local,
-  htmlFile: local,
   rootDirectoryUrl: new URL("../../", import.meta.url),
-  jsonFileRelativeUrl: "./scripts/lighthouse/lighthouse_report.json",
-  htmlFileRelativeUrl: "./scripts/lighthouse/lighthouse_report.html",
+  jsonFileUrl: local
+    ? new URL("./lighthouse/lighthouse_report.json", import.meta.url)
+    : null,
+  htmlFileUrl: local
+    ? new URL("./scripts/lighthouse/lighthouse_report.html", import.meta.url)
+    : null,
 })
 server.stop("lighthouse report generated")
 export { lighthouseReport }

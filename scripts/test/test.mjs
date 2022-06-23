@@ -10,7 +10,7 @@ import { rootDirectoryUrl } from "../../jsenv.config.mjs"
 await executeTestPlan({
   rootDirectoryUrl,
   testPlan: {
-    "./test/**/*.test.html": {
+    "./tests/**/*.test.html": {
       chromium: {
         runtime: chromium,
       },
@@ -20,6 +20,6 @@ await executeTestPlan({
     },
   },
   coverage: process.argv.includes("--coverage"),
-  coverageJsonFileRelativeUrl: "coverage/coverage.json",
+  coverageJsonFileRelativeUrl: "./.coverage/coverage.json",
   coverageForceIstanbul: true,
 })
