@@ -12,6 +12,4 @@ export const server = await startBuildServer({
   privateKey,
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  buildServerMainFile: import.meta.url,
-  buildServerAutoreload: !process.env.PERFORMANCE,
 })

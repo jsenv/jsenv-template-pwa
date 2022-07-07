@@ -10,17 +10,17 @@ import { rootDirectoryUrl } from "../../jsenv.config.mjs"
 
 const { certificate, privateKey } = requestCertificateForLocalhost()
 
-export const server = await startDevServer({
+await startDevServer({
   rootDirectoryUrl,
   port: 3472,
   protocol: "https",
   certificate,
   privateKey,
   explorerGroups: {
-    "app": {
+    app: {
       "./src/main.html": true,
     },
-    "unit tests": {
+    tests: {
       "test/**/*.test.html": true,
     },
   },
