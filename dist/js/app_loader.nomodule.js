@@ -1,4 +1,4 @@
-System.register([__v__("/js/babel_helpers.es5.js")], function (_export, _context) {
+System.register([__v__("/js/babel_helpers.nomodule.js")], function (_export, _context) {
   "use strict";
 
   var inlineContent, stylesheet, loadApp, loadAppJs, loadAppCss, loadAppDependencies, loadBannana, loadGorilla, loadJungle;
@@ -98,7 +98,7 @@ System.register([__v__("/js/babel_helpers.es5.js")], function (_export, _context
       }));
 
       loadAppJs = _async(function () {
-        return _await(_context.import(__v__("/js/app.es5.js")), function (app) {
+        return _await(_context.import(__v__("/js/app.nomodule.js")), function (app) {
           performance.measure("app.js ready");
           return app;
         });
