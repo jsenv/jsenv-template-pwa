@@ -16,7 +16,7 @@ If you want to keep code coverage check [How to use code coverage](#How-to-use-c
 
 # How to use code coverage
 
-You can generate code coverage locally and navigate in the report using `npm run test-with-coverage` command. It is configured to execute [scripts/test/test.mjs](../../scripts/test/test.mjs) with --coverage parameter.
+You can generate code coverage locally and navigate in the report using `npm run test:coverage` command. It is configured to execute [scripts/test/test.mjs](../../scripts/test/test.mjs) with --coverage parameter.
 
 ```console
 ❯ node ./scripts/test/test.mjs "--coverage"
@@ -63,8 +63,8 @@ If you want to enable this, see [Configure codecov](#Configure-codecov), otherwi
 # How to remove code coverage
 
 1. Follow steps from [Remove codecov](#remove-codecov)
-2. Replace "npm run test-with-coverage" by "npm test" in [.github/workflows/main.yml](../../.github/workflows/main.yml#L50)
-3. Remove "test-with-coverage" from "scripts" in [package.json](../../package.json#L46)
+2. Replace "npm run test:coverage" by "npm test" in [.github/workflows/main.yml](../../.github/workflows/main.yml#L50)
+3. Remove "test:coverage" from "scripts" in [package.json](../../package.json#L46)
 4. Remove _/coverage/_ in [.gitignore](../../.gitignore#L9)
 5. Remove _/coverage/_ in [.eslintignore](../../.eslintignore#L13)
 6. Remove _/coverage/_ in [.prettierignore](../../.prettierignore#L8)

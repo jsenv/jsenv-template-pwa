@@ -61,7 +61,7 @@ If you don't need test or want to use an other test framework/library follow the
 2. Remove these `"scripts"` in [package.json](../../package.json#L26)
 
    - `"test"`
-   - `"test-with-coverage"`
+   - `"test:coverage"`
    - `"playwright-install"`
 
 3. Delete [scripts/test/](../../scripts/test/) directory
