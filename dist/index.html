@@ -3,11 +3,11 @@
 ;(function() {
 
 var __versionMappings__ = {
-  "/js/app_loader.es5.js": "/js/app_loader.es5.js?as_js_classic&v=31d1ddc8",
-  "/js/dev_ribbon.es5.js": "/js/dev_ribbon.es5.js?as_js_classic&v=26df65e0",
+  "/js/app_loader.nomodule.js": "/js/app_loader.nomodule.js?as_js_classic&v=6663356f",
+  "/js/dev_ribbon.nomodule.js": "/js/dev_ribbon.nomodule.js?as_js_classic&v=26df65e0",
   "/css/app.css": "/css/app.css?v=c2350902",
-  "/js/app.es5.js": "/js/app.es5.js?as_js_classic&v=7f142cb7",
-  "/js/babel_helpers.es5.js": "/js/babel_helpers.es5.js?as_js_classic&v=ea51f958",
+  "/js/app.nomodule.js": "/js/app.nomodule.js?as_js_classic&v=68161844",
+  "/js/babel_helpers.nomodule.js": "/js/babel_helpers.nomodule.js?as_js_classic&v=ea51f958",
   "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
   "/other/logo.png": "/other/logo.png?v=25e95a00"
 };
@@ -18,7 +18,7 @@ window.__v__ = function (specifier) {
 })();
 
 </script>
-    <script src="/js/s.js?v=e8abd29a"></script>
+    <script src="/js/s.js?v=4b7e4d97"></script>
     <title>PWA Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,9 +35,9 @@ window.__v__ = function (specifier) {
     -->
     <link rel="preload" href="/other/roboto_v27_latin_regular.woff2?v=cc46322d" as="font" type="font/woff2" crossorigin="">
     
-    <link rel="preload" href="/js/app_loader.es5.js?as_js_classic&amp;v=31d1ddc8" as="script">
+    <link rel="preload" href="/js/app_loader.nomodule.js?as_js_classic&amp;v=6663356f" as="script">
     <link rel="preload" href="/css/app.css?v=c2350902" as="style">
-    <link rel="preload" href="/js/app.es5.js?as_js_classic&amp;v=7f142cb7" as="script">
+    <link rel="preload" href="/js/app.nomodule.js?as_js_classic&amp;v=68161844" as="script">
 
     <style>html, body {
   height: 100%;
@@ -233,50 +233,53 @@ if (!window.browserIsSupported) {
   window.resolveAppDisplayedPromise = resolve;
   window.rejectAppDisplayedPromise = reject;
 });</script>
-    <script>System.register([], function (_export, _context) {
+    <script>function _async(f) {
+  return function () {
+    for (var args = [], i = 0; i < arguments.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    try {
+      return Promise.resolve(f.apply(this, args));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+}
+
+function _await(value, then, direct) {
+  if (direct) {
+    return then ? then(value) : value;
+  }
+
+  if (!value || !value.then) {
+    value = Promise.resolve(value);
+  }
+
+  return then ? value.then(then) : value;
+}
+
+function _catch(body, recover) {
+  try {
+    var result = body();
+  } catch (e) {
+    return recover(e);
+  }
+
+  if (result && result.then) {
+    return result.then(void 0, recover);
+  }
+
+  return result;
+}
+
+System.register([], function (_export, _context) {
   "use strict";
 
   var bootingScreenNode, bootingErrorScreenNode, appNode, showBootNode;
-
-  function _await(value, then, direct) {
-    if (direct) {
-      return then ? then(value) : value;
-    }
-
-    if (!value || !value.then) {
-      value = Promise.resolve(value);
-    }
-
-    return then ? value.then(then) : value;
-  }
-
-  function _catch(body, recover) {
-    try {
-      var result = body();
-    } catch (e) {
-      return recover(e);
-    }
-
-    if (result && result.then) {
-      return result.then(void 0, recover);
-    }
-
-    return result;
-  }
-
-  function _empty() {}
-
-  function _invokeIgnored(body) {
-    var result = body();
-
-    if (result && result.then) {
-      return result.then(_empty);
-    }
-  }
-
   return {
     setters: [],
-    execute: function () {
+    execute: _async(function () {
       bootingScreenNode = document.querySelector("#booting_screen");
       bootingErrorScreenNode = document.querySelector("#booting_error_screen");
       appNode = document.querySelector("#app");
@@ -288,13 +291,12 @@ if (!window.browserIsSupported) {
         node.removeAttribute("data-hidden");
       };
 
-      _invokeIgnored(function () {
+      return function () {
         if (window.browserIsSupported) {
           showBootNode(bootingScreenNode);
-
-          _catch(function () {
-            return _await(_context.import(__v__("/js/app_loader.es5.js")), function (_ref) {
-              let loadApp = _ref.loadApp;
+          return _catch(function () {
+            return _await(_context.import(__v__("/js/app_loader.nomodule.js")), function (_await$import) {
+              const loadApp = _await$import.loadApp;
               return _await(loadApp({
                 appNode
               }), function () {
@@ -308,8 +310,8 @@ if (!window.browserIsSupported) {
             throw e;
           });
         }
-      });
-    }
+      }();
+    })
   };
 });</script>
 
@@ -323,34 +325,48 @@ if (!window.browserIsSupported) {
   beforeinstallpromptEvent.preventDefault();
   window.beforeinstallpromptEvent = beforeinstallpromptEvent;
 });</script>
-    <script>System.register([], function (_export, _context) {
+    <script>function _async(f) {
+  return function () {
+    for (var args = [], i = 0; i < arguments.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    try {
+      return Promise.resolve(f.apply(this, args));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+}
+
+function _empty() {}
+
+function _awaitIgnored(value, direct) {
+  if (!direct) {
+    return value && value.then ? value.then(_empty) : Promise.resolve();
+  }
+}
+
+function _invokeIgnored(body) {
+  var result = body();
+
+  if (result && result.then) {
+    return result.then(_empty);
+  }
+}
+
+System.register([], function (_export, _context) {
   "use strict";
-
-  function _empty() {}
-
-  function _awaitIgnored(value, direct) {
-    if (!direct) {
-      return value && value.then ? value.then(_empty) : Promise.resolve();
-    }
-  }
-
-  function _invokeIgnored(body) {
-    var result = body();
-
-    if (result && result.then) {
-      return result.then(_empty);
-    }
-  }
 
   return {
     setters: [],
-    execute: function () {
-      _invokeIgnored(function () {
+    execute: _async(function () {
+      return _invokeIgnored(function () {
         if (undefined) {
-          _awaitIgnored(_context.import(__v__("/js/dev_ribbon.es5.js")));
+          return _awaitIgnored(_context.import(__v__("/js/dev_ribbon.nomodule.js")));
         }
       });
-    }
+    })
   };
 });</script>
   

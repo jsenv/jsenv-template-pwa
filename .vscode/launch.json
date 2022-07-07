@@ -16,7 +16,7 @@
       "sourceMaps": true,
       "smartStep": true,
       "skipFiles": [
-        "node_modules/**",
+        // "node_modules/**",
         "node_modules/@babel/template/**",
         "node_modules/@rollup/**",
         "<node_internals>/**"

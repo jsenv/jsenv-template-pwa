@@ -657,7 +657,7 @@ System.register([], function (_export, _context) {
 
         const callLater = window.requestIdleCallback || requestAnimationFrame;
         callLater(() => {
-          script.setRegistrationPromise(window.navigator.serviceWorker.register(new URL("/service_worker.es5.js", _context.meta.url), {
+          script.setRegistrationPromise(window.navigator.serviceWorker.register(new URL("/service_worker.nomodule.js", _context.meta.url), {
             type: "classic"
           }));
         });

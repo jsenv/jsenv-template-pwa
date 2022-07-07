@@ -20,7 +20,7 @@ if (!local) {
   process.env.LIGHTHOUSE = "1"
   await import(`../build/build.mjs`)
 }
-const { server } = await import(`../build/preview.mjs`)
+const { server } = await import(`../build/start_build_server.mjs`)
 const lighthouseReport = await generateLighthouseReport(server.origin, {
   runCount: local ? 1 : 2,
 

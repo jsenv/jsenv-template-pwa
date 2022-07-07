@@ -16,7 +16,7 @@ document.querySelector("#message").innerHTML = message
 
 Depending how the code is runned, browser displays either _development_ or _production_.
 
-| `npm run dev`                   | `npm run preview`                |
+| `npm run dev`                   | `npm run build:serve`            |
 | ------------------------------- | -------------------------------- |
 | ![stuff](./mode_dev_chrome.png) | ![stuff](./mode_prod_chrome.png) |
 
@@ -26,7 +26,7 @@ This repository has preconfigured a _production mode_, if you want to keep this 
 
 In development mode there is an orange ribbon. After the build code specific to development is removed by treeshaking.
 
-| npm run dev             | npm run preview          |
+| npm run dev             | npm run build:serve      |
 | ----------------------- | ------------------------ |
 | ![stuff](./pwa_dev.png) | ![stuff](./pwa_prod.png) |
 
