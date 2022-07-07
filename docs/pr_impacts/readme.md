@@ -6,6 +6,5 @@ Every time the pull request changes, workflow reruns and the comment is updated.
 
 List of pull request impacts analyzed:
 
-- [File size impact](./file_size_impact.md)
 - [Lighthouse score impact](./lighthouse_impact.md)
 - [Performance impact](./performance_impact.md)

@@ -29,7 +29,6 @@ lighthouse_report.html can be opened in a browser as shown in screenshot below.
 # How to remove lighthouse impact?
 
 1. Remove `"generate-lighthouse-report"` from `"scripts"` in [package.json](../../package.json#L24)
-2. Delete [.github/workflows/lighthouse_impact.yml](../../.github/workflows/file_size_impact.yml)
-3. Delete [.github/workflows/pr_impact/report_lighthouse_impact.mjs](../../.github/workflows/pr_impact/report_lighthouse_impact.mjs)
-4. Delete [scripts/lighthouse/](../../scripts/lighthouse/) directory
-5. Remove `"@jsenv/lighthouse-impact"` from `"devDependencies"` in [package.json](../../package.json#L48)
+2. Delete [.github/workflows/pr_impact/report_lighthouse_impact.mjs](../../.github/workflows/pr_impact/report_lighthouse_impact.mjs)
+3. Delete [scripts/lighthouse/](../../scripts/lighthouse/) directory
+4. Remove `"@jsenv/lighthouse-impact"` from `"devDependencies"` in [package.json](../../package.json#L48)
