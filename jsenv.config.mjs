@@ -1,10 +1,7 @@
 /*
- * This file exports configuration reused by jsenv scripts such as
- *
- * scripts/test/test.mjs
- * scripts/build/build.mjs
- *
- * Read more at https://github.com/jsenv/jsenv-core#jsenvconfigmjs
+ * This file exports configuration reused by scripts such as
+ * - scripts/test/test.mjs
+ * - scripts/build/build.mjs
  */
 
 export const rootDirectoryUrl = String(new URL("./", import.meta.url))
