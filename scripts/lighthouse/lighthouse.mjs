@@ -16,14 +16,10 @@ import { generateLighthouseReport } from "@jsenv/lighthouse-impact"
 const local = process.argv.includes("--local")
 
 process.env.LOG_LEVEL = "warn" // discard logs related to build
-if (!local) {
-  process.env.LIGHTHOUSE = "1"
-  await import(`../build/build.mjs`)
-}
+await import(`../build/build.mjs`)
 const { server } = await import(`../build/start_build_server.mjs`)
 const lighthouseReport = await generateLighthouseReport(server.origin, {
   runCount: local ? 1 : 2,
-
   // prevent a CERT_INVALID error thrown by lighthouse
   // on jsenv self signed certificate
   ignoreCertificateErrors: true,

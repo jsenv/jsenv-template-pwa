@@ -10,6 +10,7 @@ import { copyEntry } from "@jsenv/filesystem"
 import { rootDirectoryUrl, runtimeCompat } from "../../jsenv.config.mjs"
 
 await build({
+  logLevel: process.env.LOG_LEVEL,
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
   runtimeCompat,
@@ -23,7 +24,7 @@ await build({
   // In the real project you likely want to keep minification all the time
   // to test the files as they will be in production
   minification: process.argv.includes("--prod"),
-  sourcemaps: process.env.LIGHTHOUSE,
+  sourcemaps: !process.argv.includes("--prod"),
   assetManifestFile: true,
   assetManifestFileRelativeUrl: "asset-manifest.json",
   watch: process.argv.includes("--watch"),
