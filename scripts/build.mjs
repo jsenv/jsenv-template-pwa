@@ -5,6 +5,8 @@
  */
 
 import { build } from "@jsenv/core"
+import { jsenvPluginBundling } from "@jsenv/plugin-bundling"
+import { jsenvPluginMinification } from "@jsenv/plugin-minification"
 import { copyEntry } from "@jsenv/filesystem"
 
 const rootDirectoryUrl = new URL("../", import.meta.url)
@@ -14,21 +16,23 @@ await build({
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("dist/", rootDirectoryUrl),
   runtimeCompat: {
-    chrome: "55",
-    edge: "14",
-    firefox: "52",
-    safari: "11",
+    chrome: "64",
+    edge: "79",
+    firefox: "67",
+    safari: "11.3",
   },
-  buildDirectoryClean: true,
+  plugins: [
+    jsenvPluginBundling(),
+    // minification is disabled (except for prod) to help discover what is generated
+    // during build by this project template.
+    // In the real project you likely want to keep minification all the time
+    // to test the files as they will be in production
+    ...(process.argv.includes("--prod") ? [jsenvPluginMinification()] : []),
+  ],
   entryPoints: {
     "./src/main.html": "index.html",
   },
   baseUrl: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
-  // minification is disabled (except for prod) to help discover what is generated
-  // during build by this project template.
-  // In the real project you likely want to keep minification all the time
-  // to test the files as they will be in production
-  minification: process.argv.includes("--prod"),
   sourcemaps: !process.argv.includes("--prod"),
   watch: process.argv.includes("--watch"),
 })

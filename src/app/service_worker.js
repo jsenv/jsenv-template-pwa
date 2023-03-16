@@ -25,7 +25,7 @@ const installServiceWorkerUpdateUI = (appNode) => {
   buttonCheckUpdate.onclick = async () => {
     buttonCheckUpdate.disabled = true
     paragraph.innerHTML = "checking for update"
-    const found = await swFacade.checkForUpdate()
+    const found = await swFacade.checkForUpdates()
     if (found) {
       // when update is found, we already know from listenServiceWorkerUpdate
     } else {
@@ -35,7 +35,7 @@ const installServiceWorkerUpdateUI = (appNode) => {
   }
 
   swFacade.subscribe(({ update }) => {
-    if (update) {
+    if (update.readyState) {
       paragraph.innerHTML = `Update available <button>Activate update</button>`
       paragraph.querySelector("button").onclick = () => {
         paragraph.querySelector("button").disabled = true
