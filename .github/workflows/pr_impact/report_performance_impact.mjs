@@ -15,7 +15,7 @@ await reportPerformanceImpact({
   logLevel: "debug",
   installCommand: "npm install",
   performanceReportUrl: new URL(
-    "../../../scripts/performance/performance.mjs#performanceReport",
+    "../../../scripts/performance.mjs#performanceReport",
     import.meta.url,
   ),
 })

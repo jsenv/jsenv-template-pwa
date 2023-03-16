@@ -7,13 +7,18 @@
 import { build } from "@jsenv/core"
 import { copyEntry } from "@jsenv/filesystem"
 
-import { rootDirectoryUrl, runtimeCompat } from "../../jsenv.config.mjs"
+const rootDirectoryUrl = new URL("../", import.meta.url)
 
 await build({
   logLevel: process.env.LOG_LEVEL,
   rootDirectoryUrl,
-  buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  runtimeCompat,
+  buildDirectoryUrl: new URL("dist/", rootDirectoryUrl),
+  runtimeCompat: {
+    chrome: "55",
+    edge: "14",
+    firefox: "52",
+    safari: "11",
+  },
   buildDirectoryClean: true,
   entryPoints: {
     "./src/main.html": "index.html",
@@ -25,8 +30,6 @@ await build({
   // to test the files as they will be in production
   minification: process.argv.includes("--prod"),
   sourcemaps: !process.argv.includes("--prod"),
-  assetManifestFile: true,
-  assetManifestFileRelativeUrl: "asset-manifest.json",
   watch: process.argv.includes("--watch"),
 })
 

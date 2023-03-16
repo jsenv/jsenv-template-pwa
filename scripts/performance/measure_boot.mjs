@@ -1,7 +1,7 @@
 import { chromium } from "playwright"
 
 process.env.LOG_LEVEL = "warn" // discard logs related to build server
-const { server } = await import("../build/start_build_server.mjs")
+const { server } = await import("../start_build_server.mjs")
 const browser = await chromium.launch()
 const browserContext = await browser.newContext({
   ignoreHTTPSErrors: true,

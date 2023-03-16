@@ -1,6 +1,6 @@
 /*
  * This file uses "@jsenv/eslint-config" to configure ESLint
- * https://github.com/jsenv/eslint-config#eslint-config----
+ * https://github.com/jsenv/jsenv-core/tree/main/packages/eslint-config
  */
 
 const {
@@ -44,8 +44,9 @@ const eslintConfig = composeEslintConfig(
   {
     rules: {
       ...jsenvEslintRules,
-      // Example of code changing the ESLint configuration to enable a rule:
-      // 'prefer-const':  ['error']
+      "consistent-return": ["off"],
+      "no-negated-condition": ["off"],
+      "dot-notation": ["off"],
     },
   },
 
@@ -60,7 +61,9 @@ const eslintConfig = composeEslintConfig(
         },
       },
     },
-    rules: jsenvEslintRulesForImport,
+    rules: {
+      ...jsenvEslintRulesForImport,
+    },
   },
 
   // Enable HTML plugin
@@ -75,7 +78,12 @@ const eslintConfig = composeEslintConfig(
   {
     overrides: [
       {
-        files: ["./src/**", "./tests/**", "./docs/**/src/**"],
+        files: [
+          // prettier-ignore
+          "./src/**",
+          "./tests/**",
+          "./docs/**/src/**",
+        ],
         env: {
           browser: true,
           node: false,

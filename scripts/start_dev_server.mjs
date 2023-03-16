@@ -4,14 +4,13 @@
  */
 
 import { startDevServer } from "@jsenv/core"
-import { requestCertificateForLocalhost } from "@jsenv/https-local"
+import { requestCertificate } from "@jsenv/https-local"
+import { openBrowser } from "./utils/open_browser.js"
 
-import { rootDirectoryUrl } from "../../jsenv.config.mjs"
+const { certificate, privateKey } = requestCertificate()
 
-const { certificate, privateKey } = requestCertificateForLocalhost()
-
-await startDevServer({
-  rootDirectoryUrl,
+const devServer = await startDevServer({
+  rootDirectoryUrl: new URL("../", import.meta.url),
   port: 3472,
   protocol: "https",
   certificate,
@@ -25,3 +24,7 @@ await startDevServer({
     },
   },
 })
+
+if (process.argv.includes("--open")) {
+  openBrowser(`${devServer.origin}/src/main.html`)
+}

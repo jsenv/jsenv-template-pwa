@@ -1,40 +1,46 @@
 # This is a GitHub workflow YAML file
 # see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 #
-# This file configures a GitHub workflow responsible to perform
-# various checks related to the codebase. For every push to "main" branch
-# or every push on a pull request, it
+# If you want to update this file it's recommended to use a YAML validator
+# https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+# configured to validate with https://json.schemastore.org/github-workflow.json
+#
+# This workflow is responsible to perform various checks related to the codebase,
+# For every push to main or on a pull request, it
 # - ensures there is no eslint error on files
 # - ensures there is no test failing
 # - uploads code coverage from tests to codecov
 #
-# If you want to update this file it's recommended to use
-# a YAML validator such as https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
-# configured to validate this file with https://json.schemastore.org/github-workflow.json
+# If all these steps are passing and there is a secrets.NPM_TOKEN and version in package.json
+# is not already published, workflow published the package on npm.
 
 name: main
 on:
-  pull_request:
-    branches:
-      - "**"
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - "**"
 jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
-        node: [16.14.2]
+        os: [ubuntu-20.04, macos-12, windows-2022]
+        node: [18.12.1]
     runs-on: ${{ matrix.os }}
     name: test on ${{ matrix.os }} and node ${{ matrix.node }}
+    env:
+      CI: true
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - name: Install node modules
         run: npm install
+      - name: Playwright installation
+        run: npm run playwright:install
       - name: Run ESLint
         run: npm run eslint
       - name: Run tests
@@ -43,25 +49,26 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          # see "coverageJsonFileRelativeUrl" in scripts/test/test.mjs
           files: ./coverage/coverage.json
           verbose: true
 
-  build_and_deploy:
+  release:
     needs: [test]
     if: success() && github.event_name == 'push'
     concurrency: ci-${{ github.ref }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout ⬇️
         uses: actions/checkout@v3
       - name: Setup node 🔧
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "16.14.2"
+          node-version: "18.12.1"
       - name: Install node modules ⬇️
         run: npm install
       - name: Build 🚧
-        run: node ./scripts/build/build.mjs --prod
+        run: npm run build:prod
       - name: Deploy 🚀
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4.3.3
