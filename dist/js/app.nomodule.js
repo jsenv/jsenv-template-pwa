@@ -1711,6 +1711,9 @@ System.register([], function (_export, _context) {
           buttonAddToHomescreen.disabled = !addToHomescreen.availableRef.value;
         });
       };
+      pwaLogger.setOptions({
+        logLevel: "debug"
+      });
       swFacade = createServiceWorkerFacade();
       initServiceWorker = appNode => {
         // wait a bit that browser is less busy to register the service worker

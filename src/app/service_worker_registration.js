@@ -1,4 +1,6 @@
-import { createServiceWorkerFacade } from "@jsenv/pwa"
+import { pwaLogger, createServiceWorkerFacade } from "@jsenv/pwa"
+
+pwaLogger.setOptions({ logLevel: "debug" })
 
 const swFacade = createServiceWorkerFacade()
 

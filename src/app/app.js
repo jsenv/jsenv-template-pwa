@@ -3,7 +3,7 @@
  */
 
 import { initAddToHomeScreen } from "./add_to_home_screen.js"
-import { initServiceWorker } from "./service_worker.js"
+import { initServiceWorker } from "./service_worker_registration.js"
 
 import { greet } from "./greet.js"
 

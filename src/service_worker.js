@@ -13,6 +13,7 @@ self.importScripts(
 
 self.__sw__.init({
   name: "product-name",
+  logLevel: "debug",
   resources: {
     "/": {},
     ...(self.resourcesFromJsenvBuild || {}),
