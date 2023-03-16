@@ -5,7 +5,3 @@
   src: local("Roboto"), url(./roboto_v27_latin_regular.woff2) format("woff2");
   font-display: swap;
 }
-
-#splashscreen {
-  font-family: Roboto;
-}

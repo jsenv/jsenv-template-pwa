@@ -15,18 +15,18 @@
     <!--
       Tell browser to start fetching theses ressources right now:
       - The font
-      - CSS and JS used to load the app
-      - CSS and JS of the app
+      - CSS and JS used to load the app (main.css + main.js)
+      - CSS and JS of the app (app.css + app.js)
     -->
     <link
       rel="preload"
-      href="./app_loader/roboto_v27_latin_regular.woff2"
+      href="./roboto_v27_latin_regular.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-    <link rel="preload" href="./app_loader/app_loader.css" as="style" />
-    <link rel="modulepreload" href="./app_loader/app_loader.js" />
+    <link rel="preload" href="./main.css" as="script" crossorigin />
+    <link rel="modulepreload" href="./main.js" />
     <link rel="preload" href="./app/app.css" as="style" />
     <link rel="modulepreload" href="./app/app.js" />
 
@@ -71,120 +71,7 @@
       <p>This page needs JavaScript to run but JavaScript is not available</p>
     </noscript>
 
-    <!-- Browser not supported -->
     <style>
-      #browser_not_supported {
-        text-align: center;
-        width: 80%;
-        max-width: 640px;
-        margin: auto;
-        display: block;
-      }
-    </style>
-    <div id="browser_not_supported" style="display: none">
-      <h1>Browser not supported</h1>
-      <p>Please update your internet browser or try with an other one</p>
-    </div>
-    <script>
-      /*
-       * - Set window.browserIsSupported boolean
-       * - Display #browser_not_supported div when browser is not supported
-       * This file will be executed as such in every browsers. It will just be minified.
-       * -> The JS used must be as compatible as possible (no const, no arrow function etc)
-       */
-      var userAgent = window.navigator.userAgent
-
-      function browserIsSupported() {
-        var isIE = typeof document.documentMode !== "undefined"
-        if (isIE) {
-          return false
-        }
-        var chromeVersion = versionFromUserAgent(
-          /(?:chrome|chromium|crios|crmo)\/(\d+)/i,
-        )
-        if (chromeVersion && chromeVersion < 55) {
-          return false
-        }
-        var edgeVersion = versionFromUserAgent(
-          /(?:edge|edgea|edgios)\/(\d+)/i,
-          userAgent,
-        )
-        if (edgeVersion && edgeVersion < 14) {
-          return false
-        }
-        var firefoxVersion = versionFromUserAgent(
-          /(?:firefox|iceweasel|fxios)[\s/](\d+)/i,
-        )
-        if (firefoxVersion && firefoxVersion < 52) {
-          return false
-        }
-        var safariVersion =
-          !chromeVersion && /safari|applewebkit/i.test(userAgent)
-            ? versionFromUserAgent(/version\/(\d+)/i)
-            : undefined
-        if (safariVersion && safariVersion < 11) {
-          return false
-        }
-        return true
-      }
-
-      function versionFromUserAgent(regexp) {
-        var match = userAgent.match(regexp)
-        if (!match || match.length === 0) return undefined
-        var firstMatch = match[1]
-        var version = parseInt(firstMatch)
-        return version
-      }
-
-      window.browserIsSupported = browserIsSupported()
-
-      if (!window.browserIsSupported) {
-        document.getElementById("browser_not_supported").style.display = "block"
-      }
-    </script>
-
-    <!--
-      Booting the application
-      - <div id="app"> is hidden until [data-booting] is removed by app_loader.js
-      - <div id="booting_screen"> is displayed while fetching "app_loader.js"
-        and until loadApp is done
-      - <div id="booting_error_screen"> is displayed when there is an error
-        while error while fetching, parsing or executing "app_loader.js"
-    -->
-    <style>
-      #booting_screen,
-      #booting_error_screen {
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      #booting_screen {
-        justify-content: center;
-      }
-      #booting_screen svg {
-        height: 64px;
-      }
-      #booting_error_screen {
-        text-align: center;
-        width: 100%;
-        background-color: #030713;
-        color: #a9a8a8;
-      }
-      #booting_error_screen p {
-        margin-top: 20px;
-        display: inline-block;
-        color: #ba3939;
-        background: #ffe0e0;
-        border: 1px solid #a33a3a;
-        padding: 16px 48px;
-      }
-
       #app {
         overflow: hidden;
         font-family: Retina, sans-serif;
@@ -194,53 +81,7 @@
       #app p {
         padding: 16px 48px;
       }
-      #app[data-fadein] {
-        animation-duration: 0.3s;
-        animation-name: app_fade_in;
-        animation-fill-mode: forwards;
-      }
-      @keyframes app_fade_in {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
     </style>
-    <div id="booting_screen" data-hidden>
-      <svg viewBox="0 0 100 100">
-        <circle
-          fill="none"
-          stroke="#999"
-          stroke-width="4"
-          cx="50"
-          cy="50"
-          r="44"
-          style="opacity: 0.5"
-        ></circle>
-        <circle
-          fill="#333"
-          stroke="currentColor"
-          stroke-width="3"
-          cx="8"
-          cy="54"
-          r="6"
-        >
-          <animateTransform
-            attributeName="transform"
-            dur="2s"
-            type="rotate"
-            from="0 50 48"
-            to="360 50 52"
-            repeatCount="indefinite"
-          ></animateTransform>
-        </circle>
-      </svg>
-    </div>
-    <div id="booting_error_screen" data-hidden>
-      <p>A critical error occured</p>
-    </div>
     <div id="app" data-hidden></div>
     <script>
       window.appDisplayedPromise = new Promise((resolve, reject) => {
@@ -249,31 +90,12 @@
       })
     </script>
     <script type="module">
-      const bootingScreenNode = document.querySelector("#booting_screen")
-      const bootingErrorScreenNode = document.querySelector(
-        "#booting_error_screen",
-      )
-      const appNode = document.querySelector("#app")
-      const showBootNode = (node) => {
-        bootingScreenNode.setAttribute("data-hidden", "")
-        bootingErrorScreenNode.setAttribute("data-hidden", "")
-        appNode.setAttribute("data-hidden", "")
-        node.removeAttribute("data-hidden")
-      }
-      if (window.browserIsSupported) {
-        showBootNode(bootingScreenNode)
-        try {
-          const { loadApp } = await import("./app_loader/app_loader.js")
-          await loadApp({
-            appNode,
-          })
-          showBootNode(appNode)
-          window.resolveAppDisplayedPromise()
-        } catch (e) {
-          showBootNode(bootingErrorScreenNode)
-          window.rejectAppDisplayedPromise(e)
-          throw e
-        }
+      try {
+        await import("./main.js")
+        window.resolveAppDisplayedPromise()
+      } catch (e) {
+        window.rejectAppDisplayedPromise(e)
+        throw e
       }
     </script>
 
@@ -291,11 +113,6 @@
           window.beforeinstallpromptEvent = beforeinstallpromptEvent
         },
       )
-    </script>
-    <script type="module">
-      if (import.meta.dev) {
-        await import("./dev_ribbon.js")
-      }
     </script>
   </body>
 </html>

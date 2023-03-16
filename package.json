@@ -35,11 +35,12 @@
     "prettier": "prettier --write .",
     "lighthouse": "node ./scripts/lighthouse.mjs --local",
     "performance": "node ./scripts/performance.mjs --log",
-    "certificate:install": "node ./bin/install_certificate.mjs",
+    "certificate:install": "node ./scripts/install_certificate.mjs",
     "playwright:install": "npx playwright install-deps && npx playwright install"
   },
   "dependencies": {
-    "@jsenv/pwa": "6.0.0"
+    "@jsenv/pwa": "6.0.0",
+    "@jsenv/service-worker": "1.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.21.3",

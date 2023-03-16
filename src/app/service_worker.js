@@ -1,39 +1,31 @@
-import { canUseServiceWorkers, createServiceWorkerScript } from "@jsenv/pwa"
+import { createServiceWorkerFacade } from "@jsenv/pwa"
 
-const script = createServiceWorkerScript()
+const swFacade = createServiceWorkerFacade()
 
-export const initServiceWorker = (app) => {
-  if (!canUseServiceWorkers) {
-    return
-  }
+export const initServiceWorker = (appNode) => {
   // wait a bit that browser is less busy to register the service worker
   const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
-    script.setRegistrationPromise(
+    swFacade.setRegistrationPromise(
       window.navigator.serviceWorker.register(
         new URL("/src/service_worker.js", import.meta.url),
-        {
-          type: "module",
-        },
       ),
     )
   })
-
-  installServiceWorkerUpdateUI(app)
+  installServiceWorkerUpdateUI(appNode)
 }
 
-const installServiceWorkerUpdateUI = (app) => {
+const installServiceWorkerUpdateUI = (appNode) => {
   const buttonCheckUpdate = document.createElement("button")
   buttonCheckUpdate.innerHTML = "Check update"
   const paragraph = document.createElement("p")
-  app.appendChild(buttonCheckUpdate)
-  app.appendChild(paragraph)
+  appNode.appendChild(buttonCheckUpdate)
+  appNode.appendChild(paragraph)
 
   buttonCheckUpdate.onclick = async () => {
     buttonCheckUpdate.disabled = true
     paragraph.innerHTML = "checking for update"
-    const found = await script.checkForUpdate()
-
+    const found = await swFacade.checkForUpdate()
     if (found) {
       // when update is found, we already know from listenServiceWorkerUpdate
     } else {
@@ -42,13 +34,12 @@ const installServiceWorkerUpdateUI = (app) => {
     }
   }
 
-  script.listenUpdateChange(() => {
-    const update = script.getUpdate()
+  swFacade.subscribe(({ update }) => {
     if (update) {
       paragraph.innerHTML = `Update available <button>Activate update</button>`
       paragraph.querySelector("button").onclick = () => {
         paragraph.querySelector("button").disabled = true
-        update.activate()
+        swFacade.activateUpdate()
       }
     } else {
       paragraph.innerHTML = ""
