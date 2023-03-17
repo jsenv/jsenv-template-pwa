@@ -5,7 +5,6 @@
  */
 
 /* eslint-env serviceworker */
-/* globals self */
 
 self.importScripts(
   "../node_modules/@jsenv/service-worker/src/jsenv_service_worker.js",
