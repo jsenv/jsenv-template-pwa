@@ -128,7 +128,7 @@ const sw = self.__sw__;
 
     // --- init phase ---
     {
-      logger.info("init ".concat(label));
+      logger.info("init (".concat(label, ")"));
       sw.registerActions({
         inspect: () => {
           return {
@@ -170,12 +170,12 @@ const sw = self.__sw__;
         }
       });
       self.addEventListener("install", installEvent => {
-        logger.info("\"".concat(label, "\" install"));
+        logger.info("install (".concat(label, ")"));
         const installPromise = Promise.all([handleInstallEvent(installEvent), install(installEvent)]);
         installEvent.waitUntil(installPromise);
       });
       const handleInstallEvent = async () => {
-        logger.info("open cache");
+        logger.debug("open cache");
         const cache = await self.caches.open(cacheName);
         const urlsToCache = Object.keys(resources);
         const total = urlsToCache.length;
@@ -212,7 +212,7 @@ const sw = self.__sw__;
     // --- activation phase ---
     {
       self.addEventListener("activate", activateEvent => {
-        logger.info("\"".concat(label, "\" activate"));
+        logger.info("activate (".concat(label, ")"));
         const activatePromise = Promise.all([handleActivateEvent(activateEvent), activate(activateEvent)]);
         activateEvent.waitUntil(activatePromise);
       });
@@ -254,7 +254,7 @@ const sw = self.__sw__;
           return self.fetch(request);
         }
         const relativeUrl = asRelativeUrl(request.url);
-        logger.debug("\"".concat(label, "\" fetch ").concat(relativeUrl));
+        logger.debug("fetch \"".concat(relativeUrl, "\" (").concat(label, ")"));
         if (request.mode === "navigate") {
           const preloadResponsePromise = fetchEvent.preloadResponse;
           if (preloadResponsePromise) {

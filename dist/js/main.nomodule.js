@@ -19,18 +19,14 @@ function _await(value, then, direct) {
   }
   return then ? value.then(then) : value;
 }
-System.register([__v__("/js/babel_helpers.nomodule.js")], function (_export, _context) {
+System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context) {
   "use strict";
 
-  var inlineContent, stylesheet, appJsPromise, appCssPromise, appRemainingDepsPromise, app;
-  function InlineContent(content, {
-    type = "text/plain"
-  }) {
-    this.text = content;
-    this.type = type;
-  }
+  var InlineContent, inlineContent, stylesheet, appJsPromise, appCssPromise, appRemainingDepsPromise, app;
   return {
-    setters: [function (_babel_helpersJs) {}],
+    setters: [function (_vendorsJs) {
+      InlineContent = _vendorsJs.InlineContent;
+    }],
     execute: async function () {
       inlineContent = new InlineContent('@font-face {\n  font-family: Roboto;\n  font-style: normal;\n  font-weight: 400;\n  src: local(Roboto), url('+__v__("/other/roboto_v27_latin_regular.woff2")+') format("woff2");\n  font-display: swap;\n}\n', {
         type: "text/css"

@@ -40,20 +40,20 @@
   },
   "dependencies": {
     "@jsenv/pwa": "6.0.0",
-    "@jsenv/service-worker": "1.0.0"
+    "@jsenv/service-worker": "1.0.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.21.3",
     "@babel/plugin-syntax-import-assertions": "7.20.0",
     "@jsenv/assert": "2.8.1",
-    "@jsenv/core": "30.4.0",
+    "@jsenv/core": "30.4.1",
     "@jsenv/eslint-config": "16.3.4",
     "@jsenv/eslint-import-resolver": "0.4.6",
     "@jsenv/filesystem": "4.1.9",
     "@jsenv/https-local": "3.0.6",
     "@jsenv/lighthouse-impact": "4.0.3",
     "@jsenv/performance-impact": "4.1.0",
-    "@jsenv/plugin-bundling": "1.1.2",
+    "@jsenv/plugin-bundling": "1.2.1",
     "@jsenv/plugin-minification": "1.2.0",
     "eslint": "8.36.0",
     "eslint-plugin-html": "7.1.0",

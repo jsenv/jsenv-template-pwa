@@ -19,16 +19,16 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/css/app.css?v=7afa9575"
   },
   "/js/main.nomodule.js": {
-    "version": "e5e56ffd",
-    "versionedUrl": "/js/main.nomodule.js?v=e5e56ffd"
+    "version": "e87419ea",
+    "versionedUrl": "/js/main.nomodule.js?v=e87419ea"
   },
   "/js/app.nomodule.js": {
-    "version": "259f97ae",
-    "versionedUrl": "/js/app.nomodule.js?v=259f97ae"
+    "version": "6b29019a",
+    "versionedUrl": "/js/app.nomodule.js?v=6b29019a"
   },
-  "/js/babel_helpers.nomodule.js": {
-    "version": "c0111822",
-    "versionedUrl": "/js/babel_helpers.nomodule.js?v=c0111822"
+  "/js/vendors.nomodule.js": {
+    "version": "3c95c91f",
+    "versionedUrl": "/js/vendors.nomodule.js?v=3c95c91f"
   },
   "/other/roboto_v27_latin_regular.woff2": {
     "version": "cc46322d",
@@ -47,20 +47,20 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/other/maskable_icon_192.png?v=c20be9d4"
   },
   "/js/jsenv_service_worker.js": {
-    "version": "18d3e6d8",
-    "versionedUrl": "/js/jsenv_service_worker.js?v=18d3e6d8"
+    "version": "e46b22ef",
+    "versionedUrl": "/js/jsenv_service_worker.js?v=e46b22ef"
   }
 };
 
 ;(function() {
   var __versionMappings__ = {
-  "/js/main.nomodule.js": "/js/main.nomodule.js?v=e5e56ffd",
-  "/js/app.nomodule.js": "/js/app.nomodule.js?v=259f97ae",
+  "/js/main.nomodule.js": "/js/main.nomodule.js?v=e87419ea",
+  "/js/app.nomodule.js": "/js/app.nomodule.js?v=6b29019a",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/babel_helpers.nomodule.js": "/js/babel_helpers.nomodule.js?v=c0111822",
+  "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=3c95c91f",
   "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
   "/other/logo.png": "/other/logo.png?v=25e95a00",
-  "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=18d3e6d8"
+  "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=e46b22ef"
 };
   self.__v__ = function (specifier) {
     return __versionMappings__[specifier] || specifier
