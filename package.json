@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@jsenv/pwa": "6.0.0",
-    "@jsenv/service-worker": "1.0.1"
+    "@jsenv/service-worker": "1.0.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.21.3",

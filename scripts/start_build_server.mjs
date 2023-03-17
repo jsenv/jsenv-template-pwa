@@ -5,7 +5,6 @@ import { openBrowser } from "./utils/open_browser.js"
 const { certificate, privateKey } = requestCertificate()
 
 export const buildServer = await startBuildServer({
-  logLevel: process.env.LOG_LEVEL,
   protocol: "https",
   certificate,
   privateKey,

@@ -47,8 +47,8 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/other/maskable_icon_192.png?v=c20be9d4"
   },
   "/js/jsenv_service_worker.js": {
-    "version": "e46b22ef",
-    "versionedUrl": "/js/jsenv_service_worker.js?v=e46b22ef"
+    "version": "53945083",
+    "versionedUrl": "/js/jsenv_service_worker.js?v=53945083"
   }
 };
 
@@ -60,7 +60,7 @@ self.resourcesFromJsenvBuild = {
   "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=3c95c91f",
   "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
   "/other/logo.png": "/other/logo.png?v=25e95a00",
-  "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=e46b22ef"
+  "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=53945083"
 };
   self.__v__ = function (specifier) {
     return __versionMappings__[specifier] || specifier
