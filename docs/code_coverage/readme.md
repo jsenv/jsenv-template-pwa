@@ -16,10 +16,10 @@ If you want to keep code coverage check [How to use code coverage](#How-to-use-c
 
 # How to use code coverage
 
-You can generate code coverage locally and navigate in the report using `npm run test:coverage` command. It is configured to execute [scripts/test/test.mjs](../../scripts/test/test.mjs) with --coverage parameter.
+You can generate code coverage locally and navigate in the report using `npm run test:coverage` command. It is configured to execute [scripts/test.mjs](../../scripts/test.mjs) with --coverage parameter.
 
 ```console
-❯ node ./scripts/test/test.mjs "--coverage"
+❯ node ./scripts/test.mjs "--coverage"
 
 ✔ execution 1 of 2 completed (all completed)
 file: test/greet.test.html

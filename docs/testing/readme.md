@@ -30,12 +30,12 @@ The recommended way to debug a file is to start the development server and use C
 
 ## Executing all tests
 
-Use `npm test` command. It is configured to execute [scripts/test/test.mjs](../../scripts/test/test.mjs) which is responsible to find and execute all your test files.
+Use `npm test` command. It is configured to execute [scripts/test.mjs](../../scripts/test.mjs) which is responsible to find and execute all your test files.
 
 Test files are executed twice, a first time on Chrome, a second time on Firefox.
 
 ```console
-> node ./scripts/test/test.mjs
+> node ./scripts/test.mjs
 
 ✔ execution 1 of 2 completed (all completed)
 file: test/greet.test.html
@@ -64,5 +64,5 @@ If you don't need test or want to use an other test framework/library follow the
    - `"test:coverage"`
    - `"playwright-install"`
 
-3. Delete [scripts/test/](../../scripts/test/) directory
+3. Delete [scripts/test.mjs](../../scripts/test.mjs)
 4. Remove `"@jsenv/assert"` from `"devDependencies"` [package.json](../../package.json#L44)

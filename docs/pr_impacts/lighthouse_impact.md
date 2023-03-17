@@ -4,15 +4,15 @@
 
 # How to use ligthouse impact?
 
-A js file exports [generateLighthouseReport](../../scripts/lighthouse/generate_lighthouse_report.mjs) function. This function starts a headless chrome and measure lighthouse score.
+A js file exports [lighthouseReport](../../scripts/lighthouse.mjs). This file starts a headless chrome and measure lighthouse score.
 
-This function can also be runned locally as shown below.
+This file can also be runned locally as shown below.
 
 ```console
-> npm run generate-lighthouse-report
+> node ./scripts/lighthouse.mjs
 
--> file:///Users/dmail/jsenv-template-pwa/scripts/lighthouse/lighthouse_report.json
--> file:///Users/dmail/jsenv-template-pwa/scripts/lighthouse/lighthouse_report.html
+-> file:///Users/dmail/jsenv-template-pwa/scripts/lighthouse_report.json
+-> file:///Users/dmail/jsenv-template-pwa/scripts/lighthouse_report.html
 {
   "performance": 0.99,
   "accessibility": 0.76,
@@ -28,7 +28,7 @@ lighthouse_report.html can be opened in a browser as shown in screenshot below.
 
 # How to remove lighthouse impact?
 
-1. Remove `"generate-lighthouse-report"` from `"scripts"` in [package.json](../../package.json#L24)
+1. Remove `"lighthouse"` from `"scripts"` in [package.json](../../package.json#L26)
 2. Delete [.github/workflows/pr_impact/report_lighthouse_impact.mjs](../../.github/workflows/pr_impact/report_lighthouse_impact.mjs)
-3. Delete [scripts/lighthouse/](../../scripts/lighthouse/) directory
+3. Delete [scripts/lighthouse.mjs](../../scripts/lighthouse.mjs)
 4. Remove `"@jsenv/lighthouse-impact"` from `"devDependencies"` in [package.json](../../package.json#L48)

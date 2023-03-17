@@ -2,7 +2,7 @@
  * This file is designed to be executed locally or by an automated process.
  *
  * To run it locally, use one of
- * - node ./scripts/performance/performance.mjs --local
+ * - node ./scripts/npperformance.mjs --local
  * - npm run performances
  *
  * The automated process is a GitHub workflow: ".github/workflows/performance_impact.yml"

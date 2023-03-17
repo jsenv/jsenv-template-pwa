@@ -18,16 +18,16 @@ If you want to keep the development server, check [How to use development server
 # How to use development server
 
 ```console
-> npm run dev
+> npm start
 
 ✔ start server (done in 0.01 second)
 
 - https://localhost:3472
 ```
 
-See [scripts/server/start_dev_server.mjs](../../scripts/dev/start_dev_server.mjs)
+See [scripts/start_dev_server.mjs](../../scripts/start_dev_server.mjs)
 
 # How to remove development server
 
 1. Remove `"dev"` from `"scripts"` in [package.json](../../package.json#L26)
-2. Delete [scripts/dev/start_dev_server.mjs](../../scripts/dev/start_dev_server.mjs)
+2. Delete [scripts/start_dev_server.mjs](../../scripts/start_dev_server.mjs)

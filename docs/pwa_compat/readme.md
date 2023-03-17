@@ -11,7 +11,5 @@ You can remove PWA compatibility as described in [Steps to remove pwa](#Steps-to
 - Remove `<link rel="apple-touch-icon">` from [main.html](../../src/main.html#L14)
 - Remove _beforeinstallprompt_ script from [main.html](../../src/main.html#L106-L120)
 - Remove [pwa.webmanifest](../../src/pwa.webmanifest) file
-- Remove _initPwa_ from [src/app/app.js](../../src/app/app.js)
-- Remove [src/app/pwa/](../../src/app/pwa) directory
-- Remove _serviceWorkers_ and _serviceWorkerFinalizer_ from [build script](../../scripts/build/build.mjs#L24-L27)
-- Remove `"@jsenv/pwa"` from `"dependencies"` in [package.json](../../package.json#L40)
+- Remove _initAddToHomeScreen_ and _initServiceWorker_ from [src/app/app.js](../../src/app/app.js)
+- Remove `"@jsenv/pwa"` and `@jsenv/service-worker` from `"dependencies"` in [package.json](../../package.json#L40)

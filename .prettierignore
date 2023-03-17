@@ -16,7 +16,3 @@ package-lock.json
 # -> no need for prettier on files generated dynamically
 /dist/
 
-/scripts/lighthouse/lighthouse_report.html
-/scripts/lighthouse/lighthouse_report.json
-
-
