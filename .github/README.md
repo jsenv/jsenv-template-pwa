@@ -7,11 +7,11 @@ this README should be deleted and only ../README.md should be kept
 
 This repository is meant to serve as a general template for how to set up repositories to create a progressive web application.
 
+This application is deployed at https://jsenv.github.io/jsenv-template-pwa/.
+
 _Screenshot of [lighthouse](https://github.com/GoogleChrome/lighthouse#lighthouse-------) scores for this template:_
 
 ![lighthouse score screenshot](../docs/lighthouse_score.png)
-
-The application is deployed at https://jsenv.github.io/jsenv-template-pwa/.
 
 # How to use
 
