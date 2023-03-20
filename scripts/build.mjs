@@ -22,7 +22,15 @@ await build({
     safari: "11.3",
   },
   plugins: [
-    jsenvPluginBundling(),
+    jsenvPluginBundling({
+      js_module: {
+        chunks: {
+          vendors: {
+            "**/node_modules/": true,
+          },
+        },
+      },
+    }),
     // minification is disabled (except for prod) to help discover what is generated
     // during build by this project template.
     // In the real project you likely want to keep minification all the time
@@ -32,7 +40,7 @@ await build({
   entryPoints: {
     "./src/main.html": "index.html",
   },
-  baseUrl: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
+  base: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
   sourcemaps: !process.argv.includes("--prod"),
   watch: process.argv.includes("--watch"),
 })
