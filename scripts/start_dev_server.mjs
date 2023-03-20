@@ -9,7 +9,7 @@ import { openBrowser } from "./utils/open_browser.js"
 
 const { certificate, privateKey } = requestCertificate()
 
-const devServer = await startDevServer({
+export const devServer = await startDevServer({
   rootDirectoryUrl: new URL("../", import.meta.url),
   port: 3472,
   protocol: "https",
