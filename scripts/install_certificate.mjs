@@ -12,12 +12,12 @@ import {
 } from "@jsenv/https-local"
 
 await installCertificateAuthority({
-  tryToTrust: true,
+  tryToTrust: !process.env.CI,
   NSSDynamicInstall: true,
 })
 await verifyHostsFile({
   ipMappings: {
     "127.0.0.1": ["localhost"],
   },
-  tryToUpdatesHostsFile: true,
+  tryToUpdatesHostsFile: !process.env.CI,
 })
