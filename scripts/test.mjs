@@ -26,9 +26,9 @@ try {
         },
       },
     },
-    coverage: process.argv.includes("--coverage"),
-    coverageJsonFileRelativeUrl: "./.coverage/coverage.json",
-    coverageForceIstanbul: true,
+    coverageEnabled: process.argv.includes("--coverage"),
+    coverageReportJsonFile: "./.coverage/coverage.json",
+    coverageMethodForBrowsers: "istanbul",
   })
 } finally {
   if (devServerModule) {

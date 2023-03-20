@@ -10,9 +10,9 @@
  */
 
 import { chromium } from "playwright"
+import open from "open"
 import { pingServer } from "@jsenv/core"
 import { runLighthouseOnPlaywrightPage } from "@jsenv/lighthouse-impact"
-import { openBrowser } from "./utils/open_browser.js"
 
 const local = process.argv.includes("--local")
 
@@ -59,7 +59,7 @@ try {
     jsonFileUrl: new URL("./.jsenv/lighthouse_report.json", import.meta.url),
   })
   if (process.env.BROWSER !== "none") {
-    openBrowser(new URL("../.jsenv/lighthouse_report.html", import.meta.url))
+    open(new URL("../.jsenv/lighthouse_report.html", import.meta.url))
   }
 } finally {
   await browserContext.close()

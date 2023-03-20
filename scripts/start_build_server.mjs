@@ -1,17 +1,15 @@
+import open from "open"
 import { startBuildServer } from "@jsenv/core"
 import { requestCertificate } from "@jsenv/https-local"
-import { openBrowser } from "./utils/open_browser.js"
 
 const { certificate, privateKey } = requestCertificate()
 
 export const buildServer = await startBuildServer({
-  protocol: "https",
-  certificate,
-  privateKey,
+  https: { certificate, privateKey },
   rootDirectoryUrl: new URL("../", import.meta.url),
   buildDirectoryUrl: new URL("../dist/", import.meta.url),
 })
 
 if (process.env.BROWSER !== "none") {
-  openBrowser(buildServer.origin)
+  open(buildServer.origin)
 }
