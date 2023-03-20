@@ -28,7 +28,7 @@
     "dev": "node ./scripts/start_dev_server.mjs",
     "build:local": "node ./scripts/build.mjs",
     "build:serve": "node ./scripts/start_build_server.mjs",
-    "build:prod": "npm run build -- --prod",
+    "build:prod": "node ./scripts/build.mjs --prod",
     "test": "node ./scripts/test.mjs",
     "test:coverage": "npm run test -- --coverage",
     "eslint": "npx eslint . --ext=.js,.mjs,.cjs,.html",
