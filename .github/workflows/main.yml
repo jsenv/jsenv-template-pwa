@@ -52,7 +52,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           # see "coverageJsonFileRelativeUrl" in scripts/test.mjs
-          files: ./coverage/coverage.json
+          files: ./.coverage/coverage.json
           verbose: true
 
   release:
