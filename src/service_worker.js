@@ -13,7 +13,7 @@ self.importScripts(
 
 self.__sw__.init({
   name: "product-name",
-  logLevel: "debug",
+  logLevel: "info",
   resources: {
     ...(__DEV__ ? { "/": {} } : { "/jsenv-template-pwa/": {} }),
     ...(self.resourcesFromJsenvBuild || {}),
