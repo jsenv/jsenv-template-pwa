@@ -5,6 +5,7 @@
  */
 
 /* eslint-env serviceworker */
+/* globals __DEV__ */
 
 self.importScripts(
   "../node_modules/@jsenv/service-worker/src/jsenv_service_worker.js",
@@ -14,7 +15,7 @@ self.__sw__.init({
   name: "product-name",
   logLevel: "debug",
   resources: {
-    "/": {},
+    ...(__DEV__ ? { "/": {} } : { "/jsenv-template-pwa/": {} }),
     ...(self.resourcesFromJsenvBuild || {}),
   },
 })
