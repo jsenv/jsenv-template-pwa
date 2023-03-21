@@ -24,7 +24,9 @@ System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context)
       pwaLogger.setOptions({
         logLevel: "debug"
       });
-      swFacade = createServiceWorkerFacade();
+      swFacade = createServiceWorkerFacade({
+        scope: "/jsenv-template-pwa/"
+      });
       initServiceWorker = appNode => {
         // wait a bit that browser is less busy to register the service worker
         const callLater = window.requestIdleCallback || requestAnimationFrame;

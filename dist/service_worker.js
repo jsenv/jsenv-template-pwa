@@ -23,8 +23,8 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/js/main.nomodule.js?v=e87419ea"
   },
   "/js/app.nomodule.js": {
-    "version": "6b29019a",
-    "versionedUrl": "/js/app.nomodule.js?v=6b29019a"
+    "version": "d70114e3",
+    "versionedUrl": "/js/app.nomodule.js?v=d70114e3"
   },
   "/js/vendors.nomodule.js": {
     "version": "3c95c91f",
@@ -55,7 +55,7 @@ self.resourcesFromJsenvBuild = {
 ;(function() {
   var __versionMappings__ = {
   "/js/main.nomodule.js": "/js/main.nomodule.js?v=e87419ea",
-  "/js/app.nomodule.js": "/js/app.nomodule.js?v=6b29019a",
+  "/js/app.nomodule.js": "/js/app.nomodule.js?v=d70114e3",
   "/css/app.css": "/css/app.css?v=7afa9575",
   "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=3c95c91f",
   "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
@@ -78,7 +78,7 @@ self.resourcesFromJsenvBuild = {
 self.importScripts(__v__("/js/jsenv_service_worker.js"));
 self.__sw__.init({
   name: "product-name",
-  logLevel: "debug",
+  logLevel: "info",
   resources: {
     ...(false ? {
       "/": {}
