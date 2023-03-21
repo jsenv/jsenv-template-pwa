@@ -2,7 +2,9 @@ import { pwaLogger, createServiceWorkerFacade } from "@jsenv/pwa"
 
 pwaLogger.setOptions({ logLevel: "debug" })
 
-const swFacade = createServiceWorkerFacade()
+const swFacade = createServiceWorkerFacade({
+  scope: import.meta.dev ? "/" : "/jsenv-template-pwa/",
+})
 
 export const initServiceWorker = (appNode) => {
   // wait a bit that browser is less busy to register the service worker
