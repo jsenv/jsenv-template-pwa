@@ -23,12 +23,12 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/js/main.nomodule.js?v=e87419ea"
   },
   "/js/app.nomodule.js": {
-    "version": "d70114e3",
-    "versionedUrl": "/js/app.nomodule.js?v=d70114e3"
+    "version": "6b29019a",
+    "versionedUrl": "/js/app.nomodule.js?v=6b29019a"
   },
   "/js/vendors.nomodule.js": {
-    "version": "3c95c91f",
-    "versionedUrl": "/js/vendors.nomodule.js?v=3c95c91f"
+    "version": "540e27ad",
+    "versionedUrl": "/js/vendors.nomodule.js?v=540e27ad"
   },
   "/other/roboto_v27_latin_regular.woff2": {
     "version": "cc46322d",
@@ -55,9 +55,9 @@ self.resourcesFromJsenvBuild = {
 ;(function() {
   var __versionMappings__ = {
   "/js/main.nomodule.js": "/js/main.nomodule.js?v=e87419ea",
-  "/js/app.nomodule.js": "/js/app.nomodule.js?v=d70114e3",
+  "/js/app.nomodule.js": "/js/app.nomodule.js?v=6b29019a",
   "/css/app.css": "/css/app.css?v=7afa9575",
-  "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=3c95c91f",
+  "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=540e27ad",
   "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=cc46322d",
   "/other/logo.png": "/other/logo.png?v=25e95a00",
   "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=53945083"

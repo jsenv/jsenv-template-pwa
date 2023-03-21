@@ -1565,7 +1565,7 @@ System.register([], function (_export, _context) {
        * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
        */
       _export("createServiceWorkerFacade", createServiceWorkerFacade = ({
-        scope = "/",
+        scope,
         autoclaimOnFirstActivation = false
       } = {}) => {
         let fromInspectPromise = null;
