@@ -1,13 +1,14 @@
 import { chromium } from "playwright"
 
 process.env.LOG_LEVEL = "warn" // discard logs related to build server
-const { server } = await import("../start_build_server.mjs")
+process.env.BROWSER = "none"
+const { buildServer } = await import("../build_serve.mjs")
 const browser = await chromium.launch()
 const browserContext = await browser.newContext({
   ignoreHTTPSErrors: true,
 })
 const page = await browserContext.newPage()
-await page.goto(server.origin)
+await page.goto(buildServer.origin)
 const measures = await page.evaluate(
   /* eslint-disable no-undef */
   async () => {
@@ -23,7 +24,7 @@ const measures = await page.evaluate(
   /* eslint-enable no-undef */
 )
 await browser.close()
-await server.stop()
+await buildServer.stop()
 
 const metrics = {}
 Object.keys(measures).forEach((measureName) => {

@@ -20,12 +20,12 @@ const local = process.argv.includes("--local")
 process.env.LOG_LEVEL = "warn"
 await import(`./build.mjs`)
 
-const buildServerOrigin = "https://player.local.dailymotion.com:8767"
+const buildServerOrigin = "https://localhost:9779"
 const buildServerStarted = await pingServer(buildServerOrigin)
 let buildServerModule
 if (!buildServerStarted) {
   process.env.BROWSER = "none"
-  buildServerModule = await import("./start_build_server.mjs")
+  buildServerModule = await import("./build_serve.mjs")
 }
 
 const browser = await chromium.launch({
@@ -47,7 +47,7 @@ const browserContext = await browser.newContext({
   deviceScaleFactor: 4,
 })
 const page = await browserContext.newPage()
-await page.goto(`${buildServerOrigin}/embed.html?video=x3rdtfy`)
+await page.goto(buildServerOrigin)
 
 let lighthouseReport
 try {
@@ -56,7 +56,7 @@ try {
     runCount: local ? 1 : 2,
     log: true,
     htmlFileUrl: new URL("../.jsenv/lighthouse_report.html", import.meta.url),
-    jsonFileUrl: new URL("./.jsenv/lighthouse_report.json", import.meta.url),
+    jsonFileUrl: new URL("../.jsenv/lighthouse_report.json", import.meta.url),
   })
   if (process.env.BROWSER !== "none") {
     open(new URL("../.jsenv/lighthouse_report.html", import.meta.url))

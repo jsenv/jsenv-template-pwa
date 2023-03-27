@@ -10,7 +10,7 @@ export const initServiceWorker = (appNode) => {
   callLater(() => {
     swFacade.setRegistrationPromise(
       window.navigator.serviceWorker.register(
-        new URL("/src/service_worker.js", import.meta.url),
+        new URL("/service_worker.js", import.meta.url),
       ),
     )
   })

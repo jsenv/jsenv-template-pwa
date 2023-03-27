@@ -3,35 +3,23 @@
  * See https://github.com/jsenv/jsenv-core/blob/master/docs/testing/readme.md#jsenv-test-runner
  */
 
-import { pingServer, executeTestPlan, chromium, firefox } from "@jsenv/core"
+import { executeTestPlan, chromium, firefox } from "@jsenv/core"
 
-const devServerOrigin = "https://localhost:3472"
-const devServerStarted = await pingServer(devServerOrigin)
-let devServerModule
-if (!devServerStarted) {
-  devServerModule = await import("./start_dev_server.mjs")
-}
-
-try {
-  await executeTestPlan({
-    rootDirectoryUrl: new URL("../", import.meta.url),
-    devServerOrigin,
-    testPlan: {
-      "./tests/**/*.test.html": {
-        chromium: {
-          runtime: chromium,
-        },
-        firefox: {
-          runtime: firefox,
-        },
+await executeTestPlan({
+  testDirectoryUrl: new URL("../src/", import.meta.url),
+  testPlan: {
+    "./**/*.test.html": {
+      chromium: {
+        runtime: chromium,
+      },
+      firefox: {
+        runtime: firefox,
       },
     },
-    coverageEnabled: process.argv.includes("--coverage"),
-    coverageReportJsonFile: "./.coverage/coverage.json",
-    coverageMethodForBrowsers: "istanbul",
-  })
-} finally {
-  if (devServerModule) {
-    devServerModule.devServer.stop()
-  }
-}
+  },
+  devServerOrigin: "https://localhost:3472",
+  devServerModuleUrl: new URL("./dev.mjs", import.meta.url),
+  coverageEnabled: process.argv.includes("--coverage"),
+  coverageReportJsonFile: "./.coverage/coverage.json",
+  coverageMethodForBrowsers: "istanbul",
+})

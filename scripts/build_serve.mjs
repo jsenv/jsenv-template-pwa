@@ -5,8 +5,8 @@ import { requestCertificate } from "@jsenv/https-local"
 const { certificate, privateKey } = requestCertificate()
 
 export const buildServer = await startBuildServer({
+  logLevel: process.env.LOG_LEVEL,
   https: { certificate, privateKey },
-  rootDirectoryUrl: new URL("../", import.meta.url),
   buildDirectoryUrl: new URL("../dist/", import.meta.url),
 })
 

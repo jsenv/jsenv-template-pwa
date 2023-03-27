@@ -81,7 +81,6 @@ const eslintConfig = composeEslintConfig(
         files: [
           // prettier-ignore
           "./src/**",
-          "./tests/**",
           "./docs/**/src/**",
         ],
         env: {
@@ -91,7 +90,7 @@ const eslintConfig = composeEslintConfig(
         settings: {
           "import/resolver": {
             "@jsenv/eslint-import-resolver": {
-              rootDirectoryUrl: __dirname,
+              rootDirectoryUrl: `${__dirname}/src/`,
               packageConditions: ["browser", "import"],
             },
           },

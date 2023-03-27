@@ -26,7 +26,7 @@ const { bootMetrics } = await importMetricFromFiles({
   directoryUrl: new URL("./", import.meta.url),
   metricsDescriptions: {
     bootMetrics: {
-      file: "./measure_boot.mjs#bootMetrics",
+      file: "./performance/measure_boot.mjs#bootMetrics",
       iterations: local ? 1 : 7,
       msToWaitBetweenEachIteration: 500,
     },

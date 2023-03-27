@@ -9,12 +9,14 @@ import { jsenvPluginBundling } from "@jsenv/plugin-bundling"
 import { jsenvPluginMinification } from "@jsenv/plugin-minification"
 import { copyEntry } from "@jsenv/filesystem"
 
-const rootDirectoryUrl = new URL("../", import.meta.url)
-
 await build({
   logLevel: process.env.LOG_LEVEL,
-  rootDirectoryUrl,
-  buildDirectoryUrl: new URL("dist/", rootDirectoryUrl),
+  sourceDirectoryUrl: new URL("../src/", import.meta.url),
+  entryPoints: {
+    "./main.html": "index.html",
+  },
+  buildDirectoryUrl: new URL("../dist/", import.meta.url),
+  base: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
   runtimeCompat: {
     chrome: "64",
     edge: "79",
@@ -25,9 +27,7 @@ await build({
     jsenvPluginBundling({
       js_module: {
         chunks: {
-          vendors: {
-            "**/node_modules/": true,
-          },
+          vendors: { "file://**/node_modules/": true },
         },
       },
     }),
@@ -37,15 +37,11 @@ await build({
     // to test the files as they will be in production
     ...(process.argv.includes("--prod") ? [jsenvPluginMinification()] : []),
   ],
-  entryPoints: {
-    "./src/main.html": "index.html",
-  },
-  base: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
   sourcemaps: !process.argv.includes("--prod"),
   watch: process.argv.includes("--watch"),
 })
 
 await copyEntry({
-  from: new URL("src/robots.txt", rootDirectoryUrl),
-  to: new URL("dist/robots.txt", rootDirectoryUrl),
+  from: new URL("../src/robots.txt", import.meta.url),
+  to: new URL("../dist/robots.txt", import.meta.url),
 })

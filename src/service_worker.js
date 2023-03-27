@@ -7,9 +7,7 @@
 /* eslint-env serviceworker */
 /* globals __DEV__ */
 
-self.importScripts(
-  "../node_modules/@jsenv/service-worker/src/jsenv_service_worker.js",
-)
+self.importScripts("@jsenv/service-worker/src/jsenv_service_worker.js")
 
 self.__sw__.init({
   name: "product-name",

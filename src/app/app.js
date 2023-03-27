@@ -10,7 +10,7 @@ import { greet } from "./greet.js"
 const appNode = document.querySelector("#app")
 
 export const render = () => {
-  const logoUrl = new URL("/src/logo.png", import.meta.url)
+  const logoUrl = new URL("/logo.png", import.meta.url)
 
   appNode.innerHTML = `
 <img src=${logoUrl} width="64" height="64" alt="jsenv logo" />
