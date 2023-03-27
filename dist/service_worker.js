@@ -1,7 +1,7 @@
 
 self.resourcesFromJsenvBuild = {
   "/index.html": {
-    "version": "3fa8ec94"
+    "version": "0a1c68dc"
   },
   "/other/favicon.png": {
     "version": "25e95a00",

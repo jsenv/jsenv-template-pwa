@@ -10,6 +10,6 @@ export const buildServer = await startBuildServer({
   buildDirectoryUrl: new URL("../dist/", import.meta.url),
 })
 
-if (process.env.BROWSER !== "none") {
+if (process.argv.includes("--open")) {
   open(buildServer.origin)
 }

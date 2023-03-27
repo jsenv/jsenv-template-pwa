@@ -24,7 +24,6 @@ const buildServerOrigin = "https://localhost:9779"
 const buildServerStarted = await pingServer(buildServerOrigin)
 let buildServerModule
 if (!buildServerStarted) {
-  process.env.BROWSER = "none"
   buildServerModule = await import("./build_serve.mjs")
 }
 
@@ -58,8 +57,8 @@ try {
     htmlFileUrl: new URL("../.jsenv/lighthouse_report.html", import.meta.url),
     jsonFileUrl: new URL("../.jsenv/lighthouse_report.json", import.meta.url),
   })
-  if (process.env.BROWSER !== "none") {
-    open(new URL("../.jsenv/lighthouse_report.html", import.meta.url))
+  if (process.argv.includes("--open-report")) {
+    open(new URL("../.jsenv/lighthouse_report.html", import.meta.url).href)
   }
 } finally {
   await browserContext.close()
