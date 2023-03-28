@@ -6,9 +6,9 @@
 import { executeTestPlan, chromium, firefox } from "@jsenv/core"
 
 await executeTestPlan({
-  testDirectoryUrl: new URL("../src/", import.meta.url),
+  rootDirectoryUrl: new URL("../", import.meta.url),
   testPlan: {
-    "./**/*.test.html": {
+    "./src/**/*.test.html": {
       chromium: {
         runtime: chromium,
       },
@@ -20,6 +20,10 @@ await executeTestPlan({
   devServerOrigin: "https://localhost:3472",
   devServerModuleUrl: new URL("./dev.mjs", import.meta.url),
   coverageEnabled: process.argv.includes("--coverage"),
-  coverageReportJsonFileUrl: "./.coverage/coverage.json",
+  coverageReportJson: true,
+  coverageReportJsonFileUrl: new URL(
+    "../.coverage/coverage.json",
+    import.meta.url,
+  ),
   coverageMethodForBrowsers: "istanbul",
 })
