@@ -1,9 +1,9 @@
 # Building
 
-In order to optimize files for production use `node ./scripts/build/build.mjs` or `npm run build`.
+In order to optimize files for production use `node ./scripts/build.mjs` or `npm run build:local`.
 
 ```console
-> node ./scripts/build/build.mjs
+> node ./scripts/build.mjs
 
 build "./src/main.html"
 ✔ prebuild (done in 1.1 seconds)
@@ -26,14 +26,12 @@ The build perform the following things:
   - If needed, replace js modules with "classic" js using [systemjs format](https://github.com/systemjs/systemjs)
   - If needed, transpiles code to make it compatible with old browsers.
 - Removing dead code (treeshaking)
-  - The code specific to development is removed. See [Production mode](../production_mode/readme.md#Production-mode)
+  - The code specific to development is removed
   - Unused code is removed
 - Bundling of js files: concatenation of js static imports, code splitting on dynamic imports
 - Bundling of css files: concatenation of `@import`
 - Minification of js, css, json, html, and svg files
 - Url versionning (injecting a version in urls to enable long term caching)
 - Inject `self.serviceWorkerUrls` global into service worker file
-
-Read more in [jsenv building documentation](https://github.com/jsenv/jsenv-core#build-overview).
 
 See also the content [dist/](../../dist/) in this repository.

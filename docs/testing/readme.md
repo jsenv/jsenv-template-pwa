@@ -38,12 +38,12 @@ Test files are executed twice, a first time on Chrome, a second time on Firefox.
 > node ./scripts/test.mjs
 
 ✔ execution 1 of 2 completed (all completed)
-file: test/greet.test.html
+file: tests/greet.test.html
 runtime: chromium/97.0.4666.0
 duration: 1.6 seconds
 
 ✔ execution 2 of 2 completed (all completed)
-file: test/greet.test.html
+file: tests/greet.test.html
 runtime: firefox/93.0
 duration: 1.6 seconds
 

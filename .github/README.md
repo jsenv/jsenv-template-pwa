@@ -28,8 +28,6 @@ Documentation of the features, how to use and or remove them.
 
 - [Formatting](../docs/formatting/readme.md#formatting): Formatting with prettier
 - [Linting](../docs/linting/readme.md#linting): Linting with ESLint
-- [Url resolution](../docs/url_resolution/readme.md#url-resolution): How url are resolved, especially for js imports
-- [Production mode](../docs/production_mode/readme.md#production-mode): Ability to write code specific to production or development
 - [Development server](../docs/dev_server/readme.md#Development-server): A dev server with auto reload
 - [Testing](../docs/testing/readme.md#testing): Run your tests with jsenv
 - [Code coverage](../docs/code_coverage/readme.md#Code-coverage): Code coverage with codecov

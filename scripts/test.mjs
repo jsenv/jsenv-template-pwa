@@ -20,6 +20,6 @@ await executeTestPlan({
   devServerOrigin: "https://localhost:3472",
   devServerModuleUrl: new URL("./dev.mjs", import.meta.url),
   coverageEnabled: process.argv.includes("--coverage"),
-  coverageReportJsonFile: "./.coverage/coverage.json",
+  coverageReportJsonFileUrl: "./.coverage/coverage.json",
   coverageMethodForBrowsers: "istanbul",
 })

@@ -22,12 +22,12 @@ You can generate code coverage locally and navigate in the report using `npm run
 ❯ node ./scripts/test.mjs "--coverage"
 
 ✔ execution 1 of 2 completed (all completed)
-file: test/greet.test.html
+file: tests/greet.test.html
 runtime: chromium/82.0.4057.0
 duration: 2.39 seconds
 
 ✔ execution 2 of 2 completed (all completed)
-file: test/greet.test.html
+file: tests/greet.test.html
 runtime: firefox/73.0b13
 duration: 3.16 seconds
 
