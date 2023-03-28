@@ -2,7 +2,7 @@
 
 # Testing
 
-All test files are inside the [test/](./test/) directory and ends with `.test.html`.
+All test files are inside the [test/](../../src/tests/) directory and ends with `.test.html`.
 
 If one or more test is failing, the main GitHub **workflow will fail** during [check tests](../../.github/workflows/main.yml#L44) step.
 
@@ -18,7 +18,7 @@ Test files are written using jsenv philosophy:
 
 ![stuff](./greet_test_chrome.png)
 
-See [test/greet.test.html](../../test/greet.test.html)
+See [src/tests/greet.test.html](../../src/tests/greet.test.html)
 
 ## Debug a test
 
@@ -52,6 +52,10 @@ duration: 1.6 seconds
 total duration: 3.7 seconds
 ----------------------------------------
 ```
+
+## Test coverage
+
+See [Code coverage](../docs/code_coverage/readme.md#Code-coverage).
 
 # How to remove tests
 

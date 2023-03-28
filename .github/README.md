@@ -28,9 +28,8 @@ Documentation of the features, how to use and or remove them.
 
 - [Formatting](../docs/formatting/readme.md#formatting): Formatting with prettier
 - [Linting](../docs/linting/readme.md#linting): Linting with ESLint
-- [Development server](../docs/dev_server/readme.md#Development-server): A dev server with auto reload
+- [Development](../docs/dev_server/readme.md#Development-server): A dev server with auto reload
 - [Testing](../docs/testing/readme.md#testing): Run your tests with jsenv
-- [Code coverage](../docs/code_coverage/readme.md#Code-coverage): Code coverage with codecov
 - [Building](../docs/building/readme.md#Building): Optimize files for production
 - [Pull request impacts](../docs/pr_impacts/readme.md#Pull-request-impacts): Automated process tracking pull requests impacts on lighthouse, performances and file sizes
 - [PWA compatibility](../docs/pwa_compat/readme.md#PWA-compatibility): Offline + add to home screen compatibility

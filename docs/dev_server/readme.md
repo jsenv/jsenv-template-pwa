@@ -9,7 +9,7 @@ The image above is a screenshot of the website runned in Chrome after starting t
 
 One last thing: it can be used to debug and execute **any html file in your project**.
 
-_For example, [test/greet.test.html](../../tests/greet.test.html):_
+_For example, [src/tests/greet.test.html](../../src/tests/greet.test.html):_
 
 ![stuff](./greet_test_chrome.png)
 
