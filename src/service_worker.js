@@ -13,7 +13,7 @@ self.__sw__.init({
   name: "product-name",
   logLevel: "info",
   resources: {
-    [__BASE__]: {},
+    [typeof __BASE__ === "string" ? __BASE__ : "/"]: {},
     ...(self.resourcesFromJsenvBuild || {}),
   },
 })
