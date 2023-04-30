@@ -32,6 +32,6 @@ The build perform the following things:
 - Bundling of css files: concatenation of `@import`
 - Minification of js, css, json, html, and svg files
 - Url versionning (injecting a version in urls to enable long term caching)
-- Inject `self.serviceWorkerUrls` global into service worker file
+- Inject urls into service worker file
 
-See also the content [dist/](../../dist/) in this repository.
+See also the content of [dist/](../../dist/) in this repository (minification is disabled to make it more readable)
