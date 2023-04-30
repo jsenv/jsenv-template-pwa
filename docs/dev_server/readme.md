@@ -1,7 +1,7 @@
 # Development server
 
 You can start a local server to run the website on your machine.
-If browser support is sufficient, source files are served without build step, otherwise they are transformed to be compatible with the browser.
+If browser support is sufficient, source files are served without changed, otherwise they are transformed to be compatible with the browser.
 
 ![stuff](./pwa_dev_server.png)
 
