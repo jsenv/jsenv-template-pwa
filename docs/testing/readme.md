@@ -22,9 +22,7 @@ See [src/tests/greet.test.html](../../src/tests/greet.test.html)
 
 ## Debug a test
 
-As previously mentioned, according to jsenv philosophy a test file executes like a classic file. It means you can use the debugging tool of classic files to debug test files.
-
-The recommended way to debug a file is to start the development server and use Chrome devtools.
+As previously mentioned, according to jsenv philosophy a test file executes like a standard file. A test file can be debugged using the development server and Chrome devtools.
 
 ![Screencast test with chrome devtools](./test_chrome_devtools.gif)
 
