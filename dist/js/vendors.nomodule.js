@@ -1,13 +1,7 @@
 System.register([], function (_export, _context) {
   "use strict";
 
-  var logLevel, logBackgroundColor, logColor, pwaLogger, injectLogStyles, l$3, t$1, r$1, u$1, i$1, o$1, f$1, c$1, e$1, a$1, v$2, l$2, m, g$1, o, r, s$1, n, f, v, isDev, sigi, mutateValues, PLACEHOLDER, createStateProxy, getPreciseType, toString, isObject, sigref, serviceWorkerAPI, inspectServiceWorker, requestSkipWaitingOnServiceWorker, requestClaimOnServiceWorker, postMessageToServiceWorker, navigatorControllerRef, navigatorControllerSetter, applyControllerEffect, createServiceWorkerHotReplacer, createServiceWorkerFacade, ensureIsControllingNavigator, reloading, reloadPage, listenEvent, listenAppInstalled, get, displayModeStandaloneRef, displayModeStandaloneSetter, media, appInstalledEvent, listenBeforeInstallPrompt, isAvailable, availableRef, availableSetter, checkAvailabilityChange, addToHomescreen;
-  function InlineContent(content, {
-    type = "text/plain"
-  }) {
-    this.text = content;
-    this.type = type;
-  }
+  var globalObject, logLevel, logBackgroundColor, logColor, pwaLogger, injectLogStyles, l$3, t$1, r$1, u$1, i$1, o$1, f$1, c$1, e$1, a$1, v$2, l$2, m, g$1, r, n, h, s$1, f, v, isDev, sigi, mutateValues, PLACEHOLDER, createStateProxy, getPreciseType, toString, isObject, sigref, serviceWorkerAPI, inspectServiceWorker, requestSkipWaitingOnServiceWorker, requestClaimOnServiceWorker, postMessageToServiceWorker, navigatorControllerRef, navigatorControllerSetter, applyControllerEffect, createServiceWorkerHotReplacer, createServiceWorkerFacade, ensureIsControllingNavigator, reloading, reloadPage, listenEvent, listenAppInstalled, get, displayModeStandaloneRef, displayModeStandaloneSetter, media, appInstalledEvent, listenBeforeInstallPrompt, isAvailable, availableRef, availableSetter, checkAvailabilityChange, addToHomescreen;
   function d$2(t, u) {
     l$3.__h && l$3.__h(r$1, t, o$1 || u), o$1 = 0;
     var i = r$1.__H || (r$1.__H = {
@@ -55,36 +49,36 @@ System.register([], function (_export, _context) {
     throw new Error("Cycle detected");
   }
   function t() {
-    if (!(s$1 > 1)) {
+    if (!(h > 1)) {
       var i,
         t = !1;
-      while (void 0 !== r) {
-        var h = r;
-        r = void 0;
-        n++;
-        while (void 0 !== h) {
-          var o = h.o;
-          h.o = void 0;
-          h.f &= -3;
-          if (!(8 & h.f) && d$1(h)) try {
-            h.c();
-          } catch (h) {
+      while (void 0 !== n) {
+        var o = n;
+        n = void 0;
+        s$1++;
+        while (void 0 !== o) {
+          var r = o.o;
+          o.o = void 0;
+          o.f &= -3;
+          if (!(8 & o.f) && c(o)) try {
+            o.c();
+          } catch (o) {
             if (!t) {
-              i = h;
+              i = o;
               t = !0;
             }
           }
-          h = o;
+          o = r;
         }
       }
-      n = 0;
-      s$1--;
+      s$1 = 0;
+      h--;
       if (t) throw i;
-    } else s$1--;
+    } else h--;
   }
-  function h(i) {
-    if (s$1 > 0) return i();
-    s$1++;
+  function o(i) {
+    if (h > 0) return i();
+    h++;
     try {
       return i();
     } finally {
@@ -92,33 +86,33 @@ System.register([], function (_export, _context) {
     }
   }
   function v$1(i) {
-    if (void 0 !== o) {
+    if (void 0 !== r) {
       var t = i.n;
-      if (void 0 === t || t.t !== o) {
+      if (void 0 === t || t.t !== r) {
         t = {
           i: 0,
           S: i,
-          p: o.s,
+          p: r.s,
           n: void 0,
-          t: o,
+          t: r,
           e: void 0,
           x: void 0,
           r: t
         };
-        if (void 0 !== o.s) o.s.n = t;
-        o.s = t;
+        if (void 0 !== r.s) r.s.n = t;
+        r.s = t;
         i.n = t;
-        if (32 & o.f) i.S(t);
+        if (32 & r.f) i.S(t);
         return t;
       } else if (-1 === t.i) {
         t.i = 0;
         if (void 0 !== t.n) {
           t.n.p = t.p;
           if (void 0 !== t.p) t.p.n = t.n;
-          t.p = o.s;
+          t.p = r.s;
           t.n = void 0;
-          o.s.n = t;
-          o.s = t;
+          r.s.n = t;
+          r.s = t;
         }
         return t;
       }
@@ -133,14 +127,14 @@ System.register([], function (_export, _context) {
   function u(i) {
     return new e(i);
   }
-  function d$1(i) {
+  function c(i) {
     for (var t = i.s; void 0 !== t; t = t.n) if (t.S.i !== t.i || !t.S.h() || t.S.i !== t.i) return !0;
     return !1;
   }
-  function c(i) {
+  function d$1(i) {
     for (var t = i.s; void 0 !== t; t = t.n) {
-      var h = t.S.n;
-      if (void 0 !== h) t.r = h;
+      var o = t.S.n;
+      if (void 0 !== o) t.r = o;
       t.S.n = t;
       t.i = -1;
       if (void 0 === t.n) {
@@ -151,19 +145,19 @@ System.register([], function (_export, _context) {
   }
   function a(i) {
     var t = i.s,
-      h = void 0;
+      o = void 0;
     while (void 0 !== t) {
-      var o = t.p;
+      var r = t.p;
       if (-1 === t.i) {
         t.S.U(t);
-        if (void 0 !== o) o.n = t.n;
-        if (void 0 !== t.n) t.n.p = o;
-      } else h = t;
+        if (void 0 !== r) r.n = t.n;
+        if (void 0 !== t.n) t.n.p = r;
+      } else o = t;
       t.S.n = t.r;
       if (void 0 !== t.r) t.r = void 0;
-      t = o;
+      t = r;
     }
-    i.s = h;
+    i.s = o;
   }
   function l$1(i) {
     e.call(this, void 0);
@@ -176,21 +170,21 @@ System.register([], function (_export, _context) {
     return new l$1(i);
   }
   function y(i) {
-    var h = i.u;
+    var o = i.u;
     i.u = void 0;
-    if ("function" == typeof h) {
-      s$1++;
-      var r = o;
-      o = void 0;
+    if ("function" == typeof o) {
+      h++;
+      var n = r;
+      r = void 0;
       try {
-        h();
+        o();
       } catch (t) {
         i.f &= -2;
         i.f |= 8;
         _(i);
         throw t;
       } finally {
-        o = r;
+        r = n;
         t();
       }
     }
@@ -201,23 +195,23 @@ System.register([], function (_export, _context) {
     i.s = void 0;
     y(i);
   }
-  function g(i) {
-    if (o !== this) throw new Error("Out-of-order effect");
+  function p$1(i) {
+    if (r !== this) throw new Error("Out-of-order effect");
     a(this);
-    o = i;
+    r = i;
     this.f &= -2;
     if (8 & this.f) _(this);
     t();
   }
-  function b(i) {
+  function g(i) {
     this.x = i;
     this.u = void 0;
     this.s = void 0;
     this.o = void 0;
     this.f = 32;
   }
-  function p$1(i) {
-    var t = new b(i);
+  function b(i) {
+    var t = new g(i);
     try {
       t.c();
     } catch (i) {
@@ -262,7 +256,7 @@ System.register([], function (_export, _context) {
         o.value = n;
         t = r;
       },
-      d: p$1(function () {
+      d: b(function () {
         var i = o.value.value;
         if (t[r] !== i) {
           t[r] = i;
@@ -281,11 +275,13 @@ System.register([], function (_export, _context) {
    * https://github.com/preactjs/signals/blob/main/packages/core/src/index.ts
    * TOOD: "fix" array being objects
    */
-  _export("InlineContent", InlineContent);
   return {
     setters: [],
     execute: function () {
       /* eslint-disable */
+      // construct-style-sheets-polyfill@3.1.0
+      // to keep in sync with https://github.com/calebdwilliams/construct-style-sheets
+      // copy pasted into jsenv codebase to inject this code with more ease
       (function () {
         if (typeof document === "undefined" || "adoptedStyleSheets" in document) {
           return;
@@ -602,6 +598,25 @@ System.register([], function (_export, _context) {
           document.addEventListener("DOMContentLoaded", documentLocation.connect.bind(documentLocation));
         }
       })();
+
+      /* eslint-env browser,node */
+
+      /*
+       * This file does not use export const InlineContent = function() {} on purpose:
+       * - An export would be renamed by rollup,
+       *   making it harder to statically detect new InlineContent() calls
+       * - An export would be renamed by terser
+       *   here again it becomes hard to detect new InlineContent() calls
+       * Instead it sets "__InlineContent__" on the global object and terser is configured by jsenv
+       * to preserve the __InlineContent__ global variable name
+       */
+      globalObject = typeof self === "object" ? self : process;
+      globalObject.__InlineContent__ = function (content, {
+        type = "text/plain"
+      }) {
+        this.text = content;
+        this.type = type;
+      };
       logLevel = "warn";
       logBackgroundColor = "green";
       logColor = "black";
@@ -648,8 +663,8 @@ System.register([], function (_export, _context) {
       };
       l$3 = {
         __e: function (n, l, u, i) {
-          for (var t, r, o; l = l.__;) if ((t = l.__c) && !t.__) try {
-            if ((r = t.constructor) && null != r.getDerivedStateFromError && (t.setState(r.getDerivedStateFromError(n)), o = t.__d), null != t.componentDidCatch && (t.componentDidCatch(n, i || {}), o = t.__d), o) return t.__E = t;
+          for (var t, o, r; l = l.__;) if ((t = l.__c) && !t.__) try {
+            if ((o = t.constructor) && null != o.getDerivedStateFromError && (t.setState(o.getDerivedStateFromError(n)), r = t.__d), null != t.componentDidCatch && (t.componentDidCatch(n, i || {}), r = t.__d), r) return t.__E = t;
           } catch (l) {
             n = l;
           }
@@ -671,7 +686,7 @@ System.register([], function (_export, _context) {
         var i = (r$1 = n.__c).__H;
         i && (u$1 === r$1 ? (i.__h = [], r$1.__h = [], i.__.forEach(function (n) {
           n.__N && (n.__ = n.__N), n.__V = c$1, n.__N = n.i = void 0;
-        })) : (i.__h.forEach(k), i.__h.forEach(w$1), i.__h = [])), u$1 = r$1;
+        })) : (i.__h.forEach(k), i.__h.forEach(w$1), i.__h = [], t$1 = 0)), u$1 = r$1;
       }, l$3.diffed = function (t) {
         v$2 && v$2(t);
         var o = t.__c;
@@ -703,10 +718,10 @@ System.register([], function (_export, _context) {
         }), u.__H = void 0, r && l$3.__e(r, u.__v));
       };
       g$1 = "function" == typeof requestAnimationFrame;
-      o = void 0;
       r = void 0;
+      n = void 0;
+      h = 0;
       s$1 = 0;
-      n = 0;
       f = 0;
       e.prototype.h = function () {
         return !0;
@@ -721,28 +736,28 @@ System.register([], function (_export, _context) {
       e.prototype.U = function (i) {
         if (void 0 !== this.t) {
           var t = i.e,
-            h = i.x;
+            o = i.x;
           if (void 0 !== t) {
-            t.x = h;
+            t.x = o;
             i.e = void 0;
           }
-          if (void 0 !== h) {
-            h.e = t;
+          if (void 0 !== o) {
+            o.e = t;
             i.x = void 0;
           }
-          if (i === this.t) this.t = h;
+          if (i === this.t) this.t = o;
         }
       };
       e.prototype.subscribe = function (i) {
         var t = this;
-        return p$1(function () {
-          var h = t.value,
-            o = 32 & this.f;
+        return b(function () {
+          var o = t.value,
+            r = 32 & this.f;
           this.f &= -33;
           try {
-            i(h);
+            i(o);
           } finally {
-            this.f |= o;
+            this.f |= r;
           }
         });
       };
@@ -751,6 +766,9 @@ System.register([], function (_export, _context) {
       };
       e.prototype.toString = function () {
         return this.value + "";
+      };
+      e.prototype.toJSON = function () {
+        return this.value;
       };
       e.prototype.peek = function () {
         return this.v;
@@ -761,15 +779,18 @@ System.register([], function (_export, _context) {
           if (void 0 !== i) i.i = this.i;
           return this.v;
         },
-        set: function (h) {
-          if (h !== this.v) {
-            if (n > 100) i();
-            this.v = h;
+        set: function (o) {
+          if (r instanceof l$1) !function () {
+            throw new Error("Computed cannot have side-effects");
+          }();
+          if (o !== this.v) {
+            if (s$1 > 100) i();
+            this.v = o;
             this.i++;
             f++;
-            s$1++;
+            h++;
             try {
-              for (var o = this.t; void 0 !== o; o = o.x) o.t.N();
+              for (var n = this.t; void 0 !== n; n = n.x) n.t.N();
             } finally {
               t();
             }
@@ -784,14 +805,14 @@ System.register([], function (_export, _context) {
         if (this.g === f) return !0;
         this.g = f;
         this.f |= 1;
-        if (this.i > 0 && !d$1(this)) {
+        if (this.i > 0 && !c(this)) {
           this.f &= -2;
           return !0;
         }
-        var i = o;
+        var i = r;
         try {
-          c(this);
-          o = this;
+          d$1(this);
+          r = this;
           var t = this.x();
           if (16 & this.f || this.v !== t || 0 === this.i) {
             this.v = t;
@@ -803,7 +824,7 @@ System.register([], function (_export, _context) {
           this.f |= 16;
           this.i++;
         }
-        o = i;
+        r = i;
         a(this);
         this.f &= -2;
         return !0;
@@ -845,33 +866,36 @@ System.register([], function (_export, _context) {
           return this.v;
         }
       });
-      b.prototype.c = function () {
+      g.prototype.c = function () {
         var i = this.S();
         try {
-          if (!(8 & this.f) && void 0 !== this.x) this.u = this.x();
+          if (8 & this.f) return;
+          if (void 0 === this.x) return;
+          var t = this.x();
+          if ("function" == typeof t) this.u = t;
         } finally {
           i();
         }
       };
-      b.prototype.S = function () {
+      g.prototype.S = function () {
         if (1 & this.f) i();
         this.f |= 1;
         this.f &= -9;
         y(this);
-        c(this);
-        s$1++;
-        var t = o;
-        o = this;
-        return g.bind(this, t);
+        d$1(this);
+        h++;
+        var t = r;
+        r = this;
+        return p$1.bind(this, t);
       };
-      b.prototype.N = function () {
+      g.prototype.N = function () {
         if (!(2 & this.f)) {
           this.f |= 2;
-          this.o = r;
-          r = this;
+          this.o = n;
+          n = this;
         }
       };
-      b.prototype.d = function () {
+      g.prototype.d = function () {
         this.f |= 8;
         if (!(1 & this.f)) _(this);
       };
@@ -921,7 +945,7 @@ System.register([], function (_export, _context) {
           t.__$f &= -2;
           if (void 0 === (i = t.__$u)) t.__$u = i = function (n) {
             var r;
-            p$1(function () {
+            b(function () {
               r = this;
             });
             r.c = function () {
@@ -991,7 +1015,7 @@ System.register([], function (_export, _context) {
         n(r);
       });
       s("__h", function (n, r, i, t) {
-        if (t < 3) r.__$f |= 2;
+        if (t < 3 || 9 === t) r.__$f |= 2;
         n(r, i, t);
       });
       isDev = typeof process === "object" && process.execArgv.includes("--conditions=development");
@@ -1017,12 +1041,12 @@ System.register([], function (_export, _context) {
           strict: false
         });
         const subscribe = callback => {
-          return p$1(() => {
+          return b(() => {
             callback(rootStateProxy);
           });
         };
         const mutate = toValues => {
-          h(() => {
+          o(() => {
             mutateValues({
               toValues,
               propertiesMetaMap: rootPropertiesMetaMap,
@@ -1283,7 +1307,7 @@ System.register([], function (_export, _context) {
         const ref = {
           value: initialValue,
           subscribe: callback => {
-            return p$1(() => {
+            return b(() => {
               callback(valueSignal.value);
             });
           }

@@ -13,10 +13,10 @@ import { copyEntry } from "@jsenv/filesystem"
 await build({
   logLevel: process.env.LOG_LEVEL,
   sourceDirectoryUrl: new URL("../src/", import.meta.url),
+  buildDirectoryUrl: new URL("../dist/", import.meta.url),
   entryPoints: {
     "./main.html": "index.html",
   },
-  buildDirectoryUrl: new URL("../dist/", import.meta.url),
   base: process.argv.includes("--prod") ? "/jsenv-template-pwa/" : "/",
   runtimeCompat: {
     chrome: "64",

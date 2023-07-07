@@ -22,13 +22,11 @@ function _await(value, then, direct) {
 System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context) {
   "use strict";
 
-  var InlineContent, inlineContent, stylesheet, appJsPromise, appCssPromise, appRemainingDepsPromise, app;
+  var inlineContent, stylesheet, appJsPromise, appCssPromise, appRemainingDepsPromise, app;
   return {
-    setters: [function (_vendorsJs) {
-      InlineContent = _vendorsJs.InlineContent;
-    }],
+    setters: [function (_vendorsJs) {}],
     execute: async function () {
-      inlineContent = new InlineContent('@font-face {\n  font-family: Roboto;\n  font-style: normal;\n  font-weight: 400;\n  src: local(Roboto), url('+__v__("/other/roboto_v27_latin_regular.woff2")+') format("woff2");\n  font-display: swap;\n}\n', {
+      inlineContent = new __InlineContent__('@font-face {\n  font-family: Roboto;\n  font-style: normal;\n  font-weight: 400;\n  src: local(Roboto), url('+__v__("/other/roboto_v27_latin_regular.woff2")+') format("woff2");\n  font-display: swap;\n}\n', {
         type: "text/css"
       });
       stylesheet = new CSSStyleSheet();

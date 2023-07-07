@@ -3,22 +3,25 @@
  * See https://github.com/jsenv/jsenv-core/blob/master/docs/testing/readme.md#jsenv-test-runner
  */
 
-import { executeTestPlan, chromium, firefox } from "@jsenv/core"
+import { executeTestPlan, chromium, firefox } from "@jsenv/test"
 
 await executeTestPlan({
   rootDirectoryUrl: new URL("../", import.meta.url),
   testPlan: {
     "./src/**/*.test.html": {
       chromium: {
-        runtime: chromium,
+        runtime: chromium(),
       },
       firefox: {
-        runtime: firefox,
+        runtime: firefox(),
       },
     },
   },
-  devServerOrigin: "https://localhost:3472",
-  devServerModuleUrl: new URL("./dev.mjs", import.meta.url),
+  webServer: {
+    origin: "http://localhost:3472",
+    rootDirectoryUrl: new URL("../src/", import.meta.url),
+    moduleUrl: new URL("./dev.mjs", import.meta.url),
+  },
   coverageEnabled: process.argv.includes("--coverage"),
   coverageReportJson: true,
   coverageReportJsonFileUrl: new URL(
