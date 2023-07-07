@@ -5,6 +5,7 @@
 
 import open from "open"
 import { startDevServer } from "@jsenv/core"
+import { jsenvPluginExplorer} from '@jsenv/plugin-explorer'
 import { requestCertificate } from "@jsenv/https-local"
 
 const { certificate, privateKey } = requestCertificate()
@@ -13,16 +14,19 @@ export const devServer = await startDevServer({
   sourceDirectoryUrl: new URL("../src/", import.meta.url),
   port: 3472,
   https: { certificate, privateKey },
-  explorer: {
-    groups: {
-      app: {
-        "./main.html": true,
+  plugins: [
+    jsenvPluginExplorer({
+      groups: {
+        app: {
+          "./main.html": true,
+        },
+        tests: {
+          "./**/*.test.html": true,
+        },
       },
-      tests: {
-        "./**/*.test.html": true,
-      },
-    },
-  },
+    })
+  ],
+
 })
 
 if (process.argv.includes("--open")) {
