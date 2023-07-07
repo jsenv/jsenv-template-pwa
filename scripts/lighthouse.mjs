@@ -11,7 +11,7 @@
 
 import { chromium } from "playwright"
 import open from "open"
-import { pingServer } from "@jsenv/core"
+import { pingServer } from "@jsenv/test/src/helpers/ping_server.js"
 import { runLighthouseOnPlaywrightPage } from "@jsenv/lighthouse-impact"
 
 const local = process.argv.includes("--local")
