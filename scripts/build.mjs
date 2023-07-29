@@ -5,8 +5,6 @@
  */
 
 import { build } from "@jsenv/core"
-import { jsenvPluginBundling } from "@jsenv/plugin-bundling"
-import { jsenvPluginMinification } from "@jsenv/plugin-minification"
 import { jsenvPluginPlaceholders } from "@jsenv/plugin-placeholders"
 import { copyEntry } from "@jsenv/filesystem"
 
@@ -24,19 +22,19 @@ await build({
     firefox: "67",
     safari: "11.3",
   },
-  plugins: [
-    jsenvPluginBundling({
-      js_module: {
-        chunks: {
-          vendors: { "file://**/node_modules/": true },
-        },
+  bundling: {
+    js_module: {
+      chunks: {
+        vendors: { "file://**/node_modules/": true },
       },
-    }),
-    // minification is disabled (except for prod) to help discover what is generated
-    // during build by this project template.
-    // In the real project you likely want to keep minification all the time
-    // to test the files as they will be in production
-    ...(process.argv.includes("--prod") ? [jsenvPluginMinification()] : []),
+    },
+  },
+  // minification is disabled (except for prod) to help discover what is generated
+  // during build by this project template.
+  // In the real project you likely want to keep minification all the time
+  // to test the files as they will be in production
+  minification: process.argv.includes("--prod"),
+  plugins: [
     jsenvPluginPlaceholders({
       "./service_worker.js": () => {
         return {
