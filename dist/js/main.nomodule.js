@@ -24,7 +24,7 @@ System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context)
 
   var inlineContent, stylesheet, appJsPromise, appCssPromise, appRemainingDepsPromise, app;
   return {
-    setters: [function (_vendorsJs) {}],
+    setters: [function (_i) {}],
     execute: async function () {
       inlineContent = new __InlineContent__('@font-face {\n  font-family: Roboto;\n  font-style: normal;\n  font-weight: 400;\n  src: local(Roboto), url('+__v__("/other/roboto_v27_latin_regular.woff2")+') format("woff2");\n  font-display: swap;\n}\n', {
         type: "text/css"
