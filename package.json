@@ -39,7 +39,7 @@
     "playwright:install": "npx playwright install-deps && npx playwright install"
   },
   "dependencies": {
-    "@jsenv/pwa": "6.0.2",
+    "@jsenv/pwa": "6.1.0",
     "@jsenv/service-worker": "1.0.2"
   },
   "devDependencies": {

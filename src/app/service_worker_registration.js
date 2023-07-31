@@ -5,6 +5,9 @@ pwaLogger.setOptions({ logLevel: "debug" })
 const swFacade = createServiceWorkerFacade()
 
 export const initServiceWorker = (appNode) => {
+  if (!window.navigator.serviceWorker) {
+    return
+  }
   // wait a bit that browser is less busy to register the service worker
   const callLater = window.requestIdleCallback || requestAnimationFrame
   callLater(() => {
