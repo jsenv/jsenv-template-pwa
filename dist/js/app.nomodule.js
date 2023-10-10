@@ -3,10 +3,10 @@ System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context)
 
   var addToHomescreen, pwaLogger, createServiceWorkerFacade, initAddToHomeScreen, swFacade, initServiceWorker, installServiceWorkerUpdateUI, greet, appNode, render;
   return {
-    setters: [function (_t) {
-      addToHomescreen = _t.addToHomescreen;
-      pwaLogger = _t.pwaLogger;
-      createServiceWorkerFacade = _t.createServiceWorkerFacade;
+    setters: [function (_vendorsJs) {
+      addToHomescreen = _vendorsJs.addToHomescreen;
+      pwaLogger = _vendorsJs.pwaLogger;
+      createServiceWorkerFacade = _vendorsJs.createServiceWorkerFacade;
     }],
     execute: function () {
       initAddToHomeScreen = appNode => {
@@ -26,6 +26,9 @@ System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context)
       });
       swFacade = createServiceWorkerFacade();
       initServiceWorker = appNode => {
+        if (!window.navigator.serviceWorker) {
+          return;
+        }
         // wait a bit that browser is less busy to register the service worker
         const callLater = window.requestIdleCallback || requestAnimationFrame;
         callLater(() => {

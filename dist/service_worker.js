@@ -1,6 +1,6 @@
 self.resourcesFromJsenvBuild = {
   "/index.html": {
-    "version": "728f2cb7"
+    "version": "70aae68f"
   },
   "/other/favicon.png": {
     "version": "467b6542",
@@ -26,24 +26,24 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/other/logo.png?v=467b6542"
   },
   "/js/main.nomodule.js": {
-    "version": "95095163",
-    "versionedUrl": "/js/main.nomodule.js?v=95095163"
+    "version": "76ef0a68",
+    "versionedUrl": "/js/main.nomodule.js?v=76ef0a68"
   },
   "/other/roboto_v27_latin_regular.woff2": {
     "version": "fda7bb73",
     "versionedUrl": "/other/roboto_v27_latin_regular.woff2?v=fda7bb73"
   },
   "/js/app.nomodule.js": {
-    "version": "7bae98f8",
-    "versionedUrl": "/js/app.nomodule.js?v=7bae98f8"
+    "version": "60565a03",
+    "versionedUrl": "/js/app.nomodule.js?v=60565a03"
   },
   "/js/jsenv_service_worker.js": {
     "version": "90994b80",
     "versionedUrl": "/js/jsenv_service_worker.js?v=90994b80"
   },
   "/js/vendors.nomodule.js": {
-    "version": "33fc6de7",
-    "versionedUrl": "/js/vendors.nomodule.js?v=33fc6de7"
+    "version": "6f517833",
+    "versionedUrl": "/js/vendors.nomodule.js?v=6f517833"
   },
   "/css/app.css": {
     "version": "a0c28051",
@@ -54,10 +54,10 @@ self.resourcesFromJsenvBuild = {
 
 ;(function() {
   var __versionMappings__ = {
-    "/js/main.nomodule.js": "/js/main.nomodule.js?v=95095163",
-    "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=33fc6de7",
+    "/js/main.nomodule.js": "/js/main.nomodule.js?v=76ef0a68",
+    "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=6f517833",
     "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=fda7bb73",
-    "/js/app.nomodule.js": "/js/app.nomodule.js?v=7bae98f8",
+    "/js/app.nomodule.js": "/js/app.nomodule.js?v=60565a03",
     "/css/app.css": "/css/app.css?v=a0c28051",
     "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=90994b80",
     "/other/logo.png": "/other/logo.png?v=467b6542"
