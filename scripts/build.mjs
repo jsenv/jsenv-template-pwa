@@ -5,7 +5,6 @@
  */
 
 import { build } from "@jsenv/core"
-import { jsenvPluginPlaceholders } from "@jsenv/plugin-placeholders"
 import { copyEntry } from "@jsenv/filesystem"
 
 await build({
@@ -34,17 +33,15 @@ await build({
   // In the real project you likely want to keep minification all the time
   // to test the files as they will be in production
   minification: process.argv.includes("--prod"),
-  plugins: [
-    jsenvPluginPlaceholders({
-      "./service_worker.js": () => {
-        return {
-          __BASE__: process.argv.includes("--prod")
-            ? "/jsenv-template-pwa/"
-            : "/",
-        }
-      },
-    }),
-  ],
+  injections: {
+    "./service_worker.js": () => {
+      return {
+        __BASE__: process.argv.includes("--prod")
+          ? "/jsenv-template-pwa/"
+          : "/",
+      }
+    },
+  },
   sourcemaps: !process.argv.includes("--prod"),
   watch: process.argv.includes("--watch"),
 })
