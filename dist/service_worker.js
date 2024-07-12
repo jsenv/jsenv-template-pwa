@@ -1,6 +1,6 @@
 self.resourcesFromJsenvBuild = {
   "/index.html": {
-    "version": "70aae68f"
+    "version": "e120d668"
   },
   "/other/favicon.png": {
     "version": "467b6542",
@@ -34,16 +34,16 @@ self.resourcesFromJsenvBuild = {
     "versionedUrl": "/other/roboto_v27_latin_regular.woff2?v=fda7bb73"
   },
   "/js/app.nomodule.js": {
-    "version": "60565a03",
-    "versionedUrl": "/js/app.nomodule.js?v=60565a03"
+    "version": "3335e7de",
+    "versionedUrl": "/js/app.nomodule.js?v=3335e7de"
   },
   "/js/jsenv_service_worker.js": {
     "version": "90994b80",
     "versionedUrl": "/js/jsenv_service_worker.js?v=90994b80"
   },
   "/js/vendors.nomodule.js": {
-    "version": "6f517833",
-    "versionedUrl": "/js/vendors.nomodule.js?v=6f517833"
+    "version": "91a34eab",
+    "versionedUrl": "/js/vendors.nomodule.js?v=91a34eab"
   },
   "/css/app.css": {
     "version": "a0c28051",
@@ -55,9 +55,9 @@ self.resourcesFromJsenvBuild = {
 ;(function() {
   var __versionMappings__ = {
     "/js/main.nomodule.js": "/js/main.nomodule.js?v=76ef0a68",
-    "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=6f517833",
+    "/js/vendors.nomodule.js": "/js/vendors.nomodule.js?v=91a34eab",
     "/other/roboto_v27_latin_regular.woff2": "/other/roboto_v27_latin_regular.woff2?v=fda7bb73",
-    "/js/app.nomodule.js": "/js/app.nomodule.js?v=60565a03",
+    "/js/app.nomodule.js": "/js/app.nomodule.js?v=3335e7de",
     "/css/app.css": "/css/app.css?v=a0c28051",
     "/js/jsenv_service_worker.js": "/js/jsenv_service_worker.js?v=90994b80",
     "/other/logo.png": "/other/logo.png?v=467b6542"

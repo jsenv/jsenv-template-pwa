@@ -1,66 +1,61 @@
 System.register([], function (_export, _context) {
   "use strict";
 
-  var globalObject, logLevel, logBackgroundColor, logColor, pwaLogger, injectLogStyles, l$3, t$2, t$1, r$1, u$1, i$1, o$1, f$1, c$1, e$1, a$1, v$1, l$2, m, g$1, t, o, f, v, e, u, s, isDev, sigi, mutateValues, PLACEHOLDER, createStateProxy, getPreciseType, toString, isObject, sigref, serviceWorkerAPI, serviceWorkerUnavailabilityReason, canUseServiceWorkers, inspectServiceWorker, requestSkipWaitingOnServiceWorker, requestClaimOnServiceWorker, postMessageToServiceWorker, navigatorControllerRef, navigatorControllerSetter, applyControllerEffect, createServiceWorkerHotReplacer, createServiceWorkerFacade, ensureIsControllingNavigator, listenEvent, listenAppInstalled, get, displayModeStandaloneRef, displayModeStandaloneSetter, media, appInstalledEvent, listenBeforeInstallPrompt, isAvailable, availableRef, availableSetter, checkAvailabilityChange, addToHomescreen;
-  function d$2(t, u) {
-    l$3.__h && l$3.__h(r$1, t, o$1 || u), o$1 = 0;
-    var i = r$1.__H || (r$1.__H = {
+  var globalObject, logLevel, logBackgroundColor, logColor, pwaLogger, injectLogStyles, l$3, t$2, t$1, r$1, u$1, i$1, o$1, f$1, c$1, e$1, a$1, v$1, l$2, m, s$2, k, i, o, h, s$1, f, v, s, isDev, sigi, mutateValues, PLACEHOLDER, createStateProxy, getPreciseType, toString, isObject, sigref, serviceWorkerAPI, serviceWorkerUnavailabilityReason, canUseServiceWorkers, inspectServiceWorker, requestSkipWaitingOnServiceWorker, requestClaimOnServiceWorker, postMessageToServiceWorker, navigatorControllerRef, navigatorControllerSetter, applyControllerEffect, createServiceWorkerHotReplacer, createServiceWorkerFacade, ensureIsControllingNavigator, listenEvent, listenAppInstalled, get, displayModeStandaloneRef, displayModeStandaloneSetter, media, appInstalledEvent, listenBeforeInstallPrompt, isAvailable, availableRef, availableSetter, checkAvailabilityChange, addToHomescreen;
+  function d$2(n, t) {
+    c$1.__h && c$1.__h(r$1, n, o$1 || t), o$1 = 0;
+    var u = r$1.__H || (r$1.__H = {
       __: [],
       __h: []
     });
-    return t >= i.__.length && i.__.push({
-      __V: c$1
-    }), i.__[t];
+    return n >= u.__.length && u.__.push({}), u.__[n];
   }
-  function F(n, r) {
+  function T(n, r) {
     var u = d$2(t$1++, 7);
-    return z(u.__H, r) ? (u.__V = n(), u.i = r, u.__h = n, u.__V) : u.__;
+    return C(u.__H, r) && (u.__ = n(), u.__H = r, u.__h = n), u.__;
   }
-  function b$1() {
-    for (var t; t = f$1.shift();) if (t.__P && t.__H) try {
-      t.__H.__h.forEach(k), t.__H.__h.forEach(w$1), t.__H.__h = [];
-    } catch (r) {
-      t.__H.__h = [], l$3.__e(r, t.__v);
+  function j() {
+    for (var n; n = f$1.shift();) if (n.__P && n.__H) try {
+      n.__H.__h.forEach(z), n.__H.__h.forEach(B), n.__H.__h = [];
+    } catch (t) {
+      n.__H.__h = [], c$1.__e(t, n.__v);
     }
   }
-  function j(n) {
+  function w$1(n) {
     var t,
       r = function () {
-        clearTimeout(u), g$1 && cancelAnimationFrame(t), setTimeout(n);
+        clearTimeout(u), k && cancelAnimationFrame(t), setTimeout(n);
       },
       u = setTimeout(r, 100);
-    g$1 && (t = requestAnimationFrame(r));
+    k && (t = requestAnimationFrame(r));
   }
-  function k(n) {
+  function z(n) {
     var t = r$1,
       u = n.__c;
     "function" == typeof u && (n.__c = void 0, u()), r$1 = t;
   }
-  function w$1(n) {
+  function B(n) {
     var t = r$1;
     n.__c = n.__(), r$1 = t;
   }
-  function z(n, t) {
+  function C(n, t) {
     return !n || n.length !== t.length || t.some(function (t, r) {
       return t !== n[r];
     });
   }
-  function i() {
-    throw new Error("Cycle detected");
-  }
-  function r() {
-    if (!(v > 1)) {
+  function t() {
+    if (!(s$1 > 1)) {
       var i,
         t = !1;
-      while (void 0 !== f) {
-        var r = f;
-        f = void 0;
-        e++;
+      while (void 0 !== h) {
+        var r = h;
+        h = void 0;
+        f++;
         while (void 0 !== r) {
-          var n = r.o;
+          var o = r.o;
           r.o = void 0;
           r.f &= -3;
-          if (!(8 & r.f) && l$1(r)) try {
+          if (!(8 & r.f) && c(r)) try {
             r.c();
           } catch (r) {
             if (!t) {
@@ -68,24 +63,24 @@ System.register([], function (_export, _context) {
               t = !0;
             }
           }
-          r = n;
+          r = o;
         }
       }
-      e = 0;
-      v--;
+      f = 0;
+      s$1--;
       if (t) throw i;
-    } else v--;
+    } else s$1--;
   }
-  function n(i) {
-    if (v > 0) return i();
-    v++;
+  function r(i) {
+    if (s$1 > 0) return i();
+    s$1++;
     try {
       return i();
     } finally {
-      r();
+      t();
     }
   }
-  function c(i) {
+  function e(i) {
     if (void 0 !== o) {
       var t = i.n;
       if (void 0 === t || t.t !== o) {
@@ -118,20 +113,20 @@ System.register([], function (_export, _context) {
       }
     }
   }
-  function d$1(i) {
+  function u(i) {
     this.v = i;
     this.i = 0;
     this.n = void 0;
     this.t = void 0;
   }
-  function a(i) {
-    return new d$1(i);
+  function d$1(i) {
+    return new u(i);
   }
-  function l$1(i) {
+  function c(i) {
     for (var t = i.s; void 0 !== t; t = t.n) if (t.S.i !== t.i || !t.S.h() || t.S.i !== t.i) return !0;
     return !1;
   }
-  function y(i) {
+  function a(i) {
     for (var t = i.s; void 0 !== t; t = t.n) {
       var r = t.S.n;
       if (void 0 !== r) t.r = r;
@@ -143,75 +138,75 @@ System.register([], function (_export, _context) {
       }
     }
   }
-  function w(i) {
+  function l$1(i) {
     var t = i.s,
       r = void 0;
     while (void 0 !== t) {
-      var n = t.p;
+      var o = t.p;
       if (-1 === t.i) {
         t.S.U(t);
-        if (void 0 !== n) n.n = t.n;
-        if (void 0 !== t.n) t.n.p = n;
+        if (void 0 !== o) o.n = t.n;
+        if (void 0 !== t.n) t.n.p = o;
       } else r = t;
       t.S.n = t.r;
       if (void 0 !== t.r) t.r = void 0;
-      t = n;
+      t = o;
     }
     i.s = r;
   }
-  function _$1(i) {
-    d$1.call(this, void 0);
+  function y(i) {
+    u.call(this, void 0);
     this.x = i;
     this.s = void 0;
-    this.g = u - 1;
+    this.g = v - 1;
     this.f = 4;
   }
-  function p$1(i) {
-    return new _$1(i);
+  function w(i) {
+    return new y(i);
   }
-  function g(i) {
-    var t = i.u;
+  function _$1(i) {
+    var r = i.u;
     i.u = void 0;
-    if ("function" == typeof t) {
-      v++;
+    if ("function" == typeof r) {
+      s$1++;
       var n = o;
       o = void 0;
       try {
-        t();
+        r();
       } catch (t) {
         i.f &= -2;
         i.f |= 8;
-        b(i);
+        g(i);
         throw t;
       } finally {
         o = n;
-        r();
+        t();
       }
     }
   }
-  function b(i) {
+  function g(i) {
     for (var t = i.s; void 0 !== t; t = t.n) t.S.U(t);
     i.x = void 0;
     i.s = void 0;
-    g(i);
+    _$1(i);
   }
-  function x(i) {
+  function p$1(i) {
     if (o !== this) throw new Error("Out-of-order effect");
-    w(this);
+    l$1(this);
     o = i;
     this.f &= -2;
-    if (8 & this.f) b(this);
-    r();
+    if (8 & this.f) g(this);
+    t();
   }
-  function E(i) {
+  function b(i) {
     this.x = i;
     this.u = void 0;
     this.s = void 0;
     this.o = void 0;
     this.f = 32;
   }
-  function O(i) {
-    var t = new E(i);
+  function E(i) {
+    var t = new b(i);
     try {
       t.c();
     } catch (i) {
@@ -232,7 +227,7 @@ System.register([], function (_export, _context) {
       f = n.data,
       o = useSignal(f);
     o.value = f;
-    var e = F(function () {
+    var e = T(function () {
       var n = r.__v;
       while (n = n.__) if (n.__c) {
         n.__c.__$f |= 4;
@@ -245,7 +240,7 @@ System.register([], function (_export, _context) {
           r.setState({});
         }
       };
-      return p$1(function () {
+      return w(function () {
         var n = o.value.value;
         return 0 === n ? 0 : !0 === n ? "" : n || "";
       });
@@ -254,13 +249,13 @@ System.register([], function (_export, _context) {
   }
   function _(n, r, i, t) {
     var f = r in n && void 0 === n.ownerSVGElement,
-      o = a(i);
+      o = d$1(i);
     return {
       o: function (n, r) {
         o.value = n;
         t = r;
       },
-      d: O(function () {
+      d: E(function () {
         var i = o.value.value;
         if (t[r] !== i) {
           t[r] = i;
@@ -270,8 +265,8 @@ System.register([], function (_export, _context) {
     };
   }
   function useSignal(n) {
-    return F(function () {
-      return a(n);
+    return T(function () {
+      return d$1(n);
     }, []);
   }
 
@@ -675,73 +670,76 @@ System.register([], function (_export, _context) {
           throw n;
         }
       }, t$2 = function (n) {
-        return null != n && void 0 === n.constructor;
+        return null != n && null == n.constructor;
       }, "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout;
       o$1 = 0;
       f$1 = [];
-      c$1 = [];
-      e$1 = l$3.__b;
-      a$1 = l$3.__r;
-      v$1 = l$3.diffed;
-      l$2 = l$3.__c;
-      m = l$3.unmount;
-      l$3.__b = function (n) {
+      c$1 = l$3;
+      e$1 = c$1.__b;
+      a$1 = c$1.__r;
+      v$1 = c$1.diffed;
+      l$2 = c$1.__c;
+      m = c$1.unmount;
+      s$2 = c$1.__;
+      c$1.__b = function (n) {
         r$1 = null, e$1 && e$1(n);
-      }, l$3.__r = function (n) {
+      }, c$1.__ = function (n, t) {
+        n && t.__k && t.__k.__m && (n.__m = t.__k.__m), s$2 && s$2(n, t);
+      }, c$1.__r = function (n) {
         a$1 && a$1(n), t$1 = 0;
         var i = (r$1 = n.__c).__H;
         i && (u$1 === r$1 ? (i.__h = [], r$1.__h = [], i.__.forEach(function (n) {
-          n.__N && (n.__ = n.__N), n.__V = c$1, n.__N = n.i = void 0;
-        })) : (i.__h.forEach(k), i.__h.forEach(w$1), i.__h = [], t$1 = 0)), u$1 = r$1;
-      }, l$3.diffed = function (t) {
-        v$1 && v$1(t);
-        var o = t.__c;
-        o && o.__H && (o.__H.__h.length && (1 !== f$1.push(o) && i$1 === l$3.requestAnimationFrame || ((i$1 = l$3.requestAnimationFrame) || j)(b$1)), o.__H.__.forEach(function (n) {
-          n.i && (n.__H = n.i), n.__V !== c$1 && (n.__ = n.__V), n.i = void 0, n.__V = c$1;
+          n.__N && (n.__ = n.__N), n.i = n.__N = void 0;
+        })) : (i.__h.forEach(z), i.__h.forEach(B), i.__h = [], t$1 = 0)), u$1 = r$1;
+      }, c$1.diffed = function (n) {
+        v$1 && v$1(n);
+        var t = n.__c;
+        t && t.__H && (t.__H.__h.length && (1 !== f$1.push(t) && i$1 === c$1.requestAnimationFrame || ((i$1 = c$1.requestAnimationFrame) || w$1)(j)), t.__H.__.forEach(function (n) {
+          n.i && (n.__H = n.i), n.i = void 0;
         })), u$1 = r$1 = null;
-      }, l$3.__c = function (t, r) {
-        r.some(function (t) {
+      }, c$1.__c = function (n, t) {
+        t.some(function (n) {
           try {
-            t.__h.forEach(k), t.__h = t.__h.filter(function (n) {
-              return !n.__ || w$1(n);
+            n.__h.forEach(z), n.__h = n.__h.filter(function (n) {
+              return !n.__ || B(n);
             });
-          } catch (u) {
-            r.some(function (n) {
+          } catch (r) {
+            t.some(function (n) {
               n.__h && (n.__h = []);
-            }), r = [], l$3.__e(u, t.__v);
+            }), t = [], c$1.__e(r, n.__v);
           }
-        }), l$2 && l$2(t, r);
-      }, l$3.unmount = function (t) {
-        m && m(t);
-        var r,
-          u = t.__c;
-        u && u.__H && (u.__H.__.forEach(function (n) {
+        }), l$2 && l$2(n, t);
+      }, c$1.unmount = function (n) {
+        m && m(n);
+        var t,
+          r = n.__c;
+        r && r.__H && (r.__H.__.forEach(function (n) {
           try {
-            k(n);
+            z(n);
           } catch (n) {
-            r = n;
+            t = n;
           }
-        }), u.__H = void 0, r && l$3.__e(r, u.__v));
+        }), r.__H = void 0, t && c$1.__e(t, r.__v));
       };
-      g$1 = "function" == typeof requestAnimationFrame;
-      t = Symbol.for("preact-signals");
+      k = "function" == typeof requestAnimationFrame;
+      i = Symbol.for("preact-signals");
       o = void 0;
-      f = void 0;
+      h = void 0;
+      s$1 = 0;
+      f = 0;
       v = 0;
-      e = 0;
-      u = 0;
-      d$1.prototype.brand = t;
-      d$1.prototype.h = function () {
+      u.prototype.brand = i;
+      u.prototype.h = function () {
         return !0;
       };
-      d$1.prototype.S = function (i) {
+      u.prototype.S = function (i) {
         if (this.t !== i && void 0 === i.e) {
           i.x = this.t;
           if (void 0 !== this.t) this.t.e = i;
           this.t = i;
         }
       };
-      d$1.prototype.U = function (i) {
+      u.prototype.U = function (i) {
         if (void 0 !== this.t) {
           var t = i.e,
             r = i.x;
@@ -756,70 +754,73 @@ System.register([], function (_export, _context) {
           if (i === this.t) this.t = r;
         }
       };
-      d$1.prototype.subscribe = function (i) {
+      u.prototype.subscribe = function (i) {
         var t = this;
-        return O(function () {
+        return E(function () {
           var r = t.value,
-            n = 32 & this.f;
-          this.f &= -33;
+            n = o;
+          o = void 0;
           try {
             i(r);
           } finally {
-            this.f |= n;
+            o = n;
           }
         });
       };
-      d$1.prototype.valueOf = function () {
+      u.prototype.valueOf = function () {
         return this.value;
       };
-      d$1.prototype.toString = function () {
+      u.prototype.toString = function () {
         return this.value + "";
       };
-      d$1.prototype.toJSON = function () {
+      u.prototype.toJSON = function () {
         return this.value;
       };
-      d$1.prototype.peek = function () {
-        return this.v;
+      u.prototype.peek = function () {
+        var i = o;
+        o = void 0;
+        try {
+          return this.value;
+        } finally {
+          o = i;
+        }
       };
-      Object.defineProperty(d$1.prototype, "value", {
+      Object.defineProperty(u.prototype, "value", {
         get: function () {
-          var i = c(this);
+          var i = e(this);
           if (void 0 !== i) i.i = this.i;
           return this.v;
         },
-        set: function (t) {
-          if (o instanceof _$1) !function () {
-            throw new Error("Computed cannot have side-effects");
-          }();
-          if (t !== this.v) {
-            if (e > 100) i();
-            this.v = t;
+        set: function (i) {
+          if (i !== this.v) {
+            if (f > 100) throw new Error("Cycle detected");
+            this.v = i;
             this.i++;
-            u++;
             v++;
+            s$1++;
             try {
-              for (var n = this.t; void 0 !== n; n = n.x) n.t.N();
+              for (var r = this.t; void 0 !== r; r = r.x) r.t.N();
             } finally {
-              r();
+              t();
             }
           }
         }
       });
-      (_$1.prototype = new d$1()).h = function () {
+      (y.prototype = new u()).h = function () {
         this.f &= -3;
         if (1 & this.f) return !1;
         if (32 == (36 & this.f)) return !0;
         this.f &= -5;
-        if (this.g === u) return !0;
-        this.g = u;
+        if (this.g === v) return !0;
+        this.g = v;
         this.f |= 1;
-        if (this.i > 0 && !l$1(this)) {
+        if (this.i > 0 && !c(this)) {
           this.f &= -2;
           return !0;
         }
         var i = o;
         try {
-          y(this);
+          a(this);
           o = this;
           var t = this.x();
           if (16 & this.f || this.v !== t || 0 === this.i) {
@@ -833,48 +834,43 @@ System.register([], function (_export, _context) {
           this.i++;
         }
         o = i;
-        w(this);
+        l$1(this);
         this.f &= -2;
         return !0;
       };
-      _$1.prototype.S = function (i) {
+      y.prototype.S = function (i) {
         if (void 0 === this.t) {
           this.f |= 36;
           for (var t = this.s; void 0 !== t; t = t.n) t.S.S(t);
         }
-        d$1.prototype.S.call(this, i);
+        u.prototype.S.call(this, i);
       };
-      _$1.prototype.U = function (i) {
+      y.prototype.U = function (i) {
         if (void 0 !== this.t) {
-          d$1.prototype.U.call(this, i);
+          u.prototype.U.call(this, i);
           if (void 0 === this.t) {
             this.f &= -33;
             for (var t = this.s; void 0 !== t; t = t.n) t.S.U(t);
           }
         }
       };
-      _$1.prototype.N = function () {
+      y.prototype.N = function () {
         if (!(2 & this.f)) {
           this.f |= 6;
           for (var i = this.t; void 0 !== i; i = i.x) i.t.N();
         }
       };
-      _$1.prototype.peek = function () {
-        if (!this.h()) i();
-        if (16 & this.f) throw this.v;
-        return this.v;
-      };
-      Object.defineProperty(_$1.prototype, "value", {
+      Object.defineProperty(y.prototype, "value", {
         get: function () {
-          if (1 & this.f) i();
-          var t = c(this);
+          if (1 & this.f) throw new Error("Cycle detected");
+          var i = e(this);
           this.h();
-          if (void 0 !== t) t.i = this.i;
+          if (void 0 !== i) i.i = this.i;
           if (16 & this.f) throw this.v;
           return this.v;
         }
       });
-      E.prototype.c = function () {
+      b.prototype.c = function () {
         var i = this.S();
         try {
           if (8 & this.f) return;
@@ -885,30 +881,30 @@ System.register([], function (_export, _context) {
           i();
         }
       };
-      E.prototype.S = function () {
-        if (1 & this.f) i();
+      b.prototype.S = function () {
+        if (1 & this.f) throw new Error("Cycle detected");
         this.f |= 1;
         this.f &= -9;
-        g(this);
-        y(this);
-        v++;
-        var t = o;
+        _$1(this);
+        a(this);
+        s$1++;
+        var i = o;
         o = this;
-        return x.bind(this, t);
+        return p$1.bind(this, i);
       };
-      E.prototype.N = function () {
+      b.prototype.N = function () {
         if (!(2 & this.f)) {
           this.f |= 2;
-          this.o = f;
-          f = this;
+          this.o = h;
+          h = this;
         }
       };
-      E.prototype.d = function () {
+      b.prototype.d = function () {
         this.f |= 8;
-        if (!(1 & this.f)) b(this);
+        if (!(1 & this.f)) g(this);
       };
       p.displayName = "_st";
-      Object.defineProperties(d$1.prototype, {
+      Object.defineProperties(u.prototype, {
         constructor: {
           configurable: !0,
           value: void 0
@@ -936,7 +932,7 @@ System.register([], function (_export, _context) {
             t = r.props;
           for (var f in t) if ("children" !== f) {
             var o = t[f];
-            if (o instanceof d$1) {
+            if (o instanceof u) {
               if (!i) r.__np = i = {};
               i[f] = o;
               t[f] = o.peek();
@@ -953,7 +949,7 @@ System.register([], function (_export, _context) {
           t.__$f &= -2;
           if (void 0 === (i = t.__$u)) t.__$u = i = function (n) {
             var r;
-            O(function () {
+            E(function () {
               r = this;
             });
             r.c = function () {
@@ -1049,12 +1045,12 @@ System.register([], function (_export, _context) {
           strict: false
         });
         const subscribe = callback => {
-          return O(() => {
+          return E(() => {
             callback(rootStateProxy);
           });
         };
         const mutate = toValues => {
-          n(() => {
+          r(() => {
             mutateValues({
               toValues,
               propertiesMetaMap: rootPropertiesMetaMap,
@@ -1131,7 +1127,7 @@ System.register([], function (_export, _context) {
             const childIsExtensible = Object.isExtensible(toValue);
             const propertyMeta = {
               type: "object",
-              signal: a(childProxy),
+              signal: d$1(childProxy),
               propertiesMetaMap: childPropertiesMetaMap,
               isExtensible: childIsExtensible
             };
@@ -1151,7 +1147,7 @@ System.register([], function (_export, _context) {
           if (fromUnset && toPrimitive) {
             const propertyMeta = {
               type: "primitive",
-              signal: a(toValue),
+              signal: d$1(toValue),
               propertiesMetaMap: null,
               isExtensible: null
             };
@@ -1247,7 +1243,7 @@ System.register([], function (_export, _context) {
                 }
                 return undefined;
               }
-              const propertySignal = a(PLACEHOLDER);
+              const propertySignal = d$1(PLACEHOLDER);
               propertyMeta = {
                 signal: propertySignal
               };
@@ -1311,11 +1307,11 @@ System.register([], function (_export, _context) {
         return getPreciseType(value) === "object";
       };
       sigref = initialValue => {
-        const valueSignal = a(initialValue);
+        const valueSignal = d$1(initialValue);
         const ref = {
           value: initialValue,
           subscribe: callback => {
-            return O(() => {
+            return E(() => {
               callback(valueSignal.value);
             });
           }
@@ -1571,7 +1567,6 @@ System.register([], function (_export, _context) {
           if (fromUrls.includes(toUrl)) {
             continue; // already handled in previous loop
           }
-
           const toUrlMeta = toResources[toUrl];
           const updateHandler = getOneUpdateHotHandler({
             url: toUrl,
