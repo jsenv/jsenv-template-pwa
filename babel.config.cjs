@@ -10,5 +10,5 @@
  */
 
 module.exports = {
-  plugins: ["@babel/plugin-syntax-import-assertions"],
+  plugins: ["@babel/plugin-syntax-import-attributes"],
 }

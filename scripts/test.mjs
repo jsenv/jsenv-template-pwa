@@ -3,9 +3,14 @@
  * See https://github.com/jsenv/jsenv-core/blob/master/docs/testing/readme.md#jsenv-test-runner
  */
 
-import { executeTestPlan, chromium, firefox } from "@jsenv/test"
+import {
+  executeTestPlan,
+  chromium,
+  firefox,
+  reportCoverageAsJson,
+} from "@jsenv/test"
 
-await executeTestPlan({
+const testPlanResult = await executeTestPlan({
   rootDirectoryUrl: new URL("../", import.meta.url),
   testPlan: {
     "./src/**/*.test.html": {
@@ -22,11 +27,16 @@ await executeTestPlan({
     rootDirectoryUrl: new URL("../src/", import.meta.url),
     moduleUrl: new URL("./dev.mjs", import.meta.url),
   },
-  coverageEnabled: process.argv.includes("--coverage"),
-  coverageReportJson: true,
-  coverageReportJsonFileUrl: new URL(
-    "../.coverage/coverage.json",
-    import.meta.url,
-  ),
-  coverageMethodForBrowsers: "istanbul",
+  coverage: process.argv.includes("--coverage")
+    ? {
+        methodForBrowsers: "istanbul",
+      }
+    : null,
 })
+
+if (process.argv.includes("--coverage")) {
+  reportCoverageAsJson(
+    testPlanResult,
+    new URL("../.coverage/coverage.json", import.meta.url),
+  )
+}
