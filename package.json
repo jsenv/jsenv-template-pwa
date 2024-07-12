@@ -39,27 +39,27 @@
     "playwright:install": "npx playwright install-deps && npx playwright install"
   },
   "dependencies": {
-    "@jsenv/pwa": "6.1.2",
+    "@jsenv/pwa": "6.1.3",
     "@jsenv/service-worker": "1.0.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.22.15",
-    "@babel/plugin-syntax-import-assertions": "7.22.5",
-    "@jsenv/assert": "2.11.0",
-    "@jsenv/core": "38.2.10",
-    "@jsenv/eslint-config": "16.4.4",
-    "@jsenv/eslint-import-resolver": "8.0.4",
-    "@jsenv/filesystem": "4.3.2",
+    "@babel/eslint-parser": "7.24.8",
+    "@babel/plugin-syntax-import-attributes": "7.24.7",
+    "@jsenv/assert": "4.1.3",
+    "@jsenv/core": "39.1.0",
+    "@jsenv/eslint-config": "16.5.2",
+    "@jsenv/eslint-import-resolver": "8.1.2",
+    "@jsenv/filesystem": "4.7.5",
     "@jsenv/https-local": "3.0.7",
-    "@jsenv/lighthouse-impact": "4.1.0",
-    "@jsenv/performance-impact": "4.1.3",
-    "@jsenv/plugin-explorer": "1.0.6",
-    "@jsenv/test": "1.7.2",
-    "eslint": "8.51.0",
-    "eslint-plugin-html": "7.1.0",
-    "eslint-plugin-import": "2.28.1",
-    "open": "9.1.0",
-    "playwright": "1.38.1",
-    "prettier": "3.0.3"
+    "@jsenv/lighthouse-impact": "4.1.3",
+    "@jsenv/performance-impact": "4.2.1",
+    "@jsenv/plugin-explorer": "1.0.24",
+    "@jsenv/test": "3.3.5",
+    "eslint": "8.57.0",
+    "eslint-plugin-html": "8.1.1",
+    "eslint-plugin-import": "2.29.1",
+    "open": "10.1.0",
+    "playwright": "1.45.1",
+    "prettier": "3.3.2"
   }
 }

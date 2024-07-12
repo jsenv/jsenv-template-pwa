@@ -2,7 +2,7 @@
  * This is where you can orchestrate the loading of your application
  */
 
-import mainStylesheet from "./main.css" assert { type: "css" }
+import mainStylesheet from "./main.css" with { type: "css" }
 
 performance.measure(`loading app`)
 document.adoptedStyleSheets = [...document.adoptedStyleSheets, mainStylesheet]

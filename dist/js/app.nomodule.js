@@ -1,12 +1,12 @@
 System.register([__v__("/js/vendors.nomodule.js")], function (_export, _context) {
   "use strict";
 
-  var addToHomescreen, pwaLogger, createServiceWorkerFacade, initAddToHomeScreen, swFacade, initServiceWorker, installServiceWorkerUpdateUI, greet, appNode, render;
+  var addToHomescreen, createServiceWorkerFacade, pwaLogger, initAddToHomeScreen, swFacade, initServiceWorker, installServiceWorkerUpdateUI, greet, appNode, render;
   return {
     setters: [function (_vendorsJs) {
       addToHomescreen = _vendorsJs.addToHomescreen;
-      pwaLogger = _vendorsJs.pwaLogger;
       createServiceWorkerFacade = _vendorsJs.createServiceWorkerFacade;
+      pwaLogger = _vendorsJs.pwaLogger;
     }],
     execute: function () {
       initAddToHomeScreen = appNode => {
